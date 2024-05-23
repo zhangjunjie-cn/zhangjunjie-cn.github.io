@@ -9,7 +9,7 @@ pnpm run build
 # 切换到 docs/.vitepress.dist目录
 cd dist
 
-msg="github actions自动部署"
+msg="StackBlitz 自动部署 NetLify"
 
 git init
 git add -A
