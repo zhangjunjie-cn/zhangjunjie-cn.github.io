@@ -18,7 +18,7 @@ git commit -m "${msg}"
 # git commit -m "自动部署vitepress"
 # git config --global core.autocrlf false
 git remote add origin https://github.com/zhangjunjie-cn/zhangjunjiee.git
-git push -f origin main:main
+git push -f origin main:dist
 
 # 返回上次所在的目录
 cd -

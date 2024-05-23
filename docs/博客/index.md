@@ -6,7 +6,11 @@ tag: '目录,笔记'
 
 ---
 <br/>
+::: timeline 2024-05-23
 
+- [第五版博客发布，跨平台持续部署能力得到提升。](./2024/05/23第五版博客发布完成)
+
+:::
 ::: timeline 2024-05-12
 
 - [第四版博客搭建完成，博客后面的架构优化基本结束。](./2024/05/11第四版博客新题性)
@@ -61,7 +65,7 @@ tag: '目录,笔记'
   <a href="https://vitepress.yiov.top/" target="_blank">
     <p class="description">Vitepress中文搭建教程<br><span>https://vitepress.yiov.top/</span></p>
     <div class="logo">
-        <img alt="Logo" width="70px" height="70px" src="./../public/未标题-5.png" />
+        <img alt="Logo" width="70px" height="70px" src="https://gitee.com/zhangjunjiee/article-images/raw/master/images/202405051433983.jpg" />
     </div>
   </a>
 </div>
