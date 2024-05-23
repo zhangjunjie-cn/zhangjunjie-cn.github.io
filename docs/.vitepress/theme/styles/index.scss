@@ -1,0 +1,132 @@
+@import './rainbow.scss';
+@import './vars.scss';
+@import './overrides.scss';
+@import './medium-zoom.scss';
+@import './linkcard.scss';
+
+/* 首页不需要padding，其他页面需要 */
+.VPContent {
+	padding-top: 0 !important;
+}
+
+.VPContent.has-sidebar {
+	padding-top: var(--vp-nav-height) !important;
+}
+
+//便签作者、时间变色
+:root .meta-wrapper{
+	// --vp-c-brand: #ce77e8;
+	// --vp-c-brand-dark: #aa10d9;
+	// --vp-layout-max-width: 1630px;
+	color: var(--vp-c-brand);
+}
+
+//全局nav选中变色
+a.VPLink.link.active{
+	color: var(--vp-c-brand);
+}
+
+//左侧菜单
+div.has-active{
+	color: var(--vp-c-brand);
+}
+
+
+// //强调字体
+.vp-doc :not(pre) > code{
+	color: var(--vp-c-brand);
+}
+
+//引用色
+/* .vitepress\theme\style\var.css */
+/* 引用块 */
+.vp-doc blockquote {
+	border-radius: 5px;
+	padding: 10px 16px;
+	background-color: var(--vp-badge-danger-bg);
+	position: relative;
+	border-left: 4px solid #e95f59;
+}
+
+//最新版，nav变色
+.VPFlyout:hover,.VPFlyout.active{
+	color: var(--vp-c-brand);
+}
+
+//最新版，链接变色
+.vp-doc a:visited{
+	color: var(--vp-c-brand)!important;
+}
+.vp-doc a:hover{
+	color: var(--vp-c-brand);
+}
+.vp-doc a{
+	color: var(--vp-c-brand)!important;
+}
+
+
+
+//最新版，右侧目录
+.outline-link.active:visited{
+	color: var(--vp-c-brand)!important;
+}
+
+.outline-link:hover, .outline-link.active{
+	color: var(--vp-c-brand)!important;
+}
+
+
+//nav 首
+.VPFlyout.active:hover .text{
+	color: var(--vp-c-brand)!important;
+}
+.VPFlyout.active:visited .text{
+	color: var(--vp-c-brand)!important;
+}
+.VPFlyout:hover{
+	color: var(--vp-c-brand)!important;
+}
+.VPFlyout:visited{
+	color: var(--vp-c-brand)!important;
+}
+// button{
+// 	--hovered-color:var(--vp-c-brand)!important;
+// }
+.VPFlyout.active .text{
+	color: var(--vp-c-brand)!important;
+}
+
+
+//左侧菜单
+.VPSidebarItem.level-0.is-link > .item > .link:hover .text, 
+.VPSidebarItem.level-1.is-link > .item > .link:hover .text, 
+.VPSidebarItem.level-2.is-link > .item > .link:hover .text,
+.VPSidebarItem.level-3.is-link > .item > .link:hover .text, 
+.VPSidebarItem.level-4.is-link > .item > .link:hover .text,
+.VPSidebarItem.level-5.is-link > .item > .link:hover .text{
+	color: var(--vp-c-brand)!important;
+}
+
+
+.VPSidebarItem.level-0.is-link > .item > .link:visited .text, 
+.VPSidebarItem.level-1.is-link > .item > .link:visited .text, 
+.VPSidebarItem.level-2.is-link > .item > .link:visited .text,
+.VPSidebarItem.level-3.is-link > .item > .link:visited .text,
+.VPSidebarItem.level-4.is-link > .item > .link:visited .text,
+.VPSidebarItem.level-5.is-link > .item > .link:visited .text {
+	color: var(--vp-c-brand)!important;
+}
+
+//尾巴
+.desc, .title{
+	color: var(--vp-c-brand)!important;
+}
+
+.pager-link{
+	color: var(--vp-c-brand)!important;
+}
+
+//首页home
+button{
+	--hovered-color: var(--vp-c-brand)!important;
+}

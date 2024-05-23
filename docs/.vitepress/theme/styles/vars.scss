@@ -1,0 +1,102 @@
+/**
+ * Customize default theme styling by overriding CSS variables:
+ * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+ */
+
+:root {
+  --vp-c-brand-lightest: var(--vp-c-brand);
+}
+
+/**
+ * Component: Button
+ * -------------------------------------------------------------------------- */
+:root {
+  // --vp-button-brand-border: var(--vp-c-brand-light);
+  // --vp-button-brand-text: var(--vp-c-white);
+  // --vp-button-brand-bg: var(--vp-c-brand);
+  // --vp-button-brand-hover-border: var(--vp-c-brand-light);
+  // --vp-button-brand-hover-text: var(--vp-c-white);
+  // --vp-button-brand-hover-bg: var(--vp-c-brand-light);
+  // --vp-button-brand-active-border: var(--vp-c-brand-light);
+  // --vp-button-brand-active-text: var(--vp-c-white);
+  // --vp-button-brand-active-bg: var(--vp-button-brand-bg);
+}
+
+/**
+ * Component: Home
+ * -------------------------------------------------------------------------- */
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    var(--vp-c-brand) 30%,
+    var(--vp-c-brand-next)
+  );
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    var(--vp-c-brand) 30%,
+    var(--vp-c-brand-next)
+  );
+  --vp-home-hero-image-filter: blur(80px);
+}
+@media (min-width: 640px) {
+  :root {
+    --vp-home-hero-image-filter: blur(120px);
+  }
+}
+@media (min-width: 960px) {
+  :root {
+    --vp-home-hero-image-filter: blur(120px);
+  }
+}
+/* Safari has a very bad performance on gradient and filter */
+.browser-safari,
+.browser-firefox {
+  --vp-home-hero-image-background-image: transparent;
+  --vp-home-hero-image-filter: '';
+}
+
+/**
+ * Component: Custom Block
+ * -------------------------------------------------------------------------- */
+:root {
+  --vp-custom-block-info-border: var(--vp-c-brand);
+  --vp-custom-block-info-text: var(--vp-c-brand-darker);
+  --vp-custom-block-info-bg: var(--vp-c-brand-dimm);
+}
+.dark {
+  --vp-custom-block-info-border: var(--vp-c-brand);
+  --vp-custom-block-info-text: var(--vp-c-brand-lightest);
+  --vp-custom-block-info-bg: var(--vp-c-brand-dimm);
+}
+
+/**
+ * Component: Algolia
+ * -------------------------------------------------------------------------- */
+.DocSearch {
+  --docsearch-primary-color: var(--vp-c-brand) !important;
+}
+
+
+/* .vitepress\theme\style\var.css */
+/* 提示框背景颜色 */
+:root {
+  --vp-custom-block-tip-bg: var(--vp-c-green-soft);
+}
+
+/* 提示框 */
+.custom-block.tip {
+  border-color: var(--vp-c-green-2);
+}
+
+/* 警告框 */
+.custom-block.warning {
+  /* border-color: #d97706; */
+  border-color: var(--vp-c-yellow-2);
+}
+
+/* 危险框 */
+.custom-block.danger {
+  /* border-color: #f43f5e; */
+  border-color: var(--vp-c-red-2);
+}
