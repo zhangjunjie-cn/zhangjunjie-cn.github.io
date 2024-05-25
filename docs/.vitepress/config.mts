@@ -116,26 +116,26 @@ export default withPwa(
     context.content = context.content.replace(styleRegex, '')
     context.content = context.content.replace(vitepressPathRegex, '')
   },
-  transformHtml(code, id) {
-    const html = id.split('/').pop()
-    if (!html) return
-    const style = fileAndStyles[`/${html}`]
-    if (style) {
-      return code.replace(/<\/head>/, style + '</head>')
-    }
-  },
+  // transformHtml(code, id) {
+  //   const html = id.split('/').pop()
+  //   if (!html) return
+  //   const style = fileAndStyles[`/${html}`]
+  //   if (style) {
+  //     return code.replace(/<\/head>/, style + '</head>')
+  //   }
+  // },
   
 
   /* 生成站点地图 */
-  // transformHtml: (_, id, { pageData }) => {
-  //   if (!/[\\/]404\.html$/.test(id))
-  //     links.push({
-  //       url: pageData.relativePath.replace(/((^|\/)index)?\.md$/, "$2"),
-  //       lastmod: pageData.lastUpdated,
-  //     });
-  // },
+  transformHtml: (_, id, { pageData }) => {
+    if (!/[\\/]404\.html$/.test(id))
+      links.push({
+        url: pageData.relativePath.replace(/((^|\/)index)?\.md$/, "$2"),
+        lastmod: pageData.lastUpdated,
+      });
+  },
   buildEnd: async ({ outDir }) => {
-    const sitemap = new SitemapStream({ hostname: "https://zhangjunjie-cn/" });
+    const sitemap = new SitemapStream({ hostname: "https://zhangjunjiee.netlify.app/" });
     const writeStream = createWriteStream(resolve(outDir, "sitemap.xml"));
     sitemap.pipe(writeStream);
     links.forEach((link) => sitemap.write(link));
@@ -144,6 +144,7 @@ export default withPwa(
   },
 
   pwa: {
+    outDir: ".vitepress/../../dist", // 输出目录
     mode: 'development',
     registerType: 'autoUpdate',
     injectRegister: 'script-defer',
