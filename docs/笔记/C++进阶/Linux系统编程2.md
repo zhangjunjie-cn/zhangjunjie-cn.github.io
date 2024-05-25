@@ -64,7 +64,7 @@ windouws: libxxx.lib
 
 2. 将.o文件打包，使用 ar 工具(archive)
 
-```shekl
+```shell
 gcc hello.c -c   //这样就能生成hello.o目标文件
 
 ar rcs libxxx.a xxx.o xxx.o

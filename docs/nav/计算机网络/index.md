@@ -252,7 +252,7 @@ port trunk allow-pass vlan all
 
 ## 8. 单臂路由
 就是
-```no-line-numbers
+```md:no-line-numbers
 
 #设置一个接口的子接口
 int g0/0/0.10
