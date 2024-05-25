@@ -1,4 +1,4 @@
-#!/usr/bin/end sh
+#!/usr/bin/env sh
 
 # 忽略错误
 set -e
@@ -18,8 +18,7 @@ git commit -m "${msg}"
 # git commit -m "自动部署vitepress"
 # git config --global core.autocrlf false
 git remote add origin https://github.com/zhangjunjie-cn/zhangjunjiee.git
-git checkout -b dist dist
-git push origin dist
+git push origin master:origin/dist
 
 # 返回上次所在的目录
 cd -
