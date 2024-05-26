@@ -12,13 +12,22 @@ cd dist
 msg="StackBlitz 自动部署 NetLify"
 
 git init
-git add -A
-git commit -m "${msg}"
+
 # git config --global http.postBuffer 524288000
 # git commit -m "自动部署vitepress"
 # git config --global core.autocrlf false
 git remote add origin https://github.com/zhangjunjie-cn/zhangjunjiee.git
-git push origin master:origin/dist
+
+# git checkout -b dist
+#拉取fetch到最新仓库并merge合并
+# git pull origin dist
+# git merge origin/dist 
+# git checkout dist 
+# git branch --set-upstream-to=origin/dist  
+
+git add -A
+git commit -m "${msg}"
+git push https://github.com/zhangjunjie-cn/zhangjunjiee.git --force master:dist 
 
 # 返回上次所在的目录
 cd -
