@@ -71,6 +71,12 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
             {text:"26 -> 26HA综合布线",link:"/博客/2024/05/26HA综合布线"},
             {text:"26 -> 29打印机共享",link:"/博客/2024/05/29打印机共享"}    
           ]
+        },
+        {
+          text:"6月",
+          items:[
+            {text:"01 -> 性能优化",link:"/博客/2024/06/01性能优化"},           
+          ]
         }
       ]
     }

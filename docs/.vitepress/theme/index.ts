@@ -24,7 +24,7 @@ import MyLayout from "./components/MyLayout.vue";
 //白昼切换布局
 import MLayout from './components/MLayout.vue'
 import imageViewer from "./components/imageViewer.vue"
-
+import x from "./composables/echarts"
 import "./styles/index.scss";
 
 if (typeof window !== "undefined") {
@@ -139,6 +139,9 @@ export default {
     app.component("ArticleMetadata", ArticleMetadata); //作者来源
     app.use(AlanViteComponent);
     app.provide("DEV", process.env.NODE_ENV === "development");
+
+    //ECharts
+    app.component('Test', x);
 
     
 

@@ -99,9 +99,9 @@ export default withPwa(
 
 		],
 
-    //naive ui
+    //naive ui 不作为外部依赖处理，在客户端渲染，不在服务端渲染，进入页面会更快。
     ssr: {
-      noExternal: ['naive-ui', 'date-fns', 'vueuc']
+      noExternal: ['naive-ui', 'date-fns', 'vueuc','naive-ui', 'date-fns', 'vueuc']
     }
 	},
 

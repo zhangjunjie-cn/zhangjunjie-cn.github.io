@@ -36,7 +36,9 @@
     "unplugin-auto-import": "^0.17.5",
     "unplugin-vue-components": "^0.26.0",
     "vitepress": "v1.1.4",
-    "vue": "^3.4.26"
+    "vue": "^3.4.26",
+    "vue-echarts": "6.6.1",
+    "echarts": "5.4.3"
   },
   "lint-staged": {
     "*.{js,ts,css,md,json}": [
