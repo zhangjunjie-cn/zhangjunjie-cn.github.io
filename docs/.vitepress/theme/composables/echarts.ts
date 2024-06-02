@@ -20,7 +20,7 @@ use([
 import { defineComponent, h } from 'vue';
 
 export default defineComponent({
-  name: 'TechStackSummary',
+  name: '集成Echarts 可视化图表库',
   render() {
     return h(VChart, {
       style: {
@@ -28,7 +28,7 @@ export default defineComponent({
       },
       option: {
         title: {
-          text: 'Traffic Sources',
+          text: 'vitepress 集成 Echarts 可视化图表库',
           left: 'center',
         },
         tooltip: {
