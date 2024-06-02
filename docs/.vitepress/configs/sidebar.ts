@@ -44,6 +44,14 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
         {text:"网工",link:"/笔记/计算机网络/网工"},
       ]
     },
+    {
+      text:"综合布线",
+      collapsed:true,
+      items:[
+        {text:"园区网概述（园区网纵向网广域网）",link:"/笔记/大型园区网络实战设计（路由交换+无线网络+安全+优化）/1.园区网概述（园区网纵向网广域网）"},
+        {text:"路由交换设计",link:"/笔记/大型园区网络实战设计（路由交换+无线网络+安全+优化）/2.路由交换设计"},
+      ]
+    },
     
   ].map((item, i) => (!i ? item : { ...item, collapsed: true })),
   "/博客/":[
@@ -84,7 +92,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
 
   "/笔记/杂项/":[
     {
-      text: "Linux系统编程",
+      text: "杂项",
       collapsed: false,
       collapsible: true,
       items:[
