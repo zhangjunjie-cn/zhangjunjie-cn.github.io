@@ -28,6 +28,7 @@ export function createSidebar() {
           {
             text:"6月",
             items:[
+              {text:"03 -> Excel文件大小优化",link:"/博客/2024/06/03Excel大小优化"},  
               {text:"02 -> 性能优化",link:"/博客/2024/06/02性能优化"}, 
             ]
           },
