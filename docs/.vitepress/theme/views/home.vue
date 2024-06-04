@@ -1,25 +1,25 @@
 <template>
 	<div class="home-container">
 		<div class="video-container" v-cloak>
-			<video v-if="!curDeviceIsMobile" onmouseover="play_v1(this)" onmouseleave="stop_v1(this)" class="logo-video" autoplay loop muted>
+			<!-- video v-if="!curDeviceIsMobile" preload="auto" playsinline onmouseover="play_v1(this)" onmouseleave="stop_v1(this)" class="logo-video" tabindex="-1" autoplay loop muted="muted">
 				<source
 					src="https://lianyingzi.oss-cn-beijing.aliyuncs.com/template.mp4"
 					type="video/mp4"
 				/>
-				<!-- <source
-					src="http://images-zjj.test.upcdn.net/images/template.mp4"
-					type="video/mp4"
-				/> -->
-				<!-- <source
-					src="https://download.cloud.189.cn/file/downloadFile.action?dt=51&expired=1714147538855&play=1&sk=484cc64b-69e3-4b2b-8f32-eac3a5de8fb4&ufi=423461130465876398&zyc=180&token=cloud16&sig=WxCFVWoMyN3DPvmCx0hGGo9Uv%2FM%3D"
-					type="video/mp4"
-				/> -->
-			</video>
+			</video> -->
+
+
+			<video  preload="auto" loop playsinline class="logo-video" autoplay src="https://lianyingzi.oss-cn-beijing.aliyuncs.com/template.mp4" tabindex="-1" muted="muted"></video>
+		
+
+
+
+
 			<!-- 如果是移动端，上述样式会不兼容，故降级为图片显示 -->
-			<div v-else class="image-container">
+			<!-- <div v-else class="image-container">
 				<img src="/static.png" alt="" />
 				<p class="logo-text">hello</p>
-			</div>
+			</div> -->
 			<div class="button-container-outer" @click="handleClick">
 				<div class="container-button">
 					<div class="hover bt-1"></div>
