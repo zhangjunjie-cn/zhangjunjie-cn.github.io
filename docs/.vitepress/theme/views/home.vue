@@ -1,7 +1,7 @@
 <template>
 	<div class="home-container">
 		<div class="video-container" v-cloak>
-			<!-- video v-if="!curDeviceIsMobile" preload="auto" playsinline onmouseover="play_v1(this)" onmouseleave="stop_v1(this)" class="logo-video" tabindex="-1" autoplay loop muted="muted">
+			<!-- video v-if="!curDeviceIsMobile" preload="auto" playsinline onmouseover="play_v1(this)" onmouseleave="stop_v1(this)" class="logo-video" tabindex="-1" loop muted="muted">
 				<source
 					src="https://lianyingzi.oss-cn-beijing.aliyuncs.com/template.mp4"
 					type="video/mp4"
@@ -60,7 +60,6 @@
 
 	
 </template>
-
 
 <script lang="ts" setup>
 import articleCard from "../components/articleCard.vue";
@@ -142,6 +141,13 @@ onBeforeMount(() => {
 
 
 .video-container {
+	/*进行视频裁剪*/
+    overflow: hidden;
+
+	/*保证视频充满屏幕*/
+    object-fit: cover;
+    min-height: 800px;
+
 	height: 100vh;
 	width: 100%;
 	overflow: hidden;
