@@ -1,25 +1,24 @@
 <template>
 	<div class="home-container">
 		<div class="video-container" v-cloak>
-			<!-- video v-if="!curDeviceIsMobile" preload="auto" playsinline onmouseover="play_v1(this)" onmouseleave="stop_v1(this)" class="logo-video" tabindex="-1" loop muted="muted">
+			<video v-if="!curDeviceIsMobile" onmouseover="play_v1(this)" onmouseleave="stop_v1(this)" class="logo-video" autoplay loop muted>
 				<source
 					src="https://lianyingzi.oss-cn-beijing.aliyuncs.com/template.mp4"
 					type="video/mp4"
 				/>
-			</video> -->
+			</video>
 
 
-			<video  preload="auto" loop playsinline class="logo-video" autoplay src="https://lianyingzi.oss-cn-beijing.aliyuncs.com/template.mp4" tabindex="-1" muted="muted"></video>
-		
+			<!-- <video preload="auto" loop playsinline class="logo-video" autoplay src="https://lianyingzi.oss-cn-beijing.aliyuncs.com/template.mp4" tabindex="-1" muted="muted"></video> -->
 
 
 
 
 			<!-- 如果是移动端，上述样式会不兼容，故降级为图片显示 -->
-			<!-- <div v-else class="image-container">
+			<div v-else class="image-container">
 				<img src="/static.png" alt="" />
 				<p class="logo-text">hello</p>
-			</div> -->
+			</div>
 			<div class="button-container-outer" @click="handleClick">
 				<div class="container-button">
 					<div class="hover bt-1"></div>
@@ -138,15 +137,13 @@ onBeforeMount(() => {
 	display: none !important;
 }
 
-
-
 .video-container {
 	/*进行视频裁剪*/
-    overflow: hidden;
+    // overflow: hidden;
 
-	/*保证视频充满屏幕*/
-    object-fit: cover;
-    min-height: 800px;
+	// /*保证视频充满屏幕*/
+    // object-fit: cover;
+    // min-height: 800px;
 
 	height: 100vh;
 	width: 100%;
