@@ -1,7 +1,7 @@
 <template>
 	<div class="home-container">
 		<div class="video-container" v-cloak>
-			<video v-if="!curDeviceIsMobile" onmouseover="play_v1(this)" onmouseleave="stop_v1(this)" class="logo-video" autoplay loop muted>
+			<video v-if="!curDeviceIsMobile" onmouseover="play_v1(this)" onmouseleave="stop_v1(this)" class="logo-video" autoplay="autoplay" preload="auto" loop muted>
 				<source
 					src="https://lianyingzi.oss-cn-beijing.aliyuncs.com/template.mp4"
 					type="video/mp4"
