@@ -27,7 +27,7 @@ git remote add origin https://github.com/zhangjunjie-cn/zhangjunjiee.git
 
 git add -A
 git commit -m "${msg}"
-git push https://github.com/zhangjunjie-cn/zhangjunjiee.git --force master:dist 
+git push https://github.com/zhangjunjie-cn/zhangjunjiee.git --force main:dist 
 
 # 返回上次所在的目录
 cd -

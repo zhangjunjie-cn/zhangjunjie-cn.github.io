@@ -3,7 +3,7 @@
 		<div class="video-container" v-cloak>
 			<video v-if="!curDeviceIsMobile" onmouseover="play_v1(this)" onmouseleave="stop_v1(this)" class="logo-video" autoplay="autoplay" preload="auto" loop muted>
 				<source
-					src="/template.mp4"
+					src="http://zhangjunjiee.netlify.app/template.mp4"
 					type="video/mp4"
 				/>
 			</video>
