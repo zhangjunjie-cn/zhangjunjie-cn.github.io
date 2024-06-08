@@ -11,7 +11,6 @@ import Components from 'unplugin-vue-components/vite';
 import { TDesignResolver } from 'unplugin-vue-components/resolvers';
 
 import { withPwa } from "@vite-pwa/vitepress";
-import { mdEnhancePlugin } from "vuepress-plugin-md-enhance";
 
 const links: { url: string; lastmod: PageData["lastUpdated"] }[] = [];
 const fileAndStyles: Record<string, string> = {}
@@ -144,7 +143,7 @@ export default withPwa(
   },
 
   pwa: {
-    outDir: ".vitepress/../../dist", // 输出目录
+    outDir: ".vitepress/../dev-dist", // 输出目录
     mode: 'development',
     registerType: 'autoUpdate',
     injectRegister: 'script-defer',
@@ -184,6 +183,14 @@ export default withPwa(
       navigateFallback: '/',
     },
   },
+
+  vue: {
+    template: {
+      compilerOptions: {
+        isCustomElement: (tag) => tag === 'three-d-mockup'
+      }
+    }
+  }
 
 
   
