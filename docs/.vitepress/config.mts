@@ -143,7 +143,8 @@ export default withPwa(
   },
 
   pwa: {
-    outDir: ".vitepress/../dev-dist", // 输出目录
+    outDir: "/.vitepress/../../dist",
+    // outDir: "dist", // 输出目录
     mode: 'development',
     registerType: 'autoUpdate',
     injectRegister: 'script-defer',
