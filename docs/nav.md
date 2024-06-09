@@ -49,7 +49,7 @@ import { NButton,NBackTop } from 'naive-ui'
   </NBackTop>
 
 
-<style scoped>
+<style module>
 .carousel-img {
   margin: 0 auto;
   width: 100%;
