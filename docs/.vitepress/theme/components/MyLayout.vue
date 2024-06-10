@@ -1,12 +1,7 @@
 <script setup>
 import DefaultTheme from 'vitepress/theme'
 //import Copyright from "./layout/Copyright.vue"
-import ValineComment from './ValineComment.vue'
-import MAsideSponsors from './MAsideSponsors.vue'
-import { useData } from 'vitepress'
-import md5 from 'blueimp-md5'
-import { onMounted } from 'vue';
-const { page, } = useData()
+
 const { Layout } = DefaultTheme
 const detectDeviceType = () => {
   if (typeof window === 'undefined') return

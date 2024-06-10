@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="doc-footer-before">
     <div class="share-container">
       <share />
@@ -24,4 +24,4 @@ import share from "./share.vue"
     display: none;
   }
 }
-</style>
+</style> -->

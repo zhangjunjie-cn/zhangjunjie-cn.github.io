@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 	<div class="comments">
 		<Giscus
       v-if="showComment"
@@ -56,9 +56,9 @@ watch(
 );
 
 </script>
-<!-- <style>
+ <style>
 .comments {
 	padding: 20px;
 	border-radius: 10px;
 }
-</style> -->
+</style> --> 

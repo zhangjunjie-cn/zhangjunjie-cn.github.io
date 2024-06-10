@@ -4,7 +4,6 @@ import { useData } from 'vitepress'
 import { useSidebar } from 'vitepress/theme'
 
 import { usePageId } from '../composables'
-import ValineComment from './ValineComment.vue'
 
 const DEV = inject<Ref<boolean>>('DEV')
 const { theme } = useData()

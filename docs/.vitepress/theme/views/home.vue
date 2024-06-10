@@ -49,8 +49,16 @@
 				</div>
 				<div class="comment-container">
 					<div class="comment-title">站内留言板</div>
-					<comment class="comment"></comment>
-					<ValineComment />
+
+					<ClientOnly>
+						<comment class="comment"></comment>
+					</ClientOnly>
+					
+
+					<ClientOnly>
+						<ValineComment />
+					</ClientOnly>
+					
 					
 				</div>
 			</div>

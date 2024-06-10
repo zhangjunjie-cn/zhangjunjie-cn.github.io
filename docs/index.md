@@ -3,9 +3,11 @@ layout: home
 layoutClass: "m-home-layout"
 ---
 
+
+<ClientOnly>
 <home>
 </home>
-
+</ClientOnly>
 
 
 <script lang="ts" setup>

@@ -7,7 +7,6 @@ import MAsideSponsors from "./MAsideSponsors.vue";
 import { usePageId } from '../composables'
 import imageViewer from "./imageViewer.vue"
 import MNavVisitor from './MNavVisitor.vue'
-import MDocFooter from './MDocFooter.vue'
 import ValineComment from './ValineComment.vue'
 
 const { Layout } = DefaultTheme
@@ -62,12 +61,15 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
       https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/Layout.vue
     -->
     <template #nav-bar-title-after>
-      <MNavVisitor />
+      <ClientOnly>
+        <MNavVisitor />
+      </ClientOnly>
     </template>
 
     <template v-if="comment && frontmatter.comment !== false" #doc-footer-before>
       <div class="doc-comments">
-        <Giscus
+        <ClientOnly>
+          <Giscus
           id="comments"
           mapping="specific"
           :term="pageId"
@@ -80,22 +82,33 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
           loading="lazy"
           v-bind="{ ...comment }"
         />
+        </ClientOnly>
+        
       </div>
     </template>
 
     <!-- 插槽表 -->
     <template #doc-after>
-      <ValineComment />
+      <ClientOnly>
+        <ValineComment />
+      </ClientOnly>
+      
     </template>
 
     <!-- 右下加广告 -->
     <template #aside-ads-before>
-      <MAsideSponsors />
+      <ClientOnly>
+        <MAsideSponsors />
+      </ClientOnly>
+      
     </template>
 
     <!-- 更好的图片窗格 -->
     <template #doc-bottom>
-      <imageViewer />
+      <ClientOnly>
+        <imageViewer />
+      </ClientOnly>
+      
     </template>
 
     <!-- 樱花 -->

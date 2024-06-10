@@ -1,9 +1,17 @@
 <template>
   <div class="image-viewer">
-    <t-image-viewer v-model:visible="show" :images="previewImageInfo.list" :default-index="previewImageInfo.idx"
+    <ClientOnly>
+      <t-image-viewer v-model:visible="show" :images="previewImageInfo.list" :default-index="previewImageInfo.idx"
       :key="previewImageInfo.idx" @close="show = false">
     </t-image-viewer>
-    <tdesign-dark></tdesign-dark>
+    </ClientOnly>
+    
+    <ClientOnly>
+      <tdesign-dark></tdesign-dark>
+    </ClientOnly>
+    
+
+
   </div>
 </template>
 <script setup lang="ts">

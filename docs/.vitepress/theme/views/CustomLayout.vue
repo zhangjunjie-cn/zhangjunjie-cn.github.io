@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import { ref, watch, nextTick, provide } from 'vue'
 import { useData, useRouter } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
@@ -52,7 +52,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
     }
   )
 })
-</script>
+</script> -->
 
 <!-- <template>
   <Layout>
@@ -74,9 +74,9 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
   </Layout>
 </template> -->
 
-<template>
+<!-- <template>
   <DefaultTheme.Layout />
-</template>
+</template> -->
 
 <!-- <style lang="scss" scoped>
 @use '../style/variables.scss' as v;
@@ -119,7 +119,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
 </style> -->
 
 
-<style>
+<!-- <style>
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
@@ -143,4 +143,4 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
 .VPSwitchAppearance .check {
   transform: none !important;
 }
-</style>
+</style> -->

@@ -11,14 +11,12 @@ import Components from 'unplugin-vue-components/vite';
 import { TDesignResolver } from 'unplugin-vue-components/resolvers';
 
 import { withPwa } from "@vite-pwa/vitepress";
-import { mdEnhancePlugin } from "vuepress-plugin-md-enhance";
 
 const links: { url: string; lastmod: PageData["lastUpdated"] }[] = [];
 const fileAndStyles: Record<string, string> = {}
 
 
-export default withPwa(
-  defineConfig({
+export default defineConfig({
 
     
   outDir: "../dist",
@@ -143,47 +141,47 @@ export default withPwa(
     await new Promise((r) => writeStream.on("finish", r));
   },
 
-  pwa: {
-    outDir: ".vitepress/../../dist", // 输出目录
-    mode: 'development',
-    registerType: 'autoUpdate',
-    injectRegister: 'script-defer',
-    includeAssets: ['favicon.svg'],
-    manifest: {
-      name: '张俊杰的博客 [PWA离线版]',
-      short_name: 'zhangjunjie;s PWA',
-      theme_color: '#ffffff', // 主题颜色
-      icons: [
-        {
-          src: 'pwa-192x192.png',
-          sizes: '192x192',
-          type: 'image/png',
-        },
-        {
-          src: 'pwa-512x512.png',
-          sizes: '512x512',
-          type: 'image/png',
-        },
-        {
-          src: 'pwa-512x512.png',
-          sizes: '512x512',
-          type: 'image/png',
-          purpose: 'any maskable',
-        },
-      ],
-    },
-    workbox: {
-      globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
-    },
-    experimental: {
-      includeAllowlist: true,
-    },
-    devOptions: {
-      enabled: true,
-      suppressWarnings: true,
-      navigateFallback: '/',
-    },
-  },
+  // pwa: {
+  //   outDir: ".vitepress/../../dist", // 输出目录
+  //   mode: 'development',
+  //   registerType: 'autoUpdate',
+  //   injectRegister: 'script-defer',
+  //   includeAssets: ['favicon.svg'],
+  //   manifest: {
+  //     name: '张俊杰的博客 [PWA离线版]',
+  //     short_name: 'zhangjunjie;s PWA',
+  //     theme_color: '#ffffff', // 主题颜色
+  //     icons: [
+  //       {
+  //         src: 'pwa-192x192.png',
+  //         sizes: '192x192',
+  //         type: 'image/png',
+  //       },
+  //       {
+  //         src: 'pwa-512x512.png',
+  //         sizes: '512x512',
+  //         type: 'image/png',
+  //       },
+  //       {
+  //         src: 'pwa-512x512.png',
+  //         sizes: '512x512',
+  //         type: 'image/png',
+  //         purpose: 'any maskable',
+  //       },
+  //     ],
+  //   },
+  //   workbox: {
+  //     globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
+  //   },
+  //   experimental: {
+  //     includeAllowlist: true,
+  //   },
+  //   devOptions: {
+  //     enabled: true,
+  //     suppressWarnings: true,
+  //     navigateFallback: '/',
+  //   },
+  // },
 
 
   
@@ -194,6 +192,6 @@ export default withPwa(
 
   
   
-})
+}
 );
 
