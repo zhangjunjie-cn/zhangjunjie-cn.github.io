@@ -38,13 +38,6 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
       ]
     },
     {
-      text:"计算机网络",
-      collapsed:true,
-      items:[
-        {text:"网工",link:"/笔记/计算机网络/网工"},
-      ]
-    },
-    {
       text:"综合布线",
       collapsed:true,
       items:[
@@ -54,6 +47,27 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     },
     
   ].map((item, i) => (!i ? item : { ...item, collapsed: true })),
+
+  "/笔记/计算机网络/":[
+    {
+      text:"网工",
+      collapsed:true,
+      items:[
+        {text:"网工",link:"/笔记/计算机网络/网工"},
+
+      ]
+    },
+    {
+      text:"桌面运维",
+      collapsed:false,
+      items:[
+        {text:"磁盘空间清理",link:"/笔记/计算机网络/桌面运维/磁盘空间清理"},
+        {text:"局域网文件共享",link:"/笔记/计算机网络/桌面运维/局域网文件共享"},
+      ]
+    },
+        
+  ].map((item, i) => (!i ? item : { ...item, collapsed: true })),
+
   "/博客/":[
     {
       text: "2024年",
