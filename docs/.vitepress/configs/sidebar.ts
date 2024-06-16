@@ -63,6 +63,8 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
       items:[
         {text:"磁盘空间清理",link:"/笔记/计算机网络/桌面运维/磁盘空间清理"},
         {text:"局域网文件共享",link:"/笔记/计算机网络/桌面运维/局域网文件共享"},
+        {text:"普通打印机共享",link:"/笔记/计算机网络/桌面运维/普通打印机共享"},
+        {text:"微信清理工具",link:"/笔记/计算机网络/桌面运维/微信清理工具"},
       ]
     },
         
