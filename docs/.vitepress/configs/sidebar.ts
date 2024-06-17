@@ -102,6 +102,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
             {text:"02 -> 性能优化",link:"/博客/2024/06/02性能优化"},   
             {text:"06 -> Excel大小优化",link:"/博客/2024/06/03Excel大小优化"}, 
             {text:"10 -> 更好的svg集成",link:"/博客/2024/06/10更好的svg集成"},
+            {text:"17 -> 商业报告模板",link:"/博客/2024/06/17商业报告模板"},
           ]
         }
       ]
