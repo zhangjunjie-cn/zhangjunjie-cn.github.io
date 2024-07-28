@@ -4,18 +4,18 @@ export const NAV_DATA: NavData[] = [
   {
     title: "2024学习路线",
     items: [
-      {
-        icon: "./../public/icons/2024-1.png",
-        title: "行测",
-        desc: "前端 API 兼容性查询",
-        link: "https://caniuse.com",
-      },
-      {
-        icon: "./../public/icons/2024-2.png",
-        title: "申论",
-        desc: "在线图片压缩工具",
-        link: "https://tinypng.com",
-      },
+      // {
+      //   icon: "./../public/icons/2024-1.png",
+      //   title: "行测",
+      //   desc: "前端 API 兼容性查询",
+      //   link: "https://caniuse.com",
+      // },
+      // {
+      //   icon: "./../public/icons/2024-2.png",
+      //   title: "申论",
+      //   desc: "在线图片压缩工具",
+      //   link: "https://tinypng.com",
+      // },
       {
         icon: "https://devtool.tech/logo.svg",
         title: "网络工程师",
