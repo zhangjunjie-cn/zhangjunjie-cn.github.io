@@ -63,12 +63,23 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
       items: [
         { text: "磁盘空间清理", link: "/笔记/计算机网络/桌面运维/磁盘空间清理" },
         { text: "局域网文件共享", link: "/笔记/计算机网络/桌面运维/局域网文件共享" },
-        { text: "普通打印机共享", link: "/笔记/计算机网络/桌面运维/普通打印机共享" },
+        // { text: "普通打印机共享", link: "/笔记/计算机网络/桌面运维/普通打印机共享" },
         { text: "微信清理工具", link: "/笔记/计算机网络/桌面运维/微信清理工具" },
         { text: "网络打印机", link: "/笔记/计算机网络/桌面运维/网络打印机" },
+        { text: "网络共享打印机终极解决方案", link: "/hengan/print" },
       ]
-    },
+    }
+  ].map((item, i) => (!i ? item : { ...item, collapsed: true })),
 
+
+  "/hengan/": [
+    {
+      text: "",
+      collapsed: false,
+      items: [
+        { text: "网络共享打印机终极解决方案", link: "/print" },
+      ]
+    }
   ].map((item, i) => (!i ? item : { ...item, collapsed: true })),
 
   "/博客/": [
