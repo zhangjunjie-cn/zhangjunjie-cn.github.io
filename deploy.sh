@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # 忽略错误
-set -e
+# set -e
 
 # 打包
 pnpm run build
@@ -27,7 +27,7 @@ git remote add origin https://github.com/zhangjunjie-cn/zhangjunjiee.git
 
 git add -A
 git commit -m "${msg}"
-git push https://github.com/zhangjunjie-cn/zhangjunjiee.git --force main:dist 
+git push https://github.com/zhangjunjie-cn/zhangjunjiee.git --force master:dist 
 
 # 返回上次所在的目录
 cd -
