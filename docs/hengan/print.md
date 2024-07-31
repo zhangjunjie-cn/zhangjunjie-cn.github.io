@@ -48,7 +48,7 @@ outline: [2,3]
 
 <img src="https://gitee.com/zhangjunjiee/article-images/raw/master/images/202407282002048.png"/>
 
-- 在设置界面中，点击“网络和Internet”选项。
+- 在设置界面中，点击`网络和Internet` 选项。
 
 <img src="https://gitee.com/zhangjunjiee/article-images/raw/master/images/202407282004432.png"/>
 
@@ -56,9 +56,13 @@ outline: [2,3]
 
 <img src="https://gitee.com/zhangjunjiee/article-images/raw/master/images/202407282005586.png"/>
 
-- 在设置界面，点击“系统” 再点击 “关于” 选项。
+- 在设置界面，点击`设备` 再点击 `打印机和扫描仪` 选项，进入`管理`。
 
-<img src="https://gitee.com/zhangjunjiee/article-images/raw/master/images/202407282007850.png"/>
+<img src="https://gitee.com/zhangjunjiee/article-images/raw/master/images/202407311526873.png"/>
+
+- 点击`打印机属性` -> `共享` ，检查是否已勾选`共享这台打印机`，记住打印机`共享名`（可自己修改）。
+
+<img src="https://gitee.com/zhangjunjiee/article-images/raw/master/images/202407311531819.png"/>
 
 :::
 
