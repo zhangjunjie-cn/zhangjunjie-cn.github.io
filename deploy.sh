@@ -9,7 +9,7 @@ pnpm run build
 # 切换到 docs/.vitepress.dist目录
 cd dist
 
-msg="StackBlitz 自动部署 NetLify"
+# msg="StackBlitz 自动部署 NetLify"
 
 git init
 
@@ -26,7 +26,8 @@ git remote add origin https://github.com/zhangjunjie-cn/zhangjunjiee.git
 # git branch --set-upstream-to=origin/dist  
 
 git add -A
-git commit -m "${msg}"
+git commit -m "StackBlitz 自动部署 NetLify"
+# git commit -m "${msg}"
 git push https://github.com/zhangjunjie-cn/zhangjunjiee.git --force master:dist 
 
 # 返回上次所在的目录

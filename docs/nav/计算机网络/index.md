@@ -88,7 +88,7 @@ ip add 192.168.2.254 255.255.255.0
 <img src="https://gitee.com/zhangjunjiee/article-images/raw/master/images/202405052116078.png"/>
 
 
-```ts:no-line-unmbers
+```md:no-line-unmbers
 #路由器开启DHCP
 dhcp enable
 
@@ -206,7 +206,7 @@ port default vlan 10
 <img src="https://gitee.com/zhangjunjiee/article-images/raw/master/images/202405072328308.png"/>
 
 
-```ts:no-line-unmbers
+```md:no-line-unmbers
 
 int g0/0/1
 port link-type trunk

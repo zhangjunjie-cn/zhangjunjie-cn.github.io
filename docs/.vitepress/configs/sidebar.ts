@@ -67,7 +67,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
         { text: "微信清理工具", link: "/笔记/计算机网络/桌面运维/微信清理工具" },
         { text: "网络打印机", link: "/笔记/计算机网络/桌面运维/网络打印机" },
         { text: "网络共享打印机终极解决方案", link: "/hengan/print" },
-        { text: "网络共享文件服务器教程", link: "/share" },
+        { text: "网络共享文件服务器教程", link: "/hengan/share" },
       ]
     }
   ].map((item, i) => (!i ? item : { ...item, collapsed: true })),
@@ -78,8 +78,8 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
       text: "",
       collapsed: false,
       items: [
-        { text: "网络共享打印机终极解决方案", link: "/print" },
-        { text: "网络共享文件服务器教程", link: "/share" },
+        { text: "网络共享打印机终极解决方案", link: "/hengan/print" },
+        { text: "网络共享文件服务器教程", link: "/hengan/share" },
       ]
     }
   ].map((item, i) => (!i ? item : { ...item, collapsed: true })),
