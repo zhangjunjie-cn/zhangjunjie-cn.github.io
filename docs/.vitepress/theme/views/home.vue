@@ -3,10 +3,12 @@
 		<div class="video-container" v-cloak>
 			<video v-if="!curDeviceIsMobile" onmouseover="play_v1(this)" onmouseleave="stop_v1(this)" class="logo-video" autoplay="autoplay" preload="auto" loop muted>
 				<source
-					src="https://zhangjunjiee.netlify.app/template.mp4"
+					src="/template.mp4"
 					type="video/mp4"
 				/>
 			</video>
+
+			
 
 
 			<!-- <video preload="auto" loop playsinline class="logo-video" autoplay src="https://lianyingzi.oss-cn-beijing.aliyuncs.com/template.mp4" tabindex="-1" muted="muted"></video> -->
