@@ -4,14 +4,14 @@ import DefaultTheme from 'vitepress/theme'
 import { nextTick, provide } from 'vue'
 // import Giscus from '@giscus/vue'
 import MAsideSponsors from "./MAsideSponsors.vue";
-import { usePageId } from '../composables'
+// import { usePageId } from '../composables'
 import imageViewer from "./imageViewer.vue"
 import MNavVisitor from './MNavVisitor.vue'
 import ValineComment from './ValineComment.vue'
 
 const { Layout } = DefaultTheme
 const { isDark, theme, frontmatter } = useData()
-const pageId = usePageId()
+// const pageId = usePageId()
 
 const { comment } = theme.value
 

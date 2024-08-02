@@ -2,7 +2,7 @@ import { h, watch } from "vue";
 import { useData, EnhanceAppContext } from "vitepress";
 import DefaultTheme from "vitepress/theme";
 
-import { createMediumZoomProvider } from "./composables/useMediumZoom";
+// import { createMediumZoomProvider } from "./composables/useMediumZoom";
 import { defineComponent, inject } from 'vue'
 import { NConfigProvider } from 'naive-ui'
 import { setup } from '@css-render/vue3-ssr'

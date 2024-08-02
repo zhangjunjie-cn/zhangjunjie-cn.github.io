@@ -3,14 +3,14 @@ import { inject, Ref, computed } from 'vue'
 import { useData } from 'vitepress'
 import { useSidebar } from 'vitepress/theme'
 
-import { usePageId } from '../composables'
+// import { usePageId } from '../composables'
 
 const DEV = inject<Ref<boolean>>('DEV')
 const { theme } = useData()
 const { footer, visitor } = theme.value
 
 const { hasSidebar } = useSidebar()
-const pageId = usePageId()
+// const pageId = usePageId()
 
 const isDocFooterVisible = computed(() => {
   return !DEV || footer.message || footer.copyright || visitor.badgeId
