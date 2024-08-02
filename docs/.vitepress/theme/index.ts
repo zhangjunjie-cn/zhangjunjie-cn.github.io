@@ -2,7 +2,7 @@ import { h, watch } from "vue";
 import { useData, EnhanceAppContext } from "vitepress";
 import DefaultTheme from "vitepress/theme";
 
-import { createMediumZoomProvider } from "./composables/useMediumZoom";
+// import { createMediumZoomProvider } from "./composables/useMediumZoom";
 import { defineComponent, inject } from 'vue'
 import { NConfigProvider } from 'naive-ui'
 import { setup } from '@css-render/vue3-ssr'
@@ -12,13 +12,13 @@ import MNavVisitor from "./components/MNavVisitor.vue";
 import MAsideSponsors from "./components/MAsideSponsors.vue";
 import MNavLinks from "./components/MNavLinks.vue";
 import ArticleMetadata from "./components/ArticleMetadata.vue";
-import AlanViteComponent from "@xiaomh/vue3-alan-vite-component";
+// import AlanViteComponent from "@xiaomh/vue3-alan-vite-component";
 
 import "vitepress-markdown-timeline/dist/theme/index.css";
 // import vitepressBackToTop from 'vitepress-plugin-back-to-top'
 // import 'vitepress-plugin-back-to-top/dist/style.css'
 
-import "@xiaomh/vue3-alan-vite-component/lib/style.css";
+// import "@xiaomh/vue3-alan-vite-component/lib/style.css";
 import MyLayout from "./components/MyLayout.vue";
 
 //白昼切换布局
@@ -131,13 +131,13 @@ export default {
   
 
   enhanceApp({ app, router }: EnhanceAppContext) {
-    createMediumZoomProvider(app, router);
+    // createMediumZoomProvider(app, router);
 
     app.component("MNavLinks", MNavLinks);
     app.component("MyLayout", MyLayout);
     // app.component("CustomLayout", CustomLayout);
     app.component("ArticleMetadata", ArticleMetadata); //作者来源
-    app.use(AlanViteComponent);
+    // app.use(AlanViteComponent);
     app.provide("DEV", process.env.NODE_ENV === "development");
 
     //ECharts
