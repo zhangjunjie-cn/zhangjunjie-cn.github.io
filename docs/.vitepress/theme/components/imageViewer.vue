@@ -1,66 +1,66 @@
 <template>
   <div class="image-viewer">
-    <ClientOnly>
-      <t-image-viewer v-model:visible="show" :images="previewImageInfo.list" :default-index="previewImageInfo.idx"
-      :key="previewImageInfo.idx" @close="show = false">
-    </t-image-viewer>
-    </ClientOnly>
-    
-    <ClientOnly>
-      <tdesign-dark></tdesign-dark>
-    </ClientOnly>
-    
-
-
+    <t-config-provider :global-config="globalConfig">
+      <t-image-viewer
+        v-model:visible="show"
+        :images="previewImageInfo.list"
+        :default-index="previewImageInfo.idx"
+        :key="previewImageInfo.idx"
+        @close="show = false"
+      >
+      </t-image-viewer>
+      <TDesignDark />
+    </t-config-provider>
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, onUnmounted, reactive, ref } from 'vue'
-import tdesignDark from './tdesignDark.vue';
+import { onMounted, onUnmounted, reactive, ref, watch } from "vue";
+import tdesignDark from "./tdesignDark.vue";
 
-const show = ref(false)
+// 处理图片预览
+const show = ref(false);
 const previewImageInfo = reactive<{ url: string; list: string[]; idx: number }>(
   {
-    url: '',
+    url: "",
     list: [],
-    idx: 0
+    idx: 0,
   }
-)
+);
 function previewImage(e: Event) {
-  const target = e.target as HTMLElement
-  const currentTarget = e.currentTarget as HTMLElement
-  if (target.tagName.toLowerCase() === 'img') {
+  const target = e.target as HTMLElement;
+  const currentTarget = e.currentTarget as HTMLElement;
+  if (target.tagName.toLowerCase() === "img") {
     const imgs = currentTarget.querySelectorAll<HTMLImageElement>(
-      '.content-container .main img'
-    )
-    const idx = Array.from(imgs).findIndex(el => el === target)
-    const urls = Array.from(imgs).map(el => el.src)
+      ".content-container .main img"
+    );
+    const idx = Array.from(imgs).findIndex((el) => el === target);
+    const urls = Array.from(imgs).map((el) => el.src);
 
-    const url = target.getAttribute('src')
-    previewImageInfo.url = url!
-    previewImageInfo.list = urls
-    previewImageInfo.idx = idx
+    const url = target.getAttribute("src");
+    previewImageInfo.url = url!;
+    previewImageInfo.list = urls;
+    previewImageInfo.idx = idx;
 
-    // 兼容点击main之外的图片
+    // 兼容点击 main 之外的图片
     if (idx === -1 && url) {
-      previewImageInfo.list.push(url)
-      previewImageInfo.idx = previewImageInfo.list.length - 1
+      previewImageInfo.list.push(url);
+      previewImageInfo.idx = previewImageInfo.list.length - 1;
     }
-    show.value = true
+    show.value = true;
   }
 }
 onMounted(() => {
-  const docDomContainer = document.querySelector('#VPContent')
-  docDomContainer?.addEventListener('click', previewImage)
-})
+  const docDomContainer = document.querySelector("#VPContent");
+  docDomContainer?.addEventListener("click", previewImage);
+});
 
 onUnmounted(() => {
-  const docDomContainer = document.querySelector('#VPContent')
-  docDomContainer?.removeEventListener('click', previewImage)
-})
+  const docDomContainer = document.querySelector("#VPContent");
+  docDomContainer?.removeEventListener("click", previewImage);
+});
 </script>
 <style>
-/* 不提供下载功能，隐藏下载按钮，tdesign下载有问题 */
+/* 不提供下载功能，隐藏下载按钮，tdesign 下载有问题 */
 .t-image-viewer__modal-icon:nth-child(7) {
   display: none !important;
 }

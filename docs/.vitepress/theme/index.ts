@@ -131,7 +131,7 @@ export default {
   
 
   enhanceApp({ app, router }: EnhanceAppContext) {
-    createMediumZoomProvider(app, router);
+    // createMediumZoomProvider(app, router);
 
     app.component("MNavLinks", MNavLinks);
     app.component("MyLayout", MyLayout);
