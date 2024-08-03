@@ -21,4 +21,9 @@ export const head: HeadConfig[] = [
         : "https://hm.baidu.com/hm.js?8092fab2f2adfc7938ba5b8885aef5b4",
     },
   ],
+
+  // 像小鱼一样的鼠标
+  ['link', { rel: 'stylesheet', href: '/mouse/nomouse.scss' }],
+  // 引入外部 JavaScript 文件
+  ['script', { src: '/mouse/js/pointer.js' }],
 ];
