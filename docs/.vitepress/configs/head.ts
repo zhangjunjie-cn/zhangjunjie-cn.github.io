@@ -1,7 +1,5 @@
 import type { HeadConfig } from "vitepress";
 
-const isDevelopment = process.env.NODE_ENV === "development";
-
 export const head: HeadConfig[] = [
   // 像小鱼一样的鼠标
   ['link', { rel: 'stylesheet', href: "/mouse/nomouse.css" }],
@@ -18,14 +16,5 @@ export const head: HeadConfig[] = [
   ["link", { rel: "mask-icon", href: "/favicon.ico", color: "#3eaf7c" }],
   ["link", { rel: "manifest", href: "/manifest.webmanifest" }],
   ["meta", { name: "referrer", content: "no-referrer" }],
-  [
-    "script",
-    {
-      src: isDevelopment
-        ? ""
-        : "https://hm.baidu.com/hm.js?8092fab2f2adfc7938ba5b8885aef5b4",
-    },
-  ],
-
 
 ];

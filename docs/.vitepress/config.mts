@@ -152,7 +152,7 @@ export default withPwa(
         });
     },
     buildEnd: async ({ outDir }) => {
-      const sitemap = new SitemapStream({ hostname: "https://zhangjunjiee.netlify.app/" });
+      const sitemap = new SitemapStream({ hostname: "https://zhangjunjie.pages.dev/" });
       const writeStream = createWriteStream(resolve(outDir, "sitemap.xml"));
       sitemap.pipe(writeStream);
       links.forEach((link) => sitemap.write(link));
