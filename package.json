@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "@vite-pwa/vitepress": "^0.5.0",
+    "vite-plugin-pwa": "^0.20.1",
     "blueimp-md5": "^2.19.0",
     "dayjs": "^1.11.10",
     "fast-glob": "^3.3.1",
