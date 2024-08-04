@@ -26,6 +26,9 @@ dependencies:
   naive-ui:
     specifier: ^2.38.2
     version: 2.38.2(vue@3.4.26)
+  oh-my-live2d:
+    specifier: ^0.16.1
+    version: 0.16.1
   shiki:
     specifier: ^0.14.5
     version: 0.14.7
@@ -4227,6 +4230,10 @@ packages:
       define-properties: 1.2.1
       has-symbols: 1.0.3
       object-keys: 1.1.1
+    dev: false
+
+  /oh-my-live2d@0.16.1:
+    resolution: {integrity: sha512-SPlQBe3cWNwNkm2gmfykpMez3AVGXheae/+sCwrvL8R9x0zNlbH1qMQtkFMt/CKGChA7bi8WOJRY4rwhc/4yRw==}
     dev: false
 
   /once@1.4.0:

@@ -127,10 +127,10 @@ export default {
     });
   },
 
-
+  
   
 
-  enhanceApp({ app, router }: EnhanceAppContext) {
+  async enhanceApp({ app, router }: EnhanceAppContext) {
     // createMediumZoomProvider(app, router);
 
     app.component("MNavLinks", MNavLinks);
@@ -158,6 +158,20 @@ export default {
       const { collect } = setup(app)
       app.provide('css-render-collect', collect)
     };
+
+
+    //live2D
+    if (!import.meta.env.SSR) {
+      const { loadOml2d } = await import('oh-my-live2d');
+      loadOml2d({
+        models: [
+          {
+            path: 'https://model.oml2d.com/Senko_Normals/senko.model3.json',
+            position: [-10, 20]
+          }
+        ]
+      });
+    }
 
     // vitepressBackToTop({
     //   // default
