@@ -3,6 +3,10 @@ import type { HeadConfig } from "vitepress";
 const isDevelopment = process.env.NODE_ENV === "development";
 
 export const head: HeadConfig[] = [
+  // 像小鱼一样的鼠标
+  ['link', { rel: 'stylesheet', href: "/mouse/nomouse.scss" }],
+  // 引入外部 JavaScript 文件
+  ['script', { src: "/mouse/js/pointer.js" }],
   ["meta", { name: "theme-color", content: "#3eaf7c" }],
   ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],
   ["meta", { name: "apple-mobile-web-app-status-bar-style", content: "black" }],
@@ -22,8 +26,5 @@ export const head: HeadConfig[] = [
     },
   ],
 
-  // 像小鱼一样的鼠标
-  ['link', { rel: 'stylesheet', href: '/mouse/nomouse.scss' }],
-  // 引入外部 JavaScript 文件
-  ['script', { src: '/mouse/js/pointer.js' }],
+
 ];
