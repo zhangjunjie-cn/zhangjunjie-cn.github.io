@@ -166,8 +166,18 @@ export default {
       loadOml2d({
         models: [
           {
-            path: 'https://model.oml2d.com/Senko_Normals/senko.model3.json',
-            position: [-10, 20]
+            path: 'https://model.kisssssssss.space/https://raw.githubusercontent.com/kisssssssss/model/main/live2d/StarRail/%E7%AC%A6%E7%8E%84/%E7%AC%A6%E7%8E%84.model3.json',
+            position: [-20, 60],
+            mobilePosition: [80, 80],
+            scale: 0.047,
+            mobileScale: 0.06,
+            stageStyle: {
+              height: 450,
+            },
+            mobileStageStyle: {
+              height: 370,
+              width: 400,
+            },
           }
         ]
       });
