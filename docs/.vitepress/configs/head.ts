@@ -2,7 +2,7 @@ import type { HeadConfig } from "vitepress";
 
 export const head: HeadConfig[] = [
   // 像小鱼一样的鼠标
-  ['link', { rel: 'stylesheet', href: "/mouse/nomouse.css" }],
+  ['link', { rel: 'stylesheet', href: "/mouse/nomouse.scss" }],
   // 引入外部 JavaScript 文件
   ['script', { src: "/mouse/pointer.js" }],
 

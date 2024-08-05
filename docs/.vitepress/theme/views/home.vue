@@ -3,7 +3,7 @@
 		<div class="video-container" v-cloak>
 			<video v-if="!curDeviceIsMobile" onmouseover="play_v1(this)" onmouseleave="stop_v1(this)" class="logo-video" autoplay="autoplay" preload="auto" loop muted>
 				<source
-					src="https://zhangjunjie.pages.dev/template.mp4"
+					src="https://model.kisssssssss.space/https://raw.githubusercontent.com/zhangjunjie-cn/live2d-model/main/template.mp4"
 					type="video/mp4"
 				/>
 			</video>
