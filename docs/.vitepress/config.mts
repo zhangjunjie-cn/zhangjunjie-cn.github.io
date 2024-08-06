@@ -98,7 +98,7 @@ export default withPwa(
 
     },
 
-    /*** 自定义配置 ***/
+    /*** 看图浏览组件库 ***/
     vite: {
 
       plugins: [
