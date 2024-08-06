@@ -57,6 +57,6 @@
     "tdesign-vue-next": "^1.8.1",
     "valine": "^1.5.1",
     "vitepress-markdown-timeline": "^1.2.1",
-    "oh-my-live2d": "^0.16.1"
+    "oh-my-live2d": "^0.19.3"
   }
 }
