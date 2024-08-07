@@ -27,6 +27,9 @@ import imageViewer from "./components/imageViewer.vue"
 import x from "./composables/echarts"
 import "./styles/index.scss";
 
+import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
+import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
+
 if (typeof window !== "undefined") {
   /* 注销 PWA 服务 */
   if (window.navigator && navigator.serviceWorker) {
@@ -142,6 +145,9 @@ export default {
 
     //ECharts
     app.component('Test', x);
+
+    //阅读窗格
+    app.use(NolebaseEnhancedReadabilitiesPlugin);
 
     
 
