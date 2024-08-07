@@ -9,6 +9,13 @@ import imageViewer from "./imageViewer.vue"
 import MNavVisitor from './MNavVisitor.vue'
 import ValineComment from './ValineComment.vue'
 
+import { 
+  NolebaseEnhancedReadabilitiesMenu, 
+  NolebaseEnhancedReadabilitiesScreenMenu, 
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
+
+import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
+
 const { Layout } = DefaultTheme
 const { isDark, theme, frontmatter } = useData()
 const pageId = usePageId()
@@ -107,6 +114,22 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
     <template #doc-bottom>
       <ClientOnly>
         <imageViewer />
+      </ClientOnly>
+      
+    </template>
+
+    <!-- 为较宽的屏幕的导航栏添加阅读增强菜单 -->
+    <template #nav-bar-content-after>
+      <ClientOnly>
+        <NolebaseEnhancedReadabilitiesMenu />
+      </ClientOnly>
+      
+    </template>
+
+    <!-- 更好的为较窄的屏幕（通常是小于 iPad Mini）添加阅读增强菜单图片窗格 -->
+    <template #nav-screen-content-after>
+      <ClientOnly>
+        <NolebaseEnhancedReadabilitiesScreenMenu />
       </ClientOnly>
       
     </template>

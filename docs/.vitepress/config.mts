@@ -116,9 +116,15 @@ export default withPwa(
 
       ],
 
+      optimizeDeps: {
+        exclude: [ 
+          '@nolebase/vitepress-plugin-enhanced-readabilities/client', 
+        ], 
+      },
+
       //naive ui 不作为外部依赖处理，在客户端渲染，不在服务端渲染，进入页面会更快。
       ssr: {
-        noExternal: ['naive-ui', 'date-fns', 'vueuc', 'vue-echarts', 'echarts', 'zrender', 'resize-detector']
+        noExternal: ['naive-ui', 'date-fns', 'vueuc', 'vue-echarts', 'echarts', 'zrender', 'resize-detector', '@nolebase/vitepress-plugin-enhanced-readabilities']
       }
     },
 
