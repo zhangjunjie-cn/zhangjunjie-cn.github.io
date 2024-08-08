@@ -124,6 +124,12 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
           items: [
             { text: "21 -> 快速开发流程", link: "/博客/2024/07/21快速开发流程" },
           ]
+        },
+        {
+          text: "8月",
+          items: [
+            { text: "08 -> 第六版博客发布", link: "/博客/2024/08/08第六版博客发布" },
+          ]
         }
       ]
     }
