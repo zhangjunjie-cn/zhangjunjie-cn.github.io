@@ -30,6 +30,10 @@ import "./styles/index.scss";
 import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
 
+
+import codeblocksFold from 'vitepress-plugin-codeblocks-fold'; // import method
+import 'vitepress-plugin-codeblocks-fold/style/index.css'; // import style
+
 if (typeof window !== "undefined") {
   /* 注销 PWA 服务 */
   if (window.navigator && navigator.serviceWorker) {
@@ -65,6 +69,11 @@ export default {
     const props: Record<string, any> = {};
     // 获取 frontmatter
     const { frontmatter } = useData();
+
+    // 代码区域折叠
+    const route = useRoute();
+    //当 defaultAllFold 设置为 true （即默认所有页面折叠）时，当前页面第一、二、三个代码块强制不折叠
+    codeblocksFold({ route, frontmatter }, true, 400);
 
     //naive ui
     const { Layout } = DefaultTheme
@@ -198,6 +207,10 @@ export default {
     //   threshold:300
     // })
   },
+
+
+
+
   
 };
 
