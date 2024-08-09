@@ -34,6 +34,12 @@ import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
 import codeblocksFold from 'vitepress-plugin-codeblocks-fold'; // import method
 import 'vitepress-plugin-codeblocks-fold/style/index.css'; // import style
 
+import { 
+  NolebaseGitChangelogPlugin 
+} from '@nolebase/vitepress-plugin-git-changelog/client'
+
+import '@nolebase/vitepress-plugin-git-changelog/client/style.css'
+
 if (typeof window !== "undefined") {
   /* 注销 PWA 服务 */
   if (window.navigator && navigator.serviceWorker) {
@@ -157,6 +163,8 @@ export default {
 
     //阅读窗格
     app.use(NolebaseEnhancedReadabilitiesPlugin);
+
+    app.use(NolebaseGitChangelogPlugin);
 
     
 

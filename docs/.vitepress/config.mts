@@ -13,6 +13,11 @@ import { TDesignResolver } from 'unplugin-vue-components/resolvers';
 import { withPwa } from "@vite-pwa/vitepress";
 import pwa from "./theme/composables/pwa";
 
+import { 
+  GitChangelog, 
+  GitChangelogMarkdownSection, 
+} from '@nolebase/vitepress-plugin-git-changelog/vite'
+
 const links: { url: string; lastmod: PageData["lastUpdated"] }[] = [];
 const fileAndStyles: Record<string, string> = {}
 
@@ -113,6 +118,12 @@ export default withPwa(
             library: 'vue-next'
           })],
         }),
+
+        GitChangelog({ 
+          // 填写在此处填写您的仓库链接
+          repoURL: () => 'https://github.com/nolebase/integrations', 
+        }), 
+        GitChangelogMarkdownSection(), 
 
       ],
 
