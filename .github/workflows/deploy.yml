@@ -53,7 +53,7 @@ jobs:
       # 打包静态文件
       - name: Build
         env:
-          APP_BASE_PATH: ./../dist
+          APP_BASE_PATH: zhangjunjie-cn.github.io
         
         run: pnpm install && pnpm run build
 
@@ -64,4 +64,4 @@ jobs:
           # GitHub Pages 读取的分支
           branch: gh-pages
           # 静态文件所在目录
-          folder: dist
+          folder: /dist
