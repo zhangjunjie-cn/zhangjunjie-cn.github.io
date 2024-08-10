@@ -16,9 +16,7 @@ on:
 
 # 设置权限
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 # 设置上海时区
 env:
