@@ -22,7 +22,8 @@ export default defineConfig({
   outDir: "../dist",
 
   //base 为 '/zhangjunjiee/' 库的名称
-  base: process.env.APP_BASE_PATH || "/",
+  //base: process.env.APP_BASE_PATH || "/",
+  base:  '/',
 
   lang: "zh-CN",
   title: " ",
