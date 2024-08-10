@@ -1,4 +1,6 @@
-name: GitHub Actions Build and Deploy
+# 构建 VitePress 站点并将其部署到 GitHub Pages 的示例工作流程
+#
+name: Deploy VitePress site to Pages
 
 # 触发条件
 on:
@@ -7,11 +9,11 @@ on:
   # push 到指定分支
   push:
     branches:
-      - main
+      - master
     # 只在下列路径变更时触发
-    paths:
-      - 'docs/**'
-      - 'package.json'
+    # paths:
+    #   - 'docs/**'
+    #   - 'package.json'
 
 # 设置权限
 permissions:
