@@ -48,19 +48,35 @@ jobs:
           cache: pnpm # 或 npm / yarn
 
          
-      - name: 构建 Pages
-        uses: actions/configure-pages@v3
-      - name: Install dependencies
-        run: pnpm install # 或 npm ci / yarn install / bun install
-      - name: Build with VitePress
-        run: |
-          pnpm run build # 或 pnpm docs:build / yarn docs:build / bun run docs:build
-          touch dist/.nojekyll
+      # - name: 构建 Pages
+      #   uses: actions/configure-pages@v3
+      # - name: Install dependencies
+      #   run: pnpm install # 或 npm ci / yarn install / bun install
+      # - name: Build with VitePress
+      #   run: |
+      #     pnpm run build # 或 pnpm docs:build / yarn docs:build / bun run docs:build
+      #     touch dist/.nojekyll
           
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+      # - name: Upload artifact
+      #   uses: actions/upload-pages-artifact@v2
+      #   with:
+      #     path: dist
+
+
+        # 打包静态文件
+      - name: Build
+        env:
+          APP_BASE_PATH: /${{ github.repository }}
+        run: pnpm install && pnpm run build
+
+      # 部署
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: dist
+          # GitHub Pages 读取的分支
+          branch: gh-pages
+          # 静态文件所在目录
+          folder: dist
 
   # 部署工作
   deploy:
