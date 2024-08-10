@@ -28,7 +28,8 @@ export default withPwa(
     outDir: resolve(__dirname, "../../dist"),
 
     //base 为 '/zhangjunjie/' 库的名称
-    base: process.env.APP_BASE_PATH || "/",
+    //base: process.env.APP_BASE_PATH || "/",
+    base: '/APP_BASE_PATH/'
 
     lang: "zh-CN",
     title: " ",
