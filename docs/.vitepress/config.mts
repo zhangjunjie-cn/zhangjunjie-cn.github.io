@@ -26,7 +26,7 @@ export default withPwa(
 
   defineConfig({
 
-    outDir: '../dist',
+    outDir: resolve(__dirname, "../../dist"),
     base: process.env.APP_BASE_PATH || '/',
 
     lang: "zh-CN",
