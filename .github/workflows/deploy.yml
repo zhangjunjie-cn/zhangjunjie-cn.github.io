@@ -58,8 +58,8 @@ jobs:
           token: ${{ secrets.PAT_TOKEN }}
           commit-message: Deploying to gh-pages from @ ${{ github.sha }} 🚀
           # 指定仓库
-          repository-name: zhangjunjie-cn/dist
+          repository-name: zhangjunjie-cn.github.io
           # GitHub Pages 读取的分支
           branch: gh-pages
           # 静态文件所在目录
-          folder: ../dist
+          folder: dist
