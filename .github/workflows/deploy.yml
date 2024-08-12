@@ -31,7 +31,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      # 安装 pnpm
+      # 安装 pnpm 工具
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
