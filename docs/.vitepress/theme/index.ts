@@ -30,6 +30,8 @@ import "./styles/index.scss";
 import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
 
+import "@nolebase/vitepress-plugin-inline-link-preview/client/style.css";
+import { NolebaseInlineLinkPreviewPlugin } from "@nolebase/vitepress-plugin-inline-link-preview/client";
 
 import codeblocksFold from 'vitepress-plugin-codeblocks-fold'; // import method
 import 'vitepress-plugin-codeblocks-fold/style/index.css'; // import style
@@ -130,25 +132,15 @@ export default {
     }
 
     //DefaultTheme.Layout
-    return h(MLayout, props, {
-      /**
-       * 相关插槽
-       * https://vitepress.dev/guide/extending-default-theme#layout-slots
-       * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/Layout.vue
-       */
-      // "doc-after": () => h(ValineComment),    //评论区
-      "nav-bar-title-after": () => h(MNavVisitor),  //左上角访问次数
-      // "doc-after": () => h(MDocFooter),
-      // "aside-bottom": () => h(MyLayout),   //返回
-      "aside-bottom": () => h(MAsideSponsors), //右下角二维码
-      "doc-bottom": () => h(imageViewer),
-    });
+    return h(MLayout, props);
   },
 
   
   
 
   async enhanceApp({ app, router }: EnhanceAppContext) {
+
+    app.use(NolebaseInlineLinkPreviewPlugin);
     // createMediumZoomProvider(app, router);
 
     app.component("MNavLinks", MNavLinks);

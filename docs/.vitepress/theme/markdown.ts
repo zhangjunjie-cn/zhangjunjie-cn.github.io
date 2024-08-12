@@ -1,5 +1,6 @@
 import { MarkdownOptions } from "vitepress";
 import timeline from "vitepress-markdown-timeline";
+import { InlineLinkPreviewElementTransform } from "@nolebase/vitepress-plugin-inline-link-preview/markdown-it";
 
 const markdown: MarkdownOptions = {
   
@@ -14,6 +15,7 @@ const markdown: MarkdownOptions = {
         htmlResult += `\n<ClientOnly><ArticleMetadata /></ClientOnly>`;
       return htmlResult;
     };
+    md.use(InlineLinkPreviewElementTransform);
     md.use(timeline);
     
   },

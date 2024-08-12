@@ -73,7 +73,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
       </ClientOnly>
     </template>
 
-    <template v-if="comment && frontmatter.comment !== false" #doc-footer-before>
+    <!-- <template v-if="comment && frontmatter.comment !== false" #doc-footer-before>
       <div class="doc-comments">
         <ClientOnly>
           <Giscus
@@ -92,7 +92,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
         </ClientOnly>
         
       </div>
-    </template>
+    </template> -->
 
     <!-- 插槽表 -->
     <template #doc-after>
