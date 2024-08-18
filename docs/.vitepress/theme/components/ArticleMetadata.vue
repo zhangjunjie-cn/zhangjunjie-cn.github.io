@@ -14,7 +14,7 @@
         </svg>
       </span>
       <span class="meta-content">
-        <a target="_blank" :href="link" title="进入作者主页">{{ author }}</a>
+        <a class="tag-a" target="_blank" :href="link" title="进入作者主页">{{ author }}</a>
       </span>
     </div>
     <div class="meta-item">
@@ -103,7 +103,7 @@ const props: any = defineProps({
 const { frontmatter } = useData()
 const data = reactive({
   author: frontmatter?.value?.userName ||  '张俊杰',
-  link: frontmatter?.value?.link ||  'https://gitee.com/zhangjunjiee',
+  link: frontmatter?.value?.link ||  'https://github.com/zhangjunjie-cn',
   date: frontmatter?.value?.createTime || new Date(),
   categories: props.article?.categories ?? [],
   tags: frontmatter?.value?.tag?.split(',')
@@ -163,10 +163,14 @@ meta-content {
 }
 
 .meta-content  .tag-a {
+  --vp-c-brand: #ce77e8;
+	--vp-c-brand-dark: #aa10d9;
   display: inline-block;
-  padding: 0 10px;
+  padding: 0 5px;
   margin:0 5px;
-  /* background: var(--vp-c-green-light); */
-  color: #c0c4c3!important;
+  background: var(--vp-c-green-light);
+  
+  color: #aa10d9!important;
+  color: #ce77e8!important;
 }
 </style>

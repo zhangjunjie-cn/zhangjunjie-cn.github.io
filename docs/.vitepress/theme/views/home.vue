@@ -148,6 +148,7 @@ onBeforeMount(() => {
 }
 
 .video-container {
+	background-color: var(--vp-c-bg);
 	/*进行视频裁剪*/
     // overflow: hidden;
 
@@ -198,8 +199,10 @@ onBeforeMount(() => {
 	width: 100%;
 	display: flex;
 	justify-content: center;
+	
 
 	.container-button {
+		
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr;
 		grid-template-rows: 1fr 1fr;
@@ -211,7 +214,8 @@ onBeforeMount(() => {
 		padding: 0;
 		width: 135px;
 		height: 47px;
-		transition: all 0.3s ease-in-out;
+		// transition: all 0.3s ease-in-out;
+		transform: scale(0.95);
 	}
 
 	.container-button:active {

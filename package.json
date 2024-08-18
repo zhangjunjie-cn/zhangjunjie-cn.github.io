@@ -18,6 +18,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development vitepress dev docs --port=8732",
     "build": "vitepress build docs",
+    "preview": "vitepress preview",
+    "compress": "node ./docs/.vitepress/comporess.js",
     "build:github": "cross-env APP_BASE_PATH=/zhangjunjie-cn.github.io/ npm run build",
     "lint": "prettier --write ."
   },
@@ -28,16 +30,18 @@
     "@mdit-vue/shared": "^0.12.0",
     "@nolebase/vitepress-plugin-enhanced-readabilities": "^2.4.0",
     "@nolebase/vitepress-plugin-git-changelog": "^2.4.0",
-    "@nolebase/vitepress-plugin-inline-link-preview": "^2.1.1",
+    "@nolebase/vitepress-plugin-inline-link-preview": "^2.4.0",
     "@types/node": "^18.13.0",
     "cross-env": "^7.0.3",
     "echarts": "5.4.3",
+    "fast-glob": "^3.3.2",
     "lint-staged": "^13.1.2",
     "prettier": "^2.8.4",
     "sass": "^1.58.3",
     "sitemap": "^7.1.1",
     "unplugin-auto-import": "^0.17.5",
     "unplugin-vue-components": "^0.26.0",
+    "vite-plugin-compression": "^0.5.1",
     "vitepress": "v1.3.2",
     "vue": "^3.4.35",
     "vue-echarts": "6.6.1"
@@ -51,7 +55,6 @@
     "@vite-pwa/vitepress": "^0.5.0",
     "blueimp-md5": "^2.19.0",
     "dayjs": "^1.11.10",
-    "fast-glob": "^3.3.1",
     "gray-matter": "^4.0.3",
     "js-confetti": "^0.11.0",
     "naive-ui": "^2.38.2",
@@ -61,6 +64,7 @@
     "valine": "^1.5.1",
     "vite-plugin-pwa": "^0.20.1",
     "vitepress-markdown-timeline": "^1.2.1",
-    "vitepress-plugin-codeblocks-fold": "^1.2.28"
+    "vitepress-plugin-codeblocks-fold": "^1.2.28",
+    "animate.css": "^4.1.1"
   }
 }

@@ -18,6 +18,9 @@ import {
   GitChangelogMarkdownSection, 
 } from '@nolebase/vitepress-plugin-git-changelog/vite'
 
+//压缩插件
+import viteCompression from "vite-plugin-compression";
+
 const links: { url: string; lastmod: PageData["lastUpdated"] }[] = [];
 const fileAndStyles: Record<string, string> = {}
 
@@ -31,8 +34,9 @@ export default withPwa(
     base: '/',
 
     lang: "zh-CN",
-    title: " ",
-    description: " ",
+    // titleTemplate: ':title - 张俊杰的博客',
+    title: "张俊杰的博客",
+    description: "张俊杰的博客",
     head,
     pwa,
 
@@ -51,6 +55,7 @@ export default withPwa(
       i18nRouting: false,
 
       logo: "/未标题-12.png",
+      siteTitle: false,
 
       nav,
       sidebar,
@@ -124,6 +129,22 @@ export default withPwa(
           repoURL: () => 'https://github.com/nolebase/integrations', 
         }), 
         GitChangelogMarkdownSection(), 
+
+        // gzip 和 brotli 压缩
+        viteCompression({
+          verbose: true,
+          disable: false,
+          threshold: 10240,
+          algorithm: "gzip",
+          ext: ".gz",
+        }),
+        viteCompression({
+          verbose: true,
+          disable: false,
+          threshold: 10240,
+          algorithm: "brotliCompress",
+          ext: ".br",
+        }),
 
       ],
 

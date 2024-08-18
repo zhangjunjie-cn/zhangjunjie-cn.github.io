@@ -106,8 +106,9 @@ table {
 }
 .dark .vp-doc a:hover,
 .dark .vp-doc a > code:hover {
-  color: var(--vp-c-brand-lightest);
-  opacity: 1;
+  // color: var(--vp-c-brand-lightest);
+  color: var(--vp-c-brand)!important;
+  // opacity: 1;
 }
 
 /* Transition by color instead of opacity */

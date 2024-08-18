@@ -1,4 +1,4 @@
-import { h, watch } from "vue";
+import { h, watch,onMounted, nextTick } from "vue";
 import { useData, EnhanceAppContext } from "vitepress";
 import DefaultTheme from "vitepress/theme";
 
@@ -8,13 +8,12 @@ import { NConfigProvider } from 'naive-ui'
 import { setup } from '@css-render/vue3-ssr'
 import { useRoute } from 'vitepress'
 
-import MNavVisitor from "./components/MNavVisitor.vue";
-import MAsideSponsors from "./components/MAsideSponsors.vue";
 import MNavLinks from "./components/MNavLinks.vue";
 import ArticleMetadata from "./components/ArticleMetadata.vue";
 // import AlanViteComponent from "@xiaomh/vue3-alan-vite-component";
 
 import "vitepress-markdown-timeline/dist/theme/index.css";
+
 // import vitepressBackToTop from 'vitepress-plugin-back-to-top'
 // import 'vitepress-plugin-back-to-top/dist/style.css'
 
@@ -23,7 +22,6 @@ import MyLayout from "./components/MyLayout.vue";
 
 //白昼切换布局
 import MLayout from './components/MLayout.vue'
-import imageViewer from "./components/imageViewer.vue"
 import x from "./composables/echarts"
 import "./styles/index.scss";
 
@@ -41,6 +39,12 @@ import {
 } from '@nolebase/vitepress-plugin-git-changelog/client'
 
 import '@nolebase/vitepress-plugin-git-changelog/client/style.css'
+
+import {
+	initFirstScreen,
+	destructionObserver,
+	animateFn,
+} from '../utils/animatePlusgin'
 
 if (typeof window !== "undefined") {
   /* 注销 PWA 服务 */
@@ -73,6 +77,29 @@ let homePageStyle: HTMLStyleElement | undefined;
 
 export default {
   extends: DefaultTheme,  
+
+
+  // 滚动进入动画
+  setup() {
+		const route = useRoute()
+		onMounted(() => {
+			initFirstScreen()
+			animateFn()
+		})
+		watch(
+			() => route.path,
+			() =>
+				nextTick(() => {
+					destructionObserver()
+					initFirstScreen()
+					animateFn()
+				})
+		)
+	},
+
+
+
+
   Layout: () => {
     const props: Record<string, any> = {};
     // 获取 frontmatter

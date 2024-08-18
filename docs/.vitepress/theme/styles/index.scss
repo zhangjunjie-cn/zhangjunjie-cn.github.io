@@ -14,12 +14,12 @@
 }
 
 //便签作者、时间变色
-:root .meta-wrapper{
-	// --vp-c-brand: #ce77e8;
-	// --vp-c-brand-dark: #aa10d9;
-	// --vp-layout-max-width: 1630px;
-	color: var(--vp-c-brand);
-}
+// :root .meta-wrapper{
+// 	--vp-c-brand: #ce77e8;
+// 	--vp-c-brand-dark: #aa10d9;
+// 	--vp-layout-max-width: 1630px;
+// 	// color: var(--vp-c-brand);
+// }
 
 //全局nav选中变色
 a.VPLink.link.active{
@@ -49,20 +49,38 @@ div.has-active{
 }
 
 //最新版，nav变色
-.VPFlyout:hover,.VPFlyout.active{
-	color: var(--vp-c-brand);
-}
+// .VPFlyout:hover{
+// 	color: var(--vp-c-brand);
+// }
+
+// .VPFlyout.active{
+// 	color: var(--vp-c-brand);
+// }
 
 //最新版，链接变色
+// .vp-doc a:link{
+// 	color: var(--vp-c-brand);
+// }
+
+//已访问链接颜色
 .vp-doc a:visited{
-	color: var(--vp-c-brand)!important;
+	// color: var(--vp-c-brand)!important;
+	// color: var(--vp-c-brand)!important;
+	color: #57C3C2; 
+	color: #69a794; 
 }
-.vp-doc a:hover{
-	color: var(--vp-c-brand)!important;
-}
+
+
 .vp-doc a{
-	color: var(--vp-c-brand)!important;
+	color: var(--vp-c-brand);
+	// --vp-c-brand: var(--vp-c-brand);
+
 }
+
+// a:link,a:visited{color: red;}
+// a:hover{color:yellow;}
+// a:active{color:gray;}
+
 
 
 
