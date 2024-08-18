@@ -26,6 +26,12 @@ export function createSidebar() {
         // 与首页的最新博客相互关联
         items:[
           {
+            text: "8月",
+            items: [
+              { text: "08 -> 第六版博客发布", link: "/博客/2024/08/18第六版博客发布" },
+            ]
+          },
+          {
             text:"6月",
             items:[
               {text:"03 -> Excel文件大小优化",link:"/博客/2024/06/03Excel大小优化"},  

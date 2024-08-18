@@ -107,7 +107,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
             { text: "11 -> 第四版博客新题性🎉🎉", link: "/博客/2024/05/11第四版博客新题性" },
             { text: "23 -> 第五版博客发布完成", link: "/博客/2024/05/23第五版博客发布完成" },
             { text: "26 -> HA综合布线", link: "/博客/2024/05/26HA综合布线" },
-            { text: "29 -> 打印机共享", link: "/博客/2024/05/29打印机共享" },
+            // { text: "29 -> 打印机共享", link: "/博客/2024/05/29打印机共享" },
           ]
         },
         {
@@ -128,7 +128,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
         {
           text: "8月",
           items: [
-            { text: "08 -> 第六版博客发布", link: "/博客/2024/08/08第六版博客发布" },
+            { text: "08 -> 第六版博客发布", link: "/博客/2024/08/18第六版博客发布" },
           ]
         }
       ]

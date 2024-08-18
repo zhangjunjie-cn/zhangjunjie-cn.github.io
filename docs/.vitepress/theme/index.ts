@@ -18,7 +18,6 @@ import "vitepress-markdown-timeline/dist/theme/index.css";
 // import 'vitepress-plugin-back-to-top/dist/style.css'
 
 // import "@xiaomh/vue3-alan-vite-component/lib/style.css";
-import MyLayout from "./components/MyLayout.vue";
 
 //白昼切换布局
 import MLayout from './components/MLayout.vue'
@@ -171,7 +170,7 @@ export default {
     // createMediumZoomProvider(app, router);
 
     app.component("MNavLinks", MNavLinks);
-    app.component("MyLayout", MyLayout);
+    // app.component("MyLayout", MyLayout);
     // app.component("CustomLayout", CustomLayout);
     app.component("ArticleMetadata", ArticleMetadata); //作者来源
     // app.use(AlanViteComponent);

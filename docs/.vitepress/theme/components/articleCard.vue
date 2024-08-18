@@ -97,9 +97,10 @@ function handleClick() {
 }
 
 .project-title {
-	font-size: .8em;
+	/* font-size: .8em; */
+	font-size: 15px;
 	margin: 0;
-	font-weight: 600;
+	font-weight: 800;
 	color: var(--vp-c-text-1);
 	word-break: break-all;
 	overflow: hidden;

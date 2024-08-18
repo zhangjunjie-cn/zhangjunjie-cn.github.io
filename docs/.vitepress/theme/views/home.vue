@@ -3,11 +3,13 @@
 		<div class="video-container" v-cloak>
 			<video v-if="!curDeviceIsMobile" onmouseover="play_v1(this)" onmouseleave="stop_v1(this)" class="logo-video" autoplay="autoplay" preload="auto" loop muted>
 				<source
-					src="https://zhangjunjie.pages.dev/template.mp4"
+					src="http://images-zjj.test.upcdn.net/template.mp4"
 					type="video/mp4"
 				/>
 			</video>
 
+			<!-- src="https://zhangjunjie.pages.dev/template.mp4" -->
+			 
 			
 
 
@@ -409,7 +411,7 @@ onBeforeMount(() => {
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: space-around;
-			padding: 20px;
+			padding: 15px;
 			height: 340px;
 			overflow: hidden;
 			.post-item {
@@ -417,21 +419,21 @@ onBeforeMount(() => {
 			}
 		}
 
-		// .comment-container {
-		// 	margin-top: 40px;
-		// 	padding: 40px;
-		// 	padding-bottom: 0px;
+		.comment-container {
+			margin-top: 40px;
+			padding: 40px;
+			padding-bottom: 0px;
 
-		// 	.comment-title {
-		// 		font-size: 20px;
-		// 		font-weight: 900;
-		// 		margin-bottom: 20px;
-		// 	}
+			.comment-title {
+				font-size: 20px;
+				font-weight: 900;
+				margin-bottom: 20px;
+			}
 
-		// 	.comment {
-		// 		padding: 0 60px;
-		// 	}
-		// }
+			.comment {
+				padding: 0 60px;
+			}
+		}
 
 		@media (max-width: 960px) {
 			.recently-posts-head {
@@ -451,14 +453,14 @@ onBeforeMount(() => {
 	}
 }
 
-//footer {
+// footer {
 // 	margin-top: 20px;
 // 	padding: 20px;
 // 	font-size: 14px;
-//	border-top: 1px solid var(--vp-c-bg-mute);
-//	height: 100px;
+// 	border-top: 1px solid var(--vp-c-bg-mute);
+// 	height: 100px;
 // 	text-align: center;
-//}
+// }
 
 .VPContent {
 	padding-top: 0 !important;
