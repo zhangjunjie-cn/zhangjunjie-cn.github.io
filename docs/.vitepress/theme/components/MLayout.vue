@@ -4,7 +4,6 @@ import DefaultTheme from 'vitepress/theme'
 import { nextTick, provide } from 'vue'
 // import Giscus from '@giscus/vue'
 import MAsideSponsors from "./MAsideSponsors.vue";
-import { usePageId } from '../composables'
 import imageViewer from "./imageViewer.vue"
 import MNavVisitor from './MNavVisitor.vue'
 import ValineComment from './ValineComment.vue'
@@ -17,11 +16,7 @@ import {
 import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
 
 const { Layout } = DefaultTheme
-const { isDark, theme, frontmatter } = useData()
-const pageId = usePageId()
-
-const { comment } = theme.value
-
+const { isDark} = useData()
 
 const enableTransitions = () =>
   'startViewTransition' in document &&

@@ -1,9 +1,9 @@
 <template>
 	<div class="home-container">
 		<div class="video-container" v-cloak>
-			<video v-if="!curDeviceIsMobile" onmouseover="play_v1(this)" onmouseleave="stop_v1(this)" class="logo-video" autoplay="autoplay" preload="auto" loop muted>
+			<video v-if="!curDeviceIsMobile" class="logo-video" autoplay preload="auto" loop muted>
 				<source
-					src="https://zhangjunjie.pages.dev/template.mp4"
+					src="http://images-zjj.test.upcdn.net/template.mp4"
 					type="video/mp4"
 				/>
 			</video>
@@ -54,9 +54,9 @@
 				<div class="comment-container">
 					<div class="comment-title">站内留言板</div>
 
-					<ClientOnly>
+					<!-- <ClientOnly>
 						<comment class="comment"></comment>
-					</ClientOnly>
+					</ClientOnly> -->
 					
 
 					<ClientOnly>
