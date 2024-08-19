@@ -3,7 +3,7 @@
 		<div class="video-container" v-cloak>
 			<video v-if="!curDeviceIsMobile" class="logo-video" autoplay preload="auto" loop muted>
 				<source
-					src="http://images-zjj.test.upcdn.net/template.mp4"
+					src="https://zhangjunjie.pages.dev/template.mp4"
 					type="video/mp4"
 				/>
 			</video>
