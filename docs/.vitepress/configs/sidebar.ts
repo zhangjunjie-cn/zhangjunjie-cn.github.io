@@ -49,14 +49,14 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
   ].map((item, i) => (!i ? item : { ...item, collapsed: true })),
 
   "/笔记/计算机网络/": [
-    {
-      text: "网工",
-      collapsed: true,
-      items: [
-        { text: "网工", link: "/笔记/计算机网络/网工" },
+    // {
+    //   text: "网工",
+    //   collapsed: true,
+    //   items: [
+    //     { text: "网工", link: "/笔记/计算机网络/网工" },
 
-      ]
-    },
+    //   ]
+    // },
     {
       text: "桌面运维",
       collapsed: false,
@@ -78,12 +78,14 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
       text: "",
       collapsed: false,
       items: [
+        { text: "下一代的网管躲坑手册", link: "/hengan/studio" },
         { text: "网络共享打印机终极解决方案", link: "/hengan/print" },
         { text: "网络共享文件服务器教程", link: "/hengan/share" },
         { text: "局域网疑难大纲", link: "/hengan/netlink" },
         { text: "sap登录问题", link: "/hengan/sap" },
         { text: "解决电脑网络错误", link: "/hengan/net-error" },
         // { text: "网络共享文件服务器教程", link: "/hengan/share" },
+        
       ]
     }
   ].map((item, i) => (!i ? item : { ...item, collapsed: true })),
