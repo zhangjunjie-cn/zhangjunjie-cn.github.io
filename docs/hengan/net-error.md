@@ -4,13 +4,12 @@ tag: '网络修复'
 outline: [2,3]
 ---
 
-# 解决电脑网络错误
-
+# 解决电脑有线网络问题
 
 > [!note] 操作
 > <kbd data-windows-keyboard-key="windows">Win</kbd> + <kbd>R</kbd> 键在左下角出现的运行框中，输入 <mark>cmd</mark>， 在弹出的终端中输入 <mark>ipconfig /release</mark> 。
 > <p/>
-> 再输入 <mark>ipconfig/release</mark> 回车 , 会断开之前的IP地址重新获取一个。
+> 再输入 <mark>ipconfig /renew</mark> 回车 , 会断开之前的IP地址重新获取一个。
 
 <img src="https://gitee.com/zhangjunjiee/article-images/raw/master/images/202408252050618.png"/>
 

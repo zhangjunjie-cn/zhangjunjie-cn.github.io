@@ -15,13 +15,15 @@ outline: [2,3]
 
 ---
 
-##  请仔细比较这张图
+##  请与这张图相对比
 
 <img src="https://gitee.com/zhangjunjiee/article-images/raw/master/images/202408251625453.png"/>
 
+::: warning
 - IPv4 地址范围应该是  &emsp; 172.20.80.50 ~ 172.20.81.255
 - 默认网关应该是 &emsp;&emsp;&emsp;&nbsp; 172.20.83.254
 - DNS服务器应该是 &emsp;&emsp;&nbsp; 192.168.0.15 或 192.168.0.16
+:::
 
 ## 问题1：IP 地址不在上述范围
 
@@ -36,26 +38,20 @@ DNS 服务器地址是192.168.0.15 或 192.168.0.16，是用来寻找内网系�
 解决方案：[🔗DNS设置](./dns)
 
 
-## 问题3：没有以上问题，但访问不了OA
+## 问题3：没有以上问题，但访问不了OA和Lims系统
 
-解决方案：
+解决方案：[🔗host设置](./host)
 
-## 问题4：SAP 无法登录且弹窗错误
+## 问题4：SAP 无法登录且弹窗错误（同上）
 
-解决方案：
-
-
+解决方案：[🔗host设置](./host)
 
 
 
 
-> [!note] 操作
-> <kbd data-windows-keyboard-key="windows">Win</kbd> + <kbd>R</kbd> 键在左下角出现的运行框中，输入 <mark>cmd</mark>， 在弹出的终端中输入 <mark>nslookup oa.hengan.com</mark> 。
-> 
 
-<img src="https://gitee.com/zhangjunjiee/article-images/raw/master/images/202408252027732.png"/>
 
-解决方案：
+
 
 
 
