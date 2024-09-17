@@ -35,6 +35,7 @@ const pwa: Partial<VitePWAOptions> = {
   },
   workbox: {
     globPatterns: ["**/*.{css,js,html,svg,png,ico,txt,woff2}"],
+    maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
     runtimeCaching: [
       {
         urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
