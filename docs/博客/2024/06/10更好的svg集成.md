@@ -1,7 +1,11 @@
 ---
-createTime: 2024/06/10
-tag: 'Excel优化'
+createtime: 2024/06/10
+title: 更好的svg集成
 outline: [2,3]
+categories:
+ - 博客
+tags:
+ - 建站
 ---
 
 # 更好的svg集成

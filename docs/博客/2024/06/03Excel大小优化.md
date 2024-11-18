@@ -1,7 +1,11 @@
 ---
-createTime: 2024/06/02
-tag: 'Excel优化'
+createtime: 2024/06/02
+title: Excel文件大小优化
 outline: [2,3]
+categories:
+ - 博客
+tags:
+ - WORK
 ---
 # Excel文件大小优化
 ---

@@ -1,6 +1,17 @@
 ---
-createTime: 
-tag: '目录,笔记'
+title: MySQL安装与配置
+createtime: 2022/10/22 21:25
+isTop: true
+tags:
+ - MySQL
+ - Linux
+categories:
+ - MySQL快速入门
+collapsed: false
+# showArticleMetadata: false
+# editLink: false
+# lastUpdated: false
+# showComment: false
 ---
 # Daily Notes 日常笔记
 

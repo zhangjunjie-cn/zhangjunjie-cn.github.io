@@ -1,4 +1,15 @@
+---
 
+createtime: 2024/1/25
+title: gym互联网相关资料
+outline: [2,3]
+isTop: true
+categories:
+ - 笔记
+tags:
+ - Sinergym项目
+
+---
 # gym互联网相关资料
 
 ### 1. [强化学习系列案例 | 强化学习实验环境Gym和TensorFlow ](https://cloud.tencent.com/developer/article/1619441) 

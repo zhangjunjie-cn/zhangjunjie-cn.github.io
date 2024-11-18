@@ -1,3 +1,13 @@
+---
+createtime: 2024/6/10
+title: gitee pages 部署脚本
+outline: [2,3]
+categories:
+ - 笔记
+tags:
+ - 网工
+---
+
 # gitee pages 部署脚本
 
 不用质疑，用git base here在项目目录下(docs父级文件路径)，执行 `sh deploy.sh` 命令即可!

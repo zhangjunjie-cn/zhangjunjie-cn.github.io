@@ -12,6 +12,10 @@ import { TDesignResolver } from 'unplugin-vue-components/resolvers';
 
 import { withPwa } from "@vite-pwa/vitepress";
 import pwa from "./theme/composables/pwa";
+import AutoSidebarPlugin from 'vitepress-auto-sidebar-plugin'
+import { ArcoResolver } from 'unplugin-vue-components/resolvers';
+
+
 
 import { 
   GitChangelog, 
@@ -58,7 +62,7 @@ export default withPwa(
       siteTitle: false,
 
       nav,
-      sidebar,
+      // sidebar,
       /* 右侧大纲配置 */
       outline: {
         level: "deep",
@@ -74,8 +78,17 @@ export default withPwa(
         copyright: "Copyright © 2024-present maomao 、justin3go and 冴羽 ...",
       },
 
+      // 自定义扩展: 文章元数据配置
+      // @ts-ignore
+      articleMetadataConfig: {
+        author: '张俊杰', // 文章全局默认作者名称
+        authorLink: '/about/me', // 点击作者名时默认跳转的链接
+        showViewCount: false, // 是否显示文章阅读数, 需要在 docs/.vitepress/theme/api/config.js 及 interface.js 配置好相应 API 接口
+      },
+
       darkModeSwitchLabel: "外观",
       returnToTopLabel: "返回顶部",
+      // sidebarMenuLabel: '文章',
       lastUpdatedText: "上次更新",
 
       /* Algolia DocSearch 配置 */
@@ -101,6 +114,15 @@ export default withPwa(
         },
       },
 
+      // 404
+      notFound: {
+        title: '找不到页面',
+        quote: '页面不见了，也许它去找寻新的冒险了！',
+        linkLabel: '返回首页重新探索',
+        linkText: '返回首页',
+        code: '404'
+      },
+
       docFooter: {
         prev: "上一篇",
         next: "下一篇",
@@ -112,6 +134,13 @@ export default withPwa(
     vite: {
 
       plugins: [
+        //自动生成侧边栏
+        AutoSidebarPlugin({
+          // 如果不指定 `srcDir`，则默认使用 `vitepress` 的 `srcDir`
+          srcDir: './docs',
+          ignoreList: ['**/hengan/**','**/docs/**'],
+        }),
+
         // ...
         AutoImport({
           resolvers: [TDesignResolver({
@@ -119,16 +148,29 @@ export default withPwa(
           })],
         }),
         Components({
-          resolvers: [TDesignResolver({
-            library: 'vue-next'
-          })],
+          //自动加载 components 下的vue文件为组件，省去import 导入。
+          // dirs: ['.vitepress/theme/components'],
+          // include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+          resolvers: [
+            TDesignResolver({
+              library: 'vue-next'
+            }),
+            ArcoResolver({
+              sideEffect: true,
+              resolveIcons: true
+            })
+          ],
+          
+          
         }),
 
         GitChangelog({ 
           // 填写在此处填写您的仓库链接
           repoURL: () => 'https://github.com/nolebase/integrations', 
         }), 
-        GitChangelogMarkdownSection(), 
+        GitChangelogMarkdownSection({ 
+          exclude: (id) => id.endsWith('index.md','tags.md','archives.md'), 
+        }), 
 
         // gzip 和 brotli 压缩
         viteCompression({
@@ -148,6 +190,7 @@ export default withPwa(
 
       ],
 
+
       optimizeDeps: {
         exclude: [ 
           '@nolebase/vitepress-plugin-enhanced-readabilities/client', 
@@ -156,11 +199,15 @@ export default withPwa(
 
       //naive ui 不作为外部依赖处理，在客户端渲染，不在服务端渲染，进入页面会更快。
       ssr: {
-        noExternal: ['naive-ui', 'date-fns', 'vueuc', 'vue-echarts', 'echarts', 'zrender',
-        'resize-detector', 
-        "@nolebase/vitepress-plugin-inline-link-preview",
-        '@nolebase/vitepress-plugin-enhanced-readabilities']
+        noExternal: process.env.NODE_ENV === 'production'
+          ? ['naive-ui', 'date-fns', 'vueuc', 'vue-echarts', 'echarts', 'zrender', 'resize-detector','@arco-design/web-vue','@nolebase/vitepress-plugin-enhanced-readabilities','@nolebase/vitepress-plugin-inline-link-preview']
+          : []
       }
+    },
+    resolve: {
+      alias: process.env.NODE_ENV === 'development'
+        ? { 'mermaid': 'mermaid/dist/mermaid.esm.mjs' }
+        : {},
     },
 
     postRender(context) {
@@ -203,6 +250,6 @@ export default withPwa(
 
   
   
-})
+  })
 );
 

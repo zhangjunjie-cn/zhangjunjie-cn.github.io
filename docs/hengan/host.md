@@ -1,7 +1,12 @@
 ---
-createTime: 2024/09/03
-tag: '网络修复'
+title: 解决内网系统问题
+createtime: 2024/09/30
 outline: [2,3]
+isTop: true
+categories:
+ - hengan
+tags:
+ - WORK
 ---
 # 解决内网系统问题
 

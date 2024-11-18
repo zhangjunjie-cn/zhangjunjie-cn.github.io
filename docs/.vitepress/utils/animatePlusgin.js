@@ -38,7 +38,7 @@ export function animateFn() {
 			entries.forEach(entry => {
 				if (entry.isIntersecting && !checkHasAttribute(item)) {
 					// 元素进入视口
-					addAnimate(item)
+					// addAnimate(item)
 					item.setAttribute('data-snow_is_show', true)
 				}
 			})

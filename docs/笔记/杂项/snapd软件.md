@@ -1,7 +1,15 @@
 ---
-createTime: 2024/2/22
-tag: 'Linux系统,实践'
+createtime: 2024/2/22
+title: snapd安装软件
+outline: [2,3]
+isTop: true
+categories:
+ - 笔记
+tags:
+ - Linux
+
 ---
+# snapd安装软件
 
 [snapd安装软件](https://zhuanlan.zhihu.com/p/639665168)
 

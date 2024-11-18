@@ -3,9 +3,10 @@ layout: home
 layoutClass: 'm-dcos-layout'
 
 hero:
-  name: 博客物语
-  text: 张俊杰的docs
-  tagline: 这一定是你见过全网最好的vitepress。
+  name: 冬日可爱，夏日可畏
+  text: 张俊杰的
+  textsuffix: 'docs'
+  tagline: 做最好的viterpress个人文档。
   image:
     src: /logo.png
     alt: 茂茂物语
@@ -49,13 +50,14 @@ features:
     details: '<small class="bottom-small">一个想躺平的小开发</small>'
     link: 
 ---
+<Home />
 
 <style>
 /*爱的魔力转圈圈*/
-.m-home-layout .image-src:hover {
+/* .m-home-layout .image-src:hover {
   transform: translate(-50%, -50%) rotate(666turn);
   transition: transform 59s 1s cubic-bezier(0.3, 0, 0.8, 1);
-}
+} */
 
 .m-home-layout .details small {
   opacity: 0.8;

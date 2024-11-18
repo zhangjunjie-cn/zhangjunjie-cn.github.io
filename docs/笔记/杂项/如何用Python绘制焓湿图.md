@@ -1,3 +1,14 @@
+---
+createtime: 2024/2/22
+title: 有了特定地区的EPW气象文件，如何通过python来绘制焓湿图
+outline: [2,3]
+isTop: true
+categories:
+ - 笔记
+tags:
+ - Linux
+
+---
 # 有了特定地区的EPW气象文件，如何通过python来绘制焓湿图
 
 要通过Python绘制特定地区的EPW气象文件的焓湿图，你可以使用以下步骤：

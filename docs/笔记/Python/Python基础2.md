@@ -1,3 +1,15 @@
+---
+
+createtime: 2024/1/25
+title: Python 基础2
+outline: [2,3]
+isTop: true
+categories:
+ - 笔记
+tags:
+ - Python
+
+---
 ## 1. Python math 模块、cmath 模块 
 Python 中数学运算常用的函数基本都在 math 模块、cmath 模块中。
 

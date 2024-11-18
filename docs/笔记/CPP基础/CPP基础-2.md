@@ -1,8 +1,14 @@
 ---
-createTime: 2024/1/25
-tag: 'C++基础,面试'
----
+createtime: 2024/1/25
+title: C++语言基础-2
+outline: [2,3]
+isTop: true
+categories:
+ - 笔记
+tags:
+ - C++
 
+---
 # C++语言基础-2
 
 ## 1.1.13 说说什么是野指针，怎么产生的，如何避免？

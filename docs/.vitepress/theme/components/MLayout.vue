@@ -8,12 +8,19 @@ import imageViewer from "./imageViewer.vue"
 import MNavVisitor from './MNavVisitor.vue'
 import ValineComment from './ValineComment.vue'
 
+//链接卡片
+import { ShareButton } from '@theojs/lumen'
+
 import { 
   NolebaseEnhancedReadabilitiesMenu, 
   NolebaseEnhancedReadabilitiesScreenMenu, 
 } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 
 import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
+
+//侧边栏链接
+import { DocAsideLogo } from '@theojs/lumen'
+import { Aside_Data } from '../composables/AsideData'
 
 const { Layout } = DefaultTheme
 const { isDark} = useData()
@@ -97,12 +104,27 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
       
     </template>
 
+    <!-- 链接卡片 -->
+    <template #aside-outline-before>
+      <ClientOnly>
+        <ShareButton />
+      </ClientOnly>
+      
+    </template>
+
     <!-- 右下加广告 -->
-    <template #aside-ads-before>
+    <!-- <template #aside-ads-before>
       <ClientOnly>
         <MAsideSponsors />
       </ClientOnly>
-      
+    </template> -->
+
+
+    <!-- 右下加广告 -->
+    <template #aside-ads-before>
+      <ClientOnly>
+        <DocAsideLogo :Aside_Data="Aside_Data" />
+      </ClientOnly>
     </template>
 
     <!-- 更好的图片窗格 -->
@@ -114,12 +136,12 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
     </template>
 
     <!-- 为较宽的屏幕的导航栏添加阅读增强菜单 -->
-    <template #nav-bar-content-after>
+    <!-- <template #nav-bar-content-after>
       <ClientOnly>
         <NolebaseEnhancedReadabilitiesMenu />
       </ClientOnly>
       
-    </template>
+    </template> -->
 
     <!-- 更好的为较窄的屏幕（通常是小于 iPad Mini）添加阅读增强菜单图片窗格 -->
     <template #nav-screen-content-after>

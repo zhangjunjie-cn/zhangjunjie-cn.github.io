@@ -1,6 +1,13 @@
 ---
-createTime: 2024/2/22
-tag: 'Linux系统,实践'
+createtime: 2024/2/22
+title: 安装ubuntu版本的idea教程
+outline: [2,3]
+isTop: true
+categories:
+ - 笔记
+tags:
+ - Linux
+
 ---
 # 安装ubuntu版本的idea教程
 

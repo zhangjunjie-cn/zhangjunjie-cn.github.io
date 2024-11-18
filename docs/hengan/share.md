@@ -1,7 +1,12 @@
 ---
-createTime: 2024/07/31
-tag: '网络文件服务器'
+title: 💬 映射内网文件共享服务器
+createtime: 2024/07/31
 outline: [2,3]
+isTop: true
+categories:
+ - hengan
+tags:
+ - WORK
 ---
 
 # 💬 映射内网文件共享服务器

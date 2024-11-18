@@ -1,3 +1,15 @@
+---
+
+createtime: 2024/1/25
+title: Python入门
+outline: [2,3]
+isTop: true
+categories:
+ - 笔记
+tags:
+ - Python
+
+---
 ## 在Linux脚本中使用#!
 
 在Linux中，你可以将Python程序转换为自我可执行的脚本。代码中的第一条语句应该是一个#! 。它必须包含到Python可执行文件的路径。在Linux中，Python安装在/usr/bin目录下，可执行文件的名称是python3。因此，我们将这个语句添加到hello.py文件中。

@@ -1,6 +1,13 @@
 ---
-createTime: 2024/1/25
-tag: 'C++进阶,面试'
+createtime: 2024/1/25
+title: Linux系统编程
+outline: [2,3]
+isTop: true
+categories:
+ - 笔记
+tags:
+ - Linux
+
 ---
 
 # Linux系统编程

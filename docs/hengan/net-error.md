@@ -1,7 +1,12 @@
 ---
-createTime: 2024/08/25
-tag: '网络修复'
+title: 解决电脑有线网络问题
+createtime: 2024/08/25
 outline: [2,3]
+isTop: true
+categories:
+ - hengan
+tags:
+ - WORK
 ---
 
 # 解决电脑有线网络问题

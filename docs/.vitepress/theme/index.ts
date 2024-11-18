@@ -9,7 +9,8 @@ import { setup } from '@css-render/vue3-ssr'
 import { useRoute } from 'vitepress'
 
 import MNavLinks from "./components/MNavLinks.vue";
-import ArticleMetadata from "./components/ArticleMetadata.vue";
+import ArticleMetadata1 from "./components/ArticleMetadata1.vue";
+import Archive from "./components/Archive.vue";
 // import AlanViteComponent from "@xiaomh/vue3-alan-vite-component";
 
 import "vitepress-markdown-timeline/dist/theme/index.css";
@@ -18,6 +19,9 @@ import "vitepress-markdown-timeline/dist/theme/index.css";
 // import 'vitepress-plugin-back-to-top/dist/style.css'
 
 // import "@xiaomh/vue3-alan-vite-component/lib/style.css";
+
+//主题色
+import '@theojs/lumen/theme'
 
 //白昼切换布局
 import MLayout from './components/MLayout.vue'
@@ -38,6 +42,11 @@ import {
 } from '@nolebase/vitepress-plugin-git-changelog/client'
 
 import '@nolebase/vitepress-plugin-git-changelog/client/style.css'
+
+
+
+//链接卡片
+import { DocBox, DocLinks, DocBoxCube, HomeUnderline } from '@theojs/lumen'
 
 import {
 	initFirstScreen,
@@ -172,9 +181,19 @@ export default {
     app.component("MNavLinks", MNavLinks);
     // app.component("MyLayout", MyLayout);
     // app.component("CustomLayout", CustomLayout);
-    app.component("ArticleMetadata", ArticleMetadata); //作者来源
+    app.component("ArticleMetadata1", ArticleMetadata1); //作者来源
     // app.use(AlanViteComponent);
     app.provide("DEV", process.env.NODE_ENV === "development");
+
+    //链接卡片
+    app.component('Box', DocBox)
+    app.component('Links', DocLinks)
+    app.component('BoxCube', DocBoxCube)
+
+    //首页下划线
+    app.component('Home', HomeUnderline) 
+
+
 
     //ECharts
     app.component('Test', x);
@@ -202,31 +221,34 @@ export default {
 
 
     //live2D
-    if (!import.meta.env.SSR) {
-      const { loadOml2d } = await import('oh-my-live2d');
-      loadOml2d({
-        models: [
-          {
-            path: 'https://model.kisssssssss.space/https://raw.githubusercontent.com/kisssssssss/model/main/live2d/StarRail/%E7%AC%A6%E7%8E%84/%E7%AC%A6%E7%8E%84.model3.json',
+    // if (!import.meta.env.SSR) {
+    //   const { loadOml2d } = await import('oh-my-live2d');
+    //   loadOml2d({
+    //     models: [
+    //       {
+    //         path: 'https://model.kisssssssss.space/https://raw.githubusercontent.com/kisssssssss/model/main/live2d/StarRail/%E7%AC%A6%E7%8E%84/%E7%AC%A6%E7%8E%84.model3.json',
 
-            //https://raw.githubusercontent.com/<用户名>/<仓库名>/<分支名>/<文件路径>
 
-            // path: 'https://model.kisssssssss.space/https://raw.githubusercontent.com/zhangjunjie-cn/live2d-model/main/%E7%AC%A6%E7%8E%84/%E7%AC%A6%E7%8E%84.model3.json',
-            position: [-20, 60],
-            mobilePosition: [80, 80],
-            scale: 0.047,
-            mobileScale: 0.06,
-            stageStyle: {
-              height: 450,
-            },
-            mobileStageStyle: {
-              height: 370,
-              width: 400,
-            },
-          }
-        ]
-      });
-    }
+
+
+    //         //https://raw.githubusercontent.com/<用户名>/<仓库名>/<分支名>/<文件路径>
+
+    //         // path: 'https://model.kisssssssss.space/https://raw.githubusercontent.com/zhangjunjie-cn/live2d-model/main/%E7%AC%A6%E7%8E%84/%E7%AC%A6%E7%8E%84.model3.json',
+    //         position: [-20, 60],
+    //         mobilePosition: [80, 80],
+    //         scale: 0.047,
+    //         mobileScale: 0.06,
+    //         stageStyle: {
+    //           height: 450,
+    //         },
+    //         mobileStageStyle: {
+    //           height: 370,
+    //           width: 400,
+    //         },
+    //       }
+    //     ]
+    //   });
+    // }
 
     // vitepressBackToTop({
     //   // default

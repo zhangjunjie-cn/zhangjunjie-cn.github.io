@@ -1,6 +1,14 @@
 ---
-createTime: 2024/1/25
-tag: 'C++基础,面试'
+
+createtime: 2024/1/25
+title: C++语言基础-1
+outline: [2,3]
+isTop: true
+categories:
+ - 笔记
+tags:
+ - C++
+
 ---
 # C++语言基础-1
 

@@ -1,3 +1,17 @@
+---
+
+createtime: 2024/1/25
+title: sinergym学习
+outline: [2,3]
+isTop: true
+categories:
+ - 笔记
+tags:
+ - Sinergym项目
+
+---
+
+
 # sinergym学习
 - https://ugr-sail.github.io/sinergym/compilation/main/pages/installation.html
 

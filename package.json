@@ -25,13 +25,16 @@
     "lint": "prettier --write ."
   },
   "devDependencies": {
+    "@arco-design/web-vue": "^2.53.3",
     "@css-render/vue3-ssr": "^0.15.14",
     "@femm/prettier": "^1.0.1",
     "@femm/verify-commit": "^1.0.1",
     "@mdit-vue/shared": "^0.12.0",
-    "@nolebase/vitepress-plugin-enhanced-readabilities": "^2.4.0",
-    "@nolebase/vitepress-plugin-git-changelog": "^2.4.0",
-    "@nolebase/vitepress-plugin-inline-link-preview": "^2.4.0",
+    "@mdit/plugin-figure": "^0.13.1",
+    "@nolebase/vitepress-plugin-enhanced-readabilities": "^2.9.0",
+    "@nolebase/vitepress-plugin-git-changelog": "^2.9.0",
+    "@nolebase/vitepress-plugin-inline-link-preview": "^2.9.0",
+    "@types/blueimp-md5": "^2.18.2",
     "@types/node": "^18.13.0",
     "cross-env": "^7.0.3",
     "echarts": "5.4.3",
@@ -44,6 +47,7 @@
     "unplugin-vue-components": "^0.26.0",
     "vite-plugin-compression": "^0.5.1",
     "vitepress": "v1.3.2",
+    "vitepress-auto-sidebar-plugin": "^0.2.4",
     "vue": "^3.4.35",
     "vue-echarts": "6.6.1"
   },
@@ -53,6 +57,8 @@
     ]
   },
   "dependencies": {
+    "@antv/g2plot": "2.4.31",
+    "@theojs/lumen": "^4.0.0",
     "@vite-pwa/vitepress": "^0.5.0",
     "animate.css": "^4.1.1",
     "blueimp-md5": "^2.19.0",
@@ -67,5 +73,12 @@
     "vite-plugin-pwa": "^0.20.1",
     "vitepress-markdown-timeline": "^1.2.1",
     "vitepress-plugin-codeblocks-fold": "^1.2.28"
+  },
+  "pnpm": {
+    "overrides": {
+      "@antv/g-base": "0.5.11",
+      "@antv/path-util": "2.0.15",
+      "@antv/attr": "0.3.5"
+    }
   }
 }

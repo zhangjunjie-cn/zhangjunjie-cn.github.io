@@ -1,3 +1,15 @@
+---
+
+createtime: 2024/1/25
+title: Python 基础
+outline: [2,3]
+isTop: true
+categories:
+ - 笔记
+tags:
+ - Python
+
+---
 # Python 基础
 
 ::: tip 头文件

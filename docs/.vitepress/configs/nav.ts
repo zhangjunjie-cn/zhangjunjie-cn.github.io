@@ -6,7 +6,7 @@ export const nav: DefaultTheme.Config["nav"] = [
   {
     text: "笔记",  
     items:[
-      {text: "入门", link:"/笔记/入门/01起步"},
+      {text: "入门", link:"/笔记/入门/index"},
       {text: "CPP编程⬇️", 
         items:[
           {text: "C++基础", link: "/笔记/index"},
@@ -37,7 +37,18 @@ export const nav: DefaultTheme.Config["nav"] = [
     ],
     activeMatch: "^/博客",
   },
-  
+
+  {
+    text: '我的标签',
+    link: '/tags',
+    activeMatch: '/tags'
+  },
+  {
+    text: '我的归档',
+    link: '/archives',
+    activeMatch: '/archives'
+  },
+ 
   
   {
     text: "docs",  link: "/docs/index"

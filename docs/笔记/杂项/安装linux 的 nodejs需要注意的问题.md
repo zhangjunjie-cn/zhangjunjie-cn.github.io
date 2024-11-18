@@ -1,6 +1,13 @@
 ---
-createTime: 2024/2/22
-tag: 'Linux系统,实践'
+createtime: 2024/2/22
+title: Ubuntu 下 更新默认 nodejs/npm 版本至最新版本
+outline: [2,3]
+isTop: true
+categories:
+ - 笔记
+tags:
+ - Linux
+
 ---
 # Ubuntu 下 更新默认 nodejs/npm 版本至最新版本
 

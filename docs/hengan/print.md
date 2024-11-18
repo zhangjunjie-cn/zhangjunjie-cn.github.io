@@ -1,7 +1,12 @@
 ---
-createTime: 2024/07/28
-tag: '网络打印机'
+title: 打印机共享解决方案
+createtime: 2024/07/28
 outline: [2,3]
+isTop: true
+categories:
+ - hengan
+tags:
+ - WORK
 ---
 
 # 打印机共享解决方案

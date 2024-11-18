@@ -1,7 +1,16 @@
 ---
-createTime: 2024/2/22
-tag: 'Linux系统,实践'
+createtime: 2024/2/22
+title: ubuntu安装软件教程
+outline: [2,3]
+isTop: true
+categories:
+ - 笔记
+tags:
+ - Linux
+
 ---
+
+# ubuntu安装软件教程
 
 ## 卸载
 

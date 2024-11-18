@@ -1,3 +1,16 @@
+---
+
+createtime: 2024/1/25
+title: 安装Openstudio
+outline: [2,3]
+isTop: true
+categories:
+ - 笔记
+tags:
+ - EnergyPlus
+
+---
+
 ## 1.安装Openstudio
 
 安装 `OpenStudioApplication-1.7.0+b070178884-Ubuntu22.04`，会报缺少依赖
