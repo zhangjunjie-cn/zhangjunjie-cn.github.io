@@ -136,12 +136,11 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
     </template>
 
     <!-- 为较宽的屏幕的导航栏添加阅读增强菜单 -->
-    <!-- <template #nav-bar-content-after>
+    <template #nav-bar-content-after>
       <ClientOnly>
         <NolebaseEnhancedReadabilitiesMenu />
       </ClientOnly>
-      
-    </template> -->
+    </template>
 
     <!-- 更好的为较窄的屏幕（通常是小于 iPad Mini）添加阅读增强菜单图片窗格 -->
     <template #nav-screen-content-after>

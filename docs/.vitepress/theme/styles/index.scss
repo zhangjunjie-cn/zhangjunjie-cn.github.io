@@ -1,9 +1,9 @@
-@import './rainbow.scss';
-@import './vars.scss';
-@import './overrides.scss';
+@use './rainbow.scss';
+@use './vars.scss';
+@use './overrides.scss';
 // @import './medium-zoom.scss';
-@import './linkcard.scss';
-@import './kbd.scss';
+@use './linkcard.scss';
+@use './kbd.scss';
 
 /* 首页不需要padding，其他页面需要 */
 .VPContent {

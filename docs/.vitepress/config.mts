@@ -169,7 +169,7 @@ export default withPwa(
           repoURL: () => 'https://github.com/nolebase/integrations', 
         }), 
         GitChangelogMarkdownSection({ 
-          exclude: (id) => id.endsWith('index.md','tags.md','archives.md'), 
+          exclude: (id) => id.endsWith('index.md','tags.md','archives.md','nav.md'), 
         }), 
 
         // gzip 和 brotli 压缩

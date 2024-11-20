@@ -44,7 +44,6 @@ import {
 import '@nolebase/vitepress-plugin-git-changelog/client/style.css'
 
 
-
 //链接卡片
 import { DocBox, DocLinks, DocBoxCube, HomeUnderline } from '@theojs/lumen'
 
@@ -53,6 +52,10 @@ import {
 	destructionObserver,
 	animateFn,
 } from '../utils/animatePlusgin'
+
+
+// import '@theojs/lumen/doc-blocks-border'
+
 
 if (typeof window !== "undefined") {
   /* 注销 PWA 服务 */
