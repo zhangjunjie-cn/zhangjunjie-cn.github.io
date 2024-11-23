@@ -29,6 +29,7 @@
     "@css-render/vue3-ssr": "^0.15.14",
     "@femm/prettier": "^1.0.1",
     "@femm/verify-commit": "^1.0.1",
+    "@luckrya/markdown-it-link-to-card": "^0.3.3",
     "@mdit-vue/shared": "^0.12.0",
     "@mdit/plugin-figure": "^0.13.1",
     "@nolebase/vitepress-plugin-enhanced-readabilities": "^2.9.0",

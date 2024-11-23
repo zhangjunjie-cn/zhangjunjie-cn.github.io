@@ -74,6 +74,9 @@ importers:
       '@femm/verify-commit':
         specifier: ^1.0.1
         version: 1.0.1
+      '@luckrya/markdown-it-link-to-card':
+        specifier: ^0.3.3
+        version: 0.3.3
       '@mdit-vue/shared':
         specifier: ^0.12.0
         version: 0.12.1
@@ -1211,6 +1214,12 @@ packages:
   '@ljharb/through@2.3.13':
     resolution: {integrity: sha512-/gKJun8NNiWGZJkGzI/Ragc53cOdcLNdzjLaIa+GEjguQs0ulsurx8WN0jijdK9yPqDvziX995sMRLyLt1uZMQ==}
     engines: {node: '>= 0.4'}
+
+  '@luckrya/markdown-it-link-to-card@0.3.3':
+    resolution: {integrity: sha512-rvNeV7x1j1TN++au10wMyzbT3GiumMVt61DiJ++jTJeAZsdBIL4ORN/o5uqF01IAlHUWVXKGUpHRaZXqxatKdg==}
+
+  '@luckrya/utility@0.1.1':
+    resolution: {integrity: sha512-TWkgqawyVdaDnPBeOGJTJfI32isrG/t4e4R0Vf2LBMvU2stSDCnJUblKJhcgL9O5EQRb5TBwWj2Pyzc209tQyA==}
 
   '@mdit-vue/shared@0.12.1':
     resolution: {integrity: sha512-bXgd0KThe4jC2leCFDFsyrudXIckvTwV4WnQK/rRMrXq0/BAuVdSNdIv1LGCWZxD5+oDyPyEPd0lalTIFwqsmg==}
@@ -4409,6 +4418,10 @@ packages:
       utf-8-validate:
         optional: true
 
+  xmlhttprequest@1.8.0:
+    resolution: {integrity: sha512-58Im/U0mlVBLM38NdZjHyhuMtCqa61469k2YP/AaPbvCoV9aQGUpbJBj1QRm2ytRiVQBD/fsw7L2bJGDVQswBA==}
+    engines: {node: '>=0.4.0'}
+
   xss@1.0.15:
     resolution: {integrity: sha512-FVdlVVC67WOIPvfOwhoMETV72f6GbW7aOabBC3WxN/oUdoEMDyLz4OgRv5/gck2ZeNqEQu+Tb0kloovXOfpYVg==}
     engines: {node: '>= 0.10.0'}
@@ -5830,6 +5843,13 @@ snapshots:
   '@ljharb/through@2.3.13':
     dependencies:
       call-bind: 1.0.7
+
+  '@luckrya/markdown-it-link-to-card@0.3.3':
+    dependencies:
+      '@luckrya/utility': 0.1.1
+      xmlhttprequest: 1.8.0
+
+  '@luckrya/utility@0.1.1': {}
 
   '@mdit-vue/shared@0.12.1':
     dependencies:
@@ -9467,6 +9487,8 @@ snapshots:
   ws@5.2.4:
     dependencies:
       async-limiter: 1.0.1
+
+  xmlhttprequest@1.8.0: {}
 
   xss@1.0.15:
     dependencies:

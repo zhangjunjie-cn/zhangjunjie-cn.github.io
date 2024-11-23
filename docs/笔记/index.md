@@ -11,6 +11,7 @@ tags:
 ---
 
 
+
 ## 2024年一月
 
 1. 2024-01-25 ——— [C++进阶- 线程](https://zhangjunjiee.gitee.io/博客/2024/01/25C++进阶-线程)  
@@ -32,47 +33,7 @@ tags:
 
 使用 Valine 插件进行评论留言，您可以留下自己的评论。
 
+<!-- [https://github.com/chodocs/chodocs](https://github.com/chodocs/chodocs) -->
+
 <!--@include: ./入门/01起步.md-->
 
-<script>
-import { NBackTop } from 'naive-ui'
-</script>
-
-<NBackTop :right="100" />
-<NBackTop :bottom="100" :visibility-height="300">
-    <div
-      style="
-        width: 200px;
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
-        font-size: 14px;
-      "
-    >
-      可视高度：300px
-    </div>
-  </NBackTop>
-
-<NBackTop :right="40" :bottom="160">
-    <div
-      style="
-        width: 200px;
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
-        font-size: 14px;
-      "
-    >
-      改变位置
-    </div>
-  </NBackTop>
-
-
-<style module>
-.carousel-img {
-  margin: 0 auto;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-</style>

@@ -7,7 +7,7 @@ import MAsideSponsors from "./MAsideSponsors.vue";
 import imageViewer from "./imageViewer.vue"
 import MNavVisitor from './MNavVisitor.vue'
 import ValineComment from './ValineComment.vue'
-
+import backtotop from './backtotop.vue';
 //链接卡片
 import { ShareButton } from '@theojs/lumen'
 
@@ -124,6 +124,13 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
     <template #aside-ads-before>
       <ClientOnly>
         <DocAsideLogo :Aside_Data="Aside_Data" />
+      </ClientOnly>
+    </template>
+
+    <!-- 返回顶部 -->
+    <template #doc-footer-before>
+      <ClientOnly>
+        <backtotop />
       </ClientOnly>
     </template>
 

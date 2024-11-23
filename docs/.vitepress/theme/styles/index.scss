@@ -4,6 +4,8 @@
 // @import './medium-zoom.scss';
 @use './linkcard.scss';
 @use './kbd.scss';
+@import './vp-code-group.css';
+@import './vp-code.css';
 
 /* 首页不需要padding，其他页面需要 */
 .VPContent {
@@ -41,13 +43,13 @@ div.has-active{
 //引用色
 /* .vitepress\theme\style\var.css */
 /* 引用块 */
-.vp-doc blockquote {
-	border-radius: 5px;
-	padding: 10px 16px;
-	background-color: var(--vp-badge-danger-bg);
-	position: relative;
-	border-left: 4px solid #e95f59;
-}
+// .vp-doc blockquote {
+// 	border-radius: 5px;
+// 	padding: 10px 16px;
+// 	background-color: var(--vp-badge-danger-bg);
+// 	position: relative;
+// 	border-left: 4px solid #e95f59;
+// }
 
 //最新版，nav变色
 // .VPFlyout:hover{
