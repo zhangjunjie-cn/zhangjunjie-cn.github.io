@@ -56,7 +56,7 @@
         </svg>
       </span>
       <time class="meta-content"
-            :date="frontmatter?.createTime || date.toISOString()"
+            :date="frontmatter?.createtime || date.toISOString()"
             :title="dayjs().to(dayjs(date))">{{ date.toLocaleString('zh', {
                 year: 'numeric', month: 'numeric', day:
                   'numeric', hour: 'numeric', minute: 'numeric'
@@ -146,7 +146,7 @@ const data = reactive({
   showViewCount: theme.value.articleMetadataConfig?.showViewCount ?? false,
   viewCount: 0,
   link: frontmatter?.value?.link ||  'https://github.com/zhangjunjie-cn',
-  date: frontmatter?.value?.createTime || new Date(),
+  date: frontmatter?.value?.createtime || new Date(),
   categories: props.article?.categories ?? [],
   tags: props.article?.tags ?? [],
   showCategory: props.showCategory

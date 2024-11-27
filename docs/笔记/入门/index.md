@@ -1,5 +1,5 @@
 ---
-createtime: 2024/6/10
+createtime: 2024/6/10 20:37
 title: gitee pages 部署脚本
 outline: [2,3]
 categories:
