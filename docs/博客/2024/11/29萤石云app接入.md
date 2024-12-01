@@ -20,13 +20,15 @@ tags:
 ![设置视频密码](https://gitee.com/zhangjunjiee/article-images/raw/master/images/202411292320484.png)
 
 
-![打开萤石App](https://gitee.com/zhangjunjiee/article-images/raw/master/images/202411292348550.png)
+<!-- ![打开萤石App](https://gitee.com/zhangjunjiee/article-images/raw/master/images/202411292348550.png)
 
 ![菜单 - 我的](https://gitee.com/zhangjunjiee/article-images/raw/master/images/202411292348808.png)
 
 ![个人信息设置](https://gitee.com/zhangjunjiee/article-images/raw/master/images/202411292349025.png)
 
-![记住用户令牌](https://gitee.com/zhangjunjiee/article-images/raw/master/images/202411292349985.png)
+![记住用户令牌](https://gitee.com/zhangjunjiee/article-images/raw/master/images/202411292349985.png) -->
+
+![开打萤石云App](https://gitee.com/zhangjunjiee/article-images/raw/master/images/202412012255397.png)
 
 ![输入用户令牌 & 显示成功](https://gitee.com/zhangjunjiee/article-images/raw/master/images/202411292342019.png)
 
