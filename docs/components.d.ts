@@ -7,6 +7,11 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ACard: typeof import('@arco-design/web-vue')['Card']
+    ACol: typeof import('@arco-design/web-vue')['Col']
+    AList: typeof import('@arco-design/web-vue')['List']
+    AListItem: typeof import('@arco-design/web-vue')['ListItem']
+    ARow: typeof import('@arco-design/web-vue')['Row']
     ATag: typeof import('@arco-design/web-vue')['Tag']
     IconShareAlt: typeof import('@arco-design/web-vue/es/icon')['IconShareAlt']
     IconTrophy: typeof import('@arco-design/web-vue/es/icon')['IconTrophy']

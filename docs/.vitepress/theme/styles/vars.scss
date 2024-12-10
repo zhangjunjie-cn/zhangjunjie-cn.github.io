@@ -62,12 +62,20 @@
   --vp-custom-block-info-border: var(--vp-c-brand);
   --vp-custom-block-info-text: var(--vp-c-brand-darker);
   --vp-custom-block-info-bg: var(--vp-c-brand-dimm);
+  --dora-text-indigo: #3a5ccc;
+  --dora-text-indigo-plus: #3451b2;
+  --dora-border-indigo: #3e63dd;
+  --dora-bg-indigo: #f0f4ff;
 }
 
 .dark {
   --vp-custom-block-info-border: var(--vp-c-brand);
   --vp-custom-block-info-text: var(--vp-c-brand-lightest);
   --vp-custom-block-info-bg: var(--vp-c-brand-dimm);
+  --dora-text-indigo: #99a2ff;
+  --dora-text-indigo-plus: #dddffe;
+  --dora-border-indigo: #99a2ff;
+  --dora-bg-indigo: #1a2242;
 }
 
 /**
