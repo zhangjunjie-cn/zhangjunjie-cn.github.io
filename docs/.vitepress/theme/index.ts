@@ -1,6 +1,7 @@
 import { h, watch,onMounted, nextTick } from "vue";
 import { useData, EnhanceAppContext } from "vitepress";
 import DefaultTheme from "vitepress/theme";
+import Timeline from './components/Timeline.vue'
 
 // import { createMediumZoomProvider } from "./composables/useMediumZoom";
 import { defineComponent, inject } from 'vue'
@@ -205,6 +206,10 @@ export default {
     app.use(NolebaseEnhancedReadabilitiesPlugin);
 
     app.use(NolebaseGitChangelogPlugin);
+
+    //时间线框
+    app.component('Timeline', Timeline);
+
 
     
 

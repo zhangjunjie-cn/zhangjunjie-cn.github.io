@@ -10,5 +10,9 @@
     "strict": true,
     "jsx": "preserve"
   },
-  "include": ["env.d.ts", "**/.vitepress/**/*", "docs/public/mouse/js", "docs/public/mouse/pointer.js"]
+  "include": [
+    "env.d.ts", 
+    "./docs/.vitepress/theme/components/*.vue",
+    "./doc/public/mouse/pointer.js"
+  ]
 }

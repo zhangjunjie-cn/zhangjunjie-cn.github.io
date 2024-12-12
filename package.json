@@ -50,12 +50,18 @@
     "vitepress": "v1.3.2",
     "vitepress-auto-sidebar-plugin": "^0.2.4",
     "vue": "^3.4.35",
-    "vue-echarts": "6.6.1"
+    "vue-echarts": "6.6.1",
+    "tailwindcss": "^3.3.3"
   },
   "lint-staged": {
     "*.{js,ts,css,md,json}": [
       "prettier --write"
     ]
+  },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {}
+    }
   },
   "dependencies": {
     "@antv/g2plot": "2.4.31",
