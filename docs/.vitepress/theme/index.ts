@@ -1,5 +1,5 @@
 import { h, watch,onMounted, nextTick } from "vue";
-import { useData, EnhanceAppContext } from "vitepress";
+import { useData, EnhanceAppContext,Theme } from "vitepress";
 import DefaultTheme from "vitepress/theme";
 import Timeline from './components/Timeline.vue'
 
@@ -178,54 +178,38 @@ export default {
   
 
   async enhanceApp({ app, router }: EnhanceAppContext) {
-
+    // Plugins
     app.use(NolebaseInlineLinkPreviewPlugin);
-    // createMediumZoomProvider(app, router);
-
-    app.component("MNavLinks", MNavLinks);
-    // app.component("MyLayout", MyLayout);
-    // app.component("CustomLayout", CustomLayout);
-    app.component("ArticleMetadata1", ArticleMetadata1); //作者来源
-    // app.use(AlanViteComponent);
-    app.provide("DEV", process.env.NODE_ENV === "development");
-
-    //链接卡片
-    app.component('Box', DocBox)
-    app.component('Links', DocLinks)
-    app.component('BoxCube', DocBoxCube)
-
-    //首页下划线
-    app.component('Home', HomeUnderline) 
-
-
-
-    //ECharts
-    app.component('Test', x);
-
-    //阅读窗格
     app.use(NolebaseEnhancedReadabilitiesPlugin);
-
     app.use(NolebaseGitChangelogPlugin);
-
-    //时间线框
+  
+    // Components
+    app.component('MNavLinks', MNavLinks);
+    app.component('ArticleMetadata1', ArticleMetadata1); // 作者来源
+    app.component('Box', DocBox);
+    app.component('Links', DocLinks);
+    app.component('BoxCube', DocBoxCube);
+    app.component('Home', HomeUnderline);
+    app.component('Test', x); // ECharts 示例组件
     app.component('Timeline', Timeline);
-
-
-    
-
+  
+    // Provide environment variable
+    app.provide("DEV", process.env.NODE_ENV === "development");
+  
+    // Watch route changes for homepage styling
     if (typeof window !== "undefined") {
       watch(
         () => router.route.data.relativePath,
         () => updateHomePageStyle(location.pathname === "/"),
         { immediate: true }
       );
-    };
-
-    //naive ui
+    }
+  
+    // Setup for SSR
     if (import.meta.env.SSR) {
-      const { collect } = setup(app)
-      app.provide('css-render-collect', collect)
-    };
+      const { collect } = setup(app);
+      app.provide('css-render-collect', collect);
+    }
 
 
     //live2D
@@ -268,7 +252,7 @@ export default {
 
 
   
-};
+} satisfies Theme
 
 if (typeof window !== "undefined") {
   // detect browser, add to class for conditional styling

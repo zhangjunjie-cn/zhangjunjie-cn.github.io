@@ -123,6 +123,8 @@
   </script>
   
   <style scoped>
+  @import './../styles/tailwind.css';
+
   .dot::after {
     content: '';
     @apply block h-0 w-full border-b border-dashed bg-purple-50;
