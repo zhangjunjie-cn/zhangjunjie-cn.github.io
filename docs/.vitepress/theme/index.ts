@@ -1,5 +1,5 @@
 import { h, watch,onMounted, nextTick } from "vue";
-import { useData, EnhanceAppContext,Theme } from "vitepress";
+import { useData, EnhanceAppContext,Theme,inBrowser  } from "vitepress";
 import DefaultTheme from "vitepress/theme";
 import Timeline from './components/Timeline.vue'
 
@@ -56,6 +56,14 @@ import {
 
 
 // import '@theojs/lumen/doc-blocks-border'
+
+// .vitepress/theme/index.ts
+
+//切换窗口进度条
+import { NProgress } from 'nprogress-v2/dist/index.js' // 进度条组件
+import 'nprogress-v2/dist/index.css' // 进度条样式
+
+
 
 
 if (typeof window !== "undefined") {
@@ -210,6 +218,16 @@ export default {
       const { collect } = setup(app);
       app.provide('css-render-collect', collect);
     }
+
+    if (inBrowser) {
+      NProgress.configure({ showSpinner: false })
+      router.onBeforeRouteChange = () => {
+        NProgress.start() // 开始进度条
+      }
+      router.onAfterRouteChanged = () => {
+         NProgress.done() // 停止进度条
+      }
+}
 
 
     //live2D

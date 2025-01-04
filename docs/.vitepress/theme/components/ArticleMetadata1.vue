@@ -56,12 +56,15 @@
         </svg>
       </span>
       <time class="meta-content"
-            :date="frontmatter?.createtime || date.toISOString()"
-            :title="dayjs().to(dayjs(date))">{{ date.toLocaleString('zh', {
+            :date="props.article?.createtime|| createtime.toISOString()"
+            :title="dayjs().to(dayjs(props.article?.createtime))">{{ props.article?.createtime.toLocaleString('zh', {
                 year: 'numeric', month: 'numeric', day:
                   'numeric', hour: 'numeric', minute: 'numeric'
               })
             }}</time>
+
+<!-- <span>date.toISOString(): {{ createtime.toISOString() }}</span>
+    <span>props.article?.createtime: {{ props.article?.createtime }}</span> -->
     </div>
 
 
@@ -146,12 +149,12 @@ const data = reactive({
   showViewCount: theme.value.articleMetadataConfig?.showViewCount ?? false,
   viewCount: 0,
   link: frontmatter?.value?.link ||  'https://github.com/zhangjunjie-cn',
-  date: frontmatter?.value?.createtime || new Date(),
+  createtime: frontmatter?.value?.createtime || new Date(),
   categories: props.article?.categories ?? [],
   tags: props.article?.tags ?? [],
   showCategory: props.showCategory
 })
-const { isOriginal, author, authorLink, showViewCount, viewCount, date, categories, tags, showCategory } = toRefs(data);
+const { isOriginal, author, authorLink, showViewCount, viewCount, createtime, categories, tags, showCategory } = toRefs(data);
 </script>
 
 <style scoped>

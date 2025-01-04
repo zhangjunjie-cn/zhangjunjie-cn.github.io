@@ -27,12 +27,13 @@ export const nav: DefaultTheme.Config["nav"] = [
   {
     text: "博客",  
     items:[
-      {text: "回顾2023年", 
+      {text: "回顾23、24年", 
         items:[]
       },
-      {text: "2024年⬇️", 
+      {text: "毕业之后⬇️", 
         items:[
-          {text: "上半年", link: "/博客/index"}
+          {text: "2024年", link: "/博客/2024/index"},
+          {text: "2025年", link: "/博客/2025/index"}
         ]}
     ],
     activeMatch: "^/博客",
