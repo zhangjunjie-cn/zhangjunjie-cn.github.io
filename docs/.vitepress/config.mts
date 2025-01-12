@@ -1,6 +1,6 @@
 import { createWriteStream } from "node:fs";
 import { resolve } from "node:path";
-import { SitemapStream } from "sitemap";
+// import { SitemapStream } from "sitemap";
 import { defineConfig, PageData } from "vitepress";
 
 import { head, nav, sidebar } from "./configs";
@@ -36,6 +36,12 @@ export default withPwa(
     outDir: resolve(__dirname, "../../dist"),
     //base: process.env.APP_BASE_PATH || '/',
     base: '/',
+
+    //站点地图
+    sitemap: {
+      hostname: 'https://zhangjunjie.pages.dev',
+    },
+    // logLevel: 'silent', // 禁用日志
 
     lang: "zh-CN",
     // titleTemplate: ':title - 张俊杰的博客',
@@ -166,7 +172,7 @@ export default withPwa(
 
         GitChangelog({ 
           // 填写在此处填写您的仓库链接
-          repoURL: () => 'https://github.com/nolebase/integrations', 
+          repoURL: () => 'https://github.com/zhangjunjie-cn/zhangjunjie-cn.github.io', 
         }), 
         GitChangelogMarkdownSection({ 
           exclude: (id) => id.endsWith('index.md','tags.md','archives.md','nav.md'), 
@@ -195,6 +201,7 @@ export default withPwa(
         exclude: [ 
           '@nolebase/vitepress-plugin-enhanced-readabilities/client', 
         ], 
+        include: ['sass'], // 显式包含 Sass
       },
 
       //naive ui 不作为外部依赖处理，在客户端渲染，不在服务端渲染，进入页面会更快。
@@ -232,21 +239,21 @@ export default withPwa(
 
 
     /* 生成站点地图 */
-    transformHtml: (_, id, { pageData }) => {
-      if (!/[\\/]404\.html$/.test(id))
-        links.push({
-          url: pageData.relativePath.replace(/((^|\/)index)?\.md$/, "$2"),
-          lastmod: pageData.lastUpdated,
-        });
-    },
-    buildEnd: async ({ outDir }) => {
-      const sitemap = new SitemapStream({ hostname: "https://zhangjunjie.pages.dev/" });
-      const writeStream = createWriteStream(resolve(outDir, "sitemap.xml"));
-      sitemap.pipe(writeStream);
-      links.forEach((link) => sitemap.write(link));
-      sitemap.end();
-      await new Promise((r) => writeStream.on("finish", r));
-    },
+    // transformHtml: (_, id, { pageData }) => {
+    //   if (!/[\\/]404\.html$/.test(id))
+    //     links.push({
+    //       url: pageData.relativePath.replace(/((^|\/)index)?\.md$/, "$2"),
+    //       lastmod: pageData.lastUpdated,
+    //     });
+    // },
+    // buildEnd: async ({ outDir }) => {
+    //   const sitemap = new SitemapStream({ hostname: "https://zhangjunjie.pages.dev/" });
+    //   const writeStream = createWriteStream(resolve(outDir, "sitemap.xml"));
+    //   sitemap.pipe(writeStream);
+    //   links.forEach((link) => sitemap.write(link));
+    //   sitemap.end();
+    //   await new Promise((r) => writeStream.on("finish", r));
+    // },
 
   
   

@@ -4,8 +4,8 @@ layoutClass: 'm-dcos-layout'
 
 hero:
   name: 冬日可爱，夏日可畏
-  text: 张俊杰的
-  textsuffix: 'docs'
+  text: 张俊杰的docs
+  textsuffix: ''
   tagline: 做最好的viterpress个人文档。
   image:
     src: /logo.png
