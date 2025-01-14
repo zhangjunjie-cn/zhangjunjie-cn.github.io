@@ -81,10 +81,47 @@ div.has-active{
 	color: var(--dora-text-indigo-plus);
   }
 
+  //自定义info 自定义块颜色
+  .custom-block.info {
+	border-left: 1px solid var(--vp-c-brand) !important; /* 边框颜色 */
+	background-color: transparent; /* 去掉背景颜色 */
+  }
+
+  //去掉原本的svg图
+  .vp-doc .custom-block {
+	&.info {
+	  &:before {
+		content: ' ';
+	  }
+	}
+  }
+
+  /* 新增信息容器:svg图 */
+.custom-block.info [class*="custom-block-title"]::before {
+    content: ' ';
+	// background-image:none;
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23009400' d='M7.941 18c-.297-1.273-1.637-2.314-2.187-3a8 8 0 1 1 12.49.002c-.55.685-1.888 1.726-2.185 2.998H7.94zM16 20v1a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-1h8zm-3-9.995V6l-4.5 6.005H11v4l4.5-6H13z'/%3E%3C/svg%3E") !important;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    margin-right: 4px;
+    left: -5px;
+    top: -2px;
+}
+
+	/* 展开框 */
+  .custom-block.details {
+	border-left: 10px solid var(--vp-c-brand) !important; /* 边框颜色 */
+  }
+
   /* 链接美化 */
-.vp-doc a {
+  .vp-doc a {
 	@apply hover:text-blue-500 after:hover:opacity-100 dark:hover:text-blue-400;
   }
+
+  
 
 /* .vitepress\theme\style\var.css */
 /* 引用块 */
