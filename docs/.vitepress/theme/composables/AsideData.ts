@@ -23,11 +23,11 @@ export const Aside_Data: AsideItem[] = [
 //       '全场<span style="color: var(--vp-c-brand-3)"> 88 </span>折！全场<span style="color: var(--vp-c-brand-3)"> 88 </span>折！',
 //     info2: '优惠码 <span style="color: var(--vp-c-brand-3)"> 1111@88 </span>全场打折'
 //   },
-  {
-    link: 'https://github.com/zhangjunjie-cn',
-    icon: 'https://doc.theojs.cn/爱心.png',
-    name: '赞助我的项目'
-  },
+  // {
+  //   link: 'https://github.com/zhangjunjie-cn',
+  //   icon: 'https://doc.theojs.cn/爱心.png',
+  //   name: '赞助我的项目'
+  // },
   {
     link: 'https://zhangjunjiee.pages.dev',
     icon: 'https://i.theojs.cn/avatar.png',

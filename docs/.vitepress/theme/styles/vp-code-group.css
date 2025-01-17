@@ -9,7 +9,7 @@
   .vp-code-group {
     color: var(--vp-c-black-soft);
     border-radius: 8px;
-    box-shadow: 0 10px 30px 0 rgb(0 0 0 / 40%);
+    box-shadow: 0 6px 15px 0 rgb(0 0 0 / 20%); /* 调整阴影的透明度和模糊度 */
   }
   
   /* 代码组：添加macOS风格的小圆点 */
