@@ -19,7 +19,7 @@ export const nav: DefaultTheme.Config["nav"] = [
       {text: "计算机网络⬇️", 
       items:[
         // {text: "网工" , link:"/笔记/计算机网络/index"},
-        {text: "桌面运维" , link:"/笔记/计算机网络/桌面运维/index"},
+        {text: "桌面运维" , link:"/笔记/桌面运维/index"},
       ]}
     ],
     activeMatch: "^/笔记",

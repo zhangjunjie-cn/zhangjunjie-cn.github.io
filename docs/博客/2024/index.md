@@ -1,13 +1,16 @@
 ---
+hide: true  # 隐藏
 title: MySQL安装与配置
+group: true  # 分组开启
+groupIndex: 3  # 分组排序
 createtime: 2022/10/22 21:25
-isTop: false
+# isTop: false
 tags:
  - MySQL
  - Linux
 categories:
  - MySQL快速入门
-collapsed: true
+collapsed: true 
 # showArticleMetadata: false
 # editLink: false
 # lastUpdated: false

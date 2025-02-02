@@ -1,9 +1,11 @@
 ---
-hide: true
-group: true
-# groupIndex: 1
-collapsed: false
-createtime: 2024/6/10
+hide: true  # 隐藏
+index: 1  #文章顺序
+group: true  # 分组
+groupIndex: 2  # 分组排序
+collapsed: false  # 折叠为打开状态
+groupTitle: Hello 2025  # 分组文件夹名称
+createtime: 2025/01/15
 title: 文档书写规范
 outline: [2,3]
 categories:
@@ -17,13 +19,19 @@ tags:
 
 ```json 标签管理
 ---
-createtime: 2025/01/02 21:33
-title: 02新一年,新篇章
-outline: [2,3]
+hide: true  # 文件左侧目录隐藏
+index: 1  #文章顺序
+group: true  # 分组开启
+groupIndex: 2  # 分组排序
+collapsed: false  # 折叠为打开状态
+groupTitle: Hello 2025  # 分组文件夹名称
+createtime: 2025/01/15  #创建时间
+title: 文档书写规范    # 文章标题
+outline: [2,3]  # 右侧显示的层级关系
 categories:
- - 雾都夜话
+ - 1
 tags:
- - 情感
+ - 1
 ---
 ```
 

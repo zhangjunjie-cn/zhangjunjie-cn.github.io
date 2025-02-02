@@ -1,19 +1,19 @@
 {
-  "name": "zhangjunjiee",
+  "name": "zhangjunjie-cn.github.io",
   "type": "module",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "packageManager": "pnpm@9.0.6",
   "description": "Development related notes",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zhangjunjie-cn/zhangjunjiee.git"
+    "url": "git+https://github.com/zhangjunjie-cn/zhangjunjie-cn.github.io.git"
   },
   "bugs": {
-    "url": "https://github.com/zhangjunjie-cn/zhangjunjiee/issues"
+    "url": "https://github.com/zhangjunjie-cn/zhangjunjie-cn.github.io/issues"
   },
   "license": "MIT",
-  "homepage": "https://github.com/zhangjunjie-cn/zhangjunjiee#readme",
+  "homepage": "https://github.com/zhangjunjie-cn/zhangjunjie-cn.github.io#readme",
   "author": "zhangjunjiee <1324638439@qq.com>",
   "scripts": {
     "dev": "cross-env NODE_ENV=development vitepress dev docs --port=8732",
