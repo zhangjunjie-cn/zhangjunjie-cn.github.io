@@ -21,7 +21,8 @@ export default {
       // console.log("data:", data);
       return {
         ...data,
-        path: data.path = articleFile.replace(/^.*?\/docs\//, '').replace(/\.md$/, ''),
+        // path: data.path = articleFile.replace(/^.*?\/docs\//, '').replace(/\.md$/, ''),
+        path: data.path = articleFile.slice(articleFile.indexOf('/docs/') + 6, -3),
 
       }
     })
