@@ -1,28 +1,48 @@
 <template>
 	<div class="home-container">
 		<div class="video-container" v-cloak>
-			<video v-if="!curDeviceIsMobile" class="logo-video" autoplay preload="auto" loop muted>
+			<!-- <video v-if="!curDeviceIsMobile" class="logo-video" autoplay preload="auto" loop muted>
 				<source
 					src="https://zhangjunjie.pages.dev/template.mp4"
 					type="video/mp4"
 				/>
+			</video> -->
+
+
+			<!-- <video v-if="!curDeviceIsMobile" class="logo-video" autoplay preload="auto" loop muted>
+				<source
+					src="https://ali.xmssdn.micloud.mi.com/2/1566455553514/download_file?attachment=0&fn=&ct=video%2Fmp4&meta=QzFQADeWsUicAikl-hsIQiTw-y6IHU0tOEWh70oyUvuHrNoWpDD1UmJkugMhFPiTHXDFC-RJ-xcPyZI-px1qxeKpdB6osjD5K54hCtlrlMaio76_J5zBPoBlNIJcpcFmgCfjXMRYH5ThK1VS6wVzvVBy0cmYaoL141Gc_4YYkyZvj7f9JjZ-WNIHZQwdiWlcV4Oozy2bfcpZ902-m8TKIIm1Cs6u2TKW-RDsg6XnXqXeue89lDOmY7wEm1oIIyP_62TcWvF850Y&ts=1740149272070&sig=bxQbB3pc2NHqcQlJaqtWWbeDhwc&_cachekey=d8a93c25de3a96f0695986dfb269abb9"
+					type="video/mp4"
+				/>
+			</video> -->
+
+			<video class="logo-video" autoplay preload="auto" loop muted>
+				<source
+					src="https://ali.xmssdn.micloud.mi.com/2/1566455553514/download_file?attachment=0&amp;fn=dGVtcGxhdGUubXA0&amp;ct=video%2Fmp4&amp;meta=QzFfithPtxTpIvItNeBoQUq-zXaQBE1NZlih70ZfK47jjudFw6b4YqFW90pdDXI8IVpUHgmhslIkDvK1rHUIk_GBW9fvw7xajzgo68q0YsOI2DDe_lhlV_AIL4YkvssylDnRXecsROFYeG_YLYku7IvB0U-ResVuEl-qrS9Zwizr4RSuzSR8iJU9qs9uD38Ga5EvPdv29eIan1jeZAVpfD2P-Kjofv7_841WmYNo0-Hu59RH8VbJVMQHm10GOGX__lA&amp;ts=1740078711000&amp;sig=g2eJyjkHjmCHqT7sQ5NTqLRXedM&amp;_cachekey=42836613eadf6f32d91f7784896887a4"
+					type="video/mp4"
+				/>
 			</video>
 
-			<!-- src="https://zhangjunjie.pages.dev/template.mp4" -->
+			<!-- <video class="logo-video" autoplay preload="auto" loop muted src="https://ali.xmssdn.micloud.mi.com/2/1566455553514/download_file?attachment=0&amp;fn=&amp;ct=video%2Fmp4&amp;meta=QzFQADeWsUicAikl-hsIQiTw-y6IHU0tOEWh70oyUvuHrNoWpDD1UmJkugMhFPiTHXDFC-RJ-xcPyZI-px1qxeKpdB6osjD5K54hCtlrlMaio76_J5zBPoBlNIJcpcFmgCfjXMRYH5ThK1VS6wVzvVBy0cmYaoL141Gc_4YYkyZvj7f9JjZ-WNIHZQwdiWlcV4Oozy2bfcpZ902-m8TKIIm1Cs6u2TKW-RDsg6XnXqXeue89lDOmY7wEm1oIIyP_62TcWvF850Y&amp;ts=1740149272070&amp;sig=bxQbB3pc2NHqcQlJaqtWWbeDhwc&amp;_cachekey=d8a93c25de3a96f0695986dfb269abb9"></video> -->
+
+
+
+
+			
+			<!-- <video  class="logo-video" autoplay preload="auto" loop muted src="https://download.cloud.189.cn/file/downloadFile.action?dt=51&amp;expired=1740071545882&amp;play=1&amp;sk=c3b3a123-8c5c-469c-a513-9ce4423d59e0&amp;ufi=423461130465876398&amp;zyc=180&amp;token=cloud4&amp;sig=La5V3cZE5l%2Bx86SwvQ94MnKv6Ds%3D"></video> -->
+
+		
 			 
 			
 
 
-			<!-- <video preload="auto" loop playsinline class="logo-video" autoplay src="https://lianyingzi.oss-cn-beijing.aliyuncs.com/template.mp4" tabindex="-1" muted="muted"></video> -->
-
-
-
+			
 
 			<!-- 如果是移动端，上述样式会不兼容，故降级为图片显示 -->
-			<div v-else class="image-container">
+			<!-- <div v-else class="image-container">
 				<img src="/static.png" alt="" />
 				<p class="logo-text">hello</p>
-			</div>
+			</div> -->
 			<div class="button-container-outer" @click="handleClick">
 				<div class="container-button">
 					<div class="hover bt-1"></div>

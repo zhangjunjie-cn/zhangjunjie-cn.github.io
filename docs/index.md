@@ -5,8 +5,7 @@ layoutClass: "m-home-layout"
 
 
 <ClientOnly>
-<home>
-</home>
+<home />
 </ClientOnly>
 
 

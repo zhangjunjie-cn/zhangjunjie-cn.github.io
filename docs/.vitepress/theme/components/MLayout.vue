@@ -9,7 +9,7 @@ import MNavVisitor from './MNavVisitor.vue'
 import ValineComment from './ValineComment.vue'
 import backtotop from './backtotop.vue';
 //链接卡片
-import { ShareButton } from '@theojs/lumen'
+// import { ShareButton } from '@theojs/lumen'
 
 import { 
   NolebaseEnhancedReadabilitiesMenu, 
@@ -18,8 +18,8 @@ import {
 
 import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
 
-//侧边栏链接
-import { DocAsideLogo } from '@theojs/lumen'
+//侧边栏链接 和 链接卡片
+import { DocAsideLogo , ShareButton } from '@theojs/lumen'
 import { Aside_Data } from '../composables/AsideData'
 
 const { Layout } = DefaultTheme
