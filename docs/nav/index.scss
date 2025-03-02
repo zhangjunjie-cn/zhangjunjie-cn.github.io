@@ -1,12 +1,11 @@
 .m-nav-layout {
-  /* 覆盖全局的 vp-layout-max-width（仅当前页面使用 nav用的） */
+  /* 覆盖全局的 vp-layout-max-width（仅当前页面使用） */
   --vp-layout-max-width: 1660px;
 
   /* layout 样式 */
   .container {
     max-width: var(--vp-layout-max-width) !important;
   }
-  
   .content-container,
   .content {
     max-width: 100% !important;
@@ -18,16 +17,15 @@
     max-width: 224px;
   }
 
-  .content .copyright {
-    display: none;
-  }
-
-  /* tip */
-  .tip {
+  /* custom-block */
+  .custom-block {
     .custom-block-title {
-      display: none;
+      font-size: var(--vp-custom-block-font-size);
     }
-    p {
+    ul {
+      margin: 8px 0;
+    }
+    li {
       margin: 0;
     }
   }
@@ -35,15 +33,19 @@
   .vp-doc h2 {
     margin-top: 24px;
   }
-
-  .VPNav .VPNavBar{
-    margin: 0px;
-    padding: 0px;
-  }
-
-  .m-nav-link .title{
-    color: var(--vp-c-text-1)!important;
-  }
-
-
 }
+
+
+// .m-home-layout {
+//   /* 覆盖全局的 vp-layout-max-width（仅home 页面使用的） */
+//   --vp-layout-max-width: 100%;
+
+//   .container {
+//    max-width: var(--vp-layout-max-width) !important;
+//    padding:0 !important;
+//   }
+//   .content-container,
+//   .content {
+//     max-width: 100% !important;
+//   }
+// }

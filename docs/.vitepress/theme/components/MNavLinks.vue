@@ -1,14 +1,12 @@
-<!-- 导航界面 -->
 <script setup lang="ts">
 import { computed } from 'vue'
 import { slugify } from '@mdit-vue/shared'
 
 import MNavLink from './MNavLink.vue'
-import type { NavLink } from '../types'
+import type { NavLink } from '../composables/types'
 
 const props = defineProps<{
   title: string
-  noIcon?: boolean
   items: NavLink[]
 }>()
 
@@ -23,10 +21,14 @@ const formatTitle = computed(() => {
     <a class="header-anchor" :href="`#${formatTitle}`" aria-hidden="true"></a>
   </h2>
   <div class="m-nav-links">
-    <ClientOnly>
-      <MNavLink v-for="item in items" :noIcon="noIcon" v-bind="item" />
-    </ClientOnly>
-    
+    <MNavLink
+      v-for="{ icon, title, desc, link } in items"
+      :key="link"
+      :icon="icon"
+      :title="title"
+      :desc="desc"
+      :link="link"
+    />
   </div>
 </template>
 

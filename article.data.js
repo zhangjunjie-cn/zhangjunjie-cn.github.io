@@ -2,12 +2,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import parseFrontmatter from 'gray-matter';
 
-const excludedFiles = ['index.md', 'tags.md', 'archives.md','nav.md'];
+const excludedFiles = ['index.md', 'tags.md', 'archives.md', 'me.md'];
 
 export default {
   watch: ['./docs/**/*.md'],
   load(watchedFiles) {
-    // console.log("Watched Files:", watchedFiles);
     // 排除不必要文件
     const articleFiles = watchedFiles.filter(file => {
       const filename = path.basename(file);
@@ -15,15 +14,11 @@ export default {
     });
     // 解析文章 Frontmatter
     return articleFiles.map(articleFile => {
-      // console.log("Processing Article File:", articleFile);
       const articleContent = fs.readFileSync(articleFile, 'utf-8');
       const { data } = parseFrontmatter(articleContent);
-      // console.log("data:", data);
       return {
         ...data,
-        // path: data.path = articleFile.replace(/^.*?\/docs\//, '').replace(/\.md$/, ''),
-        path: data.path = articleFile.slice(articleFile.indexOf('/docs/') + 6, -3),
-
+        path: articleFile.substring(articleFile.lastIndexOf('/docs/') + 6).replace(/\.md$/, ''),
       }
     })
   }

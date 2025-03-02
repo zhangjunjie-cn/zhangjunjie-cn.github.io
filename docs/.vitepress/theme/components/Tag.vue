@@ -29,8 +29,6 @@
 
         <!-- 文章列表区域 -->
         <a-col :span="24">
-
-          
           <a-list v-if="selectTag" :style="{ width: '100%' }">
             <template #header>
               共 {{ tags[selectTag].length }} 篇文章
@@ -40,31 +38,18 @@
                 <h3 class="result-item-title">
                   <!-- <a :href="article.path" class="title" target="_blank">{{ article.title }}</a> -->
                 </h3>
-
                 <p class="result-item-description"></p>
                 <!-- 文章元数据信息 -->
-                 
-              <Links
-              :items="[
-                //FontAwesome图标
-                { name: article.title, link:article.path, icon: 'line-md:iconify1', color: '#538DD7' ,desc:article.categories  + article.tags},
-                ]"
-              />
-
-              <!-- <Box
-                :items="[
-                  //FontAwesome图标
-                  { name: article.title, link: article.path, icon: 'line-md:iconify1', color: '#538DD7' },
-                ]"
-              /> -->
-
-                <ArticleMetadata1 :article="article" :key="md5(article.createtime)" />
+                 <Links
+                  :items="[
+                    //FontAwesome图标
+                    { name: article.title, link:article.path, icon: 'line-md:iconify1', color: '#538DD7' ,desc:article.categories },
+                    ]"
+                 />
+                <ArticleMetadata :article="article" :key="md5(article.date)" />
               </div>
             </a-list-item>
           </a-list>
-
-
-
           <a-card
             :style="{ width: '100%' }"
             class="no-result"
@@ -79,12 +64,10 @@
 </template>
 
 <script lang="ts" setup>
-  import ArticleMetadata1 from "./ArticleMetadata1.vue"
-  import WordCloud  from './WordCloud.vue'
   import { computed, ref } from 'vue';
   import md5 from 'blueimp-md5';
-  import { getQueryParam } from '../utils';
-  import { data as articleData } from '../../../../article.data';
+  import { getQueryParam } from '../utils.ts';
+  import { data as articleData } from '../../../../article.data.js';
 
   const tags = computed(() => initTags(articleData));
   /**
@@ -95,7 +78,6 @@
     const tags: any = {};
     for (let i = 0; i < articleData.length; i++) {
       const article = articleData[i];
-      
       const articleTags = article.tags;
       if (Array.isArray(articleTags)) {
         articleTags.forEach((articleTag) => {
@@ -104,7 +86,7 @@
           }
           tags[articleTag].push(article);
           // 文章按发布时间降序排序
-          tags[articleTag].sort((a, b) => b.createtime.localeCompare(a.createtime));
+          tags[articleTag].sort((a, b) => b.date.localeCompare(a.date));
         });
       }
     }

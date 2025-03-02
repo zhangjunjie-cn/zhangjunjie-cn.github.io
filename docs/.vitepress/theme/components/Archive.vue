@@ -58,10 +58,7 @@
             {{ month }}
           </span>
           <div class="articles">
-            <!-- <span>{{ articles }}</span> -->
-
             <span v-for="article in articles" class="article">
-              <!-- <span>{{ article }}</span> -->
               <svg v-if="article.categories.includes('Bug万象集')" @click="goToLink('/archives', 'category', article.categories[0])" role="img" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" class="arco-icon arco-icon-bug" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter" style="color: #f53f3f;"><title>Bug万象集</title><path d="M24 42c-6.075 0-11-4.925-11-11V18h22v13c0 6.075-4.925 11-11 11Zm0 0V23m11 4h8M5 27h8M7 14a4 4 0 0 0 4 4h26a4 4 0 0 0 4-4m0 28v-.5a6.5 6.5 0 0 0-6.5-6.5M7 42v-.5a6.5 6.5 0 0 1 6.5-6.5M17 14a7 7 0 1 1 14 0"></path></svg>
               
               <svg v-else-if="article.categories.includes('杂碎逆袭史')" @click="goToLink('/archives', 'category', article.categories[0])" role="img" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" class="arco-icon arco-icon-bulb" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter" style="color: #ff7d00;"><title>杂碎逆袭史</title><path d="M17 42h14m6-24c0 2.823-.9 5.437-2.43 7.568-1.539 2.147-3.185 4.32-3.77 6.897l-.623 2.756A1 1 0 0 1 29.2 36H18.8a1 1 0 0 1-.976-.779l-.624-2.756c-.584-2.576-2.23-4.75-3.77-6.897A12.94 12.94 0 0 1 11 18c0-7.18 5.82-13 13-13s13 5.82 13 13Z"></path></svg>
@@ -69,36 +66,15 @@
               <svg v-else-if="article.categories.includes('方案春秋志')" @click="goToLink('/archives', 'category', article.categories[0])" role="img" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" class="arco-icon arco-icon-code" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter" style="color: #165dff;"><title>方案春秋志</title><path d="M16.734 12.686 5.42 24l11.314 11.314m14.521-22.628L42.57 24 31.255 35.314M27.2 6.28l-6.251 35.453"></path></svg>
               
               <svg v-else @click="goToLink('/archives', 'category', article.categories[0])" role="img" viewBox="0 0 48 48" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" class="arco-icon arco-icon-bookmark" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter" style="color: #00b42a;"><path d="M16 16h16M16 24h8"></path><path d="M24 41H8V6h32v17"></path><path d="M30 29h11v13l-5.5-3.5L30 42V29Z"></path></svg>
-
               <!-- <a :href="article.path" class="title" target="_blank">{{ article.title }}</a> -->
               <br>
-              <!-- <ArticleMetadata1 :article="article" /> -->
-
               <Links
               :items="[
                 //FontAwesome图标
-                { name: article.title, link:article.path, icon: 'fas fa-font-awesome', color: '#538DD7' ,desc: article.categories[0] }
-                // //iconify图标
-                // { name: 'iconify', link: '', icon: 'line-md:iconify1', color: '#1769AA' },
-                // //图片
-                // {
-                //   name: '支付宝',
-                //   link: 'https://i.theojs.cn/docs/202405201752089.jpg',
-                //   image: 'https://i.theojs.cn/logo/alipay.svg'
-                // },
-                // //深浅模式的图片
-                // {
-                //   name: 'GitHub',
-                //   link: '',
-                //   image: { light: 'https://i.theojs.cn/logo/github.svg', dark: 'https://i.theojs.cn/logo/github-dark.svg' }
-                // },
-                // //标签
-                // { name: 'Vue', link: '', icon: 'vscode-icons:file-type-vue', tag: 'vuejs' }
+                { name: article.title, link:article.path, icon: 'fas fa-font-awesome', color: '#538DD7' ,desc: article.categories }
                 ]"
               />
-              <ArticleMetadata1 :article="article" />
-
-              
+              <ArticleMetadata :article="article" />
 
             </span>
           </div>
@@ -110,9 +86,8 @@
 </template>
 
 <script lang="ts" setup>
-  import ArticleMetadata1 from "./ArticleMetadata1.vue"
-  import { getQueryParam, goToLink, getChineseZodiac, getChineseZodiacAlias } from '../utils';
-  import { data as articleData } from '../../../../article.data';
+  import { getQueryParam, goToLink, getChineseZodiac, getChineseZodiacAlias } from '../utils.ts';
+  import { data as articleData } from '../../../../article.data.js';
 
   // 文章原始数据和归档数据
   let $articleData;
@@ -140,7 +115,6 @@
     if ($category && $category.trim() != '') {
       for (let i = 0; i < articleData.length; i++) {
         let article = articleData[i];
-        // console.log("article:", article);
         if (article.categories && article.categories.includes($category)) {
           $articleData.push(article);
         }
@@ -155,23 +129,22 @@
     } else if ($year && $year.trim() != '') {
       for (let i = 0; i < articleData.length; i++) {
         let article = articleData[i];
-        if (article.createtime && new Date(article.createtime).getFullYear() == $year) {
+        if (article.date && new Date(article.date).getFullYear() == $year) {
           $articleData.push(article);
         }
       }
     } else {
       $articleData.push(...articleData);
-
     }
 
     // 文章数据归档处理
     // 1.对文章数据进行降序排序
-    $articleData.sort((a, b) => b.createtime.localeCompare(a.createtime));
+    $articleData.sort((a, b) => b.date.localeCompare(a.date));
     // 2.按年、月进行归档
     for (let i = 0; i < $articleData.length; i++) {
       const article = $articleData[i];
-      let year = (new Date(article.createtime).getFullYear()) + '年';
-      let month = (new Date(article.createtime).getMonth() + 1) + '月';
+      let year = (new Date(article.date).getFullYear()) + '年';
+      let month = (new Date(article.date).getMonth() + 1) + '月';
 
       if (!archiveData[year]) {
         archiveData[year] = {};
@@ -289,18 +262,5 @@
 .vp-doc a:hover {
   color: var(--vp-c-brand-1);
   text-decoration: underline;
-}
-
-.chinese-zodiac {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  left: -10.5px;
-  top: -1px;
-  background: #fff;
-  border: 1px solid #84b9e5;
-  border-radius: 50%;
-  cursor: pointer;
 }
 </style>

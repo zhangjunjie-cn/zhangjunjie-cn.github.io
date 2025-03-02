@@ -97,10 +97,9 @@ function handleClick() {
 }
 
 .project-title {
-	/* font-size: .8em; */
-	font-size: 15px;
+	font-size: .8em;
 	margin: 0;
-	font-weight: 800;
+	font-weight: 600;
 	color: var(--vp-c-text-1);
 	word-break: break-all;
 	overflow: hidden;
@@ -123,8 +122,8 @@ function handleClick() {
 }
 
 .project-type {
-	background: var(--vp-c-brand);
-	color: #ffffff;
+	background: #b2b2fd;
+	color: #1a41cd;
 	font-weight: bold;
 	padding: 0.3em 0.7em;
 	border-radius: 15px;

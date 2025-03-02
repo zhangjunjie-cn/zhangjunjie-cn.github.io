@@ -1,179 +1,192 @@
-import { h, watch, onMounted, nextTick, defineComponent, inject } from "vue";
-import { useData, EnhanceAppContext, Theme, inBrowser } from "vitepress";
-import DefaultTheme from "vitepress/theme";
-import { NConfigProvider } from 'naive-ui';
-import { setup } from '@css-render/vue3-ssr';
-import { useRoute } from 'vitepress';
-import { defineAsyncComponent } from 'vue';  // 引入 defineAsyncComponent
+import { h, watch,onMounted, nextTick,defineComponent,inject } from "vue";
+import { useData, EnhanceAppContext,inBrowser  } from "vitepress";
+//naive-ui
+import { setup } from '@css-render/vue3-ssr'
+import { NConfigProvider } from 'naive-ui'
+import DefaultTheme from 'vitepress/theme';
+import MyLayout from './MyLayout.vue';
+import '@shikijs/vitepress-twoslash/style.css'
+import './styles/custom.css';
+import axios from 'axios';
+import api from './api/index';
+import MNavLinks from './components/MNavLinks.vue'
+import Theme from 'vitepress/theme'
+import { DocBox, DocBoxCube, DocLinks, DocPill } from '@theojs/lumen'
 
-// 异步加载组件
-const Timeline = defineAsyncComponent(() => import('./components/Timeline.vue'));
-const MNavLinks = defineAsyncComponent(() => import("./components/MNavLinks.vue"));
-const ArticleMetadata1 = defineAsyncComponent(() => import("./components/ArticleMetadata1.vue"));
-const Archive = defineAsyncComponent(() => import("./components/Archive.vue"));
-const MLayout = defineAsyncComponent(() => import('./components/MLayout.vue'));
-const x = defineAsyncComponent(() => import("./composables/echarts"));
-import "vitepress-markdown-timeline/dist/theme/index.css";
 
-// 导入主题色
-import '@theojs/lumen/theme';
+import './styles/index.scss'
 
-// 引入样式和插件
-import "./styles/index.scss";
-import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities/client';
-import "@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css";
-import "@nolebase/vitepress-plugin-inline-link-preview/client/style.css";
-import { NolebaseInlineLinkPreviewPlugin } from "@nolebase/vitepress-plugin-inline-link-preview/client";
-import codeblocksFold from 'vitepress-plugin-codeblocks-fold'; 
-import 'vitepress-plugin-codeblocks-fold/style/index.css';
-import { NolebaseGitChangelogPlugin } from '@nolebase/vitepress-plugin-git-changelog/client';
-import '@nolebase/vitepress-plugin-git-changelog/client/style.css';
-import { DocBox, DocLinks, DocBoxCube, HomeUnderline } from '@theojs/lumen';
-import { initFirstScreen, destructionObserver, animateFn } from '../utils/animatePlusgin';
 
-// 进度条组件
-import { NProgress } from 'nprogress-v2/dist/index.js'; 
-import 'nprogress-v2/dist/index.css';
 
-// 主题配置
-export default {
-  extends: DefaultTheme,
+// 引入组件库的少量全局样式变量
+import 'tdesign-vue-next/es/style/index.css';
+import TwoSlash from '@shikijs/vitepress-twoslash/client'
+import { useRoute } from 'vitepress'
+import 'uno.css'
 
+//切换窗口进度条
+import { NProgress } from 'nprogress-v2/dist/index.js' // 进度条组件
+import 'nprogress-v2/dist/index.css' // 进度条样式
+
+import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
+import { 
+  NolebaseGitChangelogPlugin 
+} from '@nolebase/vitepress-plugin-git-changelog/client'
+
+import '@nolebase/vitepress-plugin-git-changelog/client/style.css'
+
+import {
+	initFirstScreen,
+	destructionObserver,
+	animateFn,
+} from '../theme/composables/animatePlusgin'
+
+//主题色
+import '@theojs/lumen/theme'
+
+
+
+export default Object.assign({}, Theme, {
+
+  // 滚动进入动画
   setup() {
-    const route = useRoute();
-
-    // 动画初始化
-    onMounted(() => {
-      initFirstScreen();
-      animateFn();
-    });
-
-    // 监听路由变化，优化动画执行
-    watch(
-      () => route.path,
-      () => nextTick(() => {
-        destructionObserver();
-        initFirstScreen();
-        animateFn();
-      })
-    );
-  },
+		const route = useRoute()
+		onMounted(() => {
+			initFirstScreen()
+			animateFn()
+		})
+		watch(
+			() => route.path,
+			() =>
+				nextTick(() => {
+					destructionObserver()
+					initFirstScreen()
+					animateFn()
+				})
+		)
+	},
 
   Layout: () => {
-    const props: Record<string, any> = {};
-    const { frontmatter } = useData();
-    const route = useRoute();
 
-    // 代码区域折叠
-    codeblocksFold({ route, frontmatter }, true, 400);
+    //naive-ui
+    const { Layout } = DefaultTheme;
 
     const CssRenderStyle = defineComponent({
       setup() {
-        const collect = inject('css-render-collect');
-        return { style: collect() };
+        const collect = inject('css-render-collect')
+        return {
+          style: collect()
+        }
       },
       render() {
-        return h('css-render-style', { innerHTML: this.style });
+        return h('css-render-style', {
+          innerHTML: this.style
+        })
       }
-    });
-
+    })
+    
     const VitepressPath = defineComponent({
       setup() {
-        const route = useRoute();
-        return () => h('vitepress-path', null, [route.path]);
+        const route = useRoute()
+        return () => {
+          return h('vitepress-path', null, [route.path])
+        }
       }
-    });
-
+    })
+    
     const NaiveUIProvider = defineComponent({
       render() {
-        return h(NConfigProvider, { abstract: true, inlineThemeDisabled: true }, {
-          default: () => [
-            h(MLayout, null, { default: this.$slots.default?.() }),
-            import.meta.env.SSR ? [h(CssRenderStyle), h(VitepressPath)] : null
-          ]
-        });
+        return h(
+          NConfigProvider,
+          { abstract: true, inlineThemeDisabled: true },
+          {
+            default: () => [
+              h(Layout, null, { default: this.$slots.default?.() }),
+              import.meta.env.SSR ? [h(CssRenderStyle), h(VitepressPath)] : null
+            ]
+          }
+        )
       }
-    });
+    })
 
-    // 添加自定义类
+    const props: Record<string, any> = {};
+    // 获取 frontmatter
+    const { frontmatter } = useData();
+
+    /* 添加自定义 class */
     if (frontmatter.value?.layoutClass) {
       props.class = frontmatter.value.layoutClass;
     }
 
-    return h(MLayout, props);
+    return h(MyLayout, props);
   },
 
+
+
+
+
+
+
   async enhanceApp({ app, router }: EnhanceAppContext) {
-    // 插件
-    app.use(NolebaseInlineLinkPreviewPlugin);
-    app.use(NolebaseEnhancedReadabilitiesPlugin);
-    app.use(NolebaseGitChangelogPlugin);
-
-    // 注册异步组件
+    
+    
     app.component('MNavLinks', MNavLinks);
-    app.component('ArticleMetadata1', ArticleMetadata1);
-    app.component('Box', DocBox);
-    app.component('Links', DocLinks);
-    app.component('BoxCube', DocBoxCube);
-    app.component('Home', HomeUnderline);
-    app.component('Test', x);  // ECharts 示例组件
-    app.component('Timeline', Timeline);
+    app.use(TwoSlash as any)
+    // app.component('Box', DocBox) 
+    // app.component('Pill', DocPill) 
+    app.component('Links', DocLinks) 
+    // app.component('BoxCube', DocBoxCube) 
+    app.use(NolebaseGitChangelogPlugin)  
 
-    // 提供环境变量
-    app.provide("DEV", process.env.NODE_ENV === "development");
 
-    // 路由变化监听，优化主页样式
-    if (typeof window !== "undefined") {
-      watch(
-        () => router.route.data.relativePath,
-        () => updateHomePageStyle(location.pathname === "/"),
-        { immediate: true }
-      );
-    }
-
-    // SSR 设置
+    //naive-ui
     if (import.meta.env.SSR) {
-      const { collect } = setup(app);
-      app.provide('css-render-collect', collect);
+      const { collect } = setup(app)
+      app.provide('css-render-collect', collect)
     }
 
-    // 客户端处理进度条
+
     if (inBrowser) {
-      NProgress.configure({ showSpinner: false });
-      router.onBeforeRouteChange = () => NProgress.start();
-      router.onAfterRouteChanged = () => NProgress.done();
+      NProgress.configure({ showSpinner: false })
+      router.onBeforeRouteChange = () => {
+        NProgress.start() // 开始进度条
+      }
+      router.onAfterRouteChanged = () => {
+          NProgress.done() // 停止进度条
+      }
     }
+
+        //live2D
+    if (!import.meta.env.SSR) {
+      const { loadOml2d } = await import('oh-my-live2d');
+      loadOml2d({
+        models: [
+          {
+            path: 'https://model.kisssssssss.space/https://raw.githubusercontent.com/kisssssssss/model/main/live2d/StarRail/%E7%AC%A6%E7%8E%84/%E7%AC%A6%E7%8E%84.model3.json',
+            //https://raw.githubusercontent.com/<用户名>/<仓库名>/<分支名>/<文件路径>
+            // path: 'https://model.kisssssssss.space/https://raw.githubusercontent.com/zhangjunjie-cn/live2d-model/main/%E7%AC%A6%E7%8E%84/%E7%AC%A6%E7%8E%84.model3.json',
+            position: [-20, 60],
+            mobilePosition: [80, 80],
+            scale: 0.047,
+            mobileScale: 0.06,
+            stageStyle: {
+              height: 450,
+            },
+            mobileStageStyle: {
+              height: 370,
+              width: 400,
+            },
+          }
+        ]
+      });
+    }
+
+    // 全局挂载 API 接口
+    app.config.globalProperties.$http = axios
+    if (typeof window !== 'undefined') {
+        window.$api = api;
+    }
+
   }
-};
-
-// 更新首页样式
-let homePageStyle: HTMLStyleElement | undefined;
-function updateHomePageStyle(value: boolean) {
-  if (value) {
-    if (homePageStyle) return;
-
-    homePageStyle = document.createElement("style");
-    homePageStyle.innerHTML = `
-      :root {
-        animation: rainbow 12s linear infinite;
-      }`;
-    document.body.appendChild(homePageStyle);
-  } else {
-    if (!homePageStyle) return;
-
-    homePageStyle.remove();
-    homePageStyle = undefined;
-  }
-}
-
-// 浏览器样式检测
-if (typeof window !== "undefined") {
-  const browser = navigator.userAgent.toLowerCase();
-  if (browser.includes("chrome")) {
-    document.documentElement.classList.add("browser-chrome");
-  } else if (browser.includes("firefox")) {
-    document.documentElement.classList.add("browser-firefox");
-  } else if (browser.includes("safari")) {
-    document.documentElement.classList.add("browser-safari");
-  }
-}
+  
+})
