@@ -90,13 +90,6 @@ export default defineConfig({
       
       
     },
-    server: {
-      allowedHosts: [
-        '2ne3ymva-tnb0hffy-go4twvgtmiiu.vcc3.mcprev.cn'
-      ]
-    },
-
-
     //naive-ui
     postRender(context) {
       const styleRegex = /<css-render-style>((.|\s)+)<\/css-render-style>/
@@ -117,9 +110,6 @@ export default defineConfig({
       if (style) {
         return code.replace(/<\/head>/, `${style}</head>`)
       }
-    }
-
+    },
     
-  },
-  
-);
+  });

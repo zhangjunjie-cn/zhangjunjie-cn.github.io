@@ -1,11 +1,10 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "outDir": "dist",
+    "target": "esnext",
     "jsx": "preserve",
-    "lib": ["DOM", "ESNext"],
-    "baseUrl": ".",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
+    "module": "esnext",
+    "moduleResolution": "node",
     "paths": {
       "@slidev/client": ["./packages/client/index.ts"],
       "@slidev/client/*": ["./packages/client/*"],
@@ -30,15 +29,5 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "include": [
-    "./*.ts",
-    "./docs/**/*.ts",
-    "./docs/**/*.vue",
-    "./packages/**/*.ts",
-    "./packages/**/*.vue",
-    "./demo/**/*.ts",
-    "./demo/**/*.vue",
-    "./test/**/*.ts"
-  ],
-  "exclude": ["**/dist/**", "**/node_modules/**"]
+  "include": ["**/.vitepress/**/*"]
 }
