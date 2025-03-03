@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vitepress dev docs",
     "build": "vitepress build docs && pnpm run compress",
+    "compress": "node ./docs/.vitepress/theme/composables/comporess.js",
     "preview": "vitepress preview docs --port 8730"
   },
   "devDependencies": {
