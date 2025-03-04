@@ -48,7 +48,6 @@
     "gitalk": "^1.8.0",
     "gray-matter": "^4.0.3",
     "jquery": "^3.7.1",
-    "oh-my-live2d": "^0.19.3",
     "tdesign-vue-next": "^1.10.7",
     "ua-parser-js": "^2.0.0"
   },
