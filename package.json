@@ -20,15 +20,11 @@
     "preview": "vitepress preview docs",
     "compress": "node ./docs/.vitepress/comporess.js",
     "build": "vitepress build docs && pnpm run compress",
-    "postbuild": "pnpm run compress",
-    "build:github": "cross-env APP_BASE_PATH=/zhangjunjie-cn.github.io/ npm run build",
-    "lint": "prettier --write ."
+    "postbuild": "pnpm run compress"
   },
   "devDependencies": {
     "@arco-design/web-vue": "^2.53.3",
     "@css-render/vue3-ssr": "^0.15.14",
-    "@femm/prettier": "^1.0.1",
-    "@femm/verify-commit": "^1.0.1",
     "@luckrya/markdown-it-link-to-card": "^0.3.3",
     "@mdit-vue/shared": "^0.12.0",
     "@mdit/plugin-figure": "^0.13.1",
@@ -38,11 +34,9 @@
     "@types/blueimp-md5": "^2.18.2",
     "@types/node": "^18.13.0",
     "cross-env": "^7.0.3",
-    "echarts": "5.4.3",
     "fast-glob": "^3.3.2",
     "lint-staged": "^13.1.2",
     "nprogress-v2": "^1.0.4",
-    "prettier": "^2.8.4",
     "sass": "^1.83.2",
     "tailwindcss": "^3.3.3",
     "unplugin-auto-import": "^0.17.5",
@@ -50,13 +44,7 @@
     "vite-plugin-compression": "^0.5.1",
     "vitepress": "v1.3.2",
     "vitepress-auto-sidebar-plugin": "^0.2.4",
-    "vue": "^3.4.35",
-    "vue-echarts": "6.6.1"
-  },
-  "lint-staged": {
-    "*.{js,ts,css,md,json}": [
-      "prettier --write"
-    ]
+    "vue": "^3.4.35"
   },
   "postcss": {
     "plugins": {
@@ -66,18 +54,15 @@
   "dependencies": {
     "@antv/g2plot": "2.4.31",
     "@theojs/lumen": "^4.0.0",
-    "@vite-pwa/vitepress": "^0.5.0",
     "animate.css": "^4.1.1",
     "blueimp-md5": "^2.19.0",
     "dayjs": "^1.11.10",
     "gray-matter": "^4.0.3",
     "js-confetti": "^0.11.0",
     "naive-ui": "^2.38.2",
-    "oh-my-live2d": "^0.19.3",
     "shiki": "^0.14.5",
     "tdesign-vue-next": "^1.8.1",
     "valine": "^1.5.1",
-    "vite-plugin-pwa": "^0.20.1",
     "vitepress-markdown-timeline": "^1.2.1",
     "vitepress-plugin-codeblocks-fold": "^1.2.28"
   },

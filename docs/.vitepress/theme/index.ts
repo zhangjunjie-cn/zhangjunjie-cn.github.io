@@ -12,7 +12,6 @@ const MNavLinks = defineAsyncComponent(() => import("./components/MNavLinks.vue"
 const ArticleMetadata1 = defineAsyncComponent(() => import("./components/ArticleMetadata1.vue"));
 const Archive = defineAsyncComponent(() => import("./components/Archive.vue"));
 const MLayout = defineAsyncComponent(() => import('./components/MLayout.vue'));
-const x = defineAsyncComponent(() => import("./composables/echarts"));
 import "vitepress-markdown-timeline/dist/theme/index.css";
 
 // 导入主题色
@@ -116,7 +115,6 @@ export default {
     app.component('Links', DocLinks);
     app.component('BoxCube', DocBoxCube);
     app.component('Home', HomeUnderline);
-    app.component('Test', x);  // ECharts 示例组件
     app.component('Timeline', Timeline);
 
     // 提供环境变量

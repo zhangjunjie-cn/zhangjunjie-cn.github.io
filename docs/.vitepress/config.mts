@@ -10,8 +10,6 @@ import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { TDesignResolver } from 'unplugin-vue-components/resolvers';
 
-import { withPwa } from "@vite-pwa/vitepress";
-import pwa from "./theme/composables/pwa";
 import AutoSidebarPlugin from 'vitepress-auto-sidebar-plugin'
 import { ArcoResolver } from 'unplugin-vue-components/resolvers';
 
@@ -28,7 +26,7 @@ import viteCompression from "vite-plugin-compression";
 const links: { url: string; lastmod: PageData["lastUpdated"] }[] = [];
 const fileAndStyles: Record<string, string> = {}
 
-export default withPwa(
+export default 
 
 
   defineConfig({
@@ -48,7 +46,6 @@ export default withPwa(
     title: "张俊杰的博客",
     description: "张俊杰的博客",
     head,
-    pwa,
 
     lastUpdated: true,
     cleanUrls: true,
@@ -207,7 +204,7 @@ export default withPwa(
       //naive ui 不作为外部依赖处理，在客户端渲染，不在服务端渲染，进入页面会更快。
       ssr: {
         noExternal: process.env.NODE_ENV === 'production'
-          ? ['naive-ui', 'date-fns', 'vueuc', 'vue-echarts', 'echarts', 'zrender', 'resize-detector','@arco-design/web-vue','@nolebase/vitepress-plugin-enhanced-readabilities','@nolebase/vitepress-plugin-inline-link-preview']
+          ? ['naive-ui', 'date-fns', 'vueuc', 'zrender', 'resize-detector','@arco-design/web-vue','@nolebase/vitepress-plugin-enhanced-readabilities','@nolebase/vitepress-plugin-inline-link-preview']
           : []
       }
     },
@@ -257,6 +254,6 @@ export default withPwa(
 
   
   
-  })
+  }
 );
 
