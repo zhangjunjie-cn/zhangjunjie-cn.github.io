@@ -1,20 +1,21 @@
 ---
 createtime: 2024/2/10
 title: 前端导航是...提供最简单便捷的网址导航服务
+sidebar: false
 categories:
  - 博客
 tags:
  - 建站
 layoutClass: m-nav-layout
-outline: [2, 3, 4]
+outline: deep
 ---
 
 <script setup>
-import { NAV_DATA } from './nav/data'
+import { NAV_DATA } from './data'
 // import { NButton,NBackTop } from 'naive-ui'
 </script>
 
-<style src="./nav/index.scss"></style>
+<style src="./index.scss"></style>
 
 <br/>
 <br/>
