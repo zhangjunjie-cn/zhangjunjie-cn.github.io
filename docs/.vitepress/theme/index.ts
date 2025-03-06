@@ -5,7 +5,7 @@ import { setup } from '@css-render/vue3-ssr'
 import { NConfigProvider } from 'naive-ui'
 import DefaultTheme from 'vitepress/theme';
 import MyLayout from './MyLayout.vue';
-// import '@shikijs/vitepress-twoslash/style.css'
+import '@shikijs/vitepress-twoslash/style.css'
 import './styles/custom.css';
 import MNavLinks from './components/MNavLinks.vue'
 import Theme from 'vitepress/theme'
@@ -18,8 +18,9 @@ import './styles/index.scss'
 
 // 引入组件库的少量全局样式变量
 import 'tdesign-vue-next/es/style/index.css';
-// import TwoSlash from '@shikijs/vitepress-twoslash/client'
+import TwoSlash from '@shikijs/vitepress-twoslash/client'
 import { useRoute } from 'vitepress'
+import 'uno.css'
 
 //切换窗口进度条
 import { NProgress } from 'nprogress-v2/dist/index.js' // 进度条组件
@@ -128,7 +129,7 @@ export default Object.assign({}, Theme, {
     
     
     app.component('MNavLinks', MNavLinks);
-    // app.use(TwoSlash as any)
+    app.use(TwoSlash as any)
     // app.component('Box', DocBox) 
     // app.component('Pill', DocPill) 
     app.component('Links', DocLinks) 

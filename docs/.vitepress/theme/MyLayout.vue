@@ -59,10 +59,10 @@
 
    </Layout>
 
-   <!-- <template>
+   <template>
        <Sakula />
        <BodyClick />
-   </template> -->
+   </template>
 
    
  
@@ -80,8 +80,8 @@
  import imageViewer from './components/imageViewer.vue';
  import NavVisitor from './components/NavVisitor.vue';
  import { isDesktop } from "./utils"; 
-//  import BodyClick from "./components/BodyClick.vue";
-//  import Sakula from "./components/Sakula.vue";
+ import BodyClick from "./components/BodyClick.vue";
+ import Sakula from "./components/Sakula.vue";
 
  import { 
  NolebaseEnhancedReadabilitiesMenu, 

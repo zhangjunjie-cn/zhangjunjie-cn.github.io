@@ -11,7 +11,7 @@ import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { TDesignResolver } from 'unplugin-vue-components/resolvers';
 import viteCompression from "vite-plugin-compression";
-// import UnoCSS from 'unocss/vite'
+import UnoCSS from 'unocss/vite'
 import { 
   GitChangelog, 
   GitChangelogMarkdownSection, 
@@ -80,22 +80,14 @@ export default defineConfig({
           ext: ".br",
       }),
         GitChangelogMarkdownSection(), 
-        // UnoCSS()
+        UnoCSS()
       ],
       ssr: {
         noExternal: process.env.NODE_ENV === 'production'
           ? ['@arco-design/web-vue','@nolebase/vitepress-plugin-enhanced-readabilities', '@nolebase/ui','naive-ui', 'date-fns', 'vueuc']
           : []
       },
-      
-      
     },
-    server: {
-      allowedHosts: [
-        '2ne3ymva-tnb0hffy-go4twvgtmiiu.vcc3.mcprev.cn'
-      ]
-    },
-
 
     //naive-ui
     postRender(context) {
