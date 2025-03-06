@@ -6,15 +6,6 @@ lastUpdated: false
 showComment: false
 ---
 
-<br/>
-<br/>
-
 <ClientOnly>
 	<Tag />
 </ClientOnly>
-
-
-
-<script lang="ts" setup>
-import Tag from './.vitepress/theme/components/Tag.vue'
-</script>

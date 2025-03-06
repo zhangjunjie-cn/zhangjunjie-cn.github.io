@@ -1,18 +1,44 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
+    "target": "ESNext",
+    "jsx": "preserve",
+    "lib": ["DOM", "ESNext"],
+    "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "paths": {
+      "@slidev/client": ["./packages/client/index.ts"],
+      "@slidev/client/*": ["./packages/client/*"],
+      "@slidev/types": ["./packages/types/src/index.ts"],
+      "@slidev/parser/fs": ["./packages/parser/src/fs.ts"],
+      "@slidev/parser/core": ["./packages/parser/src/core.ts"],
+      "@slidev/parser/utils": ["./packages/parser/src/utils.ts"],
+      "@slidev/parser": ["./packages/parser/src/index.ts"]
+    },
     "resolveJsonModule": true,
-    "allowJs": true,
+    "types": [
+      "vite",
+      "vite/client",
+      "node",
+      "vite-plugin-vue-server-ref/client"
+    ],
     "strict": true,
-    "jsx": "preserve"
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   },
   "include": [
-    "env.d.ts", 
-    "./docs/.vitepress/theme/components/*.vue",
-    "./doc/public/mouse/pointer.js"
-  ]
+    "./*.ts",
+    "./docs/**/*.ts",
+    "./docs/**/*.vue",
+    "./packages/**/*.ts",
+    "./packages/**/*.vue",
+    "./demo/**/*.ts",
+    "./demo/**/*.vue",
+    "./test/**/*.ts"
+  ],
+  "exclude": ["**/dist/**", "**/node_modules/**"]
 }

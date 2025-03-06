@@ -57,3 +57,19 @@ export function getChineseZodiacAlias(year) {
   const arr = ['猴年', '鸡年', '狗年', '猪年', '鼠年', '牛年', '虎年', '兔年', '龙年', '蛇年', '马年', '羊年'];
   return arr[year % 12];
 }
+
+
+// import { UAParser } from "ua-parser-js";
+
+// export const isMobile = (ua?: string): boolean => {
+//   return !isDesktop(ua);
+// };
+
+// export const isDesktop = (ua?: string): boolean => {
+//   const device = UAParser(ua).device;
+//   return (
+//     device.type === undefined || !["wearable", "mobile"].includes(device.type)
+//   );
+// };
+
+

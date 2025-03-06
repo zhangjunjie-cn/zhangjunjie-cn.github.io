@@ -3,8 +3,30 @@
  * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
  */
 
+/**
+ * Colors
+ * -------------------------------------------------------------------------- */
  :root {
-  --vp-c-brand-lightest: var(--vp-c-brand);
+  --vp-c-gutter: var(--vp-c-divider);
+  --vp-code-block-bg: rgba(125, 125, 125, 0.04);
+  --vp-code-tab-divider: var(--vp-c-divider);
+  --vp-code-copy-code-bg: rgba(125, 125, 125, 0.1);
+  --vp-code-copy-code-hover-bg: rgba(125, 125, 125, 0.2);
+  --vp-c-disabled-bg: rgba(125, 125, 125, 0.2);
+  --vp-code-tab-text-color: var(--vp-c-text-2);
+  --vp-code-tab-active-text-color: var(--vp-c-text-1);
+  --vp-code-tab-hover-text-color: var(--vp-c-text-1);
+  --vp-code-copy-code-active-text: var(--vp-c-text-2);
+  --vp-c-text-dark-3: rgba(56, 56, 56, 0.8);
+  --vp-c-brand-lightest: var(--vp-c-brand-1);
+
+  --vp-c-highlight-bg: var(--vp-c-brand-light);
+  --vp-c-highlight-text: var(--vp-c-bg);
+}
+
+.dark {
+  --vp-code-block-bg: rgba(0, 0, 0, 0.2);
+  --vp-c-text-code: #c0cec0;
 }
 
 /**
@@ -13,7 +35,7 @@
 :root {
   --vp-button-brand-border: var(--vp-c-brand-light);
   --vp-button-brand-text: var(--vp-c-white);
-  --vp-button-brand-bg: var(--vp-c-brand);
+  --vp-button-brand-bg: var(--vp-c-brand-1);
   --vp-button-brand-hover-border: var(--vp-c-brand-light);
   --vp-button-brand-hover-text: var(--vp-c-white);
   --vp-button-brand-hover-bg: var(--vp-c-brand-light);
@@ -27,12 +49,16 @@
  * -------------------------------------------------------------------------- */
 :root {
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg,
-      var(--vp-c-brand) 30%,
-      var(--vp-c-brand-next));
-  --vp-home-hero-image-background-image: linear-gradient(-45deg,
-      var(--vp-c-brand) 30%,
-      var(--vp-c-brand-next));
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    var(--vp-c-brand-1) 30%,
+    var(--vp-c-brand-next)
+  );
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    var(--vp-c-brand-1) 30%,
+    var(--vp-c-brand-next)
+  );
   --vp-home-hero-image-filter: blur(80px);
 }
 
@@ -58,63 +84,20 @@
 /**
  * Component: Custom Block
  * -------------------------------------------------------------------------- */
-:root {
-  --vp-custom-block-info-border: var(--vp-c-brand);
-  --vp-custom-block-info-text: var(--vp-c-brand-darker);
-  --vp-custom-block-info-bg: var(--vp-c-brand-dimm);
-  --dora-text-indigo: #3a5ccc;
-  --dora-text-indigo-plus: #3451b2;
-  --dora-border-indigo: #3e63dd;
-  --dora-bg-indigo: #f0f4ff;
-}
-
-.dark {
-  --vp-custom-block-info-border: var(--vp-c-brand);
-  --vp-custom-block-info-text: var(--vp-c-brand-lightest);
-  --vp-custom-block-info-bg: var(--vp-c-brand-dimm);
-  --dora-text-indigo: #99a2ff;
-  --dora-text-indigo-plus: #dddffe;
-  --dora-border-indigo: #99a2ff;
-  --dora-bg-indigo: #1a2242;
-}
+// :root {
+//   --vp-custom-block-tip-border: var(--vp-c-brand-1);
+//   --vp-custom-block-tip-text: var(--vp-c-brand-darker);
+//   --vp-custom-block-tip-bg: var(--vp-c-brand-dimm);
+// }
+// .dark {
+//   --vp-custom-block-tip-border: var(--vp-c-brand-1);
+//   --vp-custom-block-tip-text: var(--vp-c-brand-lightest);
+//   --vp-custom-block-tip-bg: var(--vp-c-brand-dimm);
+// }
 
 /**
  * Component: Algolia
  * -------------------------------------------------------------------------- */
 .DocSearch {
-  --docsearch-primary-color: var(--vp-c-brand) !important;
+  --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
-
-
-// /* .vitepress\theme\style\var.css */
-// /* 提示框背景颜色 */
-// :root {
-//   --vp-custom-block-tip-bg: var(--vp-c-green-soft);
-// }
-
-// /* 提示框 */
-// .custom-block.tip {
-//   border-color: var(--vp-c-green-2);
-// }
-
-// /* 警告框 */
-// .custom-block.warning {
-//   /* border-color: #d97706; */
-//   border-color: var(--vp-c-yellow-2);
-// }
-
-// /* 危险框 */
-// .custom-block.danger {
-//   /* border-color: #f43f5e; */
-//   border-color: var(--vp-c-red-2);
-// }
-
-
-// /* 展开框 */
-// .custom-block.details {
-//   border-color: var(--vp-c-gray-3)
-// }
-
-// :root {
-//   --vp-custom-block-details-bg: var(--vp-c-gray-3);
-// }

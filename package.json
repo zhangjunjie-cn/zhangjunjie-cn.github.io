@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development vitepress dev docs --port=8732",
     "preview": "vitepress preview docs",
-    "compress": "node ./docs/.vitepress/comporess.js",
+    "compress": "node ./docs/.vitepress/theme/composables/comporess.js",
     "build": "vitepress build docs && pnpm run compress",
     "postbuild": "pnpm run compress"
   },
@@ -31,6 +31,7 @@
     "@nolebase/vitepress-plugin-enhanced-readabilities": "^2.9.0",
     "@nolebase/vitepress-plugin-git-changelog": "^2.9.0",
     "@nolebase/vitepress-plugin-inline-link-preview": "^2.9.0",
+    "@shikijs/vitepress-twoslash": "^3.0.0",
     "@types/blueimp-md5": "^2.18.2",
     "@types/node": "^18.13.0",
     "cross-env": "^7.0.3",
