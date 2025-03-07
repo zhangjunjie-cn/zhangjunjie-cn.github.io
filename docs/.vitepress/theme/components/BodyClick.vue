@@ -8,20 +8,9 @@
   function click(e: MouseEvent) {
     // console.log('bodyClick');
     const a = [
-      "❤Go❤",
-      "❤ヾ(^∀^)ﾉ ",
-      "❤python❤",
-      "❤٩(๑❛ᴗ❛๑)۶ ❤",
-      "❤java❤",
-      "❤( • ω• )✧ ❤",
-      "❤C#❤",
-      "❤┗(•ω•;)┛❤",
-      "❤C++❤",
-      "❤(＾＿－)❤",
-      "❤SQL❤",
-      "❤(^_−)☆❤",
-      "❤javascrpit❤",
-      "❤ヾ(@^▽^@)ノ❤",
+      "❤零基础❤",
+      "❤学造纸月薪过万",
+      "❤就来重庆恒安集团❤",
     ];
     const span = document.createElement("span");
     a_idx = (a_idx + 1) % a.length;

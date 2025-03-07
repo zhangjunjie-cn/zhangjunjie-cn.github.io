@@ -6,13 +6,25 @@ export const head: HeadConfig[] = [
   // 引入外部 JavaScript 文件
   // ['script', { src: "/mouse/pointer.js" }],
 
-  ['link', { rel: 'icon', href: '/favicon.ico' }],
-  ['meta', { name: 'author', content: 'Charles7c' }],
-  ['meta', { name: 'keywords', content: '查尔斯的知识库, 知识库, 博客, Charles7c' }],
+  ["meta", { name: "theme-color", content: "#ffffff" }],
+  // ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],
+  // ["meta", { name: "apple-mobile-web-app-status-bar-style", content: "black" }],
+  ["meta", { name: "msapplication-TileColor", content: "#000000" }],
+  ["meta", { name: "msapplication-TileImage", content: "/favicon.ico" }],
+  // ["meta", { name: "baidu-site-verification", content: "codeva-Whjnr38WFE" }],
+  ["link", { rel: "apple-touch-icon", href: "/favicon.ico" }],
+  ["link", { rel: "mask-icon", href: "/favicon.ico", color: "#3eaf7c" }],
+  // ["link", { rel: "manifest", href: "/manifest.webmanifest" }],
+  ["meta", { name: "referrer", content: "no-referrer" }],
 
-  ['meta', { name: 'HandheldFriendly', content: 'True' }],
-  ['meta', { name: 'MobileOptimized', content: '320' }],
-  ['meta', { name: 'theme-color', content: '#3c8772' }],
+
+
+  // ['meta', { name: 'author', content: 'Charles7c' }],
+  // ['meta', { name: 'keywords', content: '查尔斯的知识库, 知识库, 博客, Charles7c' }],
+
+  // ['meta', { name: 'HandheldFriendly', content: 'True' }],
+  // ['meta', { name: 'MobileOptimized', content: '320' }],
+  // ['meta', { name: 'theme-color', content: '#3c8772' }],
 
   ['meta', { property: 'og:type', content: 'website' }],
   ['meta', { property: 'og:locale', content: metaData.locale }],
