@@ -123,7 +123,7 @@
   </script>
   
   <style scoped>
-  @import './../styles/tailwind.css';
+  @import './../styles/tailwind.scss';
 
   .dot::after {
     content: '';

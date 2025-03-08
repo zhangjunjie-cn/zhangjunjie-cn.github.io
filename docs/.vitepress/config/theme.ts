@@ -37,6 +37,9 @@ export const themeConfig: DefaultTheme.Config = {
     provider: 'local',
     options: localSearchOptions
   },
+
+  //外链图标
+  externalLinkIcon:false,
   // 导航栏右侧社交链接配置
   socialLinks: [
     { icon: 'github', link: 'https://github.com/Charles7c/charles7c.github.io' },

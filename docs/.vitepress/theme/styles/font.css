@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'PingFang SC';
+    src: url('./../assets/PingFang.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  body {
+    font-family: 'PingFang SC', sans-serif;
+  }
+
+
+  @font-face {
+    font-family: "INTER";
+    src: url("/path/to/inter.woff2") format("woff2"),
+         url("/path/to/inter.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
