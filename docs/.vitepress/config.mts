@@ -17,6 +17,8 @@ import {
   GitChangelogMarkdownSection, 
 } from '@nolebase/vitepress-plugin-git-changelog/vite'
 
+import dynamicImport from 'vite-plugin-dynamic-import';
+
 const fileAndStyles: Record<string, string> = {}
 
 export default defineConfig({
@@ -80,6 +82,7 @@ export default defineConfig({
           ext: ".br",
       }),
         GitChangelogMarkdownSection(), 
+        dynamicImport(),
         UnoCSS()
       ],
       ssr: {

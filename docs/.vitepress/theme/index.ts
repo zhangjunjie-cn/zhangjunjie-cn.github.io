@@ -15,12 +15,6 @@ import MNavLinks from './components/MNavLinks.vue'
 import Theme from 'vitepress/theme'
 import { DocBox, DocBoxCube, DocLinks, DocPill } from '@theojs/lumen'
 
-import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities/client';
-
-
-
-
-
 // 引入组件库的少量全局样式变量
 import 'tdesign-vue-next/es/style/index.css';
 import TwoSlash from '@shikijs/vitepress-twoslash/client'
@@ -140,7 +134,6 @@ export default Object.assign({}, Theme, {
     app.component('Links', DocLinks) 
     // app.component('BoxCube', DocBoxCube) 
     app.use(NolebaseGitChangelogPlugin)  
-    app.use(NolebaseEnhancedReadabilitiesPlugin)
 
 
     //naive-ui

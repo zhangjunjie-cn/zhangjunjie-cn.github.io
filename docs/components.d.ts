@@ -7,6 +7,9 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AboutMe: typeof import('./.vitepress/theme/components/aboutMe.vue')['default']
+    AButton: typeof import('@arco-design/web-vue')['Button']
+    AButtonGroup: typeof import('@arco-design/web-vue')['ButtonGroup']
     ACard: typeof import('@arco-design/web-vue')['Card']
     ACol: typeof import('@arco-design/web-vue')['Col']
     AList: typeof import('@arco-design/web-vue')['List']
@@ -22,6 +25,7 @@ declare module 'vue' {
     Copyright: typeof import('./.vitepress/theme/components/layout/Copyright.vue')['default']
     FeatureTag: typeof import('./.vitepress/theme/components/FeatureTag.vue')['default']
     Footer: typeof import('./.vitepress/theme/components/layout/Footer.vue')['default']
+    Heatmap: typeof import('./.vitepress/theme/components/heatmap.vue')['default']
     Home: typeof import('./.vitepress/theme/components/home.vue')['default']
     IconShareAlt: typeof import('@arco-design/web-vue/es/icon')['IconShareAlt']
     IconTrophy: typeof import('@arco-design/web-vue/es/icon')['IconTrophy']
@@ -37,6 +41,7 @@ declare module 'vue' {
     TdesignDark: typeof import('./.vitepress/theme/components/tdesignDark.vue')['default']
     TImageViewer: typeof import('tdesign-vue-next')['ImageViewer']
     Timeline: typeof import('./.vitepress/theme/components/Timeline.vue')['default']
+    TPopup: typeof import('tdesign-vue-next')['Popup']
     ValineComment: typeof import('./.vitepress/theme/components/ValineComment.vue')['default']
     WordCloud: typeof import('./.vitepress/theme/components/WordCloud.vue')['default']
   }

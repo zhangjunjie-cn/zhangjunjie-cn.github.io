@@ -40,22 +40,18 @@
 						></article-card>
 					</div>
 				</div>
-				<!-- <div class="comment-container">
-					<div class="comment-title">站内留言板</div>
-					<comment class="comment"></comment>
-				</div> -->
 			</div>
 		</div>
 	</div>
 </template>
 
 <script lang="ts" setup>
-import articleCard from "./articleCard.vue";
-import { getRecentlyPost } from "./../composables/getRecentlyPost";
-import linkButton from "./linkButton.vue";
+import articleCard from "../components/articleCard.vue";
+import { getRecentlyPost } from "../../utils/getRecentlyPost";
+import linkButton from "../components/linkButton.vue";
 import { ref, type Ref, onBeforeMount } from "vue";
-import { isMobile } from "./../composables/mobile";
-// import aboutMe from "./aboutMe.vue";
+import { isMobile } from "../../utils/mobile";
+import aboutMe from "../components/aboutMe.vue";
 
 interface IRecentlyPosts {
 	text: string;
@@ -85,7 +81,7 @@ function handleClick() {
 	});
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 /* v-if闪烁问题 */
 [v-cloak] {
 	display: none !important;
@@ -343,34 +339,11 @@ function handleClick() {
 			}
 		}
 
-		.comment-container {
-			margin-top: 40px;
-			padding: 40px;
-
-			.comment-title {
-				font-size: 20px;
-				font-weight: 900;
-				margin-bottom: 20px;
-			}
-
-			.comment {
-				padding: 0 60px;
-			}
-		}
-
 		@media (max-width: 960px) {
 			.recently-posts-head {
 				display: flex;
 				justify-content: space-between;
 				padding: 20px 10px;
-			}
-
-			.comment-container {
-				padding: 10px;
-
-				.comment {
-					padding: 0;
-				}
 			}
 		}
 	}
