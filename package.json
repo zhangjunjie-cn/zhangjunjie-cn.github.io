@@ -19,7 +19,7 @@
     "dev": "cross-env NODE_ENV=development vitepress dev docs --port=8732",
     "preview": "vitepress preview docs",
     "compress": "node ./docs/.vitepress/theme/composables/comporess.js",
-    "build": "vitepress build docs && pnpm run compress && pnpm run generate",
+    "build": "pnpm run generate && vitepress build docs && pnpm run compress ",
     "generate": "node ./docs/.vitepress/theme/composables/init.data.js",
     "postbuild": "pnpm run compress"
   },
