@@ -3,9 +3,11 @@
 		<div class="video-container" v-cloak>
 			<video v-if="!curDeviceIsMobile" class="logo-video" autoplay loop muted>
 				<source
-					src="https://oss.justin3go.com/blogs/justin3go.mp4"
+					src="https://zhangjj.obs.cn-southwest-2.myhuaweicloud.com/template.mp4"
+					
 					type="video/mp4"
 				/>
+				<!-- src="https://oss.justin3go.com/blogs/justin3go.mp4" -->
 			</video>
 			<!-- 如果是移动端，上述样式会不兼容，故降级为图片显示 -->
 			<div v-else class="image-container">
@@ -47,7 +49,7 @@
 
 <script lang="ts" setup>
 import articleCard from "../components/articleCard.vue";
-import { getRecentlyPost } from "../../utils/getRecentlyPost";
+import { getRecentlyPost } from "../composables/getRecentlyPost";
 import linkButton from "../components/linkButton.vue";
 import { ref, type Ref, onBeforeMount } from "vue";
 import { isMobile } from "../../utils/mobile";

@@ -1,6 +1,7 @@
 import { h, watch,onMounted, nextTick,defineComponent,inject } from "vue";
 import { useData, EnhanceAppContext,inBrowser  } from "vitepress";
 import DefaultTheme from 'vitepress/theme-without-fonts'; 
+import "vitepress-markdown-timeline/dist/theme/index.css";
 import "./styles/font.css";
 import './styles/index.scss'
 //naive-ui

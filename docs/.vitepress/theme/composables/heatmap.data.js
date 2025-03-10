@@ -11,10 +11,10 @@ console.log("Until date:", untilDate); // 调试信息
 
 // 使用 git log 命令获取指定日期范围内的提交信息，包含文件名
 const gitLogCmd = `git log --since="${sinceDate}" --until="${untilDate}" --name-only --pretty=format:"%cd" --date=format:"%Y-%m-%dT%H:%M:%SZ"`;
-console.log("Git log command:", gitLogCmd); // 调试信息
+// console.log("Git log command:", gitLogCmd); // 调试信息
 
 const output = execSync(gitLogCmd, { encoding: 'utf-8' });
-console.log("Git log output:", output); // 调试信息
+// console.log("Git log output:", output); // 调试信息
 
 // 上一个日期变量，用来判断是否是新的提交记录开始
 let lastDate = null;
