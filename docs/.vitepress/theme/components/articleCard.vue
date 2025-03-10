@@ -97,7 +97,7 @@ function handleClick() {
 }
 
 .project-title {
-	font-size: .8em;
+	/* font-size: .8em; */
 	margin: 0;
 	font-weight: 600;
 	color: var(--vp-c-text-1);

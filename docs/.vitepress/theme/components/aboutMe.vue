@@ -12,17 +12,16 @@
 
 					<div class="infotop">
 						<div class="img-container">
-							<img
-								src="https://oss.justin3go.com/justin3goAvatar.png"
+							<img src="/author.png"
 								alt=""
 								style="height: 80px"
 							/>
 						</div>
 						<br />
 						<div style="font-family: 'Lucida Handwriting'">张俊杰</div>
-						<div class="name">前端 / 羽毛球 / 摄影</div>
+						<div class="name">学习 / 旅行 / 光影捕手</div>
 						<div class="name">
-							喜欢折腾一些效率工具，热爱开源、分享、探索、用代码创造价值。保持持续输出，数量与质量之间的平衡我更倾向于数量，因为可以记录更多...
+							手账里的潦草灵感、备忘录上的零散思考、朋友圈里即兴分享的摄影，都是生活最鲜活的切片 —— 相信「记录」本身就是一种创造。在快门声与键盘敲击声中，把成长的点滴酿成时光的标本。
 						</div>
 						<div class="social-link">
 							<div class="card">
@@ -215,7 +214,7 @@ const langChartSrc = computed(() =>
 			.lang-chart {
         margin-top: 20px;
 				width: 600px;
-				height: 440px;
+				height:480px;
 			}
 		}
 	}

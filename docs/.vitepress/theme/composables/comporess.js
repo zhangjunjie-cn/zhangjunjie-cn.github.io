@@ -9,8 +9,10 @@ const brotliCompressAsync = promisify(brotliCompress);
 async function compressFiles() {
   try {
     // 使用 fast-glob 直接获取所有 HTML 文件的路径
-    const files = await fg("../../../../dist/**/*.html", { onlyFiles: true });
+    const files = await fg("dist/**/*.html", { onlyFiles: true });
+
     console.log("Found HTML files:", files); // Debug: Print found files
+    // console.log("Current working directory:", process.cwd());
 
     for (const file of files) {
       const content = await fs.readFile(file);
