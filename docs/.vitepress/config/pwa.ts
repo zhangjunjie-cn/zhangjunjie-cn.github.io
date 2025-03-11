@@ -4,7 +4,7 @@ import type { VitePWAOptions } from "vite-plugin-pwa";
 
 const pwa: Partial<VitePWAOptions> = {
   // 根目录
-  outDir: resolve(__dirname, "../../../../dist"),
+  outDir: resolve(__dirname, "../../../dist"),
   registerType: "autoUpdate",
   includeManifestIcons: false,
   manifest: {
