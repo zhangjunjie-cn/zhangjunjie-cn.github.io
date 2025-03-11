@@ -5,12 +5,13 @@ import { head } from './config/head';
 import { markdown } from './config/markdown';
 import { themeConfig } from './config/theme';
 import { ArcoResolver } from 'unplugin-vue-components/resolvers';
-
+import { withPwa } from "@vite-pwa/vitepress";
 // 自动导入TDesign 
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { TDesignResolver } from 'unplugin-vue-components/resolvers';
 import viteCompression from "vite-plugin-compression";
+import pwa from "./config/pwa";
 import UnoCSS from 'unocss/vite'
 import { 
   GitChangelog, 
@@ -21,7 +22,8 @@ import dynamicImport from 'vite-plugin-dynamic-import';
 
 const fileAndStyles: Record<string, string> = {}
 
-export default defineConfig({
+export default withPwa(
+  defineConfig({
     outDir: resolve(__dirname, "../../dist"),
     lang: metaData.lang,
     title: metaData.title,
@@ -33,6 +35,7 @@ export default defineConfig({
     head, // <head>内标签配置
     markdown: markdown, // Markdown配置
     themeConfig, // 主题配置
+    pwa, // PWA配置
 
     /*** 看图浏览组件库 ***/
     vite: {
@@ -117,4 +120,4 @@ export default defineConfig({
     
   },
   
-);
+));

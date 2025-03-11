@@ -137,7 +137,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 })
 </script>
 
-<style scoped>
+<!-- <style scoped>
 ::view-transition-old(root),
 ::view-transition-new(root) {
  animation: none;
@@ -162,4 +162,4 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
  transform: none !important;
 }
 
-</style>
+</style> -->

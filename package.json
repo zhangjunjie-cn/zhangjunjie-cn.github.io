@@ -36,6 +36,8 @@
     "@theojs/lumen": "^4.0.0",
     "@types/blueimp-md5": "^2.18.2",
     "@types/node": "^18.13.0",
+    "@vite-pwa/vitepress": "^0.5.3",
+    "vite-plugin-pwa": "^0.20.1",
     "cross-env": "^7.0.3",
     "fast-glob": "^3.3.2",
     "floating-vue": "^5.2.2",
