@@ -8,7 +8,7 @@
 					type="video/mp4"
 				/> -->
 					<source
-						src="https://zhangjunjie.pages.dev/template.mp4"
+						src="https://zhangjunjiee.netlify.app/template.mp4"
 						type="video/mp4"
 					/>
 				<!-- src="https://oss.justin3go.com/blogs/justin3go.mp4" -->
@@ -68,7 +68,7 @@ interface IRecentlyPosts {
 const initRecentlyPosts = getRecentlyPost();
 const recentlyPosts: Ref<IRecentlyPosts[]> = ref(
 	initRecentlyPosts.map((item) => ({
-		date: item.link.substring(4, 14),
+		date: item.link.substring(19, 29),
 		text: item.text.substring(2),
 		link: item.link,
 	}))

@@ -107,6 +107,10 @@ export function getItemsByDate (path: string) {
 
   // 添加序号
   addOrderNumber(yearGroups);
+  // 打印生成的侧边栏配置
+  console.log(JSON.stringify(yearGroups, null, 2));
+
+
   return yearGroups;
 }
 
