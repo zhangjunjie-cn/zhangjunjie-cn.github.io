@@ -21,10 +21,22 @@
   --vp-c-brand-lightest: var(--vp-c-brand-1);
 
   --vp-c-highlight-bg: var(--vp-c-brand-light);
+  --main-color: #425aef;
+  --main-card-second-background:#f7f7f9;
+  --main-font-color:#f7f7fa;
+  --main-border-shadow:#f7f7fa;
+  --main-card-background:#fff;
+  --main-card-border:#e3e8f7;
   --vp-c-highlight-text: var(--vp-c-bg);
 }
 
 .dark {
+  --main-card-second-background:#21232a;
+  --main-card-border:#3d3d3f;
+  --main-border-shadow:#3d3d3f;
+  --main-font-color:#3d3d3f;
+  --main-color: #dfac46;
+  --main-card-background:#1b1c20;
   --vp-code-block-bg: rgba(0, 0, 0, 0.2);
   --vp-c-text-code: #c0cec0;
 }

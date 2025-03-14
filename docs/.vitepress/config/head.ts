@@ -17,6 +17,16 @@ export const head: HeadConfig[] = [
   // ["link", { rel: "manifest", href: "/manifest.webmanifest" }],
   ["meta", { name: "referrer", content: "no-referrer" }],
 
+  //iconfont 图标
+  [
+    "link",
+    {
+      crossorigin: "anonymous",
+      rel: "stylesheet",
+      href: "//at.alicdn.com/t/c/font_3670842_e41u9aatldo.css",
+    },
+  ],
+
 
 
   // ['meta', { name: 'author', content: 'Charles7c' }],
