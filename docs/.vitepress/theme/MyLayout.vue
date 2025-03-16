@@ -1,26 +1,19 @@
 <template>
   <div :class="class">
-
+    <ClientOnly>
    <Layout>
-    
      <template #doc-footer-before>
-       <ClientOnly>
          <Copyright
            v-if="(frontmatter?.aside ?? true) && (frontmatter?.showArticleMetadata ?? true) && !(frontmatter.authorLink)"
            :key="md5(page.relativePath)" />
-       </ClientOnly>
      </template>
 
      <template #doc-bottom>
-       <ClientOnly>
          <imageViewer />
-       </ClientOnly>
      </template>
 
      <template #nav-bar-title-after>
-       <ClientOnly>
          <NavVisitor />
-       </ClientOnly>
      </template>
 
 
@@ -33,40 +26,27 @@
 
 
      <template #layout-bottom>
-       <ClientOnly>
          <Footer v-if="!hasSidebar && (theme.footerConfig?.showFooter ?? true) && (frontmatter?.showFooter ?? true)" />
-       </ClientOnly>
      </template>
 
      <!-- 为较宽的屏幕的导航栏添加阅读增强菜单 -->
-   <template #nav-bar-content-after>
-     <ClientOnly>
-       <NolebaseEnhancedReadabilitiesMenu />
-     </ClientOnly>
-   </template>
+    <template #nav-bar-content-after>
+        <NolebaseEnhancedReadabilitiesMenu />
+    </template>
 
-   <!-- 更好的为较窄的屏幕（通常是小于 iPad Mini）添加阅读增强菜单图片窗格 -->
-   <template #nav-screen-content-after>
-     <ClientOnly>
-       <NolebaseEnhancedReadabilitiesScreenMenu />
-     </ClientOnly>
-     
-   </template>
+    <!-- 更好的为较窄的屏幕（通常是小于 iPad Mini）添加阅读增强菜单图片窗格 -->
+    <template #nav-screen-content-after>
+        <NolebaseEnhancedReadabilitiesScreenMenu />     
+    </template>
 
+    </Layout>
+    </ClientOnly>
+    <template>
+        <Sakula />
+        <BodyClick />
+    </template>
 
-     
-
-
-   </Layout>
-
-   <template>
-       <Sakula />
-       <BodyClick />
-   </template>
-
-   
- 
-</div>
+  </div>
 </template>
 
 <script lang="ts" setup>
