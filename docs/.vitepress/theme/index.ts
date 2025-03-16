@@ -179,3 +179,15 @@ if ('caches' in window) {
     )
   })
 }
+
+//检测浏览器类型
+if (typeof window !== 'undefined') {
+  const browser = navigator.userAgent.toLowerCase()
+  if (browser.includes('chrome')) {
+    document.documentElement.classList.add('browser-chrome')
+  } else if (browser.includes('firefox')) {
+    document.documentElement.classList.add('browser-firefox')
+  } else if (browser.includes('safari')) {
+    document.documentElement.classList.add('browser-safari')
+  }
+}
