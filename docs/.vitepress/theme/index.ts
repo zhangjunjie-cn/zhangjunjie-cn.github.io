@@ -113,17 +113,15 @@ export default Object.assign({}, Theme, {
       app.provide('css-render-collect', collect);
     }
 
-    onMounted(() => {
-      if (inBrowser) {
-        NProgress.configure({ showSpinner: false });
-        router.onBeforeRouteChange = () => {
-          NProgress.start(); // 开始进度条
-        };
-        router.onAfterRouteChanged = () => {
-          NProgress.done(); // 结束进度条
-        };
-      }
-    });
+    if (inBrowser) {
+      NProgress.configure({ showSpinner: false });
+      router.onBeforeRouteChange = () => {
+        NProgress.start(); // 开始进度条
+      };
+      router.onAfterRouteChanged = () => {
+        NProgress.done(); // 结束进度条
+      };
+    }
   }
 });
 
