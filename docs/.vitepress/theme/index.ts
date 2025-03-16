@@ -157,3 +157,25 @@ export default Object.assign({}, Theme, {
   }
   
 })
+
+//防止 PWA（渐进式网页应用）的缓存机制导致页面更新后无法加载最新内容。
+if (typeof window !== 'undefined') {
+  if (window.navigator && navigator.serviceWorker) {
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+      for (let registration of registrations) {
+        registration.unregister()
+      }
+    })
+  }
+}
+
+//确保用户在访问页面时加载的是最新的资源，而不是旧版本的缓存。
+if ('caches' in window) {
+  caches.keys().then(function (keyList) {
+    return Promise.all(
+      keyList.map(function (key) {
+        return caches.delete(key)
+      }),
+    )
+  })
+}
