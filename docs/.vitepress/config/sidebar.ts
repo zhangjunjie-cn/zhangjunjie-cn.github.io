@@ -4,11 +4,6 @@ import matter from 'gray-matter';
 import { getChineseZodiac, getChineseZodiacAlias } from '../theme/utils.ts';
 const sync = fg.sync;
 
-export enum MY_TAB {
-	BLOG = "/categories/",
-	NOTE = "/courses/",
-}
-
 export const sidebar: DefaultTheme.Config['sidebar'] = {
   '/categories/annals/': getItemsByDate("categories/annals"),
   // '/categories/fragments/': getItemsByDate("categories/fragments"),
@@ -28,7 +23,7 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
  * @param path 扫描基础路径
  * @returns {DefaultTheme.SidebarItem[]}
  */
-export function getItemsByDate (path: string) {
+function getItemsByDate (path: string) {
   // 侧边栏年份分组数组
   let yearGroups: DefaultTheme.SidebarItem[] = [];
   // 置顶数组
@@ -107,10 +102,6 @@ export function getItemsByDate (path: string) {
 
   // 添加序号
   addOrderNumber(yearGroups);
-  // 打印生成的侧边栏配置
-  console.log(JSON.stringify(yearGroups, null, 2));
-
-
   return yearGroups;
 }
 
