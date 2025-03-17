@@ -49,6 +49,7 @@
     "unplugin-vue-components": "^0.26.0",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-dynamic-import": "^1.6.0",
+    "workbox-window": "^6.5.4",
     "vitepress": "v1.3.2",
     "vue": "^3.4.35"
   },
