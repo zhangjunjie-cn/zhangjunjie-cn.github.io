@@ -8,8 +8,6 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AboutMe: typeof import('./.vitepress/theme/components/aboutMe.vue')['default']
-    AButton: typeof import('@arco-design/web-vue')['Button']
-    AButtonGroup: typeof import('@arco-design/web-vue')['ButtonGroup']
     ACard: typeof import('@arco-design/web-vue')['Card']
     ACol: typeof import('@arco-design/web-vue')['Col']
     AList: typeof import('@arco-design/web-vue')['List']
@@ -37,10 +35,10 @@ declare module 'vue' {
     MNavLink: typeof import('./.vitepress/theme/components/MNavLink.vue')['default']
     MNavLinks: typeof import('./.vitepress/theme/components/MNavLinks.vue')['default']
     NavVisitor: typeof import('./.vitepress/theme/components/NavVisitor.vue')['default']
+    ReloadPrompt: typeof import('./.vitepress/theme/components/ReloadPrompt.vue')['default']
     Sakula: typeof import('./.vitepress/theme/components/Sakula.vue')['default']
     Tag: typeof import('./.vitepress/theme/components/Tag.vue')['default']
     TdesignDark: typeof import('./.vitepress/theme/components/tdesignDark.vue')['default']
-    TImageViewer: typeof import('tdesign-vue-next')['ImageViewer']
     Timeline: typeof import('./.vitepress/theme/components/Timeline.vue')['default']
     TPopup: typeof import('tdesign-vue-next')['Popup']
     ValineComment: typeof import('./.vitepress/theme/components/ValineComment.vue')['default']
