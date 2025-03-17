@@ -125,37 +125,37 @@ export default Object.assign({}, Theme, {
   }
 });
 
-// onMounted(() => {
-//   ////防止 PWA（渐进式网页应用）的缓存机制导致页面更新后无法加载最新内容。
-//   if (inBrowser) {
-//     // 注销 PWA 服务
-//     if (window.navigator && navigator.serviceWorker) {
-//       navigator.serviceWorker.getRegistrations().then(function (registrations) {
-//         for (let registration of registrations) {
-//           registration.unregister();
-//         }
-//       });
-//     }
+onMounted(() => {
+  ////防止 PWA（渐进式网页应用）的缓存机制导致页面更新后无法加载最新内容。
+  if (inBrowser) {
+    // 注销 PWA 服务
+    if (window.navigator && navigator.serviceWorker) {
+      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
 
-//     //确保用户在访问页面时加载的是最新的资源，而不是旧版本的缓存。
-//     if ('caches' in window) {
-//       caches.keys().then(function (keyList) {
-//         return Promise.all(
-//           keyList.map(function (key) {
-//             return caches.delete(key);
-//           }),
-//         );
-//       });
-//     }
+    //确保用户在访问页面时加载的是最新的资源，而不是旧版本的缓存。
+    if ('caches' in window) {
+      caches.keys().then(function (keyList) {
+        return Promise.all(
+          keyList.map(function (key) {
+            return caches.delete(key);
+          }),
+        );
+      });
+    }
 
-//     // 检测浏览器类型
-//     const browser = navigator.userAgent.toLowerCase();
-//     if (browser.includes('chrome')) {
-//       document.documentElement.classList.add('browser-chrome');
-//     } else if (browser.includes('firefox')) {
-//       document.documentElement.classList.add('browser-firefox');
-//     } else if (browser.includes('safari')) {
-//       document.documentElement.classList.add('browser-safari');
-//     }
-//   }
-// });
+    // 检测浏览器类型
+    const browser = navigator.userAgent.toLowerCase();
+    if (browser.includes('chrome')) {
+      document.documentElement.classList.add('browser-chrome');
+    } else if (browser.includes('firefox')) {
+      document.documentElement.classList.add('browser-firefox');
+    } else if (browser.includes('safari')) {
+      document.documentElement.classList.add('browser-safari');
+    }
+  }
+});

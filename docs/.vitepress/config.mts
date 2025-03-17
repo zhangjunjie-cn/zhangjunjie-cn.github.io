@@ -90,7 +90,7 @@ export default withPwa(
       ],
       ssr: {
         noExternal: process.env.NODE_ENV === 'production'
-          ? ['workbox-window','@arco-design/web-vue','@nolebase/vitepress-plugin-enhanced-readabilities', '@nolebase/ui','naive-ui', 'date-fns', 'vueuc']
+          ? ['@arco-design/web-vue','@nolebase/vitepress-plugin-enhanced-readabilities', '@nolebase/ui','naive-ui', 'date-fns', 'vueuc']
           : []
       },
     },
