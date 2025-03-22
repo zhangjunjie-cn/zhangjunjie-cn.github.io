@@ -71,6 +71,7 @@
     "shiki": "^0.14.5",
     "tdesign-vue-next": "^1.8.1",
     "valine": "^1.5.1",
+    "workbox-window": "^6.5.4",
     "vitepress-markdown-timeline": "^1.2.1",
     "vitepress-plugin-codeblocks-fold": "^1.2.28"
   },

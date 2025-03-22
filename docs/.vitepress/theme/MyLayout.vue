@@ -28,7 +28,8 @@
 
 
      <template #layout-bottom>
-         <Footer v-if="!hasSidebar && (theme.footerConfig?.showFooter ?? true) && (frontmatter?.showFooter ?? true)" />
+         <!-- <Footer v-if="!hasSidebar && (theme.footerConfig?.showFooter ?? true) && (frontmatter?.showFooter ?? true)" /> -->
+         <ReloadPrompt />
      </template>
 
      <!-- 为较宽的屏幕的导航栏添加阅读增强菜单 -->
@@ -67,6 +68,7 @@
  import BodyClick from "./components/BodyClick.vue";
  import Sakula from "./components/Sakula.vue";
  import Fireworks from './components/Fireworks.vue';
+ import ReloadPrompt from './components/ReloadPrompt.vue';
  
  import { 
  NolebaseEnhancedReadabilitiesMenu, 
@@ -76,11 +78,11 @@
  const { Layout } = DefaultTheme;
  const { page, theme, frontmatter } = useData();
 
- const hasSidebar = computed(() => {
-   return (
-     frontmatter.value.aside !== false && frontmatter.value.layout !== 'home'
-   )
- });
+//  const hasSidebar = computed(() => {
+//    return (
+//      frontmatter.value.aside !== false && frontmatter.value.layout !== 'home'
+//    )
+//  });
 
 
  //视图过渡

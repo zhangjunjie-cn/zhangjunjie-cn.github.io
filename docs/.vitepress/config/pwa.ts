@@ -6,13 +6,14 @@ const pwa: Partial<VitePWAOptions> = {
   // 根目录
   outDir: resolve(__dirname, "../../../dist"),
   registerType: "autoUpdate",
+  // includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
   includeManifestIcons: false,
   manifest: {
     id: "/",
     name: "张俊杰的博客",
     short_name: "张俊杰的博客",
     description: "张俊杰的博客人生",
-    theme_color: "#ffffff",
+    theme_color: '#ffffff',
     icons: [
       {
         src: "/images/pwa-120x120.png",

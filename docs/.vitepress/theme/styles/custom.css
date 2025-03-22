@@ -21,7 +21,7 @@ pre, code, kbd, samp {
   font-size: 15px; /* 你可以根据需要调整这个值 */
 }
 
-/* .vp-doc h2 {
+.vp-doc h2 {
   margin: 15px 0 0;
   padding-top: 10px;
   border-top: none;
@@ -29,7 +29,7 @@ pre, code, kbd, samp {
 
 .vp-doc h3,h4,h5 {
   margin: 10px 0 0;
-} */
+}
 
 .vp-doc h4 {
   font-size: 18px;

@@ -12,6 +12,7 @@ import Components from 'unplugin-vue-components/vite';
 import { TDesignResolver } from 'unplugin-vue-components/resolvers';
 import viteCompression from "vite-plugin-compression";
 import pwa from "./config/pwa";
+import { VitePWA } from 'vite-plugin-pwa';
 import UnoCSS from 'unocss/vite'
 import { 
   GitChangelog, 
@@ -47,6 +48,13 @@ export default withPwa(
         ], 
       },
       plugins: [
+        VitePWA({ 
+          registerType: 'autoUpdate',
+          //开发版显示pwa 插件
+          devOptions: {
+            enabled: true,
+          }, 
+        }),
         // ...
         AutoImport({
           resolvers: [TDesignResolver({
