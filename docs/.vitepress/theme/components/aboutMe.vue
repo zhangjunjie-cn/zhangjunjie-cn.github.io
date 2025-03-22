@@ -228,7 +228,7 @@ const langChartSrc = computed(() =>
 			border: 1px solid var(--vp-c-gutter);
 			position: relative;
 			width: 340px;
-			height: 450px;
+			height: 480px;
 			border-radius: 6px;
 			overflow: hidden;
 		}
