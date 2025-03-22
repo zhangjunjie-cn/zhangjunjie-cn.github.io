@@ -1,6 +1,8 @@
 <template>
   <div :class="class">
+    
     <ClientOnly>
+      <Fireworks />
    <Layout>
      <template #doc-footer-before>
          <Copyright
@@ -43,7 +45,9 @@
     </ClientOnly>
     <template>
         <Sakula />
-        <BodyClick />
+        <!-- <BodyClick /> -->
+        <!-- 鼠标点击烟花效果 -->
+        
     </template>
 
   </div>
@@ -62,6 +66,7 @@
  import { isDesktop } from "./utils"; 
  import BodyClick from "./components/BodyClick.vue";
  import Sakula from "./components/Sakula.vue";
+ import Fireworks from './components/Fireworks.vue';
  
  import { 
  NolebaseEnhancedReadabilitiesMenu, 

@@ -93,6 +93,9 @@ devDependencies:
   '@vite-pwa/vitepress':
     specifier: ^0.5.3
     version: 0.5.3(vite-plugin-pwa@0.20.5)
+  animejs:
+    specifier: ^3.2.2
+    version: 3.2.2
   cross-env:
     specifier: ^7.0.3
     version: 7.0.3
@@ -3573,6 +3576,10 @@ packages:
   /animate.css@4.1.1:
     resolution: {integrity: sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==}
     dev: false
+
+  /animejs@3.2.2:
+    resolution: {integrity: sha512-Ao95qWLpDPXXM+WrmwcKbl6uNlC5tjnowlaRYtuVDHHoygjtIPfDUoK9NthrlZsQSKjZXlmji2TrBUAVbiH0LQ==}
+    dev: true
 
   /ansi-regex@2.1.1:
     resolution: {integrity: sha512-TIGnTpdo+E3+pCyAluZvtED5p5wCqLdezCyhPZzKPcxvFplEt4i+W7OONCKgeZFT3+y5NZZfOOS/Bdcanm1MYA==}
