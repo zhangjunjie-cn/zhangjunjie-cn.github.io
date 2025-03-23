@@ -37,7 +37,6 @@ export default withPwa(
     // Bug 修复：将 mode 的类型改为 "development" | "production" | undefined
     pwa: {
       // 根目录
-      mode: 'development',
       outDir: resolve(__dirname, "../../dist"),
       registerType: "autoUpdate",
       injectRegister: 'auto',
@@ -88,7 +87,7 @@ export default withPwa(
 						},
 					},
 				],// 预缓存重要资源
-        globPatterns: ["**/*.{css,js,html,svg,png,ico,txt,woff2}"],
+        globPatterns: ["**/*.{css,js,html,svg,png,ico,mp4,txt,woff2}"],
 				skipWaiting: true,
 				clientsClaim: true,
         
