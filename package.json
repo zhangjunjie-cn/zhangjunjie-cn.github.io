@@ -49,7 +49,6 @@
     "unplugin-vue-components": "^0.26.0",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-dynamic-import": "^1.6.0",
-    "vite-plugin-pwa": "^0.20.1",
     "vitepress": "v1.3.2",
     "vue": "^3.4.35"
   },
@@ -67,11 +66,11 @@
     "gray-matter": "^4.0.3",
     "js-confetti": "^0.11.0",
     "naive-ui": "^2.38.2",
+    "oh-my-live2d": "^0.19.3",
     "rss-parser": "^3.13.0",
     "shiki": "^0.14.5",
     "tdesign-vue-next": "^1.8.1",
     "valine": "^1.5.1",
-    "oh-my-live2d": "^0.19.3",
     "vitepress-markdown-timeline": "^1.2.1",
     "vitepress-plugin-codeblocks-fold": "^1.2.28",
     "workbox-window": "^6.5.4"

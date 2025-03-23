@@ -11,8 +11,6 @@ import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { TDesignResolver } from 'unplugin-vue-components/resolvers';
 import viteCompression from "vite-plugin-compression";
-import pwa from "./config/pwa";
-import { VitePWA } from 'vite-plugin-pwa';
 import UnoCSS from 'unocss/vite'
 import { 
   GitChangelog, 
@@ -36,7 +34,70 @@ export default withPwa(
     head, // <head>内标签配置
     markdown: markdown, // Markdown配置
     themeConfig, // 主题配置
-    pwa, // PWA配置
+    // Bug 修复：将 mode 的类型改为 "development" | "production" | undefined
+    pwa: {
+      // 根目录
+      mode: 'development',
+      outDir: resolve(__dirname, "../../dist"),
+      registerType: "autoUpdate",
+      injectRegister: 'auto',
+      // includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      includeManifestIcons: false,
+      manifest: {
+        id: "/",
+        name: "张俊杰的博客",
+        short_name: "张俊杰的博客",
+        description: "张俊杰的博客人生",
+        theme_color: '#ffffff',
+        icons: [
+          {
+            src: "/images/pwa-120x120.png",
+            sizes: "120x120",
+            type: "image/png",
+          },
+          {
+            src: "/images/pwa-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "/images/pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any",
+          },
+        ],
+      },
+      injectManifest: {
+				injectionPoint: undefined,
+			},
+      workbox: {
+        // 定制缓存策略
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+        runtimeCaching: [
+					{
+						// 匹配文章相关的js文件
+						urlPattern: /posts.+\.js$/,
+						handler: 'StaleWhileRevalidate',
+						options: {
+							cacheName: 'article-content',
+							expiration: {
+								maxEntries: 100, // 最多缓存100篇文章
+								maxAgeSeconds: 7 * 24 * 60 * 60, // 缓存一周
+							},
+						},
+					},
+				],// 预缓存重要资源
+        globPatterns: ["**/*.{css,js,html,svg,png,ico,txt,woff2}"],
+				skipWaiting: true,
+				clientsClaim: true,
+        
+      },
+      devOptions:{
+				enabled:true,// 开发环境是否启用
+				type:'module'
+			}
+    },
 
     /*** 看图浏览组件库 ***/
     vite: {
