@@ -5,7 +5,7 @@ import type { VitePWAOptions } from "vite-plugin-pwa";
 const pwa = {
   // 根目录
   mode: 'development',
-  // outDir: resolve(__dirname, "../../../dist"),
+  outDir: resolve(__dirname, "../../../dist"),
   registerType: "autoUpdate",
   injectRegister: 'auto',
   // includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
