@@ -14,6 +14,7 @@ pre, code, kbd, samp {
   font-family: "INTER" !important;
   /* font-weight: bold; */
   color: var(--vp-c-brand) !important;
+  
 
 }
 
@@ -21,19 +22,42 @@ pre, code, kbd, samp {
   font-size: 15px; /* 你可以根据需要调整这个值 */
 }
 
-.vp-doc h2 {
-  margin: 15px 0 0;
-  padding-top: 10px;
-  border-top: none;
+.VPDoc h1 {
+  background: -webkit-linear-gradient(10deg, #bd34fe 5%, #e43498 15%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "none";
+  letter-spacing: 1px; 
+  font-size: 32px; 
 }
 
-.vp-doc h3,h4,h5 {
-  margin: 10px 0 0;
+.vp-doc h2 {
+  font-family: "INTER";
+  margin: 48px 0 16px;
+  letter-spacing: 1px;
+  padding-top: 10px;
+  font-family: "inter";
+  font-size: 24px;
+}
+
+.vp-doc h3 {
+  font-family: "inter";
+  letter-spacing: 1px;
+  font-size: 20px;
+  margin: 32px 0 0;
 }
 
 .vp-doc h4 {
-  font-size: 18px;
+  letter-spacing: 1px;
+  font-family: "inter";
+  font-size: 16px;
+  margin: 20px 0 0;
 }
+
+/* .vp-doc h4 {
+  font-size: 18px;
+} */
 
 .VPDoc .content-container img {
   border-radius: 5px;

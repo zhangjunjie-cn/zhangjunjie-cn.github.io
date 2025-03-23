@@ -81,5 +81,10 @@ const pwa: Partial<VitePWAOptions> = {
       },
     ],
   },
+  // 请求页面不存在，强制返回404
+  strategies: 'generateSW', 
+  experimental: {
+    includeAllowlist: true
+  }
 };
 export default pwa;

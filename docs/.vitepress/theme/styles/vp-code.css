@@ -2,9 +2,10 @@
 
 /* 代码块：增加留空边距 增加阴影 */
 .vp-doc div[class*=language-] {
-  box-shadow: 0 6px 15px 0 rgb(0 0 0 / 20%); /* 调整阴影的透明度和模糊度 */
+  box-shadow: 0 7px 10px 0 rgb(0 0 0 / 40%);
   padding-top: 20px;
-  backdrop-filter: blur(5px) opacity(1); /*添加模糊和通透效果*/
+  /* backdrop-filter: blur(5px) opacity(1); 添加模糊和通透效果 */
+  background-color: var(--main-card-second-background); 
 }
 
 
