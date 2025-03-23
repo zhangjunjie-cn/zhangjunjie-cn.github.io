@@ -34,6 +34,9 @@ dependencies:
   naive-ui:
     specifier: ^2.38.2
     version: 2.40.1(vue@3.5.13)
+  oh-my-live2d:
+    specifier: ^0.19.3
+    version: 0.19.3
   rss-parser:
     specifier: ^3.13.0
     version: 3.13.0
@@ -7153,6 +7156,10 @@ packages:
       node-fetch-native: 1.6.4
       ufo: 1.5.4
     dev: true
+
+  /oh-my-live2d@0.19.3:
+    resolution: {integrity: sha512-EWva8OUmcExIFIhqGkeiVPQt44RvYYFg+nmpkrZgQVQ+xofVFq4SDYAg5NcdK40HxyV4vORBJEg4OHIHP96MrA==}
+    dev: false
 
   /ohash@1.1.4:
     resolution: {integrity: sha512-FlDryZAahJmEF3VR3w1KogSEdWX3WhA5GPakFx4J81kEAiHyLMpdLLElS8n8dfNadMgAne/MywcvmogzscVt4g==}
