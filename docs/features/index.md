@@ -4,6 +4,8 @@ footer: false
 aside: false
 outline: false
 sidebar: false
+lastUpdated: false
+showComment: false
 pageClass: all-features-page
 ---
 
@@ -39,7 +41,8 @@ function removeTag(tag: string) {
   tagsArr.value = tagsArr.value.filter(t => t !== tag)
 }
 </script>
-
+<br/>
+<br/>
 # 功能列表
 
 本页是 Slidev 提供的相对独立的功能列表。每一个功能都可以在有需要的时候单独使用，使你的幻灯片更加精彩。

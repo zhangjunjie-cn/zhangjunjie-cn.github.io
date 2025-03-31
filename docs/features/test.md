@@ -1,4 +1,11 @@
 ---
+editLink: false
+footer: false
+aside: false
+outline: false
+sidebar: false
+lastUpdated: false
+showComment: false
 depends:
   - guide/syntax
 relates:
