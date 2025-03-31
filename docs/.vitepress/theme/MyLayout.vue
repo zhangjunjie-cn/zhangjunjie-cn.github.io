@@ -42,6 +42,11 @@
         <NolebaseEnhancedReadabilitiesScreenMenu />     
     </template>
 
+    <template #aside-outline-before>
+        <ShareButton />     
+    </template>
+
+
     <template #sidebar-nav-before>
       <br/>
       <div flex="~ col gap-2">
@@ -94,7 +99,8 @@
  import Sakula from "./components/Sakula.vue";
  import Fireworks from './components/Fireworks.vue';
  import ReloadPrompt from './components/ReloadPrompt.vue';
- 
+ import { ShareButton } from '@theojs/lumen'
+
  import { 
  NolebaseEnhancedReadabilitiesMenu, 
  NolebaseEnhancedReadabilitiesScreenMenu, 

@@ -23,6 +23,10 @@ import '@nolebase/vitepress-plugin-git-changelog/client/style.css';
 import { initFirstScreen, destructionObserver, animateFn } from '../theme/composables/animatePlusgin';
 import '@theojs/lumen/theme';
 
+// 代码折叠
+import codeblocksFold from 'vitepress-plugin-codeblocks-fold'; // import method
+import 'vitepress-plugin-codeblocks-fold/style/index.css'; // import style
+
 export default Object.assign({}, Theme, {
   
   // 滚动进入动画
@@ -53,6 +57,7 @@ export default Object.assign({}, Theme, {
     const { Layout } = DefaultTheme;
     const CssRenderStyle = defineComponent({
       setup() {
+        codeblocksFold({route, frontmatter});//代码折叠
         const collect = inject('css-render-collect');
         return {
           style: collect()
@@ -92,6 +97,7 @@ export default Object.assign({}, Theme, {
     const props: Record<string, any> = {};
     // 获取 frontmatter
     const { frontmatter } = useData();
+    const route = useRoute();
     /* 添加自定义 class */
     if (frontmatter.value?.layoutClass) {
       props.class = frontmatter.value.layoutClass;
