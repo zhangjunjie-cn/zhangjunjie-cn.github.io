@@ -7,6 +7,9 @@ sidebar: false
 lastUpdated: false
 showComment: false
 pageClass: all-features-page
+tags: 1
+categories:
+ - 1
 ---
 
 <script setup lang="ts">

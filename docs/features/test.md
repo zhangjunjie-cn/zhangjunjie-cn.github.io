@@ -11,6 +11,8 @@ depends:
 relates:
   - features/prettier-plugin
 tags: [语法]
+categories:
+ - 1
 description: |
   使用单独的 YAML 代码块作为 frontmatter
 ---
