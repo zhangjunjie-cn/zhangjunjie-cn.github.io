@@ -42,6 +42,31 @@
         <NolebaseEnhancedReadabilitiesScreenMenu />     
     </template>
 
+    <template #sidebar-nav-before>
+      <br/>
+      <div flex="~ col gap-2">
+        <div v-if="route.data?.frontmatter?.tags" class="bg-$vp-tag p4 rounded-lg"  flex="~ col gap-2">
+          <div font-bold text-sm op75>
+            📌 标签
+          </div>
+          <div flex="~ wrap gap-2">
+            <FeatureTag v-for="tag in route.data.frontmatter.tags" :key="tag" :tag="tag" />
+          </div>
+        </div>
+        <div v-if="route.data?.frontmatter?.since" class="bg-$vp-c-bg-soft px2 pb2 rounded-lg" flex="~ col gap-1">
+          <div font-bold text-sm op75 px2 pt4>
+            要求版本
+          </div>
+          <VPMenuLink
+            :item="{
+              text: route.data.frontmatter.since,
+              link: `https://github.com/slidevjs/slidev/releases/tag/${route.data.frontmatter.since}`,
+            }"
+          />
+        </div>
+      </div>
+    </template>
+
     </Layout>
     </ClientOnly>
     <template>
@@ -57,7 +82,7 @@
 <script lang="ts" setup>
  import { computed } from 'vue';
  import DefaultTheme from 'vitepress/theme';
- import { useData } from 'vitepress';
+ import { useData,useRoute } from 'vitepress';
  import md5 from 'blueimp-md5';
  import Copyright from './components/layout/Copyright.vue';
 //  import Comment from './components/layout/Comment.vue';
@@ -75,6 +100,7 @@
  NolebaseEnhancedReadabilitiesScreenMenu, 
 } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 
+const route = useRoute()
  const { Layout } = DefaultTheme;
  const { page, theme, frontmatter } = useData();
 

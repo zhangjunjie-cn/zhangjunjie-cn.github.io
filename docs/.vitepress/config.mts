@@ -4,19 +4,21 @@ import { metaData } from './config/constants';
 import { head } from './config/head';
 import { markdown } from './config/markdown';
 import { themeConfig } from './config/theme';
-import { ArcoResolver } from 'unplugin-vue-components/resolvers';
+import { ArcoResolver,TDesignResolver } from 'unplugin-vue-components/resolvers';
 import { withPwa } from "@vite-pwa/vitepress";
 // 自动导入TDesign 
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
-import { TDesignResolver } from 'unplugin-vue-components/resolvers';
 import { withMermaid } from 'vitepress-plugin-mermaid';
 import viteCompression from "vite-plugin-compression";
 import UnoCSS from 'unocss/vite'
 import { 
   GitChangelog, 
   GitChangelogMarkdownSection, 
-} from '@nolebase/vitepress-plugin-git-changelog/vite'
+} from '@nolebase/vitepress-plugin-git-changelog/vite';
+
+import IconsResolver from 'unplugin-icons/resolver';
+import Icons from 'unplugin-icons/vite';
 
 import dynamicImport from 'vite-plugin-dynamic-import';
 
@@ -122,14 +124,21 @@ export default withPwa(withMermaid(
           //自动加载 components 下的vue文件为组件，省去import 导入。
           dirs: ['.vitepress/theme/components'],
           include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-          resolvers: [TDesignResolver({
-            library: 'vue-next'
-          }),
-          // 自动导入图标组件
-          ArcoResolver({
-            sideEffect: true,
-            resolveIcons: true
-          })],
+          resolvers: [
+            //导入图标组件
+            IconsResolver({
+              prefix: '',
+              enabledCollections: ['ion', 'carbon'], // 启用的图标集
+            }),
+            TDesignResolver({
+              library: 'vue-next'
+            }),
+            // 自动导入图标组件
+            ArcoResolver({
+              sideEffect: true,
+              resolveIcons: true
+            })
+          ],
         }),
         GitChangelog({ 
           // 填写在此处填写您的仓库链接
@@ -141,16 +150,20 @@ export default withPwa(withMermaid(
           threshold: 10240,
           algorithm: "gzip",
           ext: ".gz",
-      }),
-      viteCompression({
-          verbose: true,
-          disable: false,
-          threshold: 10240,
-          algorithm: "brotliCompress",
-          ext: ".br",
-      }),
+        }),
+        viteCompression({
+            verbose: true,
+            disable: false,
+            threshold: 10240,
+            algorithm: "brotliCompress",
+            ext: ".br",
+        }),
         GitChangelogMarkdownSection(), 
         dynamicImport(),
+        Icons({
+          autoInstall: true, // 自动安装图标集
+          // defaultStyle: 'display: inline-block;',
+        }),
         UnoCSS()
       ],
       ssr: {

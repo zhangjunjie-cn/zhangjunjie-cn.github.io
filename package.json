@@ -24,6 +24,7 @@
     "postbuild": "pnpm run compress"
   },
   "devDependencies": {
+    "@iconify/json": "^2.2.230",
     "@arco-design/web-vue": "^2.53.3",
     "@css-render/vue3-ssr": "^0.15.14",
     "@luckrya/markdown-it-link-to-card": "^0.3.3",
@@ -46,6 +47,7 @@
     "sass": "^1.83.2",
     "tailwindcss": "^3.3.3",
     "unocss": "66.1.0-beta.3",
+    "unplugin-icons": "^0.19.0",
     "unplugin-auto-import": "^0.17.5",
     "unplugin-vue-components": "^0.26.0",
     "vite-plugin-compression": "^0.5.1",

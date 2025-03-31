@@ -3,6 +3,7 @@
 /* 代码组：tab间距 */
 .vp-code-group .tabs {
     padding-top: 20px;
+    background-color: var(--main-card-second-background); 
   }
   
   /* 代码组：添加样式及阴影 */

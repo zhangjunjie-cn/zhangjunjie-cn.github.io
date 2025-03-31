@@ -76,4 +76,5 @@ const colors = computed(() => {
 .feature-tag:hover {
   background-color: v-bind('colors[3]');
 }
+
 </style>
