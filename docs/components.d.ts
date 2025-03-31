@@ -8,8 +8,6 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AboutMe: typeof import('./.vitepress/theme/components/aboutMe.vue')['default']
-    AButton: typeof import('@arco-design/web-vue')['Button']
-    AButtonGroup: typeof import('@arco-design/web-vue')['ButtonGroup']
     ACard: typeof import('@arco-design/web-vue')['Card']
     ACol: typeof import('@arco-design/web-vue')['Col']
     AList: typeof import('@arco-design/web-vue')['List']
@@ -23,9 +21,6 @@ declare module 'vue' {
     Backtotop: typeof import('./.vitepress/theme/components/backtotop.vue')['default']
     BodyClick: typeof import('./.vitepress/theme/components/BodyClick.vue')['default']
     'Carbon:close': typeof import('~icons/carbon/close')['default']
-    'Carbon:filterRemove': typeof import('~icons/carbon/filter-remove')['default']
-    'Carbon:search': typeof import('~icons/carbon/search')['default']
-    'Carbon:tag': typeof import('~icons/carbon/tag')['default']
     Comment: typeof import('./.vitepress/theme/components/layout/Comment.vue')['default']
     Copyright: typeof import('./.vitepress/theme/components/layout/Copyright.vue')['default']
     FeaturesOverview: typeof import('./.vitepress/theme/components/FeaturesOverview.vue')['default']

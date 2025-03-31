@@ -13,6 +13,9 @@ dependencies:
   '@antv/g2plot':
     specifier: 2.4.31
     version: 2.4.31
+  '@vueuse/core':
+    specifier: ^10.11.0
+    version: 10.11.1(vue@3.5.13)
   animate.css:
     specifier: ^4.1.1
     version: 4.1.1
@@ -131,7 +134,7 @@ devDependencies:
     version: 66.1.0-beta.3(postcss@8.4.49)(vite@5.4.11)(vue@3.5.13)
   unplugin-auto-import:
     specifier: ^0.17.5
-    version: 0.17.8(rollup@2.79.2)
+    version: 0.17.8(@vueuse/core@10.11.1)(rollup@2.79.2)
   unplugin-icons:
     specifier: ^0.19.0
     version: 0.19.3
@@ -3251,7 +3254,6 @@ packages:
 
   /@types/web-bluetooth@0.0.20:
     resolution: {integrity: sha512-g9gZnnXVq7gM7v3tJCWV/qw7w+KeOlSHAhgF9RytFyifW6AF61hdT2ucrYhPq9hLs5JIryeupHV3qGk95dH9ow==}
-    dev: true
 
   /@types/ws@7.4.7:
     resolution: {integrity: sha512-JQbbmxZTZehdc2iszGKs5oC3NFnjeay7mtAWrdt7qNtAVK0g19muApzAy4bm9byz79xa2ZnO/BOBC2R8RC5Lww==}
@@ -3644,7 +3646,6 @@ packages:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
-    dev: true
 
   /@vueuse/core@11.3.0(vue@3.5.13):
     resolution: {integrity: sha512-7OC4Rl1f9G8IT6rUfi9JrKiXy4bfmHhZ5x2Ceojy0jnd3mHNEvV4JaRygH362ror6/NZ+Nl+n13LPzGiPN8cKA==}
@@ -3760,7 +3761,6 @@ packages:
 
   /@vueuse/metadata@10.11.1:
     resolution: {integrity: sha512-IGa5FXd003Ug1qAZmyE8wF3sJ81xGLSqTqtQ6jaVfkeZ4i5kS2mwQF61yhVqojRnenVew5PldLyRgvdl4YYuSw==}
-    dev: true
 
   /@vueuse/metadata@11.3.0:
     resolution: {integrity: sha512-pwDnDspTqtTo2HwfLw4Rp6yywuuBdYnPYDq+mO38ZYKGebCUQC/nVj/PXSiK9HX5otxLz8Fn7ECPbjiRz2CC3g==}
@@ -3773,7 +3773,6 @@ packages:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
-    dev: true
 
   /@vueuse/shared@11.3.0(vue@3.5.13):
     resolution: {integrity: sha512-P8gSSWQeucH5821ek2mn/ciCk+MS/zoRKqdQIM3bHq6p7GXDAJLmnRRKmF5F65sAVJIfzQlwR3aDzwCn10s8hA==}
@@ -9311,7 +9310,7 @@ packages:
       - vue
     dev: true
 
-  /unplugin-auto-import@0.17.8(rollup@2.79.2):
+  /unplugin-auto-import@0.17.8(@vueuse/core@10.11.1)(rollup@2.79.2):
     resolution: {integrity: sha512-CHryj6HzJ+n4ASjzwHruD8arhbdl+UXvhuAIlHDs15Y/IMecG3wrf7FVg4pVH/DIysbq/n0phIjNHAjl7TG7Iw==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -9325,6 +9324,7 @@ packages:
     dependencies:
       '@antfu/utils': 0.7.10
       '@rollup/pluginutils': 5.1.3(rollup@2.79.2)
+      '@vueuse/core': 10.11.1(vue@3.5.13)
       fast-glob: 3.3.2
       local-pkg: 0.5.1
       magic-string: 0.30.13
@@ -9776,7 +9776,6 @@ packages:
         optional: true
     dependencies:
       vue: 3.5.13(typescript@5.7.2)
-    dev: true
 
   /vue-flow-layout@0.1.1(vue@3.5.13):
     resolution: {integrity: sha512-JdgRRUVrN0Y2GosA0M68DEbKlXMqJ7FQgsK8CjQD2vxvNSqAU6PZEpi4cfcTVtfM2GVOMjHo7GKKLbXxOBqDqA==}

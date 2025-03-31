@@ -108,6 +108,7 @@ export default withPwa(withMermaid(
           '@nolebase/vitepress-plugin-enhanced-readabilities/client', 
           'vitepress', 
           '@nolebase/ui', 
+          '@vueuse/core',
         ], 
       },
       plugins: [
