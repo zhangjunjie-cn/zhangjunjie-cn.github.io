@@ -66,6 +66,9 @@ devDependencies:
   '@css-render/vue3-ssr':
     specifier: ^0.15.14
     version: 0.15.14(vue@3.5.13)
+  '@iconify/json':
+    specifier: ^2.2.230
+    version: 2.2.322
   '@luckrya/markdown-it-link-to-card':
     specifier: ^0.3.3
     version: 0.3.3
@@ -1962,6 +1965,13 @@ packages:
     resolution: {integrity: sha512-QZNA4YzFD2zqdC6nIBJM6WlAGakUCjvMt92Ks1R4XFxkd76Ps3rdiauYWESDRZvNYURAByp2b9cwZarFula65g==}
     dependencies:
       '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify/json@2.2.322:
+    resolution: {integrity: sha512-/P2UFkVgzrCwkTKEfvOITzjrEQB9jfPd03LicRYFrNWpycP/pzxq1jt+bt6Zq8iaPVSddTMLMPQqdNgeAkWfnQ==}
+    dependencies:
+      '@iconify/types': 2.0.0
+      pathe: 1.1.2
     dev: true
 
   /@iconify/types@2.0.0:
