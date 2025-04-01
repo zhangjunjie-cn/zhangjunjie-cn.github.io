@@ -4,12 +4,8 @@ footer: false
 aside: false
 outline: false
 sidebar: false
-lastUpdated: false
-showComment: false
+showRainbow: true
 pageClass: all-features-page
-tags: 1
-categories:
- - 1
 ---
 
 <script setup lang="ts">
@@ -44,6 +40,7 @@ function removeTag(tag: string) {
   tagsArr.value = tagsArr.value.filter(t => t !== tag)
 }
 </script>
+ 
 <br/>
 <br/>
 

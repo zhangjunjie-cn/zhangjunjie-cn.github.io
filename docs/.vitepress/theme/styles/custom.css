@@ -215,3 +215,9 @@ mjx-container > svg {
 .vp-doc .custom-block {
   font-family: "INTER" !important;
 }
+
+.all-features-page {
+  .content-container{
+    margin-top: 80px;
+  }
+}

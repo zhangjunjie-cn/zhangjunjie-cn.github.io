@@ -1,4 +1,5 @@
 <template>
+  <br/>
   <div class="timeline-wrap">
     <!-- 时间轴头部 -->
     <div class="timeline-header">

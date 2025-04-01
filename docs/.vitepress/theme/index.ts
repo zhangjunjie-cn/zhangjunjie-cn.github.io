@@ -2,6 +2,8 @@ import { h, watch, onMounted, nextTick, defineComponent, inject } from "vue";
 import { useData, EnhanceAppContext, inBrowser, useRoute } from "vitepress";
 import DefaultTheme from 'vitepress/theme-without-fonts';
 import "vitepress-markdown-timeline/dist/theme/index.css";
+
+
 import "./styles/font.css";
 import './styles/index.scss';
 //naive-ui
@@ -31,7 +33,13 @@ export default Object.assign({}, Theme, {
   
   // 滚动进入动画
   setup() {
+
+    // 获取前言和路由
+    const { frontmatter } = useData();
     const route = useRoute();
+    // 基础使用
+    codeblocksFold({ route, frontmatter }, true, 400);
+
     onMounted(() => {
       if (inBrowser) {
         initFirstScreen();
@@ -57,7 +65,7 @@ export default Object.assign({}, Theme, {
     const { Layout } = DefaultTheme;
     const CssRenderStyle = defineComponent({
       setup() {
-        codeblocksFold({route, frontmatter});//代码折叠
+
         const collect = inject('css-render-collect');
         return {
           style: collect()

@@ -28,7 +28,7 @@
 
 
      <template #layout-bottom>
-         <!-- <Footer v-if="!hasSidebar && (theme.footerConfig?.showFooter ?? true) && (frontmatter?.showFooter ?? true)" /> -->
+         <!-- <Footer v-if="!hasRainbow && (theme.footerConfig?.showFooter ?? true) && (frontmatter?.showFooter ?? true)" /> -->
          <ReloadPrompt />
      </template>
 
@@ -44,6 +44,10 @@
 
     <template #aside-outline-before>
         <ShareButton />     
+    </template>
+
+    <template #layout-top>
+        <Rainbow v-if="!hasRainbow && (theme.footerConfig?.showRainbow ?? false) && (frontmatter?.showRainbow ?? false)"/>     
     </template>
 
 
@@ -110,15 +114,17 @@ const route = useRoute()
  const { Layout } = DefaultTheme;
  const { page, theme, frontmatter } = useData();
 
-//  const hasSidebar = computed(() => {
-//    return (
-//      frontmatter.value.aside !== false && frontmatter.value.layout !== 'home'
-//    )
-//  });
+ const hasRainbow = computed(() => {
+   return (
+     frontmatter.value.aside !== false && frontmatter.value.layout !== 'home'
+     //aside 未关闭（≠ false）且当前是不是首页布局（layout: 'home'） 时，hasRainbow 才会返回 true，否则返回 false。
+   )
+ });
 
 
  //视图过渡
 import { nextTick, provide } from 'vue'
+import Rainbow from './components/Rainbow.vue';
 
 const { isDark } = useData()
 

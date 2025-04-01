@@ -1,7 +1,10 @@
 ---
+pageClass: all-features-page
+date: 2025/01/15
+title: 文档书写规范
 editLink: false
 footer: false
-aside: false
+aside: left
 outline: false
 sidebar: false
 lastUpdated: false

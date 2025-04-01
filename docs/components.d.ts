@@ -43,6 +43,7 @@ declare module 'vue' {
     MNavLink: typeof import('./.vitepress/theme/components/MNavLink.vue')['default']
     MNavLinks: typeof import('./.vitepress/theme/components/MNavLinks.vue')['default']
     NavVisitor: typeof import('./.vitepress/theme/components/NavVisitor.vue')['default']
+    Rainbow: typeof import('./.vitepress/theme/components/Rainbow.vue')['default']
     ReloadPrompt: typeof import('./.vitepress/theme/components/ReloadPrompt.vue')['default']
     Sakula: typeof import('./.vitepress/theme/components/Sakula.vue')['default']
     Tag: typeof import('./.vitepress/theme/components/Tag.vue')['default']

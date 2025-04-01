@@ -91,6 +91,7 @@ export const themeConfig: DefaultTheme.Config = {
   // 自定义扩展: 页脚配置
   footerConfig: {
     showFooter: true, // 是否显示页脚
+    showRainbow: true, // 是否显示彩虹
     icpRecordCode: '津ICP备2022005864号-2', // ICP备案号
     publicSecurityRecordCode: '津公网安备12011202000677号', // 联网备案号
     copyright: `Copyright © 2019-${new Date().getFullYear()} Charles7c` // 版权信息
