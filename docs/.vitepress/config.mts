@@ -41,7 +41,7 @@ export default withPwa(withMermaid(
     pwa: {
       // 根目录
       outDir: resolve(__dirname, "../../dist"),
-      registerType: "autoUpdate",
+      registerType: "prompt", //提示更新
       injectRegister: 'auto',
       // includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       includeManifestIcons: false,
