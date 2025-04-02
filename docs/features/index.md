@@ -12,7 +12,7 @@ pageClass: all-features-page
 import { useUrlSearchParams } from '@vueuse/core'
 import { computed, toRef, ref } from 'vue'
 import { withBase } from 'vitepress'
-import { data as features } from './index.data'
+import { data as features } from './../.vitepress/theme/composables/index.data'
 
 const query = useUrlSearchParams('hash-params', { removeFalsyValues: true })
 const search = toRef(query, 'search') as Ref<string | null>

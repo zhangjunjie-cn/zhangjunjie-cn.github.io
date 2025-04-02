@@ -2,20 +2,9 @@
 pageClass: all-features-page
 date: 2025/01/15
 title: 文档书写规范
-editLink: false
-footer: false
 aside: left
-outline: false
-sidebar: false
-lastUpdated: false
-showComment: false
-depends:
-  - guide/syntax
-relates:
-  - features/prettier-plugin
-tags: [语法]
+tags: 
 categories:
- - 1
 description: |
   使用单独的 YAML 代码块作为 frontmatter
 ---
