@@ -9,7 +9,6 @@ import { withPwa } from "@vite-pwa/vitepress";
 // 自动导入TDesign 
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
-import { withMermaid } from 'vitepress-plugin-mermaid';
 import viteCompression from "vite-plugin-compression";
 import UnoCSS from 'unocss/vite'
 import { 
@@ -24,7 +23,7 @@ import dynamicImport from 'vite-plugin-dynamic-import';
 
 const fileAndStyles: Record<string, string> = {}
 
-export default withPwa(withMermaid(
+export default withPwa(
   defineConfig({
     outDir: resolve(__dirname, "../../dist"),
     lang: metaData.lang,
@@ -199,4 +198,4 @@ export default withPwa(withMermaid(
     
   },
   
-)));
+));

@@ -42,7 +42,6 @@
     "cross-env": "^7.0.3",
     "fast-glob": "^3.3.2",
     "floating-vue": "^5.2.2",
-    "mermaid": "^11.6.0",
     "nprogress-v2": "^1.0.4",
     "sass": "^1.83.2",
     "tailwindcss": "^3.3.3",
@@ -53,7 +52,6 @@
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-dynamic-import": "^1.6.0",
     "vitepress": "v1.3.2",
-    "vitepress-plugin-mermaid": "^2.0.17",
     "vue": "^3.4.35"
   },
   "postcss": {
@@ -64,6 +62,7 @@
   "dependencies": {
     "@antv/g2plot": "2.4.31",
     "@vueuse/core": "^10.11.0",
+    "simple-mind-map": "^0.13.0",
     "animate.css": "^4.1.1",
     "blueimp-md5": "^2.19.0",
     "cal-heatmap": "^4.2.4",
