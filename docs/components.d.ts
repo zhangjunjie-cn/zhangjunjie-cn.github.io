@@ -40,7 +40,6 @@ declare module 'vue' {
     LinkButton: typeof import('./.vitepress/theme/components/linkButton.vue')['default']
     LinkInline: typeof import('./.vitepress/theme/components/LinkInline.vue')['default']
     MAsideSponsors: typeof import('./.vitepress/theme/components/MAsideSponsors.vue')['default']
-    Mindmap: typeof import('./.vitepress/theme/components/Mindmap.vue')['default']
     MNavLink: typeof import('./.vitepress/theme/components/MNavLink.vue')['default']
     MNavLinks: typeof import('./.vitepress/theme/components/MNavLinks.vue')['default']
     NavVisitor: typeof import('./.vitepress/theme/components/NavVisitor.vue')['default']

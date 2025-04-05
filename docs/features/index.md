@@ -70,7 +70,9 @@ function removeTag(tag: string) {
   </div>
 </div>
 
+<ClientOnly>
 <FeaturesOverview :features="filteredFeatures" />
+</ClientOnly>
 
 <div v-if="filteredFeatures.length === 0" class="w-full mt-6 op-80 flex flex-col items-center">
   找不到匹配的功能

@@ -12,7 +12,7 @@ description: |
 # 代码块形式的 frontmatter
 
 <ClientOnly>
-<Mindmap :data="data" height="480" :router="router" :offsetLeft="50" />
+<ElMindMap :data="data" height="480" :router="router" :offsetLeft="50" />
 </ClientOnly>
 
 <script setup>

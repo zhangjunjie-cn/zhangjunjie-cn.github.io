@@ -123,7 +123,7 @@ export default withPwa(
         Components({
           //自动加载 components 下的vue文件为组件，省去import 导入。
           dirs: ['.vitepress/theme/components'],
-          include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+          include: [/\.vue$/, /\.vue\?vue/, /\.md$/, /\.md\?vue/],
           resolvers: [
             //导入图标组件
             IconsResolver({
@@ -162,13 +162,13 @@ export default withPwa(
         dynamicImport(),
         Icons({
           autoInstall: true, // 自动安装图标集
-          // defaultStyle: 'display: inline-block;',
+          defaultStyle: 'display: inline-block;',
         }),
         UnoCSS()
       ],
       ssr: {
         noExternal: process.env.NODE_ENV === 'production'
-          ? ['@arco-design/web-vue','@nolebase/vitepress-plugin-enhanced-readabilities', '@nolebase/ui','naive-ui', 'date-fns', 'vueuc']
+          ? ['@arco-design/web-vue','@nolebase/vitepress-plugin-enhanced-readabilities', '@nolebase/ui','naive-ui', 'date-fns', 'vueuc', 'simple-mind-map']
           : []
       },
     },

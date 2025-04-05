@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { withBase } from 'vitepress'
-import type { Feature } from '../../../features/index.data'
+import type { Feature } from '../composables/index.data'
 
 defineProps<{
   features: Feature[]

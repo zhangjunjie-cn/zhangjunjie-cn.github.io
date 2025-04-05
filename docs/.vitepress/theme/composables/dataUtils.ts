@@ -1,4 +1,4 @@
-import { data as features } from '../composables/index.data'
+import { data as features } from './index.data'
 import { Advanced, Guides } from './pages'
 
 function removeHash(link: string) {

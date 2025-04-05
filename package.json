@@ -77,6 +77,7 @@
     "valine": "^1.5.1",
     "vitepress-markdown-timeline": "^1.2.1",
     "vitepress-plugin-codeblocks-fold": "^1.2.35",
+    "vitepress-vue3-components": "^0.0.16",
     "workbox-window": "^6.5.4"
   },
   "pnpm": {

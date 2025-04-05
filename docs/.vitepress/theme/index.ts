@@ -12,6 +12,9 @@ import { NConfigProvider } from 'naive-ui';
 import MyLayout from './MyLayout.vue';
 import '@shikijs/vitepress-twoslash/style.css';
 import MNavLinks from './components/MNavLinks.vue';
+import FeaturesOverview from './components/FeaturesOverview.vue';
+import FeatureTag from './components/FeatureTag.vue';
+
 import Theme from 'vitepress/theme';
 import { DocBox, DocBoxCube, DocLinks, DocPill } from '@theojs/lumen';
 import 'tdesign-vue-next/es/style/index.css';
@@ -119,6 +122,14 @@ export default Object.assign({}, Theme, {
     app.use(TwoSlash as any);
     app.component('Links', DocLinks);
     app.use(NolebaseGitChangelogPlugin);
+    app.component('FeaturesOverview', FeaturesOverview)
+    app.component('FeatureTag', FeatureTag)
+
+    if (import.meta.env.SSR) {
+      await import("vitepress-vue3-components/dist/style.css");
+      const plugin = await import("vitepress-vue3-components");
+      app.use(plugin.default)
+    }
 
 
     //naive-ui
