@@ -4,6 +4,7 @@ date: 2025/01/15
 title: 文档书写规范
 aside: left
 tags: 
+ - 文档
 categories:
 description: |
   使用单独的 YAML 代码块作为 frontmatter
@@ -12,7 +13,7 @@ description: |
 # 代码块形式的 frontmatter
 
 <ClientOnly>
-<ElMindMap :data="data" height="480" :router="router" :offsetLeft="50" />
+<ElMindmap :data="data" height="480" :router="router" :offsetLeft="50" />
 </ClientOnly>
 
 <script setup>

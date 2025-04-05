@@ -122,13 +122,13 @@ export default Object.assign({}, Theme, {
     app.use(TwoSlash as any);
     app.component('Links', DocLinks);
     app.use(NolebaseGitChangelogPlugin);
-    app.component('FeaturesOverview', FeaturesOverview)
-    app.component('FeatureTag', FeatureTag)
+    app.component('FeaturesOverview', FeaturesOverview);
+    app.component('FeatureTag', FeatureTag);
 
-    if (import.meta.env.SSR) {
+    if (!import.meta.env.SSR) {
       await import("vitepress-vue3-components/dist/style.css");
       const plugin = await import("vitepress-vue3-components");
-      app.use(plugin.default)
+      app.use(plugin.default);
     }
 
 
