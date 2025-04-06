@@ -18,13 +18,13 @@ import {
 
 import IconsResolver from 'unplugin-icons/resolver';
 import Icons from 'unplugin-icons/vite';
-
+import { withMermaid } from "vitepress-plugin-mermaid";
 import dynamicImport from 'vite-plugin-dynamic-import';
 
 const fileAndStyles: Record<string, string> = {}
 
-export default withPwa(
-  defineConfig({
+export default withPwa(defineConfig(
+  withMermaid({
     outDir: resolve(__dirname, "../../dist"),
     lang: metaData.lang,
     title: metaData.title,
@@ -198,4 +198,4 @@ export default withPwa(
     
   },
   
-));
+)));
