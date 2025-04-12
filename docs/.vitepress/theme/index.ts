@@ -124,6 +124,7 @@ export default Object.assign({}, Theme, {
     app.use(NolebaseGitChangelogPlugin);
     app.component('FeaturesOverview', FeaturesOverview);
     app.component('FeatureTag', FeatureTag);
+    app.config.globalProperties.isLoadLive2d = false;//全局设置一个属性是否加载live2d，避免重复加载
 
     if (!import.meta.env.SSR) {
       await import("vitepress-vue3-components/dist/style.css");
@@ -146,6 +147,29 @@ export default Object.assign({}, Theme, {
       router.onAfterRouteChanged = () => {
         NProgress.done(); // 结束进度条
       };
+    }
+
+    //live2D
+    if (!import.meta.env.SSR) {
+      const { loadOml2d } = await import('oh-my-live2d');
+      loadOml2d({
+        models: [
+          {
+            path: 'public/符玄/符玄.model3.json',
+            position: [-20, 60],
+            mobilePosition: [80, 80],
+            scale: 0.047,
+            mobileScale: 0.06,
+            stageStyle: {
+              height: 450,
+            },
+            mobileStageStyle: {
+              height: 370,
+              width: 400,
+            },
+          }
+        ]
+      });
     }
   }
 });

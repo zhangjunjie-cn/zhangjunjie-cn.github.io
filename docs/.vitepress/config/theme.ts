@@ -1,6 +1,8 @@
 import type { DefaultTheme } from 'vitepress';
 import { nav } from './nav';
 import { sidebar } from './sidebar';
+import { build, defineConfigWithTheme, useData } from 'vitepress'
+
 // import { algoliaSearchOptions } from './search/algolia-search';
 import { localSearchOptions } from './search/local-search';
 
@@ -11,6 +13,7 @@ export const themeConfig: DefaultTheme.Config = {
   i18nRouting: false,
   logo: '/logo.png',
   siteTitle: false,
+  flashEnable: true,
   outline: {
     level: [2, 3], // 右侧大纲标题层级
     label: '目录', // 右侧大纲标题文本配置
