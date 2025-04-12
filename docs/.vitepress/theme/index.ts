@@ -155,7 +155,7 @@ export default Object.assign({}, Theme, {
       loadOml2d({
         models: [
           {
-            path: 'public/符玄/符玄.model3.json',
+            path: 'https://zhangjunjie.pages.dev/符玄/符玄.model3.json',
             position: [-20, 60],
             mobilePosition: [80, 80],
             scale: 0.047,
