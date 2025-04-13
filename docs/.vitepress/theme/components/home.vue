@@ -16,8 +16,8 @@
 			</video>
 			<!-- 如果是移动端，上述样式会不兼容，故降级为图片显示 -->
 			<div v-else class="image-container">
-				<img src="https://oss.justin3go.com/justin3goAvatar.png" alt="" />
-				<p class="logo-text">Justin3go's Blog</p>
+				<img src="/img/Logo-4-[remix].gif" alt="" />
+				<p class="logo-text">你好，张俊杰的博客</p>
 			</div>
 			<div class="button-container-outer" @click="handleClick">
 				<div class="container-button">
