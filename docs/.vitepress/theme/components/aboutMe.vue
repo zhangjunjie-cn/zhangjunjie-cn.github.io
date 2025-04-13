@@ -12,7 +12,7 @@
 
 					<div class="infotop">
 						<div class="img-container">
-							<img src="/author.png"
+							<img src="https://zhangjunjie.pages.dev/author.png"
 								alt=""
 								style="height: 80px"
 							/>
@@ -34,7 +34,7 @@
 								>
 									<a
 										class="social-link1"
-										href="https://github.com/Justin3go/justin3go.github.io"
+										href="https://github.com/zhangjunjie-cn/zhangjunjie-cn.github.io"
 									>
 										<svg
 											viewBox="0 0 496 512"
@@ -55,7 +55,7 @@
 									show-arrow
 									destroy-on-close
 								>
-									<a class="social-link2" href="https://twitter.com/Justin1024go">
+									<a class="social-link2" href="https://twitter.com/zhangjunjie">
 										<svg
 											viewBox="0 0 16 16"
 											class="bi bi-twitter"
@@ -81,7 +81,7 @@
 								>
 									<a
 										class="social-link3"
-										href="mailto:just@justin3go.com?subject=请表明您的来意"
+										href="mailto:lianyingzi1324@outlook.com?subject=请表明您的来意"
 									>
 										<svg
 											t="1699149704102"
@@ -111,7 +111,7 @@
 									<template #content>
 										<div style="height: 160px; width: 117.2px">
 											<img
-												src="https://oss.justin3go.com/weixin.jpg"
+												src="https://gitee.com/zhangjunjiee/article-images/raw/master/images/20250413224253360.png"
 												alt=""
 												style="height: 160px"
 											/>

@@ -1,7 +1,6 @@
 import type { DefaultTheme } from 'vitepress';
 import { nav } from './nav';
 import { sidebar } from './sidebar';
-import { build, defineConfigWithTheme, useData } from 'vitepress'
 
 // import { algoliaSearchOptions } from './search/algolia-search';
 import { localSearchOptions } from './search/local-search';
@@ -11,9 +10,8 @@ export const themeConfig: DefaultTheme.Config = {
   sidebar, // 侧边栏配置
 
   i18nRouting: false,
-  logo: '/logo.png',
+  logo: 'https://zhangjunjie.pages.dev/logo.png',
   siteTitle: false,
-  flashEnable: true,
   outline: {
     level: [2, 3], // 右侧大纲标题层级
     label: '目录', // 右侧大纲标题文本配置
@@ -95,8 +93,8 @@ export const themeConfig: DefaultTheme.Config = {
   footerConfig: {
     showFooter: true, // 是否显示页脚
     showRainbow: true, // 是否显示彩虹
-    icpRecordCode: '津ICP备2022005864号-2', // ICP备案号
-    publicSecurityRecordCode: '津公网安备12011202000677号', // 联网备案号
+    icpRecordCode: '', // ICP备案号
+    publicSecurityRecordCode: '', // 联网备案号
     copyright: `Copyright © 2019-${new Date().getFullYear()} Charles7c` // 版权信息
   },
 

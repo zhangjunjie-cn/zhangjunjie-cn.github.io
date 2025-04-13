@@ -28,7 +28,7 @@
 
 
      <template #layout-bottom>
-         <!-- <Footer v-if="!hasRainbow && (theme.footerConfig?.showFooter ?? true) && (frontmatter?.showFooter ?? true)" /> -->
+         <Footer v-if="!hasRainbow && (theme.footerConfig?.showFooter ?? true) && (frontmatter?.showFooter ?? true)" />
          <ReloadPrompt />
      </template>
 
@@ -44,6 +44,10 @@
 
     <template #aside-outline-before>
         <ShareButton />     
+    </template>
+
+    <template #aside-top>
+        <toTop />     
     </template>
 
     <template #layout-top>
@@ -103,7 +107,8 @@
  import Sakula from "./components/Sakula.vue";
  import Fireworks from './components/Fireworks.vue';
  import ReloadPrompt from './components/ReloadPrompt.vue';
- import { ShareButton } from '@theojs/lumen'
+ import toTop from './components/toTop.vue';
+ import { ShareButton } from '@theojs/lumen';
 
  import { 
  NolebaseEnhancedReadabilitiesMenu, 

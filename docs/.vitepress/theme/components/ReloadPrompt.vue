@@ -41,7 +41,7 @@ onBeforeMount(async () => {
       aria-labelledby="pwa-message"
     >
       <div id="pwa-message" class="mb-3">
-        {{ offlineReady ? '「应用程序已准备就绪，可离线工作」' : '「有新内容可用，点击刷新按钮更新。」' }}
+        {{ offlineReady ? '应用程序已准备就绪，可离线工作。' : '有新内容可用，点击刷新按钮更新。' }}
       </div>
       <button
         v-if="needRefresh"
@@ -49,7 +49,7 @@ onBeforeMount(async () => {
         class="pwa-refresh"
         @click="updateServiceWorker?.()"
       >
-        重新加载
+        刷新
       </button>
       <button
         type="button"

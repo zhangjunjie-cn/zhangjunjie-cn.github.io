@@ -19,7 +19,30 @@ const previewImageInfo = reactive<{ url: string; list: string[]; idx: number }>(
   }
 )
 function previewImage(e: Event) {
-  const target = e.target as HTMLElement
+  const target = e.target as HTMLElement;
+  if (target.tagName.toLowerCase() !== 'img') return;
+
+  // 获取图片 src
+  const imgSrc = target.getAttribute('src') || '';
+  
+  // 定义不需要预览的文件名或路径（支持字符串或正则表达式）
+  const excludePatterns = [
+    'go_top.png',       // 精确匹配文件名
+    '/avatar/',       // 匹配路径包含 `/assets/icons/`
+    // /\/hidden-images\//i,  // 正则匹配路径（忽略大小写）
+  ];
+
+  // 检查是否命中排除规则
+  const shouldExclude = excludePatterns.some(pattern => {
+    return typeof pattern === 'string' 
+      ? imgSrc.includes(pattern)
+      : pattern.test(imgSrc);
+  });
+
+  if (shouldExclude) return; // 如果命中排除规则，则不预览
+
+
+
   const currentTarget = e.currentTarget as HTMLElement
   if (target.tagName.toLowerCase() === 'img') {
     const imgs = currentTarget.querySelectorAll<HTMLImageElement>(

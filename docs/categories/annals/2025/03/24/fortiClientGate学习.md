@@ -1,6 +1,6 @@
 ---
 date: 2025/03/24 16:04
-isTop: true
+isTop: false
 title: FortiClientGate路由配置
 author: 张俊杰
 articleGPT: 这是一篇关于在FortiClientGate中配置和使用路由的文章。文章介绍了如何在FortiClientGate中创建和配置路由，以及如何在FortiClientGate中访问这些路由。文章还讨论了路由的安全性和管理，以及如何使用FortiClientGate的组策略来控制路由的访问权限。

@@ -1,4 +1,5 @@
 <template>
+	<Driver></Driver>
 	<div class="home-container">
 		<div class="video-container" v-cloak>
 			<video v-if="!curDeviceIsMobile" class="logo-video" autoplay loop muted>
@@ -8,7 +9,7 @@
 					type="video/mp4"
 				/> -->
 					<source
-						src="https://zhangjunjiee.netlify.app/template.mp4"
+						src="https://zhangjunjie.pages.dev/template.mp4"
 						type="video/mp4"
 					/>
 				<!-- src="https://oss.justin3go.com/blogs/justin3go.mp4" -->
@@ -58,6 +59,7 @@ import linkButton from "../components/linkButton.vue";
 import { ref, type Ref, onBeforeMount } from "vue";
 import { isMobile } from "../../utils/mobile";
 import aboutMe from "../components/aboutMe.vue";
+import Driver from '../components/driver.vue';
 
 interface IRecentlyPosts {
 	text: string;
@@ -69,7 +71,7 @@ const initRecentlyPosts = getRecentlyPost();
 const recentlyPosts: Ref<IRecentlyPosts[]> = ref(
 	initRecentlyPosts.map((item) => ({
 		date: item.link.substring(19, 29),
-		text: item.text.substring(2),
+		text: item.text.substring(0),	//取文件标题前几个字
 		link: item.link,
 	}))
 );

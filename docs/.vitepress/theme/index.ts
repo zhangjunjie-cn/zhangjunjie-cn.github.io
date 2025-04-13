@@ -10,10 +10,12 @@ import './styles/index.scss';
 import { setup } from '@css-render/vue3-ssr';
 import { NConfigProvider } from 'naive-ui';
 import MyLayout from './MyLayout.vue';
+
 import '@shikijs/vitepress-twoslash/style.css';
 import MNavLinks from './components/MNavLinks.vue';
 import FeaturesOverview from './components/FeaturesOverview.vue';
 import FeatureTag from './components/FeatureTag.vue';
+
 
 import Theme from 'vitepress/theme';
 import { DocBox, DocBoxCube, DocLinks, DocPill } from '@theojs/lumen';
@@ -151,25 +153,28 @@ export default Object.assign({}, Theme, {
 
     //live2D
     if (!import.meta.env.SSR) {
-      const { loadOml2d } = await import('oh-my-live2d');
-      loadOml2d({
-        models: [
-          {
-            path: 'https://zhangjunjie.pages.dev/符玄/符玄.model3.json',
-            position: [-20, 60],
-            mobilePosition: [80, 80],
-            scale: 0.047,
-            mobileScale: 0.06,
-            stageStyle: {
-              height: 450,
-            },
-            mobileStageStyle: {
-              height: 370,
-              width: 400,
-            },
-          }
-        ]
-      });
+      // 使用 setTimeout 延迟加载
+      setTimeout(async () => {
+        const { loadOml2d } = await import('oh-my-live2d');
+        loadOml2d({
+          models: [
+            {
+              path: 'https://zhangjunjie.pages.dev/符玄/符玄.model3.json',
+              position: [-20, 60],
+              mobilePosition: [80, 80],
+              scale: 0.047,
+              mobileScale: 0.06,
+              stageStyle: {
+                height: 450,
+              },
+              mobileStageStyle: {
+                height: 370,
+                width: 400,
+              },
+            }
+          ]
+        });
+      }, 3000); // 延迟3秒加载
     }
   }
 });

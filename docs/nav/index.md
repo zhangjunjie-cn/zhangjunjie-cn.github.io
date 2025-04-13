@@ -4,7 +4,7 @@ outline: deep
 date: 2019/12/28 10:00
 title: 个人 SQL 优化技巧
 sidebar: true # 是否显示目录导航
-aside: true
+aside: true 
 categories:
  - 1
 tags:
@@ -17,7 +17,10 @@ import { NAV_DATA } from './data'
 
 <style src="./index.scss"></style>
 
+<br/>
+
 # 前端导航
+
 
 <MNavLinks v-for="{title, items} in NAV_DATA" :title="title" :items="items"/>
 <br />
