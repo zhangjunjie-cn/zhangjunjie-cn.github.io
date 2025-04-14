@@ -5,9 +5,20 @@ lastUpdated: false
 showComment: false
 ---
 
-# Bug万象集
+# Daily Notes 日常笔记
 
 ::: tip 笔者说
-你读过的书，遇过的人，扛过的事，写过的 Bug，构成了你作为开发者的人生格局。
+你敲过的字，删掉的段落，深夜的灵感，和那些未发布的草稿，构成了这个博客的灵魂。
 
+:::
+
+
+::: timeline 2025-05-24
+- **do some thing1**
+- do some thing2
+:::
+
+::: timeline 2025-05-23
+do some thing3
+do some thing4
 :::

@@ -11,7 +11,7 @@
 
 /* 代码块 */
 pre, code, kbd, samp {
-  font-family: "INTER" !important;
+  font-family: "PingFang SC" !important;
   /* font-weight: bold; */
   color: var(--vp-c-brand) !important;
   
@@ -33,16 +33,16 @@ pre, code, kbd, samp {
 }
 
 .vp-doc h2 {
-  font-family: "INTER";
+  font-family: "PingFang SC";
   margin: 48px 0 16px;
   letter-spacing: 1px;
   padding-top: 10px;
-  font-family: "inter";
+  font-family: "PingFang SC";
   font-size: 24px;
 }
 
 .vp-doc h3 {
-  font-family: "inter";
+  font-family: "PingFang SC";
   letter-spacing: 1px;
   font-size: 20px;
   margin: 32px 0 0;
@@ -50,7 +50,7 @@ pre, code, kbd, samp {
 
 .vp-doc h4 {
   letter-spacing: 1px;
-  font-family: "inter";
+  font-family: "PingFang SC";
   font-size: 16px;
   margin: 20px 0 0;
 }
@@ -213,7 +213,7 @@ mjx-container > svg {
 }
 
 .vp-doc .custom-block {
-  font-family: "INTER" !important;
+  font-family: "PingFang SC" !important;
 }
 
 .all-features-page {

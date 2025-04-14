@@ -17,7 +17,7 @@
 			<!-- 如果是移动端，上述样式会不兼容，故降级为图片显示 -->
 			<div v-else class="image-container">
 				<img src="/img/Logo-4-[remix].gif" alt="" />
-				<p class="logo-text">你好，张俊杰的博客</p>
+				<p class="logo-text">你好!</p>
 			</div>
 			<div class="button-container-outer" @click="handleClick">
 				<div class="container-button">
@@ -36,7 +36,7 @@
 				<about-me></about-me>
 				<div class="recently-posts-head">
 					<div class="title">最近发布</div>
-					<link-button text="博客归档" link="/博客/"></link-button>
+					<link-button text="博客归档" link="/categories/annals/"></link-button>
 				</div>
 				<div class="recently-posts">
 					<div class="post-item" v-for="post in recentlyPosts" :key="post.date">
@@ -112,7 +112,7 @@ function handleClick() {
 	}
 
 	.image-container {
-		width: 60vw;
+		width: 200vw;
 		margin-top: 25vh;
 	}
 
@@ -348,10 +348,17 @@ function handleClick() {
 		}
 
 		@media (max-width: 960px) {
+			.recently-posts {
+				height: 640px;
+				padding: 0px;
+			}
 			.recently-posts-head {
 				display: flex;
 				justify-content: space-between;
 				padding: 20px 10px;
+			}
+			.article-wrapper{
+				width: 300px;
 			}
 		}
 	}

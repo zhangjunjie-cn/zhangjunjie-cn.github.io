@@ -10,11 +10,10 @@
   }
 
 
-  @font-face {
-    font-family: "INTER";
-    src: url("/path/to/inter.woff2") format("woff2"),
-         url("/path/to/inter.woff") format("woff");
-    font-weight: normal;
-    font-style: normal;
-    /* font-display: swap; */
-  }
+/* @font-face {
+  font-family: "INTER";
+  src: url("/path/to/inter.woff2") format("woff2"),
+        url("/path/to/inter.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+} */

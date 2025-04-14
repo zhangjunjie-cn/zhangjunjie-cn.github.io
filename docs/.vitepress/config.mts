@@ -42,6 +42,8 @@ export default withPwa(defineConfig(
     pwa: {
       // 根目录
       outDir: resolve(__dirname, "../../dist"),
+      strategies: 'generateSW', // 明确使用 generateSW 策略
+      selfDestroying: false, // 确保 Service Worker 不会自动注销
       registerType: "prompt", //提示更新
       injectRegister: 'auto',
       // includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
@@ -92,8 +94,9 @@ export default withPwa(defineConfig(
 					},
 				],// 预缓存重要资源
         globPatterns: ["**/*.{css,js,html,svg,png,ico,mp4,txt,woff2}"],
-				skipWaiting: true,
-				clientsClaim: true,
+        // exclude: [/sw.js$/, /workbox-.*\.js$/],        // 不要缓存 sw.js 本身
+				skipWaiting: true,  // 新 SW 立即接管
+        clientsClaim: true, // 控制所有页面
         
       },
       devOptions:{
