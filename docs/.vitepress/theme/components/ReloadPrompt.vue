@@ -13,27 +13,23 @@ function onNeedRefresh() {
   needRefresh.value = true
 }
 async function close() {
-  if (needRefresh.value) {
-    window.location.reload() // 有更新时强制刷新
-  }
   offlineReady.value = false
   needRefresh.value = false
 }
 
 onBeforeMount(async () => {
   const { registerSW } = await import('virtual:pwa-register')
-  const { updateServiceWorker: updateSW } = registerSW({
+  updateServiceWorker = registerSW({
     immediate: true,
     onOfflineReady,
     onNeedRefresh,
-    onRegistered(r) {
-      console.log('SW registered:', r)
+    onRegistered() {
+      console.info('Service Worker registered')
     },
     onRegisterError(e) {
-      console.error('SW注册失败:', e)
+      console.error('Service Worker registration error!', e)
     },
   })
-  updateServiceWorker = updateSW // 确保赋值
 })
 </script>
 
@@ -47,20 +43,11 @@ onBeforeMount(async () => {
       <div id="pwa-message" class="mb-3">
         {{ offlineReady ? '应用程序已准备就绪，可离线工作。' : '有新内容可用，点击刷新按钮更新。' }}
       </div>
-      <button 
+      <button
         v-if="needRefresh"
-        type="button" 
-        class="pwa-refresh" 
-        @click="async () => {
-          console.log('点击刷新')
-          try {
-            await updateServiceWorker?.()
-            console.log('更新成功')
-            window.location.reload() // 强制刷新
-          } catch (e) {
-            console.error('更新失败:', e)
-          }
-        }"
+        type="button"
+        class="pwa-refresh"
+        @click="updateServiceWorker?.()"
       >
         刷新
       </button>
