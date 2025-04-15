@@ -142,11 +142,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="lang-chart-container">
+			<figure class="lang-chart-container">
 				<!-- <div class="chart-title">Language over ALL Time (Powered by <a href="https://wakatime.com">wakatime.com</a>)</div>
 				<iframe class="lang-chart" :src="langChartSrc"></iframe> -->
 				<ClientOnly><Heatmap /></ClientOnly>
-			</div>
+			</figure>
 		</div>
 	</div>
 </template>
