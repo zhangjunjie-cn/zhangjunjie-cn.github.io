@@ -83,16 +83,16 @@ define(['./workbox-526d9e75'], (function (workbox) { 'use strict';
    */
   workbox.precacheAndRoute([{
     "url": "404.html",
-    "revision": "4463f72ddeb60eeaa8a74e44670c2fb0"
+    "revision": "6a4d2a0367c255218422d32dc232f54f"
   }, {
     "url": "about/index.html",
-    "revision": "745512df6061de7ce1ddcf9c68bbd5fc"
+    "revision": "4972d1b75082570e8e27dba23762ece1"
   }, {
     "url": "about/me.html",
-    "revision": "5210ee9cb3bd2fe9f28962468fef7a93"
+    "revision": "896653f3c8ca1d0bc843b92c820d05a1"
   }, {
     "url": "archives.html",
-    "revision": "d9a439bd2633eb5939d4839682d6f558"
+    "revision": "3d23ed660641483f9858a10889796eaa"
   }, {
     "url": "assets/about_index.md.Dg7WIaho.js",
     "revision": null
@@ -106,382 +106,388 @@ define(['./workbox-526d9e75'], (function (workbox) { 'use strict';
     "url": "assets/about_me.md.CdgXmyFK.lean.js",
     "revision": null
   }, {
-    "url": "assets/app.C_-WKKn6.js",
+    "url": "assets/app.ClEk4BEe.js",
     "revision": null
   }, {
-    "url": "assets/archives.md.TOtfkOC2.js",
+    "url": "assets/archives.md.D0pOn3vO.js",
     "revision": null
   }, {
-    "url": "assets/archives.md.TOtfkOC2.lean.js",
+    "url": "assets/archives.md.D0pOn3vO.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_02_10_第二版博客搭建完成.md.DqcoRAx9.js",
+    "url": "assets/categories_annals_2024_02_10_第二版博客搭建完成.md.Q45g9xRQ.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_02_10_第二版博客搭建完成.md.DqcoRAx9.lean.js",
+    "url": "assets/categories_annals_2024_02_10_第二版博客搭建完成.md.Q45g9xRQ.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_02_11_新年快乐.md.CcymUweA.js",
+    "url": "assets/categories_annals_2024_02_11_新年快乐.md.CqSEdBVF.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_02_11_新年快乐.md.CcymUweA.lean.js",
+    "url": "assets/categories_annals_2024_02_11_新年快乐.md.CqSEdBVF.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_05_05_第三版博客搭建完成.md.C3bFpq16.js",
+    "url": "assets/categories_annals_2024_05_05_第三版博客搭建完成.md.BkqYpSPK.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_05_05_第三版博客搭建完成.md.C3bFpq16.lean.js",
+    "url": "assets/categories_annals_2024_05_05_第三版博客搭建完成.md.BkqYpSPK.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_05_11_第四版博客新题性.md.ihKaXsfD.js",
+    "url": "assets/categories_annals_2024_05_11_第四版博客新题性.md.B2HKAg0a.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_05_11_第四版博客新题性.md.ihKaXsfD.lean.js",
+    "url": "assets/categories_annals_2024_05_11_第四版博客新题性.md.B2HKAg0a.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_05_23_第五版博客发布完成.md.BT4HJD3G.js",
+    "url": "assets/categories_annals_2024_05_23_第五版博客发布完成.md.axokiRg7.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_05_23_第五版博客发布完成.md.BT4HJD3G.lean.js",
+    "url": "assets/categories_annals_2024_05_23_第五版博客发布完成.md.axokiRg7.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_05_26_HA综合布线.md.BGOf18Ug.js",
+    "url": "assets/categories_annals_2024_05_26_HA综合布线.md.DLf0bAsH.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_05_26_HA综合布线.md.BGOf18Ug.lean.js",
+    "url": "assets/categories_annals_2024_05_26_HA综合布线.md.DLf0bAsH.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_05_29_打印机共享.md.ByITgrjj.js",
+    "url": "assets/categories_annals_2024_05_29_打印机共享.md.D_uzmUBq.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_05_29_打印机共享.md.ByITgrjj.lean.js",
+    "url": "assets/categories_annals_2024_05_29_打印机共享.md.D_uzmUBq.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_06_02_性能优化.md.DxnkYjb9.js",
+    "url": "assets/categories_annals_2024_06_02_性能优化.md.DRT2iNJe.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_06_02_性能优化.md.DxnkYjb9.lean.js",
+    "url": "assets/categories_annals_2024_06_02_性能优化.md.DRT2iNJe.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_06_03_Excel大小优化.md.Cp4MxiWR.js",
+    "url": "assets/categories_annals_2024_06_03_Excel大小优化.md.ZZCOyKic.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_06_03_Excel大小优化.md.Cp4MxiWR.lean.js",
+    "url": "assets/categories_annals_2024_06_03_Excel大小优化.md.ZZCOyKic.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_06_10_更好的svg集成.md.DnfMqBN1.js",
+    "url": "assets/categories_annals_2024_06_10_更好的svg集成.md.DYYb1kh-.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_06_10_更好的svg集成.md.DnfMqBN1.lean.js",
+    "url": "assets/categories_annals_2024_06_10_更好的svg集成.md.DYYb1kh-.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_06_17_商业报告模板.md.Dh93U5wx.js",
+    "url": "assets/categories_annals_2024_06_17_商业报告模板.md.C7sR6ORo.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_06_17_商业报告模板.md.Dh93U5wx.lean.js",
+    "url": "assets/categories_annals_2024_06_17_商业报告模板.md.C7sR6ORo.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_08_18_第六版博客发布.md.CLDRmXhF.js",
+    "url": "assets/categories_annals_2024_08_18_第六版博客发布.md.BXI5pvaM.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_08_18_第六版博客发布.md.CLDRmXhF.lean.js",
+    "url": "assets/categories_annals_2024_08_18_第六版博客发布.md.BXI5pvaM.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_11_23_第七版博客发布.md.wcqZQZgW.js",
+    "url": "assets/categories_annals_2024_11_23_第七版博客发布.md.ckz6oZI8.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_11_23_第七版博客发布.md.wcqZQZgW.lean.js",
+    "url": "assets/categories_annals_2024_11_23_第七版博客发布.md.ckz6oZI8.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_11_25_开始记录生活.md.D1QXidzN.js",
+    "url": "assets/categories_annals_2024_11_25_开始记录生活.md.DvmAJBk4.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_11_25_开始记录生活.md.D1QXidzN.lean.js",
+    "url": "assets/categories_annals_2024_11_25_开始记录生活.md.DvmAJBk4.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_11_26_周二的一天.md.B9LRquW1.js",
+    "url": "assets/categories_annals_2024_11_26_周二的一天.md.RYb6rqaz.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_11_26_周二的一天.md.B9LRquW1.lean.js",
+    "url": "assets/categories_annals_2024_11_26_周二的一天.md.RYb6rqaz.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_11_27_Daily Notes.md.DPB3u9wk.js",
+    "url": "assets/categories_annals_2024_11_27_Daily Notes.md.-lgcd2C5.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_11_27_Daily Notes.md.DPB3u9wk.lean.js",
+    "url": "assets/categories_annals_2024_11_27_Daily Notes.md.-lgcd2C5.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_11_28_防火墙学习.md.DfHJsv59.js",
+    "url": "assets/categories_annals_2024_11_28_防火墙学习.md.Ck-tEbi3.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_11_28_防火墙学习.md.DfHJsv59.lean.js",
+    "url": "assets/categories_annals_2024_11_28_防火墙学习.md.Ck-tEbi3.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_11_29_萤石云app接入.md.Cu1Ogpq2.js",
+    "url": "assets/categories_annals_2024_11_29_萤石云app接入.md.5aw1nq9V.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_11_29_萤石云app接入.md.Cu1Ogpq2.lean.js",
+    "url": "assets/categories_annals_2024_11_29_萤石云app接入.md.5aw1nq9V.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_12_01_默认路由.md.BfTZQFLa.js",
+    "url": "assets/categories_annals_2024_12_01_默认路由.md.Dirdhwl6.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_12_01_默认路由.md.BfTZQFLa.lean.js",
+    "url": "assets/categories_annals_2024_12_01_默认路由.md.Dirdhwl6.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_12_02_加班处理考勤掉线.md.D1dpb3kY.js",
+    "url": "assets/categories_annals_2024_12_02_加班处理考勤掉线.md.BBFP7TEl.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_12_02_加班处理考勤掉线.md.D1dpb3kY.lean.js",
+    "url": "assets/categories_annals_2024_12_02_加班处理考勤掉线.md.BBFP7TEl.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_12_04_局域网路由.md.DdoNVVxn.js",
+    "url": "assets/categories_annals_2024_12_04_局域网路由.md.D5ryMP-F.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_12_04_局域网路由.md.DdoNVVxn.lean.js",
+    "url": "assets/categories_annals_2024_12_04_局域网路由.md.D5ryMP-F.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_12_12_最近日常.md.DJNAhdA3.js",
+    "url": "assets/categories_annals_2024_12_12_最近日常.md.UgLVv_AS.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_12_12_最近日常.md.DJNAhdA3.lean.js",
+    "url": "assets/categories_annals_2024_12_12_最近日常.md.UgLVv_AS.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_index.md.BlhPVM4D.js",
+    "url": "assets/categories_annals_2024_index.md.C4syVe9V.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2024_index.md.BlhPVM4D.lean.js",
+    "url": "assets/categories_annals_2024_index.md.C4syVe9V.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_01_01_云贵之旅.md.CJaFYE4m.js",
+    "url": "assets/categories_annals_2025_01_01_云贵之旅.md.DeIJSEKO.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_01_01_云贵之旅.md.CJaFYE4m.lean.js",
+    "url": "assets/categories_annals_2025_01_01_云贵之旅.md.DeIJSEKO.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_01_02_新一年，新篇章.md.BpipAepH.js",
+    "url": "assets/categories_annals_2025_01_02_新一年，新篇章.md.DA4nYYlr.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_01_02_新一年，新篇章.md.BpipAepH.lean.js",
+    "url": "assets/categories_annals_2025_01_02_新一年，新篇章.md.DA4nYYlr.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_01_05_第八版博客发布.md.CTl6_P7R.js",
+    "url": "assets/categories_annals_2025_01_05_第八版博客发布.md.Do9QcO93.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_01_05_第八版博客发布.md.CTl6_P7R.lean.js",
+    "url": "assets/categories_annals_2025_01_05_第八版博客发布.md.Do9QcO93.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_01_12_双栏布局.md.CVhFrGEc.js",
+    "url": "assets/categories_annals_2025_01_12_双栏布局.md.RPToavs6.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_01_12_双栏布局.md.CVhFrGEc.lean.js",
+    "url": "assets/categories_annals_2025_01_12_双栏布局.md.RPToavs6.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_01_16_工作日常.md.BbAFGiOt.js",
+    "url": "assets/categories_annals_2025_01_16_工作日常.md.CVF8KwJ2.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_01_16_工作日常.md.BbAFGiOt.lean.js",
+    "url": "assets/categories_annals_2025_01_16_工作日常.md.CVF8KwJ2.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_17_交换机教程.md.Bs8bT102.js",
+    "url": "assets/categories_annals_2025_03_17_交换机教程.md.DghmThzy.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_17_交换机教程.md.Bs8bT102.lean.js",
+    "url": "assets/categories_annals_2025_03_17_交换机教程.md.DghmThzy.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_18_交换机初始化教程.md.Da0_m3AE.js",
+    "url": "assets/categories_annals_2025_03_18_交换机初始化教程.md.Cdlkfuxj.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_18_交换机初始化教程.md.Da0_m3AE.lean.js",
+    "url": "assets/categories_annals_2025_03_18_交换机初始化教程.md.Cdlkfuxj.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_18_交换机选型避坑.md.DFfm4pvB.js",
+    "url": "assets/categories_annals_2025_03_18_交换机选型避坑.md.De9CWqJr.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_18_交换机选型避坑.md.DFfm4pvB.lean.js",
+    "url": "assets/categories_annals_2025_03_18_交换机选型避坑.md.De9CWqJr.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_18_交换机错误排查.md.Cwm3tzGN.js",
+    "url": "assets/categories_annals_2025_03_18_交换机错误排查.md.C4kFt9ZF.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_18_交换机错误排查.md.Cwm3tzGN.lean.js",
+    "url": "assets/categories_annals_2025_03_18_交换机错误排查.md.C4kFt9ZF.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_21_windows文件服务器.md.CXWXADNF.js",
+    "url": "assets/categories_annals_2025_03_21_windows文件服务器.md.DuENh3Qg.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_21_windows文件服务器.md.CXWXADNF.lean.js",
+    "url": "assets/categories_annals_2025_03_21_windows文件服务器.md.DuENh3Qg.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_24_fortiClientGate学习.md.416JC1Xr.js",
+    "url": "assets/categories_annals_2025_03_24_fortiClientGate学习.md.DcHvVSH6.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_24_fortiClientGate学习.md.416JC1Xr.lean.js",
+    "url": "assets/categories_annals_2025_03_24_fortiClientGate学习.md.DcHvVSH6.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_24_自定义策略路由.md.3NqVJ09_.js",
+    "url": "assets/categories_annals_2025_03_24_自定义策略路由.md.DHITOQBi.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_24_自定义策略路由.md.3NqVJ09_.lean.js",
+    "url": "assets/categories_annals_2025_03_24_自定义策略路由.md.DHITOQBi.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_24_路由出站入站分析.md.C7-CVdYU.js",
+    "url": "assets/categories_annals_2025_03_24_路由出站入站分析.md.BVjLqL-4.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_24_路由出站入站分析.md.C7-CVdYU.lean.js",
+    "url": "assets/categories_annals_2025_03_24_路由出站入站分析.md.BVjLqL-4.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_24_防火墙路由之静态路由（一）.md.CymoRt7S.js",
+    "url": "assets/categories_annals_2025_03_24_防火墙路由之静态路由（一）.md.DbkzlSrQ.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_24_防火墙路由之静态路由（一）.md.CymoRt7S.lean.js",
+    "url": "assets/categories_annals_2025_03_24_防火墙路由之静态路由（一）.md.DbkzlSrQ.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_25_华为交换机系列.md.BUOhexv4.js",
+    "url": "assets/categories_annals_2025_03_25_华为交换机系列.md.CJ5d-TvQ.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_25_华为交换机系列.md.BUOhexv4.lean.js",
+    "url": "assets/categories_annals_2025_03_25_华为交换机系列.md.CJ5d-TvQ.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_26_防火墙路由之策略路由（二）.md.D1AVOqEh.js",
+    "url": "assets/categories_annals_2025_03_26_防火墙路由之策略路由（二）.md.CFEkofK8.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_26_防火墙路由之策略路由（二）.md.D1AVOqEh.lean.js",
+    "url": "assets/categories_annals_2025_03_26_防火墙路由之策略路由（二）.md.CFEkofK8.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_26_防火墙路由之防火墙策略（三）.md.gKnJm4Bi.js",
+    "url": "assets/categories_annals_2025_03_26_防火墙路由之防火墙策略（三）.md.DJsUPBQl.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_03_26_防火墙路由之防火墙策略（三）.md.gKnJm4Bi.lean.js",
+    "url": "assets/categories_annals_2025_03_26_防火墙路由之防火墙策略（三）.md.DJsUPBQl.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_04_13_三层交换机防病毒.md.Cprk4hgE.js",
+    "url": "assets/categories_annals_2025_04_13_三层交换机防病毒.md.B6rE5xyr.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_04_13_三层交换机防病毒.md.Cprk4hgE.lean.js",
+    "url": "assets/categories_annals_2025_04_13_三层交换机防病毒.md.B6rE5xyr.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_04_13_交换机的 VLANIF 接口详解.md.BheF-LNp.js",
+    "url": "assets/categories_annals_2025_04_13_交换机的 VLANIF 接口详解.md.3tJYbiCV.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_04_13_交换机的 VLANIF 接口详解.md.BheF-LNp.lean.js",
+    "url": "assets/categories_annals_2025_04_13_交换机的 VLANIF 接口详解.md.3tJYbiCV.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_04_13_企业级网络架构分析.md.DtvoBXWM.js",
+    "url": "assets/categories_annals_2025_04_13_企业级网络架构分析.md.BckaUQCa.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_04_13_企业级网络架构分析.md.DtvoBXWM.lean.js",
+    "url": "assets/categories_annals_2025_04_13_企业级网络架构分析.md.BckaUQCa.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_04_13_傻瓜交换机架构最佳实践.md.cXWO_43c.js",
+    "url": "assets/categories_annals_2025_04_13_傻瓜交换机架构最佳实践.md.IyREKq58.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_04_13_傻瓜交换机架构最佳实践.md.cXWO_43c.lean.js",
+    "url": "assets/categories_annals_2025_04_13_傻瓜交换机架构最佳实践.md.IyREKq58.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_index.md.DgmLSd4C.js",
+    "url": "assets/categories_annals_2025_04_17_第一章 计算机硬件（第六版新教材）.md.DmZDEuqF.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_2025_index.md.DgmLSd4C.lean.js",
+    "url": "assets/categories_annals_2025_04_17_第一章 计算机硬件（第六版新教材）.md.DmZDEuqF.lean.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_index.md.CRhKqEg2.js",
+    "url": "assets/categories_annals_2025_index.md.Crz7Dvc4.js",
     "revision": null
   }, {
-    "url": "assets/categories_annals_index.md.CRhKqEg2.lean.js",
+    "url": "assets/categories_annals_2025_index.md.Crz7Dvc4.lean.js",
     "revision": null
   }, {
-    "url": "assets/chunks/@localSearchIndexroot.BcSMSfLU.js",
+    "url": "assets/categories_annals_index.md.BPC6akFB.js",
+    "revision": null
+  }, {
+    "url": "assets/categories_annals_index.md.BPC6akFB.lean.js",
+    "revision": null
+  }, {
+    "url": "assets/chunks/@localSearchIndexroot.BZxVEdcp.js",
     "revision": null
   }, {
     "url": "assets/chunks/about-footer.H0rUUxsb.js",
     "revision": null
   }, {
-    "url": "assets/chunks/arc.DU-RARre.js",
+    "url": "assets/chunks/arc.B02ND0Z1.js",
     "revision": null
   }, {
-    "url": "assets/chunks/architectureDiagram-IEHRJDOE.BuUX5e8I.js",
+    "url": "assets/chunks/architectureDiagram-IEHRJDOE.BFpCr0QB.js",
     "revision": null
   }, {
-    "url": "assets/chunks/article.data.ya4vJllV.js",
+    "url": "assets/chunks/article.data.CJ5-VFUd.js",
     "revision": null
   }, {
     "url": "assets/chunks/ArticleGPT.Bb1dTucW.js",
     "revision": null
   }, {
-    "url": "assets/chunks/ArticleMetadata.ZlB2-TkY.js",
+    "url": "assets/chunks/ArticleMetadata.CnUs4fej.js",
     "revision": null
   }, {
     "url": "assets/chunks/band.BwxuWtAG.js",
     "revision": null
   }, {
-    "url": "assets/chunks/blockDiagram-JOT3LUYC.CmY_FVdW.js",
+    "url": "assets/chunks/blockDiagram-JOT3LUYC.BHvUF2WO.js",
     "revision": null
   }, {
-    "url": "assets/chunks/c4Diagram-VJAJSXHY.BDIQqSxp.js",
+    "url": "assets/chunks/c4Diagram-VJAJSXHY.wpOLCCR0.js",
     "revision": null
   }, {
-    "url": "assets/chunks/channel.C9otDTuD.js",
+    "url": "assets/chunks/channel.CMrjIzrl.js",
     "revision": null
   }, {
-    "url": "assets/chunks/chunk-4BMEZGHF.CVSXY3nO.js",
+    "url": "assets/chunks/chunk-4BMEZGHF.CDr9htrR.js",
     "revision": null
   }, {
-    "url": "assets/chunks/chunk-A2AXSNBT.DagZcENg.js",
+    "url": "assets/chunks/chunk-A2AXSNBT.B80zDhin.js",
     "revision": null
   }, {
-    "url": "assets/chunks/chunk-AEK57VVT.lOjXjhKy.js",
+    "url": "assets/chunks/chunk-AEK57VVT.BqZxtBBs.js",
     "revision": null
   }, {
-    "url": "assets/chunks/chunk-D6G4REZN.bl_ELlyr.js",
+    "url": "assets/chunks/chunk-D6G4REZN.BEqmU5wr.js",
     "revision": null
   }, {
-    "url": "assets/chunks/chunk-RZ5BOZE2.84VQ_PLv.js",
+    "url": "assets/chunks/chunk-RZ5BOZE2.5YLpKDaA.js",
     "revision": null
   }, {
-    "url": "assets/chunks/chunk-XZIHB7SX.BXrzdn5K.js",
+    "url": "assets/chunks/chunk-XZIHB7SX.UjoJdRqT.js",
     "revision": null
   }, {
-    "url": "assets/chunks/classDiagram-GIVACNV2.DzI-TiWM.js",
+    "url": "assets/chunks/classDiagram-GIVACNV2.DlxnpcRJ.js",
     "revision": null
   }, {
-    "url": "assets/chunks/classDiagram-v2-COTLJTTW.DzI-TiWM.js",
+    "url": "assets/chunks/classDiagram-v2-COTLJTTW.DlxnpcRJ.js",
     "revision": null
   }, {
     "url": "assets/chunks/cytoscape.esm.CfBqOv7Q.js",
     "revision": null
   }, {
-    "url": "assets/chunks/dagre-OKDRZEBW.B8HfVQ_C.js",
+    "url": "assets/chunks/dagre-OKDRZEBW.DbBCEusS.js",
     "revision": null
   }, {
-    "url": "assets/chunks/dayjs.min.B1q9P2sB.js",
+    "url": "assets/chunks/dayjs.min.Bqg5IgWM.js",
     "revision": null
   }, {
-    "url": "assets/chunks/diagram-SSKATNLV.DtAQvX1M.js",
+    "url": "assets/chunks/diagram-SSKATNLV.BJXZFGuZ.js",
     "revision": null
   }, {
-    "url": "assets/chunks/diagram-VNBRO52H.Dt2fzhqY.js",
+    "url": "assets/chunks/diagram-VNBRO52H.6Qw7a7zb.js",
     "revision": null
   }, {
-    "url": "assets/chunks/erDiagram-Q7BY3M3F.CR-UIqK1.js",
+    "url": "assets/chunks/erDiagram-Q7BY3M3F.BuRuPqmO.js",
     "revision": null
   }, {
-    "url": "assets/chunks/flowDiagram-4HSFHLVR.3fPSwQAa.js",
+    "url": "assets/chunks/flowDiagram-4HSFHLVR.de_iwwc8.js",
     "revision": null
   }, {
     "url": "assets/chunks/framework.DfjUQpHG.js",
     "revision": null
   }, {
-    "url": "assets/chunks/ganttDiagram-APWFNJXF.C3Cq0Zvb.js",
+    "url": "assets/chunks/ganttDiagram-APWFNJXF.Cfp8wLa5.js",
     "revision": null
   }, {
-    "url": "assets/chunks/gitGraphDiagram-7IBYFJ6S.Bt4PURw9.js",
+    "url": "assets/chunks/gitGraphDiagram-7IBYFJ6S.B1BMwSKm.js",
     "revision": null
   }, {
-    "url": "assets/chunks/graph.CGdSuQrj.js",
+    "url": "assets/chunks/graph.D7KjPAXY.js",
     "revision": null
   }, {
-    "url": "assets/chunks/home.ZmTKPWts.js",
+    "url": "assets/chunks/home.5EsxOf3R.js",
     "revision": null
   }, {
     "url": "assets/chunks/index.0fKt7v9s.js",
@@ -496,70 +502,70 @@ define(['./workbox-526d9e75'], (function (workbox) { 'use strict';
     "url": "assets/chunks/index.es.DImF4M5O.js",
     "revision": null
   }, {
-    "url": "assets/chunks/infoDiagram-PH2N3AL5.coBOuRL9.js",
+    "url": "assets/chunks/infoDiagram-PH2N3AL5.DOzMZDl_.js",
     "revision": null
   }, {
     "url": "assets/chunks/init.Dmth1JHB.js",
     "revision": null
   }, {
-    "url": "assets/chunks/journeyDiagram-U35MCT3I.DoOIQ0k-.js",
+    "url": "assets/chunks/journeyDiagram-U35MCT3I.JhfiWKx_.js",
     "revision": null
   }, {
-    "url": "assets/chunks/kanban-definition-NDS4AKOZ.DS7xzBpz.js",
+    "url": "assets/chunks/kanban-definition-NDS4AKOZ._an1j7Dr.js",
     "revision": null
   }, {
     "url": "assets/chunks/katex.ChWnQ-fc.js",
     "revision": null
   }, {
-    "url": "assets/chunks/layout.eTSkgot8.js",
+    "url": "assets/chunks/layout.CrP2t7qC.js",
     "revision": null
   }, {
     "url": "assets/chunks/linear.pmWNyHP6.js",
     "revision": null
   }, {
-    "url": "assets/chunks/LinkInline.vue_vue_type_script_setup_true_lang.BI1D8sC7.js",
+    "url": "assets/chunks/LinkInline.vue_vue_type_script_setup_true_lang.DwdZjX2a.js",
     "revision": null
   }, {
-    "url": "assets/chunks/mindmap-definition-ALO5MXBD.BxCWwnSe.js",
+    "url": "assets/chunks/mindmap-definition-ALO5MXBD.Cy_F4gjV.js",
     "revision": null
   }, {
     "url": "assets/chunks/ordinal.BJp8kCrd.js",
     "revision": null
   }, {
-    "url": "assets/chunks/pieDiagram-IB7DONF6.CyqNYhy_.js",
+    "url": "assets/chunks/pieDiagram-IB7DONF6.CHtHNIUV.js",
     "revision": null
   }, {
-    "url": "assets/chunks/quadrantDiagram-7GDLP6J5.ZKPUaNa3.js",
+    "url": "assets/chunks/quadrantDiagram-7GDLP6J5.Wullgoku.js",
     "revision": null
   }, {
-    "url": "assets/chunks/radar-MK3ICKWK.BH2CC6ox.js",
+    "url": "assets/chunks/radar-MK3ICKWK.CMQ1qEJK.js",
     "revision": null
   }, {
-    "url": "assets/chunks/requirementDiagram-KVF5MWMF.B28MqFqp.js",
+    "url": "assets/chunks/requirementDiagram-KVF5MWMF.D0yno1oJ.js",
     "revision": null
   }, {
-    "url": "assets/chunks/sankeyDiagram-QLVOVGJD.DWh_zYhG.js",
+    "url": "assets/chunks/sankeyDiagram-QLVOVGJD.HEJ3x9az.js",
     "revision": null
   }, {
-    "url": "assets/chunks/sequenceDiagram-X6HHIX6F.BDc3KPvm.js",
+    "url": "assets/chunks/sequenceDiagram-X6HHIX6F.DdH7K6fP.js",
     "revision": null
   }, {
-    "url": "assets/chunks/stateDiagram-DGXRK772.gNZgirT1.js",
+    "url": "assets/chunks/stateDiagram-DGXRK772.D4WlQYgU.js",
     "revision": null
   }, {
-    "url": "assets/chunks/stateDiagram-v2-YXO3MK2T.BjrEutVr.js",
+    "url": "assets/chunks/stateDiagram-v2-YXO3MK2T.CzT0bjZk.js",
     "revision": null
   }, {
     "url": "assets/chunks/Tableau10.1LCcg9PS.js",
     "revision": null
   }, {
-    "url": "assets/chunks/theme.CY37Jhwe.js",
+    "url": "assets/chunks/theme.CDmJveXX.js",
     "revision": null
   }, {
     "url": "assets/chunks/time.Bp2vK2M7.js",
     "revision": null
   }, {
-    "url": "assets/chunks/timeline-definition-BDJGKUSR.DB2CrZMi.js",
+    "url": "assets/chunks/timeline-definition-BDJGKUSR.CVgiUcgO.js",
     "revision": null
   }, {
     "url": "assets/chunks/Timeline.BYQFc4zZ.js",
@@ -574,37 +580,37 @@ define(['./workbox-526d9e75'], (function (workbox) { 'use strict';
     "url": "assets/chunks/virtual_pwa-register.Y2ixBI0b.js",
     "revision": null
   }, {
-    "url": "assets/chunks/VPLocalSearchBox.Cqgi4sAA.js",
+    "url": "assets/chunks/VPLocalSearchBox.Cf18R8wT.js",
     "revision": null
   }, {
     "url": "assets/chunks/workbox-window.prod.es5.Cr_0OO2S.js",
     "revision": null
   }, {
-    "url": "assets/chunks/xychartDiagram-VJFVF3MP.BnSx6UZN.js",
+    "url": "assets/chunks/xychartDiagram-VJFVF3MP.DTHzLbCR.js",
     "revision": null
   }, {
-    "url": "assets/courses_java_01-Java语法入门_01-开发环境搭建.md._c8efcOz.js",
+    "url": "assets/courses_java_01-Java语法入门_01-开发环境搭建.md.v59mgfWs.js",
     "revision": null
   }, {
-    "url": "assets/courses_java_01-Java语法入门_01-开发环境搭建.md._c8efcOz.lean.js",
+    "url": "assets/courses_java_01-Java语法入门_01-开发环境搭建.md.v59mgfWs.lean.js",
     "revision": null
   }, {
-    "url": "assets/courses_java_01-Java语法入门_test.md.CYDP1a0h.js",
+    "url": "assets/courses_java_01-Java语法入门_test.md.C0cPeXXq.js",
     "revision": null
   }, {
-    "url": "assets/courses_java_01-Java语法入门_test.md.CYDP1a0h.lean.js",
+    "url": "assets/courses_java_01-Java语法入门_test.md.C0cPeXXq.lean.js",
     "revision": null
   }, {
-    "url": "assets/courses_java_index.md.Bhqi3u4A.js",
+    "url": "assets/courses_java_index.md.CYWgnvrM.js",
     "revision": null
   }, {
-    "url": "assets/courses_java_index.md.Bhqi3u4A.lean.js",
+    "url": "assets/courses_java_index.md.CYWgnvrM.lean.js",
     "revision": null
   }, {
-    "url": "assets/docs_index.md.DN5wAlar.js",
+    "url": "assets/docs_index.md.DnCE0siZ.js",
     "revision": null
   }, {
-    "url": "assets/docs_index.md.DN5wAlar.lean.js",
+    "url": "assets/docs_index.md.DnCE0siZ.lean.js",
     "revision": null
   }, {
     "url": "assets/fa-brands-400.D_cYUPeE.woff2",
@@ -619,22 +625,22 @@ define(['./workbox-526d9e75'], (function (workbox) { 'use strict';
     "url": "assets/fa-v4compatibility.C9RhG_FT.woff2",
     "revision": null
   }, {
-    "url": "assets/features_index.md.CIXRiz57.js",
+    "url": "assets/features_index.md.DjCr1657.js",
     "revision": null
   }, {
-    "url": "assets/features_index.md.CIXRiz57.lean.js",
+    "url": "assets/features_index.md.DjCr1657.lean.js",
     "revision": null
   }, {
-    "url": "assets/features_test.md.DYOkse9q.js",
+    "url": "assets/features_test.md.DmY5FQdU.js",
     "revision": null
   }, {
-    "url": "assets/features_test.md.DYOkse9q.lean.js",
+    "url": "assets/features_test.md.DmY5FQdU.lean.js",
     "revision": null
   }, {
-    "url": "assets/index.md.Cvw9j4dF.js",
+    "url": "assets/index.md.DiF_pxiA.js",
     "revision": null
   }, {
-    "url": "assets/index.md.Cvw9j4dF.lean.js",
+    "url": "assets/index.md.DiF_pxiA.lean.js",
     "revision": null
   }, {
     "url": "assets/inter-italic-cyrillic-ext.r48I6akx.woff2",
@@ -679,173 +685,176 @@ define(['./workbox-526d9e75'], (function (workbox) { 'use strict';
     "url": "assets/inter-roman-vietnamese.BjW4sHH5.woff2",
     "revision": null
   }, {
-    "url": "assets/nav_index.md.DxIP3cTk.js",
+    "url": "assets/nav_index.md.D84yH7PJ.js",
     "revision": null
   }, {
-    "url": "assets/nav_index.md.DxIP3cTk.lean.js",
+    "url": "assets/nav_index.md.D84yH7PJ.lean.js",
     "revision": null
   }, {
     "url": "assets/style.DGXgCJR1.css",
     "revision": null
   }, {
-    "url": "assets/tags.md.Om8OgVfh.js",
+    "url": "assets/tags.md.BfdKBVgp.js",
     "revision": null
   }, {
-    "url": "assets/tags.md.Om8OgVfh.lean.js",
+    "url": "assets/tags.md.BfdKBVgp.lean.js",
     "revision": null
   }, {
     "url": "author.png",
     "revision": "a400a82a2bb636b6f1888827611cbc1d"
   }, {
     "url": "categories/annals/2024/02/10/第二版博客搭建完成.html",
-    "revision": "0451ad4506f8b646ea7f488461bfdfbd"
+    "revision": "03f894540ff8e2e4a329497a8d39483d"
   }, {
     "url": "categories/annals/2024/02/11/新年快乐.html",
-    "revision": "adb78c51c311b4e49fbef7f23f855e43"
+    "revision": "ed940c60924f5cbf558ae0025e22a873"
   }, {
     "url": "categories/annals/2024/05/05/第三版博客搭建完成.html",
-    "revision": "921c348cd6c6cb32e25792ca71668b95"
+    "revision": "042e2f9825b8111ae82e7d9b6f585553"
   }, {
     "url": "categories/annals/2024/05/11/第四版博客新题性.html",
-    "revision": "cddc013821542738be16ee5e64cb8f52"
+    "revision": "2d95c317e49efa77db008af9b04afbea"
   }, {
     "url": "categories/annals/2024/05/23/第五版博客发布完成.html",
-    "revision": "e03a086a4bd70dbd455c5cc65d7a212b"
+    "revision": "161d3c9098cf260f8891a80af1274c9d"
   }, {
     "url": "categories/annals/2024/05/26/HA综合布线.html",
-    "revision": "da8e8a0669226bedc06a265ceb6816b8"
+    "revision": "0cfe41a14184c11664e271e52386bb49"
   }, {
     "url": "categories/annals/2024/05/29/打印机共享.html",
-    "revision": "8e8c3cab2d72dacd3f0a07eba3df3b5e"
+    "revision": "bf7fed221abc0d9ea6692092d62f0348"
   }, {
     "url": "categories/annals/2024/06/02/性能优化.html",
-    "revision": "db9a41559684422292f098dd2d011d15"
+    "revision": "88ab1ca982f258cd04e58dc8deef1384"
   }, {
     "url": "categories/annals/2024/06/03/Excel大小优化.html",
-    "revision": "ffe22438ae3f89ca4e35b24f67931599"
+    "revision": "f9e8dd41a55fdd0d1d71066422aea787"
   }, {
     "url": "categories/annals/2024/06/10/更好的svg集成.html",
-    "revision": "c9384862cfdda9909a95ec45e10989f7"
+    "revision": "58d537e42d6dbb3dee76f446f26dcb30"
   }, {
     "url": "categories/annals/2024/06/17/商业报告模板.html",
-    "revision": "357ce947371a811c34f6d0087b2f4ee8"
+    "revision": "06fbfb91cf12c5cef57f64c7f0345dd8"
   }, {
     "url": "categories/annals/2024/08/18/第六版博客发布.html",
-    "revision": "f7eb0bd6e8bf2ac082b7996e79156045"
+    "revision": "98d280b2fb777850947180d43cb7032c"
   }, {
     "url": "categories/annals/2024/11/23/第七版博客发布.html",
-    "revision": "41dcfd9d68104f3ce302df2e193cce51"
+    "revision": "f8597f198d6c7d8f79f5b22efda822ac"
   }, {
     "url": "categories/annals/2024/11/25/开始记录生活.html",
-    "revision": "fe2d719872c93efd5e3d2916d0f2cf8a"
+    "revision": "a3f853c12df3e15fc12f6b7dc412474e"
   }, {
     "url": "categories/annals/2024/11/26/周二的一天.html",
-    "revision": "e0e7ad35b740658ed07c0f93ca715e31"
+    "revision": "66bd18a853e82855b6589f5b4f0c0056"
   }, {
     "url": "categories/annals/2024/11/27/Daily Notes.html",
-    "revision": "8d410a9cc43258681064a07ae6b247a7"
+    "revision": "8200f607d4ec09627a83151b14352f07"
   }, {
     "url": "categories/annals/2024/11/28/防火墙学习.html",
-    "revision": "93efefae8e0cc1fa74009bffe7f88ddd"
+    "revision": "2588814180b09434d9718dfe83dc46be"
   }, {
     "url": "categories/annals/2024/11/29/萤石云app接入.html",
-    "revision": "cdabbc3a7b8c08b1baa103a38aff1c34"
+    "revision": "62a17f4fbe7d15ec37b296805e55ac3a"
   }, {
     "url": "categories/annals/2024/12/01/默认路由.html",
-    "revision": "9d6278b0f78683c16dec7bf9cd3aaf5a"
+    "revision": "299d0aefed3e50e0c1fdb3b0d76b0174"
   }, {
     "url": "categories/annals/2024/12/02/加班处理考勤掉线.html",
-    "revision": "b78d9766e57f34a5b948ca91d2fd9a7a"
+    "revision": "a1dec7acf1f9024107571b598c859c7f"
   }, {
     "url": "categories/annals/2024/12/04/局域网路由.html",
-    "revision": "c44745a4321ea7d6c2cadd810dda31d0"
+    "revision": "81eee9d864df8a8d35fa23ba7bba1441"
   }, {
     "url": "categories/annals/2024/12/12/最近日常.html",
-    "revision": "3c02722ad92e17bfd6ee10d0d339992b"
+    "revision": "b592a8cd405aa2f7cd12480c11ff1c7a"
   }, {
     "url": "categories/annals/2024/index.html",
-    "revision": "9d3c5b76fc15d2fe62648d5f29ed7660"
+    "revision": "a92e2af78f0bcb58d2cdad18a107c033"
   }, {
     "url": "categories/annals/2025/01/01/云贵之旅.html",
-    "revision": "dfdb7a1d1e45b81e936b7ec10f87aa2e"
+    "revision": "2de73096d7914c30d06555bb8e17582b"
   }, {
     "url": "categories/annals/2025/01/02/新一年，新篇章.html",
-    "revision": "fa01068b43bb6b07792ca27f1ec2fb06"
+    "revision": "1d1e1ba9d5f673c00eeac2df02f40a78"
   }, {
     "url": "categories/annals/2025/01/05/第八版博客发布.html",
-    "revision": "f3ff7f6561f40d297272dac84ef0ec00"
+    "revision": "d811d4ca879104993091080295f948a9"
   }, {
     "url": "categories/annals/2025/01/12/双栏布局.html",
-    "revision": "b0ebc0e4580e6347bb39fafe26b0cab4"
+    "revision": "25b48c4c9db560779e82b662874f84d8"
   }, {
     "url": "categories/annals/2025/01/16/工作日常.html",
-    "revision": "f09c5046ea8a91473c5b0cd809fff08b"
+    "revision": "7cf3ed077bdd3cfda3fa4d31710d378a"
   }, {
     "url": "categories/annals/2025/03/17/交换机教程.html",
-    "revision": "5b53b7c45f09ce6674e8432f8aa78600"
+    "revision": "3f20c886be1e4a44acb7a2938a2cca9c"
   }, {
     "url": "categories/annals/2025/03/18/交换机初始化教程.html",
-    "revision": "e7fda539526ea73ba0337076b4f049c2"
+    "revision": "36583e4ebb9a9d069a6b788170cb4bca"
   }, {
     "url": "categories/annals/2025/03/18/交换机选型避坑.html",
-    "revision": "46ee4aef97eaaa0aeb2f3ee8cb2141f5"
+    "revision": "6c35237c2f02432c27d19d8c7a1c1da8"
   }, {
     "url": "categories/annals/2025/03/18/交换机错误排查.html",
-    "revision": "68d16fc8c139cca913ee18eabf5f3274"
+    "revision": "e80ce9d34fb5dfdd9673154d73aed9f2"
   }, {
     "url": "categories/annals/2025/03/21/windows文件服务器.html",
-    "revision": "f4ef25c1ef14955b0b0c47d75f95bd71"
+    "revision": "0db12b029e97a0ada2022be52c2dabb7"
   }, {
     "url": "categories/annals/2025/03/24/fortiClientGate学习.html",
-    "revision": "f044a30cd92d85e65429a31a1fc0cf28"
+    "revision": "a30daa8491994708b69c772a23bc9f77"
   }, {
     "url": "categories/annals/2025/03/24/自定义策略路由.html",
-    "revision": "4002548739be1ff6d1ac11d2db9984ec"
+    "revision": "0163c7ca65926653ec823497d8671f21"
   }, {
     "url": "categories/annals/2025/03/24/路由出站入站分析.html",
-    "revision": "1d9c5d268c947a49f883766f302dd081"
+    "revision": "09be05dc06b0573ac8882b32fc09daa5"
   }, {
     "url": "categories/annals/2025/03/24/防火墙路由之静态路由（一）.html",
-    "revision": "33b4d84c2a753e67fbadd3728f886e7e"
+    "revision": "54dbd274fc71f17eb8b2c22efcf2b72b"
   }, {
     "url": "categories/annals/2025/03/25/华为交换机系列.html",
-    "revision": "41c4441baeadbc90373ceca66f261f52"
+    "revision": "10bd0fdcf0f6baf288e5762d4493c1c1"
   }, {
     "url": "categories/annals/2025/03/26/防火墙路由之策略路由（二）.html",
-    "revision": "6dcd07d1dc07922b285fa38416c10978"
+    "revision": "4bcd981f8e5b7cfb20e3c67fc9ec0d22"
   }, {
     "url": "categories/annals/2025/03/26/防火墙路由之防火墙策略（三）.html",
-    "revision": "a67758d941e99b4331be90f83b0635b9"
+    "revision": "2fb379f12f1d7de859e257f7aaa2dca4"
   }, {
     "url": "categories/annals/2025/04/13/三层交换机防病毒.html",
-    "revision": "d230c70e0bbe5f373522b1feca8f3533"
+    "revision": "05650263254296e0c6360e01d65ef488"
   }, {
     "url": "categories/annals/2025/04/13/交换机的 VLANIF 接口详解.html",
-    "revision": "69cab6a813907dc72592667d6dd2d906"
+    "revision": "4bc641bb2f2590e3f3e2aefae012bcee"
   }, {
     "url": "categories/annals/2025/04/13/企业级网络架构分析.html",
-    "revision": "32076c2ac5180434bf2262a0cc16a39b"
+    "revision": "0fb3509d0e548731379b9c21fdc99609"
   }, {
     "url": "categories/annals/2025/04/13/傻瓜交换机架构最佳实践.html",
-    "revision": "9ec55b0ad63cfd84fea702e077a4ee1f"
+    "revision": "5e185fec37d21afea00f475c80735d85"
+  }, {
+    "url": "categories/annals/2025/04/17/第一章 计算机硬件（第六版新教材）.html",
+    "revision": "544d4cf15346c729d4917d6517cd4ff9"
   }, {
     "url": "categories/annals/2025/index.html",
-    "revision": "bb0b5dc65121007a9afad90bc8408f7c"
+    "revision": "80e3cf79ffdf209e5d43df360a561e0d"
   }, {
     "url": "categories/annals/index.html",
-    "revision": "01ba33192109cfa9157e7bfd25b78df0"
+    "revision": "185c6514ea411ab9a4b18319869523ff"
   }, {
     "url": "courses/java/01-Java语法入门/01-开发环境搭建.html",
-    "revision": "30992bccafe4ab8629b2b851afca9663"
+    "revision": "1c0fa49ca7bc89f5b4e02d2b322b960e"
   }, {
     "url": "courses/java/01-Java语法入门/test.html",
-    "revision": "dd0a5460c9f026df23feabc0120654df"
+    "revision": "4555490869dc9de898fde1864e66df4d"
   }, {
     "url": "courses/java/index.html",
-    "revision": "61e89a64cc8f4f58306f5e220229f3cd"
+    "revision": "742ac0a0127e59e7c57450faf09beebb"
   }, {
     "url": "docs/index.html",
-    "revision": "4f8023993dc4d3c6cb77962f9a603c3e"
+    "revision": "4a2a1315329495a214b82b7ea1d649ed"
   }, {
     "url": "favicon.ico",
     "revision": "1786f94c4ded09536352e6d4593a250c"
@@ -854,10 +863,10 @@ define(['./workbox-526d9e75'], (function (workbox) { 'use strict';
     "revision": "d5b32211da730deb16993b42a2f53f2c"
   }, {
     "url": "features/index.html",
-    "revision": "c183d9df6236a8f53069716889c468b1"
+    "revision": "c7a3960db7cb2caf7e92d08fe66e379e"
   }, {
     "url": "features/test.html",
-    "revision": "6977a13df974043fec1e424c208aec85"
+    "revision": "18cfa11b2e3dd84ae8fd7b6e3cb53d19"
   }, {
     "url": "icons/2024-1.png",
     "revision": "cef68213709b2aaf990f47242bc46c14"
@@ -968,7 +977,7 @@ define(['./workbox-526d9e75'], (function (workbox) { 'use strict';
     "revision": "fa2643a1f8be40d7c9810f4157856167"
   }, {
     "url": "index.html",
-    "revision": "e69f3d921aa7d76cc2e3af840b752a66"
+    "revision": "f8049684a3bd804f9d9a3a29590c846c"
   }, {
     "url": "logo.png",
     "revision": "b56057d80e74ab95f2f32f0b9f0efb6f"
@@ -980,13 +989,13 @@ define(['./workbox-526d9e75'], (function (workbox) { 'use strict';
     "revision": "d7f2b94ab8de7f804ed47284d734ad6d"
   }, {
     "url": "nav/index.html",
-    "revision": "dd9651d401c9eb9bbc06816d40e3ef06"
+    "revision": "f6ba8f1574a7c93d289cf0b949c567dd"
   }, {
     "url": "static.png",
     "revision": "560a842f29b7a8946b8afa75ad8f71c5"
   }, {
     "url": "tags.html",
-    "revision": "27593eea0aeef52e99ae7afc5b803827"
+    "revision": "e70aecaf34abb2168fbd1433e8ba6687"
   }, {
     "url": "template.mp4",
     "revision": "cb5023ade0e1c52bc4cb1a9f4b3a6fc2"
