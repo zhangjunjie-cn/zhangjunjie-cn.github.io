@@ -42,7 +42,8 @@ export default withPwa(defineConfig(
     pwa: {
       // 根目录
       outDir: resolve(__dirname, "../../dist"),
-      mode: 'development',
+      // mode: 'development',
+      mode: 'production',
       strategies: 'generateSW', // 明确使用 generateSW 策略
       // selfDestroying: false, // 确保 Service Worker 不会自动注销
       registerType: "prompt", //提示更新
@@ -91,10 +92,13 @@ export default withPwa(defineConfig(
 								maxEntries: 100, // 最多缓存100篇文章
 								maxAgeSeconds: 7 * 24 * 60 * 60, // 缓存一周
 							},
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
 						},
 					},
 				],// 预缓存重要资源
-        globPatterns: ["**/*.{css,js,html,svg,png,ico,mp4,txt,woff2}"],
+        globPatterns: ["**/*.{css,js,html,svg,png,ico,mp4,txt}"],
         // exclude: [/sw.js$/, /workbox-.*\.js$/],        // 不要缓存 sw.js 本身
         cleanupOutdatedCaches:true,
 				skipWaiting: false,  // 新 SW 立即接管
