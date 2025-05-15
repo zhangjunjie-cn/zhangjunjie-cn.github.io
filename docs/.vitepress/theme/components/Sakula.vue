@@ -1,14 +1,15 @@
 <template>
-    <div ref="sakuraContainer" class="sakura-container"></div>
-  </template>
+    <div v-if="!isMobile()" ref="sakuraContainer" class="sakura-container"></div>
+</template>
   
   <script setup lang="ts">
   import { ref, onMounted, onUnmounted } from "vue";
-  
+import { isMobile } from "../../utils/mobile";
+
   const sakuraContainer = ref<HTMLElement | null>(null);
   
   onMounted(() => {
-    if (!sakuraContainer.value) return;
+    if (!sakuraContainer.value || !isMobile) return;
   
     // 创建 script 元素
     const sakuraScript = document.createElement("script");
