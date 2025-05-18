@@ -10,9 +10,10 @@
            :key="md5(page.relativePath)" />
      </template>
 
-     <template #doc-bottom>
+     <!-- 图片查看 -->
+     <!-- <template #doc-bottom>
          <imageViewer />
-     </template>
+     </template> -->
 
      <template #nav-bar-title-after>
          <NavVisitor />

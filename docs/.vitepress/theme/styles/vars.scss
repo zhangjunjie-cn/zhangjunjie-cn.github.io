@@ -29,6 +29,10 @@
   --main-card-border:#e3e8f7;
   --vp-c-highlight-text: var(--vp-c-bg);
   --vp-tag:#ebebeb;
+
+  --vp-c-bg-reverse-rgb:25,26,28;
+  --vp-c-bg-rgb:255,255,255;
+  --weiz-primary-color:#e13238;
 }
 
 .dark {
@@ -41,6 +45,10 @@
   // --vp-code-block-bg: rgba(0, 0, 0, 0.2);
   --vp-c-text-code: #c0cec0;
   --vp-tag:#202020;
+
+  --vp-c-bg-reverse-rgb:255,255,255;
+  --vp-c-bg-rgb:25,26,28;
+  --weiz-primary-color:#e13238;
 }
 
 /**

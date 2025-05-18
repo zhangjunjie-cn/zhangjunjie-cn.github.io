@@ -1,4 +1,4 @@
-import { h, watch, onMounted, nextTick, defineComponent, inject } from "vue";
+import { h, onUnmounted,watch, onMounted, nextTick, defineComponent, inject } from "vue";
 import { useData, EnhanceAppContext, inBrowser, useRoute } from "vitepress";
 import DefaultTheme from 'vitepress/theme-without-fonts';
 import "vitepress-markdown-timeline/dist/theme/index.css";
@@ -6,6 +6,8 @@ import "vitepress-markdown-timeline/dist/theme/index.css";
 
 import "./styles/font.css";
 import './styles/index.scss';
+import './styles/fancybox.css';
+
 //naive-ui
 import { setup } from '@css-render/vue3-ssr';
 import { NConfigProvider } from 'naive-ui';
@@ -19,11 +21,12 @@ import FeatureTag from './components/FeatureTag.vue';
 
 import Theme from 'vitepress/theme';
 import { DocBox, DocBoxCube, DocLinks, DocPill } from '@theojs/lumen';
-import 'tdesign-vue-next/es/style/index.css';
+// import 'tdesign-vue-next/es/style/index.css';
 import TwoSlash from '@shikijs/vitepress-twoslash/client';
 import 'uno.css';
 import { NProgress } from 'nprogress-v2/dist/index.js'; // 进度条组件
 import 'nprogress-v2/dist/index.css'; // 进度条样式
+import { bindFancybox, destroyFancybox } from './composables/ImgViewer'; // 图片查看器
 import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css';
 import { NolebaseGitChangelogPlugin } from '@nolebase/vitepress-plugin-git-changelog/client';
 import '@nolebase/vitepress-plugin-git-changelog/client/style.css';
@@ -45,20 +48,27 @@ export default Object.assign({}, Theme, {
     // 基础使用
     codeblocksFold({ route, frontmatter }, true, 400);
 
-    onMounted(() => {
+    onMounted(async () => {
       if (inBrowser) {
         initFirstScreen();
         animateFn();
+        bindFancybox(); // 绑定图片查看器
       }
     });
+
+    onUnmounted(() => {
+      destroyFancybox();
+    })
+
     watch(
       () => route.path,
       () =>
         nextTick(() => {
           if (inBrowser) {
-            destructionObserver();
-            initFirstScreen();
-            animateFn();
+            destructionObserver(); // 每次路由切换时销毁上一次的动画
+            initFirstScreen(); // 初始化
+            animateFn(); // 执行动画
+            bindFancybox(); // 每次路由切换时重新绑定Fancybox
           }
         })
     );
@@ -177,6 +187,8 @@ export default Object.assign({}, Theme, {
       }, 3000); // 延迟3秒加载
     }
   }
+
+  
 });
 
 // onMounted(() => {
