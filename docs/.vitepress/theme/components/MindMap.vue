@@ -5,7 +5,7 @@
 <script setup>
 import { useRouter } from "vitepress";
 import { onMounted, defineProps } from "vue";
-import MindMap from "simple-mind-map";
+// import MindMap from "simple-mind-map";
 
 const router = useRouter();
 const props = defineProps({

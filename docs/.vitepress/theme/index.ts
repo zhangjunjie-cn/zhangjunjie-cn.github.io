@@ -18,6 +18,7 @@ import MNavLinks from './components/MNavLinks.vue';
 import FeaturesOverview from './components/FeaturesOverview.vue';
 import FeatureTag from './components/FeatureTag.vue';
 
+import Markmap from './components/Markmap.vue'
 
 import Theme from 'vitepress/theme';
 import { DocBox, DocBoxCube, DocLinks, DocPill } from '@theojs/lumen';
@@ -136,13 +137,14 @@ export default Object.assign({}, Theme, {
     app.use(NolebaseGitChangelogPlugin);
     app.component('FeaturesOverview', FeaturesOverview);
     app.component('FeatureTag', FeatureTag);
+    app.component('Markmap', Markmap);
     app.config.globalProperties.isLoadLive2d = false;//全局设置一个属性是否加载live2d，避免重复加载
 
-    if (!import.meta.env.SSR) {
-      await import("vitepress-vue3-components/dist/style.css");
-      const plugin = await import("vitepress-vue3-components");
-      app.use(plugin.default);
-    }
+    // if (!import.meta.env.SSR) {
+    //   await import("vitepress-vue3-components/dist/style.css");
+    //   const plugin = await import("vitepress-vue3-components");
+    //   app.use(plugin.default);
+    // }
 
 
     //naive-ui

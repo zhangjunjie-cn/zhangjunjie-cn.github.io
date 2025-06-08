@@ -179,7 +179,7 @@ export default withPwa(defineConfig(
       ],
       ssr: {
         noExternal: process.env.NODE_ENV === 'production'
-          ? ['@arco-design/web-vue','@nolebase/vitepress-plugin-enhanced-readabilities','vitepress-theme-vuetom', '@nolebase/ui','naive-ui', 'date-fns', 'vueuc', 'simple-mind-map']
+          ? ['@arco-design/web-vue','@nolebase/vitepress-plugin-enhanced-readabilities','vitepress-theme-vuetom', '@nolebase/ui','naive-ui', 'date-fns', 'vueuc']
           : []
       },
     },

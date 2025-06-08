@@ -1,4 +1,6 @@
 import { MarkdownOptions } from "vitepress";
+import { markmapPlugin } from './../theme/composables/markmapPlugin';
+
 //链接卡片
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
@@ -36,6 +38,8 @@ export const markdown: MarkdownOptions = {
       if (tokens[idx].tag === 'h1') htmlResult += `\n<ClientOnly><ArticleMetadata v-if="($frontmatter?.aside ?? true) && ($frontmatter?.showArticleMetadata ?? true)" :article="$frontmatter" /></ClientOnly>`;
       return htmlResult;
     }
+
+    markmapPlugin(md);
 
 
 
