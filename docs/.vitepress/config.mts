@@ -16,6 +16,9 @@ import {
   GitChangelogMarkdownSection, 
 } from '@nolebase/vitepress-plugin-git-changelog/vite';
 
+import { PageProperties, PagePropertiesMarkdownSection } from '@nolebase/vitepress-plugin-page-properties/vite'
+import { ThumbnailHashImages } from '@nolebase/vitepress-plugin-thumbnail-hash/vite'
+
 import { nav } from './config/nav';
 import { sidebar } from './config/sidebar';
 import IconsResolver from 'unplugin-icons/resolver';
@@ -178,6 +181,15 @@ export default withPwa(defineConfig(
             ext: ".br",
         }),
         GitChangelogMarkdownSection(), 
+        // 自动导入页面属性
+        PageProperties(),
+        PagePropertiesMarkdownSection({
+          excludes: [
+            'index.md','tags.md','archives.md',
+          ],
+        }),
+        //hash模糊图片
+        ThumbnailHashImages(),
         dynamicImport(),
         Icons({
           autoInstall: true, // 自动安装图标集

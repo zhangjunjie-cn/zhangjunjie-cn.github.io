@@ -33,6 +33,14 @@ import { NolebaseGitChangelogPlugin } from '@nolebase/vitepress-plugin-git-chang
 import '@nolebase/vitepress-plugin-git-changelog/client/style.css';
 import { initFirstScreen, destructionObserver, animateFn } from '../theme/composables/animatePlusgin';
 import '@theojs/lumen/theme';
+import {
+  NolebasePagePropertiesPlugin,
+} from '@nolebase/vitepress-plugin-page-properties/client'
+import '@nolebase/vitepress-plugin-page-properties/client/style.css'
+import '@nolebase/vitepress-plugin-thumbnail-hash/client/style.css'
+import {
+  NolebaseUnlazyImg,
+} from '@nolebase/vitepress-plugin-thumbnail-hash/client'
 
 import { LiteTree } from "@lite-tree/vue";
 
@@ -142,6 +150,43 @@ export default Object.assign({}, Theme, {
     app.component('Markmap', Markmap);
     app.component('LiteTree',LiteTree);
     app.config.globalProperties.isLoadLive2d = false;//全局设置一个属性是否加载live2d，避免重复加载
+    app.component('NolebaseUnlazyImg', NolebaseUnlazyImg);
+    app.use(NolebasePagePropertiesPlugin<{
+      tags: string[]
+      progress: number
+    }>(), {
+      properties: {
+        'zh-CN': [
+          {
+            key: 'tags',
+            type: 'tags',
+            title: '标签',
+          },
+          {
+            key: 'progress',
+            type: 'progress',
+            title: '完成进度',
+          },
+          {
+            key: 'wordCount',
+            type: 'dynamic',
+            title: '字数',
+            options: {
+              type: 'wordsCount',
+            },
+          },
+          {
+            key: 'readingTime',
+            type: 'dynamic',
+            title: '阅读时间',
+            options: {
+              type: 'readingTime',
+              dateFnsLocaleName: 'zhCN',
+            },
+          },
+        ],
+      },
+    });
 
     // if (!import.meta.env.SSR) {
     //   await import("vitepress-vue3-components/dist/style.css");
