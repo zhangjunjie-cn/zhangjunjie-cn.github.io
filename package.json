@@ -65,6 +65,7 @@
   },
   "dependencies": {
     "@antv/g2plot": "2.4.31",
+    "@lite-tree/vue": "^1.1.6",
     "@vueuse/core": "^10.11.0",
     "animate.css": "^4.1.1",
     "blueimp-md5": "^2.19.0",

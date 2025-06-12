@@ -111,6 +111,14 @@ export default withPwa(defineConfig(
 			}
     },
 
+    vue:{
+      template: {                      
+        compilerOptions: {
+          whitespace: 'preserve'
+        }
+      }
+    },
+
     /*** 看图浏览组件库 ***/
     vite: {
       optimizeDeps: {

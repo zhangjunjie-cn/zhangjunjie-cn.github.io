@@ -34,6 +34,8 @@ import '@nolebase/vitepress-plugin-git-changelog/client/style.css';
 import { initFirstScreen, destructionObserver, animateFn } from '../theme/composables/animatePlusgin';
 import '@theojs/lumen/theme';
 
+import { LiteTree } from "@lite-tree/vue";
+
 // 代码折叠
 import codeblocksFold from 'vitepress-plugin-codeblocks-fold'; // import method
 import 'vitepress-plugin-codeblocks-fold/style/index.css'; // import style
@@ -138,6 +140,7 @@ export default Object.assign({}, Theme, {
     app.component('FeaturesOverview', FeaturesOverview);
     app.component('FeatureTag', FeatureTag);
     app.component('Markmap', Markmap);
+    app.component('LiteTree',LiteTree);
     app.config.globalProperties.isLoadLive2d = false;//全局设置一个属性是否加载live2d，避免重复加载
 
     // if (!import.meta.env.SSR) {
