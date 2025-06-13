@@ -6,7 +6,6 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const linkToCardModule = require("@luckrya/markdown-it-link-to-card");
 
-
 import timeline from "vitepress-markdown-timeline";
 import { InlineLinkPreviewElementTransform } from "@nolebase/vitepress-plugin-inline-link-preview/markdown-it";
 
@@ -38,6 +37,9 @@ export const markdown: MarkdownOptions = {
       if (tokens[idx].tag === 'h1') htmlResult += `\n<ClientOnly><ArticleMetadata v-if="($frontmatter?.aside ?? true) && ($frontmatter?.showArticleMetadata ?? true)" :article="$frontmatter" /></ClientOnly>`;
       return htmlResult;
     }
+    md.use(InlineLinkPreviewElementTransform as any, {
+      tag: 'VPNolebaseInlineLinkPreview',
+    });
 
     markmapPlugin(md);
 
@@ -57,7 +59,7 @@ export const markdown: MarkdownOptions = {
     //   size: "small", // 配置选项
     // });   
 
-    md.use(InlineLinkPreviewElementTransform);
+
     
   },
 };

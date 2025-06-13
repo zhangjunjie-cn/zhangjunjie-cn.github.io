@@ -18,7 +18,7 @@ import {
 
 import { PageProperties, PagePropertiesMarkdownSection } from '@nolebase/vitepress-plugin-page-properties/vite'
 import { ThumbnailHashImages } from '@nolebase/vitepress-plugin-thumbnail-hash/vite'
-
+// import ('@nolebase/vitepress-plugin-inline-link-preview/markdown-it')
 import { nav } from './config/nav';
 import { sidebar } from './config/sidebar';
 import IconsResolver from 'unplugin-icons/resolver';
@@ -127,6 +127,7 @@ export default withPwa(defineConfig(
       optimizeDeps: {
         exclude: [ 
           '@nolebase/vitepress-plugin-enhanced-readabilities/client', 
+          '@nolebase/vitepress-plugin-inline-link-preview',
           'vitepress', 
           '@nolebase/ui', 
           '@vueuse/core',
@@ -184,9 +185,13 @@ export default withPwa(defineConfig(
         // 自动导入页面属性
         PageProperties(),
         PagePropertiesMarkdownSection({
-          excludes: [
-            'index.md','tags.md','archives.md',
-          ],
+          excludes: [],  // 显式排除的文件列表（此处为空）
+          exclude: (_, { helpers }): boolean => {  // 动态排除逻辑
+            for (let page of ['index.md', 'tags.md', 'archives.md', 'me.md']) {
+              if (helpers.idEndsWith(page)) return true  // 如果文件路径以这些名称结尾，则排除
+            }
+            return false  // 其他文件正常显示属性
+          }
         }),
         //hash模糊图片
         ThumbnailHashImages(),
@@ -199,7 +204,16 @@ export default withPwa(defineConfig(
       ],
       ssr: {
         noExternal: process.env.NODE_ENV === 'production'
-          ? ['@arco-design/web-vue','@nolebase/vitepress-plugin-enhanced-readabilities','vitepress-theme-vuetom', '@nolebase/ui','naive-ui', 'date-fns', 'vueuc']
+          ? [
+              '@arco-design/web-vue',
+              '@nolebase/vitepress-plugin-enhanced-readabilities',
+              '@nolebase/vitepress-plugin-inline-link-preview',
+              'vitepress-theme-vuetom',
+              '@nolebase/ui',
+              'naive-ui',
+              'date-fns', 
+              'vueuc'
+            ]
           : []
       },
     },

@@ -29,6 +29,10 @@ import { NProgress } from 'nprogress-v2/dist/index.js'; // 进度条组件
 import 'nprogress-v2/dist/index.css'; // 进度条样式
 import { bindFancybox, destroyFancybox } from './composables/ImgViewer'; // 图片查看器
 import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css';
+import { 
+  InjectionKey as NolebaseEnhancedReadabilitiesInjectionKey,
+  LayoutMode as NolebaseEnhancedReadabilitiesLayoutMode,
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 import { NolebaseGitChangelogPlugin } from '@nolebase/vitepress-plugin-git-changelog/client';
 import '@nolebase/vitepress-plugin-git-changelog/client/style.css';
 import { initFirstScreen, destructionObserver, animateFn } from '../theme/composables/animatePlusgin';
@@ -41,6 +45,11 @@ import '@nolebase/vitepress-plugin-thumbnail-hash/client/style.css'
 import {
   NolebaseUnlazyImg,
 } from '@nolebase/vitepress-plugin-thumbnail-hash/client'
+import('@nolebase/vitepress-plugin-inline-link-preview/client')
+import '@nolebase/vitepress-plugin-inline-link-preview/client/style.css'
+import {
+  NolebaseInlineLinkPreviewPlugin,
+} from '@nolebase/vitepress-plugin-inline-link-preview/client'
 
 import { LiteTree } from "@lite-tree/vue";
 
@@ -151,6 +160,7 @@ export default Object.assign({}, Theme, {
     app.component('LiteTree',LiteTree);
     app.config.globalProperties.isLoadLive2d = false;//全局设置一个属性是否加载live2d，避免重复加载
     app.component('NolebaseUnlazyImg', NolebaseUnlazyImg);
+    app.use(NolebaseInlineLinkPreviewPlugin)
     app.use(NolebasePagePropertiesPlugin<{
       tags: string[]
       progress: number
@@ -187,6 +197,16 @@ export default Object.assign({}, Theme, {
         ],
       },
     });
+
+    app.provide(NolebaseEnhancedReadabilitiesInjectionKey, {
+      layoutSwitch: {
+        defaultMode: NolebaseEnhancedReadabilitiesLayoutMode.SidebarWidthAdjustableOnly,
+      },
+      spotlight: {
+        defaultToggle: true,
+        hoverBlockColor: 'rgb(240 197 52 / 7%)',
+      },
+    })
 
     // if (!import.meta.env.SSR) {
     //   await import("vitepress-vue3-components/dist/style.css");
