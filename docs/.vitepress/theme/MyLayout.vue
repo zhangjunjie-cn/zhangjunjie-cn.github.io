@@ -1,61 +1,19 @@
 <template>
-  <div :class="class">
-    
-    <ClientOnly>
-      <Fireworks />
-   <Layout>
-     <template #doc-footer-before>
-         <Copyright
-           v-if="(frontmatter?.aside ?? true) && (frontmatter?.showArticleMetadata ?? true) && !(frontmatter.authorLink)"
-           :key="md5(page.relativePath)" />
-     </template>
-
-     <!-- 图片查看 -->
-     <!-- <template #doc-bottom>
-         <imageViewer />
-     </template> -->
-
-     <template #nav-bar-title-after>
-         <NavVisitor />
-     </template>
-
-
-     <!-- <template #doc-after>
-       <ClientOnly>
-         <Comment v-if="(theme.commentConfig?.showComment ?? true) && (frontmatter?.showComment ?? true)"
-           :commentConfig="theme.commentConfig" :key="md5(page.relativePath)" />
-       </ClientOnly>
-     </template> -->
-
-
-     <template #layout-bottom>
-         <Footer v-if="!hasRainbow && (theme.footerConfig?.showFooter ?? true) && (frontmatter?.showFooter ?? true)" />
-         <ReloadPrompt />
-     </template>
-
-     <!-- 为较宽的屏幕的导航栏添加阅读增强菜单 -->
-    <template #nav-bar-content-after>
-        <NolebaseEnhancedReadabilitiesMenu />
-    </template>
-
-    <!-- 更好的为较窄的屏幕（通常是小于 iPad Mini）添加阅读增强菜单图片窗格 -->
-    <template #nav-screen-content-after>
-        <NolebaseEnhancedReadabilitiesScreenMenu />     
-    </template>
-
-    <template #aside-outline-before>
-        <ShareButton />     
-    </template>
-
-    <template #aside-top>
-        <toTop />     
-    </template>
-
+      <DefaultTheme.Layout>
+        
+    <!-- 彩虹背景 -->
     <template #layout-top>
         <Rainbow v-if="!hasRainbow && (theme.footerConfig?.showRainbow ?? false) && (frontmatter?.showRainbow ?? false)"/>     
     </template>
 
 
+    <!-- 底部作者栏目及标签 -->
+    <template #doc-footer-before>
+      <WDocPublic />
+    </template>
+
+
+    <!-- 左侧目录标签栏 -->
     <template #sidebar-nav-before>
       <br/>
       <div flex="~ col gap-2">
@@ -71,54 +29,35 @@
           <div font-bold text-sm op75 px2 pt4>
             要求版本
           </div>
-          <VPMenuLink
+          <!-- <VPMenuLink
             :item="{
               text: route.data.frontmatter.since,
               link: `https://github.com/slidevjs/slidev/releases/tag/${route.data.frontmatter.since}`,
             }"
-          />
+          /> -->
         </div>
       </div>
     </template>
-
-    </Layout>
-    </ClientOnly>
-    <template>
-        <Sakula />
-        <!-- <BodyClick /> -->
-        <!-- 鼠标点击烟花效果 -->
-        
-    </template>
-
-  </div>
+    </DefaultTheme.Layout>
 </template>
 
-<script lang="ts" setup>
- import { computed } from 'vue';
- import DefaultTheme from 'vitepress/theme';
- import { useData,useRoute } from 'vitepress';
- import md5 from 'blueimp-md5';
- import Copyright from './components/layout/Copyright.vue';
-//  import Comment from './components/layout/Comment.vue';
- import Footer from './components/layout/Footer.vue';
- import imageViewer from './components/imageViewer.vue';
- import NavVisitor from './components/NavVisitor.vue';
- import { isDesktop } from "./utils"; 
- import BodyClick from "./components/BodyClick.vue";
- import Sakula from "./components/Sakula.vue";
- import Fireworks from './components/Fireworks.vue';
- import ReloadPrompt from './components/ReloadPrompt.vue';
- import toTop from './components/toTop.vue';
- import { ShareButton } from '@theojs/lumen';
 
- import { 
- NolebaseEnhancedReadabilitiesMenu, 
- NolebaseEnhancedReadabilitiesScreenMenu, 
-} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
+<script setup lang="ts">
+import DefaultTheme from 'vitepress/theme';
+import { computed } from 'vue';
+import { useData,useRoute } from 'vitepress';
+
+import { toggleDark } from './components/WDark'     //导入视图过渡配置
+import  WDocPublic  from './components/WDocPublic.vue';
+
+import Rainbow from './components/Rainbow.vue';   //彩虹背景
+const { isDark } = useData()
+// 实现切换主题过渡动画
+toggleDark(isDark);
 
 const route = useRoute()
- const { Layout } = DefaultTheme;
- const { page, theme, frontmatter } = useData();
+const { Layout } = DefaultTheme;
+const { page, theme, frontmatter } = useData();
 
  const hasRainbow = computed(() => {
    return (
@@ -127,70 +66,5 @@ const route = useRoute()
    )
  });
 
-
- //视图过渡
-import { nextTick, provide } from 'vue'
-import Rainbow from './components/Rainbow.vue';
-
-const { isDark } = useData()
-
-const enableTransitions = () =>
- 'startViewTransition' in document &&
- window.matchMedia('(prefers-reduced-motion: no-preference)').matches
-
-provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
- if (!enableTransitions()) {
-   isDark.value = !isDark.value
-   return
- }
-
- const clipPath = [
-   `circle(0px at ${x}px ${y}px)`,
-   `circle(${Math.hypot(
-     Math.max(x, innerWidth - x),
-     Math.max(y, innerHeight - y)
-   )}px at ${x}px ${y}px)`
- ]
-
- await document.startViewTransition(async () => {
-   isDark.value = !isDark.value
-   await nextTick()
- }).ready
-
- document.documentElement.animate(
-   { clipPath: isDark.value ? clipPath.reverse() : clipPath },
-   {
-     duration: 330,
-     easing: 'ease-out',
-     pseudoElement: `::view-transition-${isDark.value ? 'old' : 'new'}(root)`
-   }
- )
-})
 </script>
 
-<!-- <style scoped>
-::view-transition-old(root),
-::view-transition-new(root) {
- animation: none;
- mix-blend-mode: normal;
-}
-
-::view-transition-old(root),
-.dark::view-transition-new(root) {
- z-index: 1;
-}
-
-::view-transition-new(root),
-.dark::view-transition-old(root) {
- z-index: 9999;
-}
-
-.VPSwitchAppearance {
- width: 22px !important;
-}
-
-.VPSwitchAppearance .check {
- transform: none !important;
-}
-
-</style> -->

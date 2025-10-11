@@ -2,7 +2,7 @@
 import { withBase } from 'vitepress'
 import { Tooltip } from 'floating-vue'
 import { computed } from 'vue'
-import { resolveLink } from './../composables/dataUtils'
+import { resolveLink } from '../utils/LinkInLineUtils'
 
 const props = defineProps<{
   link: string

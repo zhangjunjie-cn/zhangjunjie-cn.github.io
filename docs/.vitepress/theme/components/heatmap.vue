@@ -192,7 +192,7 @@ watch(
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 40px;
+    // margin-top: 40px;
     max-width: 100%;
 }
 
