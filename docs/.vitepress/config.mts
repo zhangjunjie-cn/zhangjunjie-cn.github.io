@@ -8,7 +8,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 //自动importcomponent
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-
+import { resolve } from "node:path";
 import dynamicImport from 'vite-plugin-dynamic-import';	//运行时导入
 import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
 //carbon图标集
@@ -73,7 +73,7 @@ const vitepressSidebarOptions = {
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-	outDir: '../../dist', // 如果有这个配置，输出目录会改变
+	outDir: resolve(__dirname, "../../dist"),
 	title: "Justin3go's Blog-🖊",
 	titleTemplate: ":title-Justin3go's Blog-🖊",
 	description: "坚持深耕技术领域的T型前端程序员, 喜欢Vuejs、Nestjs, 还会点python、nlp、web3、后端",
