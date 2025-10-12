@@ -1,1 +1,0 @@
-const t=JSON.parse('{"test":{"name":"test","title":"date: 2025/01/15","link":"/features/test.html","description":"使用单独的 YAML 代码块作为 frontmatter\\n","depends":[],"relates":[],"derives":[],"tags":["文档"]}}');export{t as d};
