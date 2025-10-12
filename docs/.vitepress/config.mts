@@ -7,7 +7,7 @@ import addTime from "./theme/composables/addTime";
 import AutoImport from 'unplugin-auto-import/vite'		
 //自动importcomponent
 import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { ArcoResolver,ElementPlusResolver,TDesignResolver } from 'unplugin-vue-components/resolvers'
 import { resolve } from "node:path";
 import dynamicImport from 'vite-plugin-dynamic-import';	//运行时导入
 import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
@@ -257,20 +257,34 @@ export default defineConfig({
 		},
 		plugins: [
 			AutoImport({
-				resolvers: [ElementPlusResolver({
+				resolvers: [TDesignResolver({
+					library: 'vue-next'
 				})],
-        	}),
+			}),
 			Components({
+				dts: 'components.d.ts', // 生成到 VitePress 目录
 				//自动加载 components 下的vue文件为组件，省去import 导入。
 				dirs: ['.vitepress/theme/components'],
 				include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
 				resolvers: [
-					ElementPlusResolver({}),
+					// ElementPlusResolver({}),
 					//导入图标组件
             		IconsResolver({
 						prefix: '',
 						enabledCollections: ['ion', 'carbon'], // 启用的图标集
+						// 添加以下配置确保生产环境也能识别
+						alias: {
+							'carbon': 'carbon/*'
+						}
             		}),
+					TDesignResolver({
+						library: 'vue-next'
+					}),
+					// 自动导入图标组件
+					ArcoResolver({
+						sideEffect: true,
+						resolveIcons: true
+					}),
 				],
         	}),
 			dynamicImport(),	//运行时导入
@@ -278,10 +292,13 @@ export default defineConfig({
 				autoInstall: true, // 自动安装图标集
 				defaultStyle: 'display: inline-block;',
 			}),
+
 			UnoCSS()
 		],
 		ssr: {
-			noExternal: ['element-plus']
+			noExternal: [
+				'element-plus','@arco-design/web-vue'
+			]
 		},
 		resolve: {
 			alias: {
@@ -294,11 +311,11 @@ export default defineConfig({
 		
 		// plugins: [
 		// 	// ...
-		// 	AutoImport({
-		// 		resolvers: [TDesignResolver({
-		// 			library: 'vue-next'
-		// 		})],
-		// 	}),
+			// AutoImport({
+			// 	resolvers: [TDesignResolver({
+			// 		library: 'vue-next'
+			// 	})],
+			// }),
 		// 	Components({
 		// 		resolvers: [TDesignResolver({
 		// 			library: 'vue-next'
