@@ -257,29 +257,38 @@ export default defineConfig({
 		},
 		plugins: [
 			AutoImport({
-				resolvers: [TDesignResolver({
-					library: 'vue-next'
-				})],
+				resolvers: [
+					TDesignResolver({
+						library: 'vue-next'
+					}),
+					ElementPlusResolver({}),
+				],
 			}),
 			Components({
 				dts: 'components.d.ts', // 生成到 VitePress 目录
 				//自动加载 components 下的vue文件为组件，省去import 导入。
 				dirs: ['.vitepress/theme/components'],
-				include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+				include: [
+					/\.vue$/, 
+					/\.vue\?vue/, 
+					/\.md$/,
+					/\.md\?vue/  // 添加这个以确保处理 Markdown 文件
+				],
 				resolvers: [
-					// ElementPlusResolver({}),
+					
 					//导入图标组件
             		IconsResolver({
-						prefix: '',
-						enabledCollections: ['ion', 'carbon'], // 启用的图标集
+						componentPrefix: '',
+          				enabledCollections: ['carbon'],
 						// 添加以下配置确保生产环境也能识别
 						alias: {
-							'carbon': 'carbon/*'
+							cb: 'carbon'
 						}
             		}),
 					TDesignResolver({
 						library: 'vue-next'
 					}),
+					ElementPlusResolver({}),
 					// 自动导入图标组件
 					ArcoResolver({
 						sideEffect: true,
