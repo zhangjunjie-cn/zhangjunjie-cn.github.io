@@ -24,6 +24,8 @@ import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
 import Whome from './components/Whome.vue';
 import WPosts from './components/WPosts.vue';
 import WTag from './components/WTag.vue';
+import KanbanExample from './components/KanbanExample.vue';
+import { plugin } from './composables/slicksort_index';
 
 export default {
   // extends: DefaultTheme,  
@@ -49,7 +51,9 @@ export default {
     app.component('Whome',Whome);
     app.component('WPosts',WPosts);
     app.component('WTag',WTag);
+    app.component('KanbanExample', KanbanExample);
     app.use(TwoslashFloatingVue as any);
+    app.use(plugin);
     
 
     if (inBrowser) {
