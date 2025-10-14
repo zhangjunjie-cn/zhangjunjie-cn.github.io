@@ -35,6 +35,7 @@
     "element-plus": "^2.11.4",
     "floating-vue": "^5.2.2",
     "nprogress-v2": "^1.1.10",
+    "swiper": "^12.0.2",
     "tdesign-vue-next": "^1.17.0",
     "unocss": "^66.5.2",
     "unplugin-icons": "^22.4.2",
