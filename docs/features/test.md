@@ -2,6 +2,10 @@
 pageClass: all-features-page
 title: 文档书写规范
 aside: false
+showWDocTitleMeta: false
+editLink: false
+footer: false
+outline: false
 tags: 
  - 文档
 categories:
@@ -20,8 +24,6 @@ lastUpdated: 2023-12-14 20:13:56+8:00
 <ArticleCarousel :list="list" />
 
 <KanbanExample />
-
-
 
 <script lang="ts" setup>
 import { ref } from 'vue'
@@ -67,3 +69,14 @@ const list = ref([
 
 
 
+ <style>
+.all-features-page .VPDoc > .container > .content {
+  max-width: 72vw !important;
+}
+</style>
+
+<style>
+:root {
+  overflow-y: scroll;
+}
+</style>
