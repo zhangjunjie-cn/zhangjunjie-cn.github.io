@@ -75,7 +75,7 @@
 							:style="'--swiper-animation-time: ' + tags.length * 3 + 's'">
 							<div class="swiper-item" v-for="(item, index) of tags" :key="index">
   <a 
-    class="inline-block px-4 py-2 bg-blue-50 text-blue-600 border border-blue-200 rounded-full text-sm font-medium no-underline transition-all duration-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 hover:transform hover:-translate-y-0.5 hover:shadow-md mr-5 mb-0 mt-1"
+    class="inline-block px-4 py-2 bg-blue-50 text-blue-600 border border-blue-200 rounded-full text-sm font-medium no-underline transition-all duration-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 hover:transform hover:-translate-y-0.5 hover:shadow-md mr-5 mt-1"
     :href="'pages/tags?q=' + encodeURIComponent(item)"
   >
     # {{ item }}
