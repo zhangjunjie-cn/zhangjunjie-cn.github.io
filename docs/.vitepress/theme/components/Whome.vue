@@ -37,7 +37,7 @@
     <div class="container">
       <el-row class="container-row" :gutter="24">
         <el-col :xs="24" :sm="12" :md="11" class="container-left pos-relative">
-<div class="card-container">
+			<div class="card-container">
 				<div class="e-card playing">
 					<div class="image"></div>
 
@@ -45,12 +45,7 @@
 					<div class="wave"></div>
 					<div class="wave"></div>
 
-					<div class="infotop">
-
-
-					
-				
-			</div>
+					<div class="infotop"></div>
 <!-- *****************************大标题************************************** -->     
 
           <div class="flex">
@@ -58,11 +53,41 @@
               <h1 class="about-title">
                 <span>{{ aboutData.title }}</span>
               </h1>
+
+			  
               <h3 class="about-title">
                 <span>{{ aboutData.subtitle }}</span>
               </h3>
+
+
+			  
             </div>
           </div>
+
+  <!-- *********************** 滚动标签 *************************** -->
+			<div id="tag">
+				<div class="swiper">
+					<div class="swiper-wrapper">
+						<div
+							class="swiper-container"
+							v-for="(i, idx) of 3"
+							:key="idx"
+							:style="'--swiper-animation-time: ' + tags.length * 3 + 's'">
+							<div class="swiper-item" v-for="(item, index) of tags" :key="index">
+  <a 
+    class="inline-block px-4 py-2 bg-blue-50 text-blue-600 border border-blue-200 rounded-full text-sm font-medium no-underline transition-all duration-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 hover:transform hover:-translate-y-0.5 hover:shadow-md mr-5 mb-0 mt-1"
+    :href="'pages/tags?q=' + encodeURIComponent(item)"
+  >
+    # {{ item }}
+  </a>
+</div>
+						</div>
+					</div>
+				</div>
+			</div>
+  <!-- *********************** 滚动标签 *************************** -->
+
+		  
 
           <div class="info-wrapper">
 
@@ -85,6 +110,9 @@
                 </div>
               </div>
             </div> -->
+
+
+			
 
 <!-- *****************************头像************************************** -->
             
@@ -115,6 +143,7 @@
                     <i class="weiz-icon weiz-icon-github main xm" />
                   </a>
                 </li>
+				欢迎来到，我的世界。
               </ul>
               </div>
               </div>
@@ -137,6 +166,9 @@
 <!-- *****************************首页 post ************************************** -->
 
   <div id="post">
+
+	<h1>最新文章：</h1>
+
     <div class="container">
       <el-row class="container-row" :gutter="24">
 
@@ -223,7 +255,7 @@
   </div>
 
 <!-- ***************************** 滚动标签 ************************************** -->
-  <div id="tag">
+  <!-- <div id="tag">
     <div class="swiper">
       <div class="swiper-wrapper">
         <div
@@ -240,7 +272,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 </template>
 <script setup lang="ts">
@@ -402,10 +434,10 @@ onMounted(() => {
   }
   .el-carousel {
     --el-carousel-indicator-height: 4px;
-    .el-carousel__button {
-      border-radius: 8px;
-      background: var(--weiz-primary-color);
-    }
+    // .el-carousel__button {
+    //   border-radius: 8px;
+    //   background: var(--weiz-primary-color);
+    // }
     .el-carousel__indicators--vertical {
       transform: translate(var(--Whome-padding-2), -50%);
     }

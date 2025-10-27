@@ -11,7 +11,7 @@
 
   .container-left {
     height: 240px;
-    background-color: var(--vp-c-bg);         //新增背景色
+    // background-color: var(--vp-c-bg);         //新增背景色
       border-radius: var(--weiz-card-border-radius);    //新增圆角
 
     margin-bottom: var(--Whome-margin);
@@ -34,6 +34,8 @@
         overflow: hidden;
       }
       &.about-title {
+        margin-top: 0.5em;      //h1标题
+        margin-bottom: 0.1em;
         color: transparent;
         background: -webkit-linear-gradient(
           120deg,

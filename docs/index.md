@@ -1,8 +1,8 @@
 ---
 layout: Whome
 # layoutClass: home1
-title: 桦鱼笔记
-titleTemplate: 桦鱼笔记
+title: 张俊杰的笔记
+titleTemplate: 张俊杰的笔记
 sidebar: false
 firstCommit: 2023-04-28 21:07:26+8:00
 lastUpdated: 2023-12-14 20:13:56+8:00
@@ -12,7 +12,7 @@ about:
   subtitle: 在快门声与键盘敲击声中，把成长的点滴酿成时光的标本。
   logo: https://avatars.githubusercontent.com/u/30976418?v=4
   desc: 学习 记录 分享
-  tagline: 小作坊工程师🧑‍💻
+  tagline: 张俊杰的小作坊🧑‍💻
   links:
     - title: 前端笔记
       iconName: weiz-icon-web white
