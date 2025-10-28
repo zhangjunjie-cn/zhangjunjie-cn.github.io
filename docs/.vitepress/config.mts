@@ -163,7 +163,7 @@ export default defineConfig({
 			"link",
 			{
 				rel: "icon",
-				href: "https://oss.justin3go.com/justin3goAvatar.ico",
+				href: "/favicon.ico",
 			},
 		],
 	],

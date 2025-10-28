@@ -57,7 +57,14 @@ footer.VPFooter {
 /**
 * 自定义页面初始化
 * -------------------------------- 增加高度为100px ------------------------------------------ */
-// .Whome,
+.Whome{
+  .container{ //首页头部
+    max-width:calc(var(--vp-layout-max-width) - px);
+  }
+  .swiper-wrapper {
+    height:auto;
+  }
+}
 #post,#about{
       max-width: 90rem;
     margin: 0 auto;
@@ -69,7 +76,7 @@ footer.VPFooter {
       // margin-top: 100px;
     }
     @media (min-width: 1024px) {
-      padding: 1rem 4rem;
+      padding: 1rem 1rem;
     }
 }
 

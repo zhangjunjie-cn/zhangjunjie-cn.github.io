@@ -137,7 +137,7 @@
                 <li class="hero-social-item">
                   <a
                     class="social"
-                    href="https://github.com/xiaoxiaohuayu"
+                    href="https://github.com/zhangjunjie-cn"
                     target="_blank"
                   >
                     <i class="weiz-icon weiz-icon-github main xm" />
