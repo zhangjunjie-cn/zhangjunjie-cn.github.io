@@ -3,6 +3,7 @@ import type { EnhanceAppContext } from 'vitepress'
 import { useData,useRouter,inBrowser } from "vitepress";
 import type { Theme } from 'vitepress'
 import { defineComponent,h,onMounted, onUnmounted } from "vue";
+import { defineComponent,h,onMounted, onUnmounted } from "vue";
 import DefaultTheme from "vitepress/theme";
 import ElementPlus from "element-plus";
 // import "element-plus/dist/index.css";
@@ -28,7 +29,11 @@ import KanbanExample from './components/KanbanExample.vue';
 import PasswordProtect from './components/PasswordProtect.vue';
 import { usePasswordProtection } from "./utils/PassWordUtil";
 
+import PasswordProtect from './components/PasswordProtect.vue';
+import { usePasswordProtection } from "./utils/PassWordUtil";
+
 import { plugin } from './composables/slicksort_index';
+
 
 
 export default {
@@ -39,6 +44,14 @@ export default {
 
 
   extends: DefaultTheme,  
+    Layout: defineComponent({
+    name: "LayoutProvider",
+
+    setup() {
+      const props: { class?: string } = {};
+      // const { frontmatter } = useData();
+      const { frontmatter, page } = useData();
+      props.class = frontmatter.value?.layout || "";
     Layout: defineComponent({
     name: "LayoutProvider",
 
