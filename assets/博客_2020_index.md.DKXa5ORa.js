@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as a}from"./chunks/framework.BAt86-JR.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"博客/2020/index.md","filePath":"博客/2020/index.md","lastUpdated":1760196138000}'),n={name:"博客/2020/index.md"};function r(o,s,d,c,i,p){return a(),t("div")}const f=e(n,[["render",r]]);export{m as __pageData,f as default};
