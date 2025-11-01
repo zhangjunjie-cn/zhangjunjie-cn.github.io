@@ -12,6 +12,7 @@ declare module 'vue' {
     AButton: typeof import('@arco-design/web-vue')['Button']
     AButtonGroup: typeof import('@arco-design/web-vue')['ButtonGroup']
     ArticleCarousel: typeof import('./.vitepress/theme/components/ArticleCarousel.vue')['default']
+    Bolang: typeof import('./.vitepress/theme/components/Bolang.vue')['default']
     'Carbon:close': typeof import('~icons/carbon/close')['default']
     'Carbon:filterRemove': typeof import('~icons/carbon/filter-remove')['default']
     'Carbon:search': typeof import('~icons/carbon/search')['default']

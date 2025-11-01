@@ -30,7 +30,8 @@ import { usePasswordProtection } from "./utils/PassWordUtil";
 
 import { plugin } from './composables/slicksort_index';
 
-
+import { initComponent } from "vitepress-plugin-legend/component"; 
+import "vitepress-plugin-legend/dist/index.css"; 
 
 export default {
   // extends: DefaultTheme,  
@@ -89,6 +90,7 @@ export default {
     app.component('KanbanExample', KanbanExample);
     app.use(TwoslashFloatingVue as any);
     app.use(plugin);
+    initComponent(app); //Markmap
     
 
     if (inBrowser) {

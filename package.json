@@ -21,6 +21,7 @@
     "unplugin-auto-import": "^20.2.0",
     "unplugin-vue-components": "^29.1.0",
     "vitepress": "1.6.4",
+    "vitepress-plugin-legend": "^1.1.0",
     "vitepress-sidebar": "^1.33.0"
   },
   "dependencies": {

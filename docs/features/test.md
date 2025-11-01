@@ -25,6 +25,19 @@ lastUpdated: 2023-12-14 20:13:56+8:00
 
 <KanbanExample />
 
+```markmap
+# 前端面试
+### HTML
+- 语义化标签
+- SEO 优化
+### CSS
+- Flex 布局
+- Grid 布局
+### JavaScript
+- 闭包
+- 事件循环
+```
+
 <script lang="ts" setup>
 import { ref } from 'vue'
 const list = ref([

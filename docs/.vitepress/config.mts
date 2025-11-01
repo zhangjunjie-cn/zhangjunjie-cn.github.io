@@ -24,6 +24,7 @@ import UnoCSS from 'unocss/vite'
 // import { withSidebar } from 'vitepress-sidebar';
 //导入 自动侧边栏组件 依赖
 import { generateSidebar } from 'vitepress-sidebar'
+import { vitepressPluginLegend } from "vitepress-plugin-legend";
 
 const vitepressSidebarOptions = {
   /*
@@ -107,6 +108,13 @@ export default defineConfig({
       ],
       // 对markdown中的内容进行替换或者批量处理
       config: (md) => {
+		
+		// 集成 vitepress-plugin-legend
+        vitepressPluginLegend(md, {
+          markmap: { showToolbar: true }, // 启用脑图工具栏
+          mermaid: true, // 启用 Mermaid 支持
+        });
+
         // 创建 markdown-it 插件
         md.use((md) => {
           // 组件插入h1标题下
