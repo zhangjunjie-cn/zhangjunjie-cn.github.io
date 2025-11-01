@@ -56,10 +56,7 @@ const { isDark } = useData()
 toggleDark(isDark);
 
 const route = useRoute()
-const { Layout } = DefaultTheme;
-const { page, theme, frontmatter } = useData();
-const props: { class?: string } = {};
-props.class = frontmatter.value?.layout || "";
+const { theme, frontmatter } = useData();
 
  const hasRainbow = computed(() => {
    return (
