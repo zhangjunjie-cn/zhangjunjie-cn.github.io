@@ -49,9 +49,9 @@ export default {
       props.class = frontmatter.value?.layout || "";
 
       // 根据元数据动态应用 CSS 类，实现页面级样式定制
-      if (frontmatter.value?.layoutClass) {
-        props.class = frontmatter.value.layoutClass;
-      }
+      // if (frontmatter.value?.layoutClass) {
+      //   props.class = frontmatter.value.layoutClass;
+      // }
 
       // 为每个页面生成唯一的 key
       const getLayoutKey = () => {

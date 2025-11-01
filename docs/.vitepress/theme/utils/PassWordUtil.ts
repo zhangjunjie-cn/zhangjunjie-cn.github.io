@@ -1,6 +1,6 @@
 import { ref, watch } from "vue";
 import { useData, useRouter } from "vitepress";
-import { isClient } from "vitepress-theme-teek";
+import { isClient } from "./IsClient";
 
 // ========================= 核心配置（务必修改！）=========================
 const ENCRYPTION_KEY = "your-32-char-key-here-12345678";
