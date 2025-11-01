@@ -1,8 +1,8 @@
 <div align="center">
 <p>
   <a href="https://justin3go.com" target="blank">
-    <img src="./images/ava.png" height="200px" alt="logo" />
-    <h1 align="center">&lt; Justin3go's Blog /&gt;</h1>
+    <img src="./docs/public/logo.png" height="200px" alt="logo" />
+    <h1 align="center">&lt; 张俊杰的博客 /&gt;</h1>
   </a>
 </p>
 
