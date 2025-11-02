@@ -76,7 +76,7 @@ const vitepressSidebarOptions = {
 export default defineConfig({
 	outDir: resolve(__dirname, "../../dist"),	//dist生成目录
 	title: "张俊杰的博客",
-	titleTemplate: ":title-Justin3go's Blog-🖊",
+	titleTemplate: ":title-张俊杰的博客",
 	description: "坚持深耕技术领域的T型前端程序员, 喜欢Vuejs、Nestjs, 还会点python、nlp、web3、后端",
 	lang: "zh-CH", //语言
 	lastUpdated: true,

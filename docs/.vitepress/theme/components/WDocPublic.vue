@@ -6,7 +6,7 @@
           <i class="weiz-icon weiz-icon-user main"></i>文章作者:
         </span>
         <span class="copyright-info">
-          <a :href="siteHref">xiaohuayu</a>
+          <a :href="siteHref">zhangjunjie</a>
         </span>
       </div>
       <div class="copyright__type">

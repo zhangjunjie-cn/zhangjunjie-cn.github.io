@@ -29,7 +29,8 @@ import PasswordProtect from './components/PasswordProtect.vue';
 import { usePasswordProtection } from "./utils/PassWordUtil";
 
 import { plugin } from './composables/slicksort_index';
-
+import StickyWall from './components/StickyWall.vue';
+import MusicPlayer from './components/MusicPlayer.vue';
 import { initComponent } from "vitepress-plugin-legend/component"; 
 import "vitepress-plugin-legend/dist/index.css"; 
 
@@ -75,10 +76,15 @@ export default {
         }
 
         // 正常渲染 Teek 布局
-        return h(MyLayout, {
-        key: getLayoutKey(), // 添加 key 强制重新渲染
-        class: frontmatter.value?.layoutClass || frontmatter.value?.layout || ""
-      });
+        return [
+          h(MyLayout, {
+            key: getLayoutKey(),
+            class: frontmatter.value?.layoutClass || frontmatter.value?.layout || ""
+          }),
+          h(MusicPlayer, {
+            key: 'music-player' // 固定的 key
+          })
+        ];
       };
     }
   }),
@@ -89,7 +95,17 @@ export default {
     app.component('WTag',WTag);
     app.component('KanbanExample', KanbanExample);
     app.use(TwoslashFloatingVue as any);
+    app.component('StickyWall', StickyWall);
+    // app.component('MusicPlayer', MusicPlayer);
     app.use(plugin);
+
+    app.provide('musicPlayerConfig', {  //音乐播放器
+      autoPlay: false,
+      volume: 0.7,
+      loop: false,
+      shuffle: false
+    })
+
     initComponent(app); //Markmap
     
 

@@ -1,6 +1,6 @@
 <div align="center">
 <p>
-  <a href="https://justin3go.com" target="blank">
+  <a href="https://zhangjunjie.pages.dev" target="blank">
     <img src="./docs/public/logo.png" height="200px" alt="logo" />
     <h1 align="center">&lt; 张俊杰的博客 /&gt;</h1>
   </a>

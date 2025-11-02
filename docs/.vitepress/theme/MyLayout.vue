@@ -12,6 +12,11 @@
       <WDocPublic />
     </template>
 
+    <!-- 底部音乐播放器 -->
+    <template #layout-bottom>
+      <MusicPlayer />
+    </template>
+
 
     <!-- 左侧目录标签栏 -->
     <template #sidebar-nav-before>
@@ -49,6 +54,7 @@ import { useData,useRoute } from 'vitepress';
 
 import { toggleDark } from './components/WDark'     //导入视图过渡配置
 import  WDocPublic  from './components/WDocPublic.vue';
+import MusicPlayer from './components/MusicPlayer.vue';
 
 import Rainbow from './components/Rainbow.vue';   //彩虹背景
 const { isDark } = useData()

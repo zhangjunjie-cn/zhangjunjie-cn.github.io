@@ -40,6 +40,7 @@ lastUpdated: 2023-12-14 20:13:56+8:00
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import type { Track } from '/.vitepress/theme/utils/MusicIndex'
 const list = ref([
 {
     image:'https://image.baidu.com/search/down?url=https://fc.sinaimg.cn/large/6364aa43gy1hm0fdr08pnj22c01bqb29.jpg',
@@ -77,6 +78,26 @@ const list = ref([
     image:'https://image.baidu.com/search/down?url=https://fc.sinaimg.cn/large/6364aa43gy1hm0fdr2dlbj22c01bqb29.jpg',
     title:'暗黑模式+标签点击切换'
 }]);
+
+
+const myPlaylist = ref<Track[]>([
+  {
+    id: '1',
+    title: '夜曲',
+    artist: '周杰伦',
+    album: '十一月的萧邦',
+    url: '/music/nocturne.mp3',
+    cover: '/music/covers/nocturne.jpg'
+  },
+  {
+    id: '2', 
+    title: '千里之外',
+    artist: '周杰伦 ft. 费玉清',
+    album: '依然范特西',
+    url: '/music/thousands-miles-away.mp3',
+    cover: '/music/covers/thousands-miles-away.jpg'
+  }
+])
 
 </script>
 
