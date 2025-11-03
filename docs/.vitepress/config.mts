@@ -174,6 +174,7 @@ export default defineConfig({
 				href: "/favicon.ico",
 			},
 		],
+		['link', { rel: 'preload', href: '/template.webm', as: 'video', type: 'video/webm' }]
 	],
 	// https://vitepress.dev/reference/site-config#transformhead
 	async transformHead(context) {

@@ -2,10 +2,12 @@
 	<div class="home-container">
 		<div class="video-container" v-cloak>
 			<video v-if="!curDeviceIsMobile" class="logo-video" autoplay loop muted>
-				<source
+				<!-- 优先使用 WebM -->
+      			<source :src="withBase('/template.webm')" type="video/webm">
+				<!-- <source
 					src="https://zhangjunjiee.netlify.app/template.mp4"
 					type="video/mp4"
-					/>
+					/> -->
 			</video>
 			<!-- 如果是移动端，上述样式会不兼容，故降级为图片显示 -->
 			<div v-else class="image-container">
