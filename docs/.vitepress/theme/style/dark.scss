@@ -1,14 +1,14 @@
 /**
 * 黑暗模式切换动画
 * -------------------------------------------------------------------------- */
-::view-transition-old(*) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-::view-transition-new(*) {
-  animation: globalDark .8s ease-in;
-  mix-blend-mode: normal;
-}
+// ::view-transition-old(*) {
+//   animation: none;
+//   mix-blend-mode: normal;
+// }
+// ::view-transition-new(*) {
+//   animation: globalDark .8s ease-in;
+//   mix-blend-mode: normal;
+// }
 
 @keyframes globalDark {
   from {

@@ -7,6 +7,9 @@
 @use  './home-bottom.scss';
 @use './tags.scss';
 @use './link.scss';
+@use './override.scss';
+@use './sidebar.scss';
+@use './doc-fade-in.scss';
 // @use './hidden.scss';
 @import "./style.css";
 @import './auto-sidebar.css';

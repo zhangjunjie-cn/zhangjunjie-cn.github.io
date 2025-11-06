@@ -260,10 +260,10 @@ export default defineConfig({
 		optimizeDeps: {
 			include: ['element-plus'],
 			exclude: [ 
-			// '@nolebase/vitepress-plugin-enhanced-readabilities/client', 
-			// 'vitepress', 
-			// '@nolebase/ui', 
-			// '@vueuse/core',
+			'@nolebase/vitepress-plugin-enhanced-readabilities/client', 
+			'vitepress', 
+			'@nolebase/ui', 
+			'@vueuse/core',
 			], 
 		},
 		plugins: [
@@ -317,7 +317,9 @@ export default defineConfig({
 		],
 		ssr: {
 			noExternal: [
-				'element-plus','@arco-design/web-vue'
+				'element-plus',
+				'@arco-design/web-vue',
+				'vitepress',
 			]
 		},
 		resolve: {
