@@ -34,6 +34,7 @@ export default createContentLoader(
   [
     'post/**/!(*-index).md', // 也可用过滤 "!(.vitepress|public|pages)/**/!(index|README).md", 过滤掉示例文档/非正式文档，以 -demo 为结尾
     '笔记/**/!(index).md',
+    '博客/**/!(index).md'
   ],
   {
     // 包含原始 markdown 源
