@@ -156,13 +156,19 @@
 }
 
 /* 状态1: 悬停非激活项时，显示一个预览指示器 */
-.VPSidebarItem.level-1:not(.is-active) .item .link:hover::before {
+.VPSidebarItem.level-1:not(.is-active) .item .link:hover::before,
+.VPSidebarItem.level-2:not(.is-active) .item .link:hover::before ,
+.VPSidebarItem.level-3:not(.is-active) .item .link:hover::before ,
+.VPSidebarItem.level-4:not(.is-active) .item .link:hover::before  {
 	opacity: 0.3;
 	transform: translateY(-50%) scaleY(0.7);
 }
 
 /* 状态2: 当链接激活时，完全显示指示器并播放动画 */
-.VPSidebarItem.level-1.is-active .item .link::before {
+.VPSidebarItem.level-1.is-active .item .link::before,
+.VPSidebarItem.level-2.is-active .item .link::before,
+.VPSidebarItem.level-3.is-active .item .link::before,
+.VPSidebarItem.level-4.is-active .item .link::before {
 	opacity: 1;
 	transform: translateY(-50%) scaleY(1);
 	box-shadow: 0 0 12px rgba(var(--vp-c-brand-rgb), 0.4);
@@ -250,4 +256,12 @@
 /* --- 减少动画 (保持不变) --- */
 @media (prefers-reduced-motion: reduce) {
 	/* ... 您的减少动画样式 ... */
+}
+
+// 去掉sidebar很丑的原版竖条  
+.VPSidebarItem.level-2.is-active > .item > .indicator,
+.VPSidebarItem.level-3.is-active > .item > .indicator, 
+.VPSidebarItem.level-4.is-active > .item > .indicator, 
+.VPSidebarItem.level-5.is-active > .item > .indicator{
+	background-color: transparent !important;
 }

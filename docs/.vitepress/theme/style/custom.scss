@@ -261,3 +261,15 @@ pre:not(.vp-code) {
 #nprogress .bar {
   background: var(--weiz-primary-color);
 }
+
+/*滚动条*/
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/*滑块*/
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: linear-gradient(-45deg, rgba(189, 52, 154, 0.3), rgba(65, 209, 255, 0.3));;
+}

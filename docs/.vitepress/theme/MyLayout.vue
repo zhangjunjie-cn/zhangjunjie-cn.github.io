@@ -24,7 +24,7 @@
       <div flex="~ col gap-2">
         <div v-if="route.data?.frontmatter?.tags" class="bg-$vp-tag p4 rounded-lg"  flex="~ col gap-2">
           <div font-bold text-sm op75>
-            📌 标签
+            ✨ 标签
           </div>
           <div flex="~ wrap gap-2">
             <FeatureTag v-for="tag in route.data.frontmatter.tags" :key="tag" :tag="tag" />

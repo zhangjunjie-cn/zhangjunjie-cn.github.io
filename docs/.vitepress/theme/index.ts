@@ -58,7 +58,9 @@ export default {
 
       // 为每个页面生成唯一的 key
       const getLayoutKey = () => {
-        return `${page.value.relativePath}-${frontmatter.value?.layout || 'default'}`;
+        // return `${page.value.relativePath}-${frontmatter.value?.layout || 'default'}`;
+        // 只在布局真正改变时才改变 key
+        return frontmatter.value?.layout || 'default';
       };
 
       const { showPassword, currentPassword, currentVerifyPrefix, handleVerified } = usePasswordProtection();
@@ -118,7 +120,10 @@ export default {
       const onAfterRouteChange = () => {
         NProgress.done(); // 停止进度条
         // busuanzi.fetch(); //卜算子统计
-        bindFancybox();
+        // 只在包含图片的页面绑定 Fancybox
+        if (document.querySelector('img')) {
+          bindFancybox();
+        }
       };
       router.onBeforeRouteChange = onBeforeRouteChange;
       router.onAfterRouteChange = onAfterRouteChange;
