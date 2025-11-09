@@ -27,7 +27,8 @@ import WTag from './components/WTag.vue';
 import KanbanExample from './components/KanbanExample.vue';
 import PasswordProtect from './components/PasswordProtect.vue';
 import { usePasswordProtection } from "./utils/PassWordUtil";
-
+import Swiper from './components/Swiper.vue';
+import CardMasonry from './components/CardMasonry.vue';
 import { plugin } from './composables/slicksort_index';
 import StickyWall from './components/StickyWall.vue';
 import MusicPlayer from './components/MusicPlayer.vue';
@@ -96,6 +97,8 @@ export default {
     app.component('WPosts',WPosts);
     app.component('WTag',WTag);
     app.component('KanbanExample', KanbanExample);
+    app.component('Swiper', Swiper);
+    app.component('CardMasonry',CardMasonry);
     app.use(TwoslashFloatingVue as any);
     app.component('StickyWall', StickyWall);
     // app.component('MusicPlayer', MusicPlayer);

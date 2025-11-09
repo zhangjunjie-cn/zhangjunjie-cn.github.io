@@ -165,7 +165,8 @@ export default defineConfig({
           // 返回渲染的内容
           return defaultContent;
         };
-      });
+        
+      },);
     },
   },
   head: [
@@ -198,6 +199,8 @@ export default defineConfig({
       },
     ],
     ["link", { rel: "preload", href: "/template.webm", as: "video", type: "video/webm" }],
+    ["meta", { name: "referrer", content: "no-referrer" }],
+      
   ],
   // https://vitepress.dev/reference/site-config#transformhead
   async transformHead(context) {

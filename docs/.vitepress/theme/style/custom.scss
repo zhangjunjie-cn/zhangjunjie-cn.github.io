@@ -273,3 +273,12 @@ pre:not(.vp-code) {
   border-radius: 4px;
   background: linear-gradient(-45deg, rgba(189, 52, 154, 0.3), rgba(65, 209, 255, 0.3));;
 }
+
+/* 文章背景 */
+.VPContent.has-sidebar {
+    // padding-top: var(--vp-nav-height) !important;
+    // background-position: 50%;
+      // background-size: 20px 20px;
+      background-image: '/new-bg-halloween.avif',
+    // linear-gradient(1turn, rgba(60, 10, 30, 0.04) 3%, transparent 0);
+}
