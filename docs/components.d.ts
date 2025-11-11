@@ -25,6 +25,7 @@ declare module 'vue' {
     FeaturesOverview: typeof import('./.vitepress/theme/components/FeaturesOverview.vue')['default']
     FeatureTag: typeof import('./.vitepress/theme/components/FeatureTag.vue')['default']
     Heatmap: typeof import('./.vitepress/theme/components/heatmap.vue')['default']
+    ImageCard: typeof import('./.vitepress/theme/components/ImageCard.vue')['default']
     KanbanExample: typeof import('./.vitepress/theme/components/KanbanExample.vue')['default']
     LinkInline: typeof import('./.vitepress/theme/components/LinkInline.vue')['default']
     MusicPlayer: typeof import('./.vitepress/theme/components/MusicPlayer.vue')['default']

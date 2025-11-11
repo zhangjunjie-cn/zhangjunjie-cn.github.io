@@ -5,6 +5,7 @@ import type { Theme } from 'vitepress'
 import { defineComponent,h,onMounted, onUnmounted } from "vue";
 import DefaultTheme from "vitepress/theme";
 import ElementPlus from "element-plus";
+import ImageCard from './components/ImageCard.vue';
 // import "element-plus/dist/index.css";
 import 'element-plus/theme-chalk/index.css'
 
@@ -19,6 +20,12 @@ import "nprogress-v2/dist/index.css";
 import '@shikijs/vitepress-twoslash/style.css'
 
 import 'uno.css'
+
+//动态模糊图片
+import { 
+  NolebaseUnlazyImg, 
+} from '@nolebase/vitepress-plugin-thumbnail-hash/client';
+import '@nolebase/vitepress-plugin-thumbnail-hash/client/style.css'
 
 import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
 import Whome from './components/Whome.vue';
@@ -99,7 +106,9 @@ export default {
     app.component('KanbanExample', KanbanExample);
     app.component('Swiper', Swiper);
     app.component('CardMasonry',CardMasonry);
+    app.component('ImageCard',ImageCard);
     app.use(TwoslashFloatingVue as any);
+    app.component('NolebaseUnlazyImg', NolebaseUnlazyImg);
     app.component('StickyWall', StickyWall);
     // app.component('MusicPlayer', MusicPlayer);
     app.use(plugin);

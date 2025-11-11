@@ -24,7 +24,10 @@ import UnoCSS from "unocss/vite";
 // 导入 自动侧边栏组件 依赖
 import { generateSidebar } from "vitepress-sidebar";
 import { vitepressPluginLegend } from "vitepress-plugin-legend";
-
+import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img';
+import { 
+  ThumbnailHashImages, 
+} from '@nolebase/vitepress-plugin-thumbnail-hash/vite';
 const vitepressSidebarOptions = {
   /*
          * For detailed instructions, see the links below:
@@ -166,7 +169,14 @@ export default defineConfig({
           return defaultContent;
         };
         
-      },);
+      },
+
+      //动态模糊图片
+      md.use(UnlazyImages(), { 
+        imgElementTag: 'NolebaseUnlazyImg', 
+      }) 
+    
+    );
     },
   },
   head: [
@@ -296,6 +306,7 @@ export default defineConfig({
       ],
     },
     plugins: [
+      ThumbnailHashImages(),  //动态模糊图
       AutoImport({
         resolvers: [
           TDesignResolver({
@@ -369,6 +380,14 @@ export default defineConfig({
         scss: {
           api: "modern",
         },
+      },
+    },
+  },
+  vue: {
+    template: {
+      transformAssetUrls: {
+        // 其他各种配置...
+        NolebaseUnlazyImg: ['src'], 
       },
     },
   },
