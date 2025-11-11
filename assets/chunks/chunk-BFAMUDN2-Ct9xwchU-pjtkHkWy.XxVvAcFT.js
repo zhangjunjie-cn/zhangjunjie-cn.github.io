@@ -1,1 +1,0 @@
-import{S as t,ac as e}from"./theme.CGaVu95_.js";var d=t((a,n)=>{let o;return n==="sandbox"&&(o=e("#i"+a)),(n==="sandbox"?e(o.nodes()[0].contentDocument.body):e("body")).select(`[id="${a}"]`)},"getDiagramElement");export{d as a};
