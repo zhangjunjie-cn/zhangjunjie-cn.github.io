@@ -82,6 +82,13 @@
   --weiz-icon-color: linear-gradient(30deg, #fff200 0%, #ff0000 100%);
   --url: url(https://api.iconify.design/garden/css-stroke-12.svg?color=%23000);
 }
+
+
+//网络图标
+.weiz-icon-network {
+  --weiz-icon-color: linear-gradient(30deg, #3e6be2 0%, #8dd1ff 100%);
+  --url: url(https://api.iconify.design/mdi/wide-area-network.svg?color=%23000);
+}
 .weiz-icon-echarts,
 .weiz-icon-charts {
   --weiz-icon-color: linear-gradient(to top, #0099ff 0%, #8dd1ff 100%);
