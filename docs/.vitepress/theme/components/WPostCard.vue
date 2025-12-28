@@ -21,7 +21,8 @@
 <!-- *****************************卡片图标************************************** -->
 
     <div class="article-head">
-      <span class="date">{{ post.dateText ? formateDate(post.dateText[0]) : '' }}</span>
+      <!-- 时间 -->
+      <span class="date">{{ post.dateText ? post.dateText[0] : '' }}</span>
       <!-- 图标 -->
       <div :class="'weiz-icon weiz-icon-post xxm ' + (post.tags ? 'weiz-icon-' + post.tags[0].toLocaleLowerCase().replace(/\./g, '') : '')"></div>
     </div>
@@ -75,6 +76,19 @@ const go = (tag: string) => {
 
 <style lang="scss" scoped>
 .article-card {
+  // 确保没有::before占位
+  &::before {
+    display: none !important;
+    content: none !important;
+  }
+  
+  // 或者确保是块级显示
+  display: block;  /* 而不是inline-block */
+  
+  // 清除可能的浮动
+  float: none;
+  clear: both;
+  
   width: 100%;
   display: inline-block;
   border-radius: var(--weiz-card-border-radius);

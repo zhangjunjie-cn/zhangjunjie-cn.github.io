@@ -170,7 +170,7 @@
 
   <div id="post">
 
-	<h1>最新文章：</h1>
+	<h1>精华文章：</h1>
 
     <div class="container">
       <el-row class="container-row" :gutter="24">

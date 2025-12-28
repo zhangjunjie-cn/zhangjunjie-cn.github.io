@@ -31,15 +31,26 @@ about:
       link: app/network/clash-verge
 
 post:
-  - title: 我的简历
-    url: resume
-    abstract: 个人简历 - 查看我的工作经验、技能和教育背景
-  - title: VSCode接入DeepSeek-V3
-    url: editor/vscode/vscode-deepseek
-    abstract: 文章介绍了在VSCode中接入DeepSeek V3大模型的方法，包括插件下载、API Key注册与配置等，文章还介绍了 Continue 的对话提问、代码优化、自动补全和注释生成代码等功能。
-  - title: Clash Verge下载、配置、使用
+  - title: 人在旅途
+    dateText: ["2025/11/1"]
+    tags: ["风景"]
+    url: /博客/2025/11/昆明之旅
+    abstract: “春城无处不飞花”，总要去一趟昆明吧，赴一场与鲜花的浪漫约会！为大家整理了一波昆明旅游美图，赶紧收藏吧，下次去昆明旅游就这么发！
+
+
+  - title: 飞书比赛故事
+    dateText: ["2025/12/17"]
+    tags: ["飞书"]
+    url: /笔记/飞书/飞书aily智能体
+    abstract: 总要去展示自己。当一个故事往往结束的时候，我们总会想起他的开始，就像是......
+
+
+  - title: 其他
+    tags: ["其他"]
     url: app/network/clash-verge
     abstract: 文章介绍了Clash Verge的下载、配置和使用方法。Clash Verge是一个基于Clash Meta内核的GUI代理工具，支持多种操作系统和代理协议
+
+
   - title: Clash Verge下载、配置、使用
     url: app/network/clash-verge
     abstract: 文章介绍了Clash Verge的下载、配置和使用方法。Clash Verge是一个基于Clash Meta内核的GUI代理工具，支持多种操作系统和代理协议

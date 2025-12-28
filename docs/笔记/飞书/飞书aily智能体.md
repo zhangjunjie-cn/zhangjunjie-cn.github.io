@@ -4,6 +4,6 @@ description: 该页面介绍了 Novel AI 和 NAI Diffusion，包括安装 Python
 firstCommit: 2023-04-28 21:07:26+8:00
 lastUpdated: 2023-12-14 20:13:56+8:00
 tags:
-  - network
+  - 飞书
 ---
 # Django进阶学习笔记
