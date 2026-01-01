@@ -8,7 +8,7 @@ firstCommit: 2023-04-28 21:07:26+8:00
 lastUpdated: 2023-12-14 20:13:56+8:00
 
 about:
-  title: 与时舒卷的你
+  title: 漫步于时光洪流
   subtitle: 在快门声与键盘敲击声中，把成长的点滴酿成时光的标本。
   logo: https://avatars.githubusercontent.com/u/30976418?v=4
   desc: 学习 记录 分享
