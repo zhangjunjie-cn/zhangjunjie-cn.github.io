@@ -170,9 +170,9 @@
 
   <div id="post">
 
-	<h1>精华文章：</h1>
+	<span style="font-size: 18px; font-weight: bold;">精华文章：</span>
 
-    <div class="container">
+    <div class="container" style="margin-top: 4px;">
       <el-row class="container-row" :gutter="24">
 
 <!-- *****************************首页 post ************************************** -->
@@ -204,7 +204,7 @@
             data-if="item.type && item.type === 'busuanzi'"
             class="post-card statistic"
           >
-            <div class="post-container">
+            <!-- <div class="post-container">
               <div class="number">{{ uv }}</div>
               <div class="desc">
                 本站总访客<span
@@ -220,7 +220,8 @@
                 />
               </div>
               <div class="number">{{ pv }}</div>
-            </div>
+            </div> -->
+			<WStatistics/>
 
 
             <a
@@ -290,6 +291,7 @@ import { countTransK, getRandomElement } from "../utils/tools";
 import Heatmap from "./heatmap.vue";
 // import { ref, type Ref, onBeforeMount } from "vue";
 import { isMobile } from "../../utils/mobile";
+import WStatistics from "./WStatistics.vue";
 
 
 const curDeviceIsMobile = ref(false);

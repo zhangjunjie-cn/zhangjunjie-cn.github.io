@@ -181,26 +181,27 @@ export default defineConfig({
   },
   head: [
     ["script", { async: "", src: "https://www.googletagmanager.com/gtag/js?id=G-MB7XVBG1TQ" }],
-    [
-      "script",
-      {},
-      `window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-MB7XVBG1TQ');`,
-    ],
-    // 百度统计平台
-    [
-      "script",
-      {},
-      `var _hmt = _hmt || [];
-			(function() {
-				var hm = document.createElement("script");
-				hm.src = "https://hm.baidu.com/hm.js?ea8a4869f485978692f89cd908f6906a";
-				var s = document.getElementsByTagName("script")[0]; 
-				s.parentNode.insertBefore(hm, s);
-			})();`,
-    ],
+    ['script',{defer: '',async: '',src: 'https://cn.vercount.one/js'}],//Vercount静态网站添加访问量统计
+    // [
+    //   "script",
+    //   {},
+    //   `window.dataLayer = window.dataLayer || [];
+    //   function gtag(){dataLayer.push(arguments);}
+    //   gtag('js', new Date());
+    //   gtag('config', 'G-MB7XVBG1TQ');`,
+    // ],
+    // // 百度统计平台
+    // [
+    //   "script",
+    //   {},
+    //   `var _hmt = _hmt || [];
+		// 	(function() {
+		// 		var hm = document.createElement("script");
+		// 		hm.src = "https://hm.baidu.com/hm.js?ea8a4869f485978692f89cd908f6906a";
+		// 		var s = document.getElementsByTagName("script")[0]; 
+		// 		s.parentNode.insertBefore(hm, s);
+		// 	})();`,
+    // ],
     [
       "link",
       {

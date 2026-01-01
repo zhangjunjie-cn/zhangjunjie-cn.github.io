@@ -15,7 +15,7 @@ import { bindFancybox } from "./composables/ImgViewer";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { NProgress } from "nprogress-v2/dist/index.js"; // 进度条
 import "nprogress-v2/dist/index.css";
-
+import busuanzi from 'busuanzi.pure.js' //不蒜子统计
 // 暗黑样式
 import '@shikijs/vitepress-twoslash/style.css'
 
@@ -131,7 +131,7 @@ export default {
       };
       const onAfterRouteChange = () => {
         NProgress.done(); // 停止进度条
-        // busuanzi.fetch(); //卜算子统计
+        busuanzi.fetch(); //卜算子统计
         // 只在包含图片的页面绑定 Fancybox
         if (document.querySelector('img')) {
           bindFancybox();

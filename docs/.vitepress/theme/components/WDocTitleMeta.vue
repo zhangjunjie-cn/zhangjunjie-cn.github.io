@@ -9,9 +9,9 @@
         <i class="weiz-icon weiz-icon-updated gray" />
         <span>更新于 {{ lastUpdated }}</span>
       </div>
-      <div class="word" title="字数总计">
+      <div class="word" title="字数">
         <i class="weiz-icon weiz-icon-word gray" />
-        <span>字数总计 {{ wordCount }}</span>
+        <span>字数 {{ wordCount }}</span>
       </div>
       <div class="reader" title="阅读量">
         <i class="weiz-icon weiz-icon-user gray"></i>
@@ -26,7 +26,7 @@ import { useData } from 'vitepress'
 import { ref, onMounted } from 'vue'
 import { countWord, countTransK, formatDate } from '../utils/tools'
 
-const { frontmatter } = useData()
+const { frontmatter, page } = useData()
 const wordCount = ref('')
 const firstCommit = ref('')
 const lastUpdated = ref('')
@@ -48,8 +48,8 @@ const getPV = () => {
 
 onMounted(() => {
   const dateOption = formatDate()
-  firstCommit.value = dateOption.format(new Date(frontmatter.value.firstCommit!))
-  lastUpdated.value = dateOption.format(new Date(frontmatter.value.lastUpdated!))
+  firstCommit.value = dateOption.format(new Date(frontmatter.value.firstCommit!)).replace(/\//g, '-')
+  lastUpdated.value = dateOption.format(new Date(frontmatter.value.lastUpdated || page.value.lastUpdated!)).replace(/\//g, '-')
 
   const docDomContainer = window.document.querySelector('#VPContent')
   const words = docDomContainer?.querySelector('.content-container .main')?.textContent || ''
