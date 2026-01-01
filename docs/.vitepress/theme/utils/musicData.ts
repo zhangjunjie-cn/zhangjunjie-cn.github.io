@@ -101,91 +101,17 @@ export function getBestAudioFormat(track: Track): string {
 export const playlist: Track[] = [
   {
     id: '1',
-    title: '九万字',
-    artist: '黄诗扶',
+    title: '挞挞',
+    artist: '相遇才是意外',
     album: '单曲',
-    url: '/music/黄诗扶 - 九万字.flac',
-    cover: '/music/covers/jiuwanzi.jpg',
-    //duration: '3:52',
+    url: '/music/淘淘zonzon - 相遇才是意外（氛围版）-挞挞.mp3',
+    cover: '/music/covers/相遇才是意外（氛围版）.png',
     formats: {
-      // mp3:'/music/黄诗扶 - 九万字.mp3',
-      flac: '/music/黄诗扶 - 九万字.flac'  // 高质量选项，仅在完全支持时使用
+      mp3:'/music/淘淘zonzon - 相遇才是意外（氛围版）-挞挞.mp3',
+      // flac: '/music/黄诗扶 - 九万字.flac'  // 高质量选项，仅在完全支持时使用
       // 注意：如果你的FLAC文件有问题，可以暂时注释掉这行
       // flac: '/music/黄诗扶 - 九万字.flac'
     }
-  },
-  {
-    id: '2',
-    title: 'The truth that you leave',
-    artist: 'Pianoboy高至豪',
-    album: '单曲',
-    url: '/music/Pianoboy高至豪 - The truth that you leave.flac',
-    cover: '/music/covers/thetruththatyouleave.jpg',
-    //duration: '3:37'
-  },
-  {
-    id: '3',
-    title: 'Lonely Day',
-    artist: 'Jurrivh',
-    album: '单曲',
-    url: '/music/Jurrivh - Lonely Day.mp3',
-    cover: '/music/covers/lonelyday.jpg',
-  },
-  {
-    id: '4',
-    title: '爱情讯息',
-    artist: '郭静',
-    album: '单曲',
-    url: '/music/郭静 - 爱情讯息.mp3',
-    cover: '/music/covers/爱情讯息.jpg',
-  },
-  {
-    id: '5',
-    title: 'River Flows In You',
-    artist: 'Martin Ermen',
-    album: '单曲',
-    url: '/music/Martin Ermen - River Flows In You.flac',
-    cover: '/music/covers/RiverFlowsInYou.jpg',
-  },
-  {
-    id: '6',
-    title: '第57次取消发送',
-    artist: '菲菲公主',
-    album: '单曲',
-    url: '/music/菲菲公主 - 第57次取消发送.flac',
-    cover: '/music/covers/第57次取消发送.jpg',
-  },
-  {
-    id: '7',
-    title: '将月亮藏进躯体',
-    artist: '庄东茹（豆芽鱼）',
-    album: '单曲',
-    url: '/music/庄东茹（豆芽鱼） - 将月亮藏进躯体.flac',
-    cover: '/music/covers/将月亮藏进躯体.jpg',
-  },
-  {
-    id: '8',
-    title: '属于你 (女版)',
-    artist: '覆予',
-    album: '单曲',
-    url: '/music/覆予 - 属于你 (女版).flac',
-    cover: '/music/covers/属于你.jpg',
-  },
-  {
-    id: '9',
-    title: '茶花开了',
-    artist: '王睿卓',
-    album: '单曲',
-    url: '/music/王睿卓 - 茶花开了.flac',
-    cover: '/music/covers/茶花开了.jpg',
-  },
-  {
-    id: '10',
-    title: '只若初见',
-    artist: '张德伊玲',
-    album: '单曲',
-    url: '/music/张德伊玲 - 只若初见.flac',
-    cover: '/music/covers/只若初见.jpg',
   },
 ]
 
