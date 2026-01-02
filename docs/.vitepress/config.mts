@@ -15,6 +15,7 @@ import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
 import IconsResolver from "unplugin-icons/resolver";
 import Icons from "unplugin-icons/vite";
 
+import { withPwa } from "@vite-pwa/vitepress";
 // import { TDesignResolver } from 'unplugin-vue-components/resolvers';
 // 自动导入TDesign
 // import AutoImport from 'unplugin-auto-import/vite';
@@ -105,7 +106,7 @@ const getSideBar = (): any => {
 };
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+export default withPwa(defineConfig({
   outDir: resolve(__dirname, "../../dist"), // dist生成目录
   title: "张俊杰的博客",
   titleTemplate: ":title-张俊杰的博客",
@@ -296,6 +297,79 @@ export default defineConfig({
       copyright: `Copyright © 2019-${new Date().getFullYear()} Charles7c`, // 版权信息
     },
   },
+
+  pwa: {
+    // 根目录
+    outDir: resolve(__dirname, "../../dist"),
+    // mode: 'development',
+    mode: 'production',
+    strategies: 'generateSW', // 明确使用 generateSW 策略
+    // selfDestroying: false, // 确保 Service Worker 不会自动注销
+    registerType: "prompt", //提示更新
+    injectRegister: 'auto',
+    // includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+    includeManifestIcons: false,
+    manifest: {
+      id: "/",
+      name: "张俊杰的博客",
+      short_name: "张俊杰的博客",
+      description: "张俊杰的博客人生",
+      theme_color: '#ffffff',
+      icons: [
+        {
+          src: "/images/pwa-120x120.png",
+          sizes: "120x120",
+          type: "image/png",
+        },
+        {
+          src: "/images/pwa-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+        },
+        {
+          src: "/images/pwa-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "any",
+        },
+      ],
+    },
+    injectManifest: {
+      injectionPoint: undefined,
+    },
+    workbox: {
+      // 定制缓存策略
+      maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+      runtimeCaching: [
+        {
+          // 匹配文章相关的js文件
+          urlPattern: /posts.+\.js$/,
+          handler: 'StaleWhileRevalidate',
+          options: {
+            cacheName: 'article-content',
+            expiration: {
+              maxEntries: 100, // 最多缓存100篇文章
+              maxAgeSeconds: 7 * 24 * 60 * 60, // 缓存一周
+            },
+            cacheableResponse: {
+              statuses: [0, 200],
+            },
+          },
+        },
+      ],// 预缓存重要资源
+      globPatterns: ["**/*.{css,js,html,svg,png,ico,webm,mp4,txt}"],
+      // exclude: [/sw.js$/, /workbox-.*\.js$/],        // 不要缓存 sw.js 本身
+      cleanupOutdatedCaches:true,
+      skipWaiting: false,  // 新 SW 立即接管
+      clientsClaim: true, // 控制所有页面
+      
+    },
+    devOptions:{
+      enabled:true,// 开发环境是否启用
+      type:'module'
+    }
+  },
+
   vite: {
     optimizeDeps: {
       include: ["element-plus"],
@@ -407,4 +481,4 @@ export default defineConfig({
       link: "https://en.justin3go.com",
     },
   },
-});
+}));

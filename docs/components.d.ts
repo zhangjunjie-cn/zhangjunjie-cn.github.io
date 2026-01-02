@@ -34,6 +34,7 @@ declare module 'vue' {
     NavVisitor: typeof import('./.vitepress/theme/components/NavVisitor.vue')['default']
     PasswordProtect: typeof import('./.vitepress/theme/components/PasswordProtect.vue')['default']
     Rainbow: typeof import('./.vitepress/theme/components/Rainbow.vue')['default']
+    ReloadPrompt: typeof import('./.vitepress/theme/components/ReloadPrompt.vue')['default']
     StickyWall: typeof import('./.vitepress/theme/components/StickyWall.vue')['default']
     Swiper: typeof import('./.vitepress/theme/components/Swiper.vue')['default']
     WDocPublic: typeof import('./.vitepress/theme/components/WDocPublic.vue')['default']
