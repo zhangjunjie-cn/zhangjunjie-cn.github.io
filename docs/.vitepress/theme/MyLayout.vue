@@ -11,6 +11,16 @@
       <WDocPublic />
     </template>
 
+    <!-- 为较宽的屏幕的导航栏添加阅读增强菜单 -->
+    <template #nav-bar-content-after>
+        <NolebaseEnhancedReadabilitiesMenu />
+    </template>
+
+    <!-- 更好的为较窄的屏幕（通常是小于 iPad Mini）添加阅读增强菜单图片窗格 -->
+    <template #nav-screen-content-after>
+        <NolebaseEnhancedReadabilitiesScreenMenu />     
+    </template>
+
     <!-- 底部音乐播放器 -->
     <template #layout-bottom>
       <!-- 添加v-if条件控制显示 -->
@@ -53,6 +63,11 @@ import { useData, useRoute } from 'vitepress';
 import { toggleDark } from './components/WDark'
 import WDocPublic from './components/WDocPublic.vue';
 import Rainbow from './components/Rainbow.vue';   //彩虹背景
+
+ import { 
+ NolebaseEnhancedReadabilitiesMenu, 
+ NolebaseEnhancedReadabilitiesScreenMenu, 
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client';
 
 // 替换原来的导入方式，使用异步组件
 const MusicPlayer = defineAsyncComponent(() => 

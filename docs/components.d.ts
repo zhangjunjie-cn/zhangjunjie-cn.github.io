@@ -16,6 +16,7 @@ declare module 'vue' {
     'Carbon:close': typeof import('~icons/carbon/close')['default']
     CardMasonry: typeof import('./.vitepress/theme/components/CardMasonry.vue')['default']
     DragHandle: typeof import('./.vitepress/theme/components/DragHandle.vue')['default']
+    Driver: typeof import('./.vitepress/theme/components/driver.vue')['default']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
     ElCol: typeof import('element-plus/es')['ElCol']

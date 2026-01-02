@@ -351,7 +351,13 @@ export default defineConfig({
       UnoCSS(),
     ],
     ssr: {
-      noExternal: ["element-plus", "@arco-design/web-vue", "vitepress"],
+      noExternal: [
+        '@nolebase/vitepress-plugin-enhanced-readabilities',
+        'element-plus', 
+        '@arco-design/web-vue', 
+        'vitepress',
+        '@nolebase/ui'
+      ],
     },
     resolve: {
       alias: {

@@ -25,9 +25,11 @@ import 'uno.css'
 import { 
   NolebaseUnlazyImg, 
 } from '@nolebase/vitepress-plugin-thumbnail-hash/client';
-import '@nolebase/vitepress-plugin-thumbnail-hash/client/style.css'
+import '@nolebase/vitepress-plugin-thumbnail-hash/client/style.css';
 
-import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
+import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
+
+import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client';
 import Whome from './components/Whome.vue';
 import WPosts from './components/WPosts.vue';
 import WTag from './components/WTag.vue';

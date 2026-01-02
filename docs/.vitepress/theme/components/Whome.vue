@@ -1,4 +1,5 @@
 <template>
+	<Driver></Driver>
 	<div class="home-container">
 		<div class="video-container" v-cloak>
 			<video v-if="!curDeviceIsMobile" class="logo-video" autoplay loop muted>
@@ -284,7 +285,7 @@ import { useData, withBase } from "vitepress";
 import { onMounted, ref,type Ref, onBeforeMount } from "vue";
 import { type HomeAbout} from "../type/infterfaceUtil";
 import { type HomePost } from "../type/infterfaceUtil";
-
+import Driver from '../components/driver.vue';
 import { data } from "../utils/post.data";
 import { countTransK, getRandomElement } from "../utils/tools";
 // import Myhome from "./MyHome.vue";
@@ -753,7 +754,6 @@ footer {
 	padding: 20px;
 	font-size: 14px;
 	border-top: 1px solid var(--vp-c-bg-mute);
-	height: 100px;
 	text-align: center;
 }
 
