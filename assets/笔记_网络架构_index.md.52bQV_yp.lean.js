@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a}from"./chunks/framework.CH2nfyIq.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"笔记/网络架构/index.md","filePath":"笔记/网络架构/index.md","lastUpdated":1766899374000}'),n={name:"笔记/网络架构/index.md"};function r(o,s,d,c,i,p){return a(),t("div")}const f=e(n,[["render",r]]);export{m as __pageData,f as default};
