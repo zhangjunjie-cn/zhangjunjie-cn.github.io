@@ -114,6 +114,7 @@ export default {
     app.component('StickyWall', StickyWall);
     // app.component('MusicPlayer', MusicPlayer);
     app.use(plugin);
+    app.config.globalProperties.isLoadLive2d = false;//全局设置一个属性是否加载live2d，避免重复加载
 
     app.provide('musicPlayerConfig', {  //音乐播放器
       autoPlay: false,
@@ -141,6 +142,33 @@ export default {
       };
       router.onBeforeRouteChange = onBeforeRouteChange;
       router.onAfterRouteChange = onAfterRouteChange;
+    };
+
+
+    //live2D
+    if (!import.meta.env.SSR) {
+      // 使用 setTimeout 延迟加载
+      setTimeout(async () => {
+        const { loadOml2d } = await import('oh-my-live2d');
+        loadOml2d({
+          models: [
+            {
+              path: 'https://zhangjunjie.pages.dev/符玄/符玄.model3.json',
+              position: [-20, 60],
+              mobilePosition: [80, 80],
+              scale: 0.047,
+              mobileScale: 0.06,
+              stageStyle: {
+                height: 450,
+              },
+              mobileStageStyle: {
+                height: 370,
+                width: 400,
+              },
+            }
+          ]
+        });
+      }, 3000); // 延迟3秒加载
     }
   },
 
