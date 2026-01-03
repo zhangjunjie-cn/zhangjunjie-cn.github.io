@@ -15,6 +15,7 @@ import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
 import IconsResolver from "unplugin-icons/resolver";
 import Icons from "unplugin-icons/vite";
 
+import viteCompression from "vite-plugin-compression";  //gzip和brotli 压缩
 import { withPwa } from "@vite-pwa/vitepress";
 // import { TDesignResolver } from 'unplugin-vue-components/resolvers';
 // 自动导入TDesign
@@ -421,6 +422,21 @@ export default withPwa(defineConfig({
         autoInstall: true, // 自动安装图标集
         defaultStyle: "display: inline-block;",
       }),
+      //gzip和brotli 压缩
+      viteCompression({
+          verbose: true,
+          disable: false,
+          threshold: 10240,
+          algorithm: "gzip",
+          ext: ".gz",
+        }),
+        viteCompression({
+            verbose: true,
+            disable: false,
+            threshold: 10240,
+            algorithm: "brotliCompress",
+            ext: ".br",
+        }),
 
       UnoCSS(),
     ],
