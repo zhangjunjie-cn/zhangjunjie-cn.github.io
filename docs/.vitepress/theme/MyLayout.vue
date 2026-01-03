@@ -25,6 +25,7 @@
     <template #layout-bottom>
       <!-- 添加v-if条件控制显示 -->
       <MusicPlayer v-if="showMusicPlayer" />
+      <ReloadPrompt />
     </template>
 
     <!-- 左侧目录标签栏 -->

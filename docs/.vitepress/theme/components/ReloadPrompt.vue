@@ -67,7 +67,8 @@ onBeforeMount(async () => {
         position: fixed;
         right: 0;
         bottom: 0;
-        margin: 16px;
+        margin: 25px;
+        margin-bottom: 110px;
         padding: 12px;
         border: 1px solid #8885;
         border-radius: 4px;

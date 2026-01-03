@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "docs:dev": "pnpm run generate && vitepress dev docs",
+    "docs:dev": "vitepress dev docs",
     "docs:build": "pnpm run generate && vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "generate": "node ./docs/.vitepress/theme/composables/init.data.js"
@@ -51,6 +51,7 @@
     "unplugin-icons": "^22.4.2",
     "vite": "^5.4.20",
     "vite-plugin-dynamic-import": "^1.6.0",
-    "vue": "^3.5.22"
+    "vue": "^3.5.22",
+    "workbox-window": "^6.5.4"
   }
 }

@@ -68,6 +68,9 @@ importers:
       vue:
         specifier: ^3.5.22
         version: 3.5.22(typescript@5.9.3)
+      workbox-window:
+        specifier: ^6.5.4
+        version: 6.6.1
     devDependencies:
       '@iconify-json/carbon':
         specifier: ^1.2.13
@@ -89,7 +92,7 @@ importers:
         version: 24.6.2
       '@vite-pwa/vitepress':
         specifier: ^0.5.3
-        version: 0.5.4(vite-plugin-pwa@0.21.2(vite@5.4.20(@types/node@24.6.2)(less@4.4.2)(sass@1.93.2)(terser@5.44.1))(workbox-build@7.4.0)(workbox-window@7.4.0))
+        version: 0.5.4(vite-plugin-pwa@0.21.2(vite@5.4.20(@types/node@24.6.2)(less@4.4.2)(sass@1.93.2)(terser@5.44.1))(workbox-build@7.4.0)(workbox-window@6.6.1))
       busuanzi.pure.js:
         specifier: ^1.0.3
         version: 1.0.3
@@ -4361,6 +4364,10 @@ packages:
   workbox-cacheable-response@7.4.0:
     resolution: {integrity: sha512-0Fb8795zg/x23ISFkAc7lbWes6vbw34DGFIMw31cwuHPgDEC/5EYm6m/ZkylLX0EnEbbOyOCLjKgFS/Z5g0HeQ==}
 
+  workbox-core@6.6.1:
+    resolution: {integrity: sha512-ZrGBXjjaJLqzVothoE12qTbVnOAjFrHDXpZe7coCb6q65qI/59rDLwuFMO4PcZ7jcbxY+0+NhUVztzR/CbjEFw==}
+    deprecated: this package has been deprecated
+
   workbox-core@7.4.0:
     resolution: {integrity: sha512-6BMfd8tYEnN4baG4emG9U0hdXM4gGuDU3ectXuVHnj71vwxTFI7WOpQJC4siTOlVtGqCUtj0ZQNsrvi6kZZTAQ==}
 
@@ -4393,6 +4400,10 @@ packages:
 
   workbox-sw@7.4.0:
     resolution: {integrity: sha512-ltU+Kr3qWR6BtbdlMnCjobZKzeV1hN+S6UvDywBrwM19TTyqA03X66dzw1tEIdJvQ4lYKkBFox6IAEhoSEZ8Xw==}
+
+  workbox-window@6.6.1:
+    resolution: {integrity: sha512-wil4nwOY58nTdCvif/KEZjQ2NP8uk3gGeRNy2jPBbzypU4BT4D9L8xiwbmDBpZlSgJd2xsT9FvSNU0gsxV51JQ==}
+    deprecated: this package has been deprecated
 
   workbox-window@7.4.0:
     resolution: {integrity: sha512-/bIYdBLAVsNR3v7gYGaV4pQW3M3kEPx5E8vDxGvxo6khTrGtSSCS7QiFKv9ogzBgZiy0OXLP9zO28U/1nF1mfw==}
@@ -4618,7 +4629,7 @@ snapshots:
 
   '@babel/helper-annotate-as-pure@7.27.3':
     dependencies:
-      '@babel/types': 7.28.4
+      '@babel/types': 7.28.5
 
   '@babel/helper-compilation-targets@7.27.2':
     dependencies:
@@ -4670,8 +4681,8 @@ snapshots:
 
   '@babel/helper-module-imports@7.27.1':
     dependencies:
-      '@babel/traverse': 7.27.7
-      '@babel/types': 7.28.4
+      '@babel/traverse': 7.28.5
+      '@babel/types': 7.28.5
     transitivePeerDependencies:
       - supports-color
 
@@ -4679,14 +4690,14 @@ snapshots:
     dependencies:
       '@babel/core': 7.28.5
       '@babel/helper-module-imports': 7.27.1
-      '@babel/helper-validator-identifier': 7.27.1
+      '@babel/helper-validator-identifier': 7.28.5
       '@babel/traverse': 7.28.5
     transitivePeerDependencies:
       - supports-color
 
   '@babel/helper-optimise-call-expression@7.27.1':
     dependencies:
-      '@babel/types': 7.28.4
+      '@babel/types': 7.28.5
 
   '@babel/helper-plugin-utils@7.27.1': {}
 
@@ -4710,8 +4721,8 @@ snapshots:
 
   '@babel/helper-skip-transparent-expression-wrappers@7.27.1':
     dependencies:
-      '@babel/traverse': 7.27.7
-      '@babel/types': 7.28.4
+      '@babel/traverse': 7.28.5
+      '@babel/types': 7.28.5
     transitivePeerDependencies:
       - supports-color
 
@@ -4727,7 +4738,7 @@ snapshots:
     dependencies:
       '@babel/template': 7.27.2
       '@babel/traverse': 7.28.5
-      '@babel/types': 7.28.4
+      '@babel/types': 7.28.5
     transitivePeerDependencies:
       - supports-color
 
@@ -4931,7 +4942,7 @@ snapshots:
       '@babel/core': 7.28.5
       '@babel/helper-compilation-targets': 7.27.2
       '@babel/helper-plugin-utils': 7.27.1
-      '@babel/traverse': 7.27.7
+      '@babel/traverse': 7.28.5
     transitivePeerDependencies:
       - supports-color
 
@@ -5216,7 +5227,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.28.5
       '@babel/helper-plugin-utils': 7.27.1
-      '@babel/types': 7.28.4
+      '@babel/types': 7.28.5
       esutils: 2.0.3
 
   '@babel/runtime@7.28.4': {}
@@ -6267,9 +6278,9 @@ snapshots:
       unplugin-utils: 0.3.0
       vite: 5.4.20(@types/node@24.6.2)(less@4.4.2)(sass@1.93.2)(terser@5.44.1)
 
-  '@vite-pwa/vitepress@0.5.4(vite-plugin-pwa@0.21.2(vite@5.4.20(@types/node@24.6.2)(less@4.4.2)(sass@1.93.2)(terser@5.44.1))(workbox-build@7.4.0)(workbox-window@7.4.0))':
+  '@vite-pwa/vitepress@0.5.4(vite-plugin-pwa@0.21.2(vite@5.4.20(@types/node@24.6.2)(less@4.4.2)(sass@1.93.2)(terser@5.44.1))(workbox-build@7.4.0)(workbox-window@6.6.1))':
     dependencies:
-      vite-plugin-pwa: 0.21.2(vite@5.4.20(@types/node@24.6.2)(less@4.4.2)(sass@1.93.2)(terser@5.44.1))(workbox-build@7.4.0)(workbox-window@7.4.0)
+      vite-plugin-pwa: 0.21.2(vite@5.4.20(@types/node@24.6.2)(less@4.4.2)(sass@1.93.2)(terser@5.44.1))(workbox-build@7.4.0)(workbox-window@6.6.1)
 
   '@vitejs/plugin-vue@5.2.4(vite@5.4.20(@types/node@24.6.2)(less@4.4.2)(sass@1.93.2)(terser@5.44.1))(vue@3.5.22(typescript@5.9.3))':
     dependencies:
@@ -9126,14 +9137,14 @@ snapshots:
       fast-glob: 3.3.3
       magic-string: 0.30.19
 
-  vite-plugin-pwa@0.21.2(vite@5.4.20(@types/node@24.6.2)(less@4.4.2)(sass@1.93.2)(terser@5.44.1))(workbox-build@7.4.0)(workbox-window@7.4.0):
+  vite-plugin-pwa@0.21.2(vite@5.4.20(@types/node@24.6.2)(less@4.4.2)(sass@1.93.2)(terser@5.44.1))(workbox-build@7.4.0)(workbox-window@6.6.1):
     dependencies:
       debug: 4.4.3
       pretty-bytes: 6.1.1
       tinyglobby: 0.2.15
       vite: 5.4.20(@types/node@24.6.2)(less@4.4.2)(sass@1.93.2)(terser@5.44.1)
       workbox-build: 7.4.0
-      workbox-window: 7.4.0
+      workbox-window: 6.6.1
     transitivePeerDependencies:
       - supports-color
 
@@ -9466,6 +9477,8 @@ snapshots:
     dependencies:
       workbox-core: 7.4.0
 
+  workbox-core@6.6.1: {}
+
   workbox-core@7.4.0: {}
 
   workbox-expiration@7.4.0:
@@ -9517,6 +9530,11 @@ snapshots:
       workbox-routing: 7.4.0
 
   workbox-sw@7.4.0: {}
+
+  workbox-window@6.6.1:
+    dependencies:
+      '@types/trusted-types': 2.0.7
+      workbox-core: 6.6.1
 
   workbox-window@7.4.0:
     dependencies:
