@@ -10,7 +10,7 @@ lastUpdated: 2023-12-14 20:13:56+8:00
 about:
   title: 漫步于时光洪流
   subtitle: 在快门声与键盘敲击声中，把成长的点滴酿成时光的标本。
-  logo: https://avatars.githubusercontent.com/u/30976418?v=4
+  logo: https://https://gitee.com/zhangjunjiee/article-images/raw/master/images/cgi-bin_mmweb.webp
   desc: 学习 记录 分享
   tagline: 张俊杰的小作坊🧑‍💻
   links:
