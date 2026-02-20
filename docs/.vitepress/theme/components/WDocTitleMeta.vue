@@ -15,7 +15,7 @@
       </div>
       <div class="reader" title="阅读量">
         <i class="weiz-icon weiz-icon-user gray"></i>
-        <span>阅读量 {{ pv }}<span id="busuanzi_value_page_pv" style="display: none" /></span>
+        <span>阅读量 {{ pv }}<span id="busuanzi_value_page_pv"/></span>
       </div>
     </div>
   </div>

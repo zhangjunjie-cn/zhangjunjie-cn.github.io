@@ -104,11 +104,10 @@ export const playlist: Track[] = [
     title: '挞挞',
     artist: '相遇才是意外',
     album: '单曲',
-    url: '/music/淘淘zonzon - 相遇才是意外（氛围版）-挞挞.mp3',
+    url: 'https://gitee.com/zhangjunjiee/article-images/raw/master/music/淘淘zonzon - 相遇才是意外（氛围版）-挞挞.mp3',
     cover: '/music/covers/相遇才是意外（氛围版）.png',
     formats: {
-      mp3:'/music/淘淘zonzon - 相遇才是意外（氛围版）-挞挞.mp3',
-      // flac: '/music/黄诗扶 - 九万字.flac'  // 高质量选项，仅在完全支持时使用
+      // flac: '/music/淘淘zonzon - 相遇才是意外（氛围版）-挞挞.flac'  // 高质量选项，仅在完全支持时使用
       // 注意：如果你的FLAC文件有问题，可以暂时注释掉这行
       // flac: '/music/黄诗扶 - 九万字.flac'
     }
