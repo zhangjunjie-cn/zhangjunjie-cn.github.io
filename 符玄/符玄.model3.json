@@ -1,7 +1,7 @@
 {
     "Version": 3,
     "FileReferences": {
-        "Moc": "https://gitee.com/zhangjunjiee/live2d-models/raw/master/%E7%AC%A6%E7%8E%84/符玄.moc3",
+        "Moc": "符玄.moc3",
         "Textures": [
             "https://gitee.com/zhangjunjiee/live2d-models/raw/master/%E7%AC%A6%E7%8E%84/%E7%AC%A6%E7%8E%84.4096/texture_00.png",
             "https://gitee.com/zhangjunjiee/live2d-models/raw/master/%E7%AC%A6%E7%8E%84/%E7%AC%A6%E7%8E%84.4096/texture_01.png",
