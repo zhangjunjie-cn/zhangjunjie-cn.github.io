@@ -3,13 +3,14 @@
     "FileReferences": {
         "Moc": "https://zhangjunjiee.netlify.app/符玄/符玄.moc3",
         "Textures": [
-            "https://zhangjunjiee.netlify.app/符玄/符玄.4096/texture_00.webp",
-            "https://zhangjunjiee.netlify.app/符玄/符玄.4096/texture_01.webp",
-            "https://zhangjunjiee.netlify.app/符玄/符玄.4096/texture_02.webp",
-            "https://zhangjunjiee.netlify.app/符玄/符玄.4096/texture_03.webp",
-            "https://zhangjunjiee.netlify.app/符玄/符玄.4096/texture_04.webp",
-            "https://zhangjunjiee.netlify.app/符玄/符玄.4096/texture_05.webp",
-            "https://zhangjunjiee.netlify.app/符玄/符玄.4096/texture_06.webp"
+            "符玄.4096/texture_00.webp",
+            "符玄.4096/texture_01.webp",
+            "符玄.4096/texture_02.webp",
+            "符玄.4096/texture_03.webp",
+            "符玄.4096/texture_04.webp",
+            "符玄.4096/texture_05.webp",
+            "符玄.4096/texture_06.webp",
+            "符玄.4096/texture_07.webp"
         ],
         "Physics": "符玄.physics3.json",
         "DisplayInfo": "符玄.cdi3.json"
