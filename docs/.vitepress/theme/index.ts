@@ -15,7 +15,8 @@ import { bindFancybox } from "./composables/ImgViewer";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { NProgress } from "nprogress-v2/dist/index.js"; // 进度条
 import "nprogress-v2/dist/index.css";
-import busuanzi from 'busuanzi.pure.js' //不蒜子统计
+// import busuanzi from 'busuanzi.pure.js' //不蒜子统计
+import useVisitData from './composables/useVisitData' // 网站访问统计 vercount
 // 暗黑样式
 import '@shikijs/vitepress-twoslash/style.css'
 
@@ -134,7 +135,11 @@ export default {
       };
       const onAfterRouteChange = () => {
         NProgress.done(); // 停止进度条
-        busuanzi.fetch(); //卜算子统计
+        // busuanzi.fetch(); //卜算子统计
+        // 访问量统计，路由加载完成，在加载页面组件后（在更新页面组件之前）调用
+        router.onAfterPageLoad = () => {
+          useVisitData()
+        }
         // 只在包含图片的页面绑定 Fancybox
         if (document.querySelector('img')) {
           bindFancybox();

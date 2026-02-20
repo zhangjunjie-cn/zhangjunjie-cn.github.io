@@ -204,14 +204,10 @@ export default withPwa(defineConfig({
 		// 		s.parentNode.insertBefore(hm, s);
 		// 	})();`,
     // ],
-    [
-      "link",
-      {
-        rel: "icon",
-        href: "/favicon.ico",
-      },
-    ],
+    ["link", { rel: "icon", href: "/favicon.ico" }],
+    ["link", { rel: "apple-touch-icon", href: "/apple-touch-icon.png" }], // 添加苹果图标
     ["link", { rel: "preload", href: "/template.webm", as: "video", type: "video/webm" }],
+    ['meta', { property: 'og:image', content: '/og-image.png' }], // 社交媒体图片
     ["meta", { name: "referrer", content: "no-referrer" }],
       
   ],
@@ -358,7 +354,7 @@ export default withPwa(defineConfig({
           },
         },
       ],// 预缓存重要资源
-      globPatterns: ["**/*.{css,js,html,svg,png,ico,webm,mp4,txt}"],
+      globPatterns: ["**/*.{css,js,html,svg,png,ico,webm,moc3,mp4,txt}"],
       // exclude: [/sw.js$/, /workbox-.*\.js$/],        // 不要缓存 sw.js 本身
       cleanupOutdatedCaches:true,
       skipWaiting: false,  // 新 SW 立即接管
@@ -440,6 +436,7 @@ export default withPwa(defineConfig({
 
       UnoCSS(),
     ],
+
     ssr: {
       noExternal: [
         '@nolebase/vitepress-plugin-enhanced-readabilities',
@@ -479,6 +476,7 @@ export default withPwa(defineConfig({
         },
       },
     },
+    
   },
   vue: {
     template: {

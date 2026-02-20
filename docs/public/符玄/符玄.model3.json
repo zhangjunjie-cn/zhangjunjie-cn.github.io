@@ -1,16 +1,16 @@
 {
     "Version": 3,
     "FileReferences": {
-        "Moc": "符玄.moc3",
+        "Moc": "https://gitee.com/zhangjunjiee/live2d-models/raw/master/%E7%AC%A6%E7%8E%84/符玄.moc3",
         "Textures": [
-            "符玄.4096/texture_00.png",
-            "符玄.4096/texture_01.png",
-            "符玄.4096/texture_02.png",
-            "符玄.4096/texture_03.png",
-            "符玄.4096/texture_04.png",
-            "符玄.4096/texture_05.png",
-            "符玄.4096/texture_06.png",
-            "符玄.4096/texture_07.png"
+            "https://gitee.com/zhangjunjiee/live2d-models/raw/master/%E7%AC%A6%E7%8E%84/%E7%AC%A6%E7%8E%84.4096/texture_00.png",
+            "https://gitee.com/zhangjunjiee/live2d-models/raw/master/%E7%AC%A6%E7%8E%84/%E7%AC%A6%E7%8E%84.4096/texture_01.png",
+            "https://gitee.com/zhangjunjiee/live2d-models/raw/master/%E7%AC%A6%E7%8E%84/%E7%AC%A6%E7%8E%84.4096/texture_02.png",
+            "https://gitee.com/zhangjunjiee/live2d-models/raw/master/%E7%AC%A6%E7%8E%84/%E7%AC%A6%E7%8E%84.4096/texture_03.png",
+            "https://gitee.com/zhangjunjiee/live2d-models/raw/master/%E7%AC%A6%E7%8E%84/%E7%AC%A6%E7%8E%84.4096/texture_04.png",
+            "https://gitee.com/zhangjunjiee/live2d-models/raw/master/%E7%AC%A6%E7%8E%84/%E7%AC%A6%E7%8E%84.4096/texture_05.png",
+            "https://gitee.com/zhangjunjiee/live2d-models/raw/master/%E7%AC%A6%E7%8E%84/%E7%AC%A6%E7%8E%84.4096/texture_06.png",
+            "https://gitee.com/zhangjunjiee/live2d-models/raw/master/%E7%AC%A6%E7%8E%84/%E7%AC%A6%E7%8E%84.4096/texture_07.png"
         ],
         "Physics": "符玄.physics3.json",
         "DisplayInfo": "符玄.cdi3.json"
