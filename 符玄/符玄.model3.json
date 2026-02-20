@@ -1,7 +1,7 @@
 {
     "Version": 3,
     "FileReferences": {
-        "Moc": "https://zhangjunjiee.netlify.app/符玄/符玄.moc3",
+        "Moc": "符玄.moc3",
         "Textures": [
             "符玄.4096/texture_00.png",
             "符玄.4096/texture_01.png",
