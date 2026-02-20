@@ -43,7 +43,7 @@ import { plugin } from './composables/slicksort_index';
 import StickyWall from './components/StickyWall.vue';
 import MusicPlayer from './components/MusicPlayer.vue';
 import { initComponent } from "vitepress-plugin-legend/component"; 
-import "vitepress-plugin-legend/dist/index.css"; 
+// import "vitepress-plugin-legend/dist/index.css"; 
 
 export default {
   // extends: DefaultTheme,  
