@@ -34,6 +34,8 @@ import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client';
 import Whome from './components/Whome.vue';
 import WPosts from './components/WPosts.vue';
 import WTag from './components/WTag.vue';
+import Waves from './components/Waves.vue';
+import BackToTop from './components/BackToTop.vue';
 import KanbanExample from './components/KanbanExample.vue';
 import PasswordProtect from './components/PasswordProtect.vue';
 import { usePasswordProtection } from "./utils/PassWordUtil";
@@ -104,12 +106,14 @@ export default {
   async enhanceApp({ app, router }: EnhanceAppContext) {
     app.use(ElementPlus);
     app.component('Whome',Whome);
+    app.component('Waves', Waves);
     app.component('WPosts',WPosts);
     app.component('WTag',WTag);
     app.component('KanbanExample', KanbanExample);
     app.component('Swiper', Swiper);
     app.component('CardMasonry',CardMasonry);
     app.component('ImageCard',ImageCard);
+    app.component('BackToTop', BackToTop);
     app.use(TwoslashFloatingVue as any);
     app.component('NolebaseUnlazyImg', NolebaseUnlazyImg);
     app.component('StickyWall', StickyWall);

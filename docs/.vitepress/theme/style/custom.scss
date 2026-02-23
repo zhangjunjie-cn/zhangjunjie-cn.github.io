@@ -31,6 +31,11 @@ footer.VPFooter {
   /* backdrop-filter: blur(12px) !important; */
 }
 
+//顶部透明色
+.VPNavBar:not(.home.top) .content-body {
+  background-color: transparent !important;
+}
+
 
 
 
@@ -177,6 +182,153 @@ pre:not(.vp-code) {
   --docsearch-primary-color: var(--weiz-primary-color);
   --docsearch-logo-color: var(--weiz-primary-color);
 }
+
+//波浪
+:root{
+  --grey-0: #fff;
+  --grey-1: #fdfdfd;
+  --grey-2: #f7f7f7;
+  --grey-3: #eff2f3;
+  --grey-4: #ccc;
+  --grey-5: #999;
+  --grey-6: #666;
+  --grey-7: #333;
+  --grey-8: #222;
+  --grey-9: #000;
+  --grey-1-a0: rgba(253, 253, 253, 0);
+  --grey-1-a7: rgba(253, 253, 253, 0.7);
+  --grey-1-a5: rgba(253, 253, 253, 0.5);
+  --grey-1-a3: rgba(253, 253, 253, 0.3);
+  --grey-9-a1: rgba(0, 0, 0, 0.1);
+  --grey-9-a5: rgba(0, 0, 0, 0.5);
+  --grey-2-a0: rgba(247, 247, 247, 0);
+}
+
+.dark:root {
+  // ----new
+  --shadow: #3a3a3a;
+  // ------
+  --comment-color: var(--grey-1);
+  --grey-0: #222;
+  --grey-1: #21252b;
+  --grey-2: #363636;
+  --grey-3: #444;
+  --grey-4: #666;
+  --grey-5: #aaa;
+  --grey-6: #383333;
+  --grey-7: #ddd;
+  --grey-8: #eee;
+  --grey-9: #f7f7f7;
+  --grey-1-a7: rgba(34, 34, 34, 0.7);
+  --grey-1-a5: rgba(34, 34, 34, 0.5);
+  --grey-1-a3: rgba(34, 34, 34, 0.3);
+  --grey-1-a0: rgba(34, 34, 34, 0);
+  --grey-9-a1: rgba(51, 51, 51, 0.1);
+  --grey-2-a0: rgba(54, 54, 54, 0);
+  --color-pink-light: #322d31;
+  --color-cyan-light: #2d3230;
+  --color-red: rgba(237, 118, 137, 0.9);
+  --color-pink: rgba(241, 139, 179, 0.8);
+  --color-orange: rgba(240, 163, 135, 0.8);
+  --color-yellow: #ffe175;
+  --color-green: #86c59d;
+  --color-aqua: #97d3d6;
+  --color-blue: #9cd0ed;
+  --color-purple: #cfacc5;
+  --color-grey: #c3c8ca;
+  --body-bg-shadow: #000;
+  --box-bg-shadow: #000;
+  --text-color: var(--grey-5);
+  --header-text-color: var(--grey-9);
+  --note-bg: rgba(48, 49, 50, 0.8);
+  --note-text: rgba(109, 164, 219, 0.8);
+  --note-hover: rgba(168, 49, 72, 0.8);
+  --chat-bg: var(--grey-1);
+}
+
+  // 导航栏样式
+  .Waves .VPNavBar.top {
+    .title {
+      color: #fff;
+    }
+    .VPNavBarMenuLink,
+    .VPNavBarMenuGroup .text {
+      color: var(--grey-1);
+      & > svg {
+        fill: #fff !important;
+      }
+    }
+  }
+
+.Layout:not(.Whome):not(.WPosts):not(.WTag) {
+  // min-height: 100vh;
+  &::before {
+    content: "";
+    inset: 0;
+    position: fixed;
+    top: 0;
+    z-index: -1;
+    background-image: url(/new-bg.avif);
+    background-repeat: repeat;
+    min-height: 100%;
+  }
+}
+//去掉左侧边栏底色
+.Layout:not(.Whome):not(.WPosts):not(.WTag) .VPContent.has-sidebar {
+  // min-height: 100vh;
+  &::before {
+    content: "";
+    inset: 0;
+    position: fixed;
+    top: 0;
+    z-index: -1;
+    background-image: url(/new-bg-halloween.png);
+    background-repeat: repeat;
+    min-height: 100%;
+  }
+
+  min-height: 100%;
+  background: radial-gradient(
+    ellipse,
+    rgba(var(--bg-gradient-home), 1) 0%,
+    rgba(var(--bg-gradient-home), 0) 700%
+  );
+
+  // .VPNav {
+  //   transition: none !important;
+  //   // border: none !important;
+  //   .divider,
+  //   .divider-line {
+  //     height: 0;
+  //   }
+  //   .has-local-nav {
+  //     background-color: #fff;
+  //     border-bottom: 1px solid var(--vp-c-divider);
+  //   }
+  // }
+
+  
+
+  // sider样式重写
+  .VPSidebar,
+  .curtain {
+    background-color: transparent;
+  }
+  .VPNavBarTitle.has-sidebar .title {
+    border: none;
+  }
+
+  .VPNavBar:not(.top) .content-body {
+    background-color: transparent;
+  }
+}
+
+
+
+
+
+
+
 .cls-1, .cls-2 {
   fill: var(--docsearch-primary-color) !important;
 }

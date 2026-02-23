@@ -1,4 +1,5 @@
 import { defineConfig, type SiteConfig } from "vitepress";
+import { themeConfig } from "./theme/config/theme-config";
 import { createSidebar } from "./utils/createSidebar";
 import { handleHeadMeta } from "./utils/handleHeadMeta";
 import { fileURLToPath, URL } from "node:url";
@@ -181,6 +182,11 @@ export default withPwa(defineConfig({
     );
     },
   },
+
+  //waves 主题配置
+  extends: {
+    themeConfig,
+  },
   head: [
     ["script", { async: "", src: "https://www.googletagmanager.com/gtag/js?id=G-MB7XVBG1TQ" }],
     ['script',{defer: '',async: '',src: 'https://cn.vercount.one/js'}],//Vercount静态网站添加访问量统计
@@ -223,32 +229,33 @@ export default withPwa(defineConfig({
     //   头部导航
     nav: [
       { text: "首页", link: "/" },
+      { text: "旅行", link: "/pages/waves", activeMatch: "/pages/waves" },
       { text: "博客", link: "/博客/", activeMatch: "/博客/" },
       { text: "笔记", link: "/笔记/", activeMatch: "/笔记/" },
       { text: "标签", link: "/pages/tags", activeMatch: "/pages/tags" },
       { text: "归档", link: "/pages/posts", activeMatch: "/pages/posts" },
-      {
-        text: "线上",
-        activeMatch: "/线上/",
-        items: [
-          {
-            text: "自建项目",
-            items: [
-              { text: "笑友小程序", link: "https://oss.justin3go.com/blogs/xiaoyou-mp-code.png" },
-              { text: "阿里云盘搜索", link: "https://ssgo.app" },
-              { text: "Use Sora", link: "https://usesora.app" },
-              { text: "Excel2JSON", link: "https://bug404.dev" },
-            ],
-          },
-          {
-            text: "开源部署",
-            items: [
-              { text: "ChatGPT-Web", link: "https://chat.justin3go.com/" },
-              { text: "LobeChat", link: "https://chatc.app" },
-            ],
-          },
-        ],
-      },
+      // {
+      //   text: "线上",
+      //   activeMatch: "/线上/",
+      //   items: [
+      //     {
+      //       text: "自建项目",
+      //       items: [
+      //         { text: "笑友小程序", link: "https://oss.justin3go.com/blogs/xiaoyou-mp-code.png" },
+      //         { text: "阿里云盘搜索", link: "https://ssgo.app" },
+      //         { text: "Use Sora", link: "https://usesora.app" },
+      //         { text: "Excel2JSON", link: "https://bug404.dev" },
+      //       ],
+      //     },
+      //     {
+      //       text: "开源部署",
+      //       items: [
+      //         { text: "ChatGPT-Web", link: "https://chat.justin3go.com/" },
+      //         { text: "LobeChat", link: "https://chatc.app" },
+      //       ],
+      //     },
+      //   ],
+      // },
     ],
     // @ts-ignore
     // sidebar: createSidebar(),
@@ -486,13 +493,13 @@ export default withPwa(defineConfig({
       },
     },
   },
-  locales: {
-    root: {
-      label: "简体中文",
-    },
-    en: {
-      label: "English",
-      link: "https://en.justin3go.com",
-    },
-  },
+  // locales: {
+  //   root: {
+  //     label: "简体中文",
+  //   },
+  //   en: {
+  //     label: "English",
+  //     link: "https://en.justin3go.com",
+  //   },
+  // },
 }));

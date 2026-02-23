@@ -492,11 +492,11 @@ onMounted(() => {
 }
 
 /* 小于960px会增加return-top那一栏并且不会透明 */
-@media (max-width: 960px) {
-	.video-container {
-		height: calc(100vh - var(--vp-nav-height) - 47px);
-	}
-}
+// @media (max-width: 960px) {
+// 	.video-container {
+// 		height: calc(100vh - var(--vp-nav-height) - 47px);
+// 	}
+// }
 
 //视频按钮
 .button-container-outer {

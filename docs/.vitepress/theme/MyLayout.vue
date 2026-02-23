@@ -11,6 +11,10 @@
       <WDocPublic />
     </template>
 
+    <template #doc-after>
+      <BackToTop />
+    </template>
+
     <!-- 为较宽的屏幕的导航栏添加阅读增强菜单 -->
     <template #nav-bar-content-after>
         <NolebaseEnhancedReadabilitiesMenu />
@@ -26,7 +30,12 @@
       <!-- 添加v-if条件控制显示 -->
       <MusicPlayer v-if="showMusicPlayer" />
       <ReloadPrompt />
+      <Footer v-if="layout === 'Whome'||layout === 'Waves'" />ss
+      <ClientOnly>
+        <!-- <BoardPets /> -->
+      </ClientOnly>
     </template>
+
 
     <!-- 左侧目录标签栏 -->
     <template #sidebar-nav-before>
@@ -69,6 +78,8 @@ import Rainbow from './components/Rainbow.vue';   //彩虹背景
  NolebaseEnhancedReadabilitiesMenu, 
  NolebaseEnhancedReadabilitiesScreenMenu, 
 } from '@nolebase/vitepress-plugin-enhanced-readabilities/client';
+
+const layout = computed(() => frontmatter.value.layout);
 
 // 替换原来的导入方式，使用异步组件
 const MusicPlayer = defineAsyncComponent(() => 
