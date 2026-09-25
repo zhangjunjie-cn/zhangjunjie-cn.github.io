@@ -188,7 +188,7 @@ export default withPwa(defineConfig({
     themeConfig,
   },
   head: [
-    ["script", { async: "", src: "https://www.googletagmanager.com/gtag/js?id=G-MB7XVBG1TQ" }],
+    // ["script", { async: "", src: "https://www.googletagmanager.com/gtag/js?id=G-MB7XVBG1TQ" }],
     ['script',{defer: '',async: '',src: 'https://cn.vercount.one/js'}],//Vercount静态网站添加访问量统计
     // [
     //   "script",
@@ -212,7 +212,6 @@ export default withPwa(defineConfig({
     // ],
     ["link", { rel: "icon", href: "/favicon.ico" }],
     ["link", { rel: "apple-touch-icon", href: "/apple-touch-icon.png" }], // 添加苹果图标
-    ["link", { rel: "preload", href: "/template.webm", as: "video", type: "video/webm" }],
     ['meta', { property: 'og:image', content: '/og-image.png' }], // 社交媒体图片
     ["meta", { name: "referrer", content: "no-referrer" }],
       

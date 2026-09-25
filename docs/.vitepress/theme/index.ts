@@ -2,12 +2,9 @@
 import type { EnhanceAppContext } from 'vitepress'
 import { useData,useRouter,inBrowser } from "vitepress";
 import type { Theme } from 'vitepress'
-import { defineComponent,h,onMounted, onUnmounted } from "vue";
+import { defineAsyncComponent,defineComponent,h,onMounted, onUnmounted } from "vue";
 import DefaultTheme from "vitepress/theme";
-import ElementPlus from "element-plus";
-import ImageCard from './components/ImageCard.vue';
 // import "element-plus/dist/index.css";
-import 'element-plus/theme-chalk/index.css'
 
 import "./style/index.scss";
 import MyLayout from './MyLayout.vue' // 导入布局组件
@@ -36,16 +33,13 @@ import WPosts from './components/WPosts.vue';
 import WTag from './components/WTag.vue';
 import Waves from './components/Waves.vue';
 import BackToTop from './components/BackToTop.vue';
-import KanbanExample from './components/KanbanExample.vue';
-import PasswordProtect from './components/PasswordProtect.vue';
 import { usePasswordProtection } from "./utils/PassWordUtil";
-import Swiper from './components/Swiper.vue';
-import CardMasonry from './components/CardMasonry.vue';
 import { plugin } from './composables/slicksort_index';
-import StickyWall from './components/StickyWall.vue';
-import MusicPlayer from './components/MusicPlayer.vue';
 import { initComponent } from "vitepress-plugin-legend/component"; 
 // import "vitepress-plugin-legend/dist/index.css"; 
+
+// 密码保护组件只会在客户端、且命中受保护路由时渲染，改为异步加载避免其逻辑进入入口 chunk
+const PasswordProtect = defineAsyncComponent(() => import('./components/PasswordProtect.vue'));
 
 export default {
   // extends: DefaultTheme,  
@@ -91,33 +85,21 @@ export default {
         }
 
         // 正常渲染 Teek 布局
-        return [
-          h(MyLayout, {
-            key: getLayoutKey(),
-            class: frontmatter.value?.layoutClass || frontmatter.value?.layout || ""
-          }),
-          h(MusicPlayer, {
-            key: 'music-player' // 固定的 key
-          })
-        ];
+        return h(MyLayout, {
+          key: getLayoutKey(),
+          class: frontmatter.value?.layoutClass || frontmatter.value?.layout || ""
+        });
       };
     }
   }),
   async enhanceApp({ app, router }: EnhanceAppContext) {
-    app.use(ElementPlus);
     app.component('Whome',Whome);
     app.component('Waves', Waves);
     app.component('WPosts',WPosts);
     app.component('WTag',WTag);
-    app.component('KanbanExample', KanbanExample);
-    app.component('Swiper', Swiper);
-    app.component('CardMasonry',CardMasonry);
-    app.component('ImageCard',ImageCard);
     app.component('BackToTop', BackToTop);
     app.use(TwoslashFloatingVue as any);
     app.component('NolebaseUnlazyImg', NolebaseUnlazyImg);
-    app.component('StickyWall', StickyWall);
-    // app.component('MusicPlayer', MusicPlayer);
     app.use(plugin);
     app.config.globalProperties.isLoadLive2d = false;//全局设置一个属性是否加载live2d，避免重复加载
 

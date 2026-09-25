@@ -38,6 +38,8 @@
 </template>
 <script setup lang="ts">
 import { ElPagination } from "element-plus";
+// 已移除 element-plus 全量样式引入，这里补上分页组件自身的样式依赖
+import "element-plus/es/components/pagination/style/css";
 import { useRouter } from "vitepress";
 import type { ArticleItem } from "../composables/waveArticleType";
 import { ref, onMounted } from "vue";

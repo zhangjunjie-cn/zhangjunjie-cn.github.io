@@ -1,5 +1,5 @@
 <template>
-	<Driver></Driver>
+	<ClientOnly><Driver></Driver></ClientOnly>
 	<div class="home-container">
 		<div class="video-container" v-cloak>
 			<video v-if="!curDeviceIsMobile" class="logo-video" autoplay loop muted>
@@ -282,17 +282,20 @@
 </template>
 <script setup lang="ts">
 import { useData, withBase } from "vitepress";
-import { onMounted, ref,type Ref, onBeforeMount } from "vue";
+import { defineAsyncComponent, onMounted, ref,type Ref, onBeforeMount } from "vue";
 import { type HomeAbout} from "../type/infterfaceUtil";
 import { type HomePost } from "../type/infterfaceUtil";
-import Driver from '../components/driver.vue';
 import { data } from "../utils/post.data";
 import { countTransK, getRandomElement } from "../utils/tools";
 // import Myhome from "./MyHome.vue";
-import Heatmap from "./heatmap.vue";
 // import { ref, type Ref, onBeforeMount } from "vue";
 import { isMobile } from "../../utils/mobile";
 import WStatistics from "./WStatistics.vue";
+
+// 引导遮罩与热力图依赖 driver.js / cal-heatmap / dayjs 以及 heatmap-data.json，
+// 且都在首屏之后才可见，改为异步加载，避免拖慢首页首次渲染
+const Driver = defineAsyncComponent(() => import("../components/driver.vue"));
+const Heatmap = defineAsyncComponent(() => import("./heatmap.vue"));
 
 
 const curDeviceIsMobile = ref(false);
