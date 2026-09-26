@@ -10,7 +10,7 @@
 </template>
 <script setup lang="ts">
 import { useRoute } from "vitepress";
-import { nextTick, onUnmounted, ref, watch } from "vue";
+import { nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 
 const route = useRoute();
 const toTop = ref();
@@ -42,7 +42,10 @@ const backToTop = () => {
   }
 };
 
-window.addEventListener("scroll", backToTop);
+// 必须在 onMounted 中注册：构建时 VitePress 会在 Node 里预渲染，setup 顶层访问 window 会直接报错
+onMounted(() => {
+  window.addEventListener("scroll", backToTop);
+});
 
 onUnmounted(() => {
   window.removeEventListener("scroll", backToTop);

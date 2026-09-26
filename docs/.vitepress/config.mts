@@ -31,6 +31,18 @@ import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img';
 import { 
   ThumbnailHashImages, 
 } from '@nolebase/vitepress-plugin-thumbnail-hash/vite';
+import { mkdirSync } from "node:fs";
+
+// Windows 下 esbuild 在系统临时目录（C:\Users\<用户>\AppData\Local\Temp）创建临时文件后
+// 可能无权删除，导致构建中断：[vite:esbuild-transpile] remove ...: Access is denied.
+// 这里把构建期临时目录固定到项目内，规避该问题（CI 为 Linux，不受影响）。
+if (process.platform === "win32") {
+  const localTempDir = fileURLToPath(new URL("../../.tmp/", import.meta.url));
+  mkdirSync(localTempDir, { recursive: true });
+  process.env.TEMP = localTempDir;
+  process.env.TMP = localTempDir;
+}
+
 const vitepressSidebarOptions = {
   /*
          * For detailed instructions, see the links below:

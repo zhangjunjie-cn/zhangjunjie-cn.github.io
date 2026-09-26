@@ -33,6 +33,9 @@ import WPosts from './components/WPosts.vue';
 import WTag from './components/WTag.vue';
 import Waves from './components/Waves.vue';
 import BackToTop from './components/BackToTop.vue';
+// StickyWall 必须保留全局注册：docs/features/StickyWall.md 与组件同名，编译器会把它当作"可能的自引用"，
+// 此时既不会被自动 import，也没有全局注册时 resolveComponent 会兜底返回页面自身，导致 SSR 无限递归
+import StickyWall from './components/StickyWall.vue';
 import { usePasswordProtection } from "./utils/PassWordUtil";
 import { plugin } from './composables/slicksort_index';
 import { initComponent } from "vitepress-plugin-legend/component"; 
@@ -100,6 +103,7 @@ export default {
     app.component('BackToTop', BackToTop);
     app.use(TwoslashFloatingVue as any);
     app.component('NolebaseUnlazyImg', NolebaseUnlazyImg);
+    app.component('StickyWall', StickyWall);
     app.use(plugin);
     app.config.globalProperties.isLoadLive2d = false;//全局设置一个属性是否加载live2d，避免重复加载
 
