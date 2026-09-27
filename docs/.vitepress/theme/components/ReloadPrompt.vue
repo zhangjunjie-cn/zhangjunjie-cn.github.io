@@ -18,6 +18,11 @@ async function close() {
 }
 
 onBeforeMount(async () => {
+  // 开发环境不注册 Service Worker：dev 期 SW 会缓存 dev server 的页面与脚本，
+  // 依赖或代码更新后旧 SW 仍接管页面并返回过期资源，导致白屏。
+  // 生产构建不受影响。
+  if (import.meta.env.DEV) return
+
   const { registerSW } = await import('virtual:pwa-register')
   updateServiceWorker = registerSW({
     immediate: true,

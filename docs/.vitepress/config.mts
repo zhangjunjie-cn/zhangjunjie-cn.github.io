@@ -320,7 +320,8 @@ export default withPwa(defineConfig({
     mode: 'production',
     strategies: 'generateSW', // 明确使用 generateSW 策略
     // selfDestroying: false, // 确保 Service Worker 不会自动注销
-    registerType: "prompt", //提示更新
+    // registerType: "prompt", //提示更新
+    registerType: "autoUpdate", //自动更新
     injectRegister: 'auto',
     // includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
     includeManifestIcons: false,
@@ -380,7 +381,9 @@ export default withPwa(defineConfig({
       
     },
     devOptions:{
-      enabled:true,// 开发环境是否启用
+      // 开发环境关闭：dev 期注册 SW 会缓存 dev server 的 html/js，
+      // 依赖重装或代码更新后旧 SW 仍接管页面并返回过期资源，导致白屏
+      enabled:false,
       type:'module'
     }
   },

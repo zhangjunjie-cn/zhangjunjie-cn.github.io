@@ -131,7 +131,9 @@ dist
 
 # vitepress
 docs/.vitepress/dist
+docs/.vitepress/*.timestamp-*.mjs
 cache
+docs/dev-dist
 
 # 构建期临时目录（config.mts 中为规避 esbuild 无法删除系统临时文件而固定到项目内）
 .tmp

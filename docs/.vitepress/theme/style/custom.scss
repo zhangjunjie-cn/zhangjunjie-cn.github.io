@@ -282,17 +282,18 @@ pre:not(.vp-code) {
     position: fixed;
     top: 0;
     z-index: -1;
-    background-image: url(/new-bg-halloween.png);
+    // background-image: url(/new-bg-halloween.png);// 背景图片
     background-repeat: repeat;
     min-height: 100%;
   }
 
   min-height: 100%;
-  background: radial-gradient(
-    ellipse,
-    rgba(var(--bg-gradient-home), 1) 0%,
-    rgba(var(--bg-gradient-home), 0) 700%
-  );
+  // 背景渐变色
+  // background: radial-gradient(
+  //   ellipse,
+  //   rgba(var(--bg-gradient-home), 1) 0%,
+  //   rgba(var(--bg-gradient-home), 0) 700%
+  // );
 
   // .VPNav {
   //   transition: none !important;
