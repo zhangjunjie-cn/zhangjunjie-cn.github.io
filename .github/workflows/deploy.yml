@@ -35,7 +35,9 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          # 与本地保持一致的 pnpm 大版本：仓库的 lockfileVersion 为 9.0（pnpm 9+ 格式），
+          # pnpm 8 只支持到 6.0，会导致安装失败
+          version: 12
 
       # 设置 node 版本
       - name: Set node version to 20
