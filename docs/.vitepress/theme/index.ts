@@ -4,6 +4,8 @@ import { useData,useRouter,inBrowser } from "vitepress";
 import type { Theme } from 'vitepress'
 import { defineAsyncComponent,defineComponent,h,onMounted, onUnmounted } from "vue";
 import DefaultTheme from "vitepress/theme";
+import ElementPlus from "element-plus";
+
 // import "element-plus/dist/index.css";
 
 import "./style/index.scss";
@@ -32,6 +34,10 @@ import Whome from './components/Whome.vue';
 import WPosts from './components/WPosts.vue';
 import WTag from './components/WTag.vue';
 import Waves from './components/Waves.vue';
+import KanbanExample from './components/KanbanExample.vue';
+import Swiper from './components/Swiper.vue';
+import CardMasonry from './components/CardMasonry.vue';
+import ImageCard from './components/ImageCard.vue';
 import BackToTop from './components/BackToTop.vue';
 // StickyWall 必须保留全局注册：docs/features/StickyWall.md 与组件同名，编译器会把它当作"可能的自引用"，
 // 此时既不会被自动 import，也没有全局注册时 resolveComponent 会兜底返回页面自身，导致 SSR 无限递归
@@ -96,10 +102,15 @@ export default {
     }
   }),
   async enhanceApp({ app, router }: EnhanceAppContext) {
+    app.use(ElementPlus);
     app.component('Whome',Whome);
     app.component('Waves', Waves);
     app.component('WPosts',WPosts);
     app.component('WTag',WTag);
+    app.component('KanbanExample', KanbanExample);
+    app.component('Swiper', Swiper);
+    app.component('CardMasonry',CardMasonry);
+    app.component('ImageCard',ImageCard);
     app.component('BackToTop', BackToTop);
     app.use(TwoslashFloatingVue as any);
     app.component('NolebaseUnlazyImg', NolebaseUnlazyImg);
