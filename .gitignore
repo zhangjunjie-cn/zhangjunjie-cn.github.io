@@ -1,5 +1,52 @@
+# Dependencies
 node_modules/
-.vitepress/cache/
-.vitepress/dist/
-*.log
+.pnp
+.pnp.js
+
+# Build
+.next/
+out/
+build/
+dist/
+# VitePress 的 Vite 依赖预打包缓存：每次 dev/build 都会重写，
+# 提进去等于让工作区常年是脏的（原先 12 个 deps 文件被跟踪过）。
+**/.vitepress/cache/
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
 .DS_Store
+Thumbs.db
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel
+.vercel
+
+# Local settings (not project config)
+.claude/settings.local.json
+
+# User-specific skills (not part of the template)
+.claude/skills/customize/
+.claude/skills/release/
+
+# Local temp files
+temp/
