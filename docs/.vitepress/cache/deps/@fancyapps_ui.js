@@ -1,4 +1,4 @@
-// node_modules/@fancyapps/ui/dist/index.esm.js
+// node_modules/.pnpm/@fancyapps+ui@5.0.36/node_modules/@fancyapps/ui/dist/index.esm.js
 var t = (t2, e2 = 1e4) => (t2 = parseFloat(t2 + "") || 0, Math.round((t2 + Number.EPSILON) * e2) / e2);
 var e = function(t2) {
   if (!(t2 && t2 instanceof Element && t2.offsetParent)) return false;
