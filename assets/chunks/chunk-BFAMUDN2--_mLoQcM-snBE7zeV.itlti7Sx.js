@@ -1,1 +1,0 @@
-import{F as a,ad as e}from"./theme.BDdcHPKV.js";var r=a((n,o)=>{let t;return o==="sandbox"&&(t=e("#i"+n)),(o==="sandbox"?e(t.nodes()[0].contentDocument.body):e("body")).select(`[id="${n}"]`)},"getDiagramElement");export{r as a};
