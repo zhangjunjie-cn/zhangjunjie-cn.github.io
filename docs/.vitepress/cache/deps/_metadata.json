@@ -1,0 +1,37 @@
+{
+  "hash": "cc9457ac",
+  "configHash": "5eed6064",
+  "lockfileHash": "56ba515b",
+  "browserHash": "f0b4ea14",
+  "optimized": {
+    "vue": {
+      "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "f0d66f31",
+      "needsInterop": false
+    },
+    "vitepress > @vue/devtools-api": {
+      "src": "../../../../node_modules/@vue/devtools-api/dist/index.js",
+      "file": "vitepress___@vue_devtools-api.js",
+      "fileHash": "694ca702",
+      "needsInterop": false
+    },
+    "vitepress > @vueuse/core": {
+      "src": "../../../../node_modules/@vueuse/core/index.mjs",
+      "file": "vitepress___@vueuse_core.js",
+      "fileHash": "54b183c7",
+      "needsInterop": false
+    },
+    "@fancyapps/ui": {
+      "src": "../../../../node_modules/@fancyapps/ui/dist/index.esm.js",
+      "file": "@fancyapps_ui.js",
+      "fileHash": "92d628bb",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-VMXDLA35": {
+      "file": "chunk-VMXDLA35.js"
+    }
+  }
+}

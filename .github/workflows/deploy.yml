@@ -27,28 +27,26 @@ jobs:
     steps:
       # 拉取代码
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       # 安装 pnpm 工具
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
-          # 与本地保持一致的 pnpm 大版本：仓库的 lockfileVersion 为 9.0（pnpm 9+ 格式），
-          # pnpm 8 只支持到 6.0，会导致安装失败
-          version: 12
+          version: 8
 
       # 设置 node 版本
       - name: Set node version to 20
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
 
       # 打包静态文件
       - name: Build
-        run: pnpm install && pnpm run docs:build
+        run: pnpm install && pnpm run build
 
       # - name: Copy files
       #   run: cp README.md ./dist/
@@ -64,4 +62,4 @@ jobs:
           # GitHub Pages 读取的分支
           branch: gh-pages
           # 静态文件所在目录
-          folder: dist
+          folder: docs/.vitepress/dist

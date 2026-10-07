@@ -1,0 +1,1408 @@
+@import "tailwindcss";
+
+/* Tailwind v4 auto-detects sources, but be explicit so the theme components are
+   always scanned (they sit next to this file, outside any markdown source dir). */
+@source "../Layout.vue";
+@source "../components";
+
+/* VitePress toggles the `dark` class on <html>; mirror the Next.js clone's variant. */
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Punctuation SC", "Inter", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+
+  /* Tailwind default radius scale — the target relies on it (rounded-2xl = 1rem). */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+
+  /* note.weizwz.com tokens, extracted via getComputedStyle().
+     Backs the site's utility names: bg-bg, bg-bg-soft, text-text1/2/3,
+     text-main, text-icon, shadow-shadow, border-divider, border-border. */
+  --color-bg: var(--site-bg);
+  --color-bg-soft: var(--site-bg-soft);
+  --color-text1: var(--site-text1);
+  --color-text2: var(--site-text2);
+  --color-text3: var(--site-text3);
+  --color-main: var(--site-main);
+  --color-icon: var(--site-icon);
+  --color-shadow: var(--site-shadow);
+  --color-divider: var(--site-divider);
+  --color-border: var(--site-border);
+}
+
+:root {
+  /* site tokens — light */
+  --site-bg: #ffffff;
+  --site-bg-soft: oklch(98.5% 0.002 247.839);
+  --site-text1: #3c3c43;
+  --site-text2: #67676c;
+  --site-text3: #929295;
+  --site-main: #409eff;
+  --site-icon: oklch(20.5% 0 0);
+  --site-shadow: oklch(92.9% 0.013 255.508);
+  --site-divider: #e2e2e3;
+  --site-border: oklch(92.9% 0.013 255.508);
+
+  /* Tokens the original's Pagination SFC references from its inline styles.
+     Measured via getComputedStyle on the active page button; written in the
+     original's own serialisation so QA diffs stay clean. */
+  --main-color: var(--site-main);
+  --vp-c-indigo-soft: color(srgb 0.25098 0.619608 1 / 0.1);
+
+  /* VitePress default-theme knobs the original overrides. Measured on the
+     article page at a 1440×900 viewport:
+       --vp-layout-max-width 1536px (default 1440) → .VPContent gains
+         224px of left padding and the sidebar lands at x=0 w=224
+       --vp-c-bg-soft  → the site's own bg-soft token (code-block copy button,
+         table headers, …)
+       --vp-c-brand-1/2/3 #409eff (default indigo #3451b2) → links, inline
+         code and the edit link
+       --main-color-dark  → link colour; the original darkens the brand by 20%
+         where `color-mix` is supported (see the @supports block below)
+     `--vp-c-brand-soft` still follows `--vp-c-indigo-soft`, which the original
+     also retints. */
+  --vp-layout-max-width: 1536px;
+  --vp-c-bg-soft: var(--site-bg-soft);
+  --vp-sidebar-bg-color: var(--site-bg-soft);
+  --vp-c-brand-1: var(--site-main);
+  --vp-c-brand-2: var(--site-main);
+  --vp-c-brand-3: var(--site-main);
+  --main-color-dark: var(--site-main);
+}
+
+@supports (color: color-mix(in lab, red, red)) {
+  :root {
+    --main-color-dark: color-mix(in srgb, var(--site-main) 80%, black);
+    --vp-c-brand-2: color-mix(in srgb, var(--site-main) 75%, white);
+    --vp-c-brand-3: color-mix(in srgb, var(--site-main) 50%, white);
+  }
+
+  .dark {
+    --main-color-dark: color-mix(in srgb, var(--site-main) 80%, black);
+    --vp-c-brand-2: color-mix(in srgb, var(--site-main) 75%, black);
+    --vp-c-brand-3: color-mix(in srgb, var(--site-main) 50%, black);
+  }
+}
+
+.dark {
+  /* site tokens — dark */
+  --site-bg: #1b1b1f;
+  --site-bg-soft: oklch(20.5% 0 0);
+  --site-text1: #dfdfd6;
+  --site-text2: #98989f;
+  --site-text3: #6a6a71;
+  --site-main: #409eff;
+  --site-icon: oklch(87% 0 0);
+  --site-shadow: oklch(27.8% 0.033 256.848);
+  --site-divider: oklch(37.3% 0.034 259.733);
+  --site-border: oklch(37.3% 0.034 259.733);
+
+  --vp-c-indigo-soft: color(srgb 0.0501961 0.123922 0.2);
+}
+
+/* Unlayered on purpose: VitePress's `theme-default/styles/base.css` ships
+   unlayered rules (`body { font-size: 16px }`, `h1…h6 { margin: 0 }`, …) that
+   would otherwise beat everything in Tailwind's `@layer base`. Same source
+   order as the original, where these overrides come after the theme. */
+html {
+  font-family: var(--font-sans);
+}
+
+body {
+  margin: 0;
+  background-color: var(--site-bg);
+  color: var(--site-text1);
+  font-size: 14px;
+  line-height: 24px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* The original widens the doc column past the default theme's 688px
+   `.VPDoc.has-aside .content-container`, ending up with an 832px wide
+   `.vp-doc` / `.VPDocFooter` inside a 1216px `.VPDoc`. The extra `.container
+   .content` levels are there to out-specify the theme's *scoped* rule
+   (`.VPDoc.has-aside .content-container[data-v-…]`). */
+.VPDoc.has-aside .container .content .content-container {
+  max-width: 832px;
+}
+
+/* ---------------------------------------------------------------------------
+   Markdown (`/ai/…` articles). Selectors copied from the original's stylesheet
+   via CDP `getMatchedStylesForNode`; `.vp-doc > div > …` is the wrapper both
+   builds produce around the rendered markdown.
+   --------------------------------------------------------------------------- */
+
+/* 文章标题是主色 → #bd34fe 的渐变文字。
+   （选择器写成后代而非 `.vp-doc > div > h1`：`<Content />` 会按页面再包几层，
+   文章页与案例页的层级并不一样。） */
+.vp-doc h1 {
+  background-image: linear-gradient(135deg, var(--site-main), #bd34fe);
+  color: #0000;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* 二级标题用主色。 */
+.vp-doc h2 {
+  color: var(--site-main);
+}
+
+/* `.VPDoc a` 在默认主题的 `.vp-doc a`（brand-1）之后命中，因此正文链接是压暗
+   20% 的 --main-color-dark；编辑本页 / 上下篇的 hover 仍走 brand-2 / brand-1。 */
+.VPDoc a {
+  word-break: break-all;
+  color: var(--main-color-dark);
+}
+
+.VPDoc a:hover {
+  color: var(--site-main);
+}
+
+/* 行内代码用主色 10% 的底，而不是默认主题的灰色 --vp-c-default-soft。 */
+.vp-doc :not(pre) > code {
+  background-color: color-mix(in oklab, var(--site-main) 10%, transparent);
+}
+
+.vp-doc img {
+  border-radius: 8px;
+}
+
+/* 代码块上方留出 20px，给「macOS 窗口按钮」+ 语言标签；行号栏相应下移 40px，
+   并去掉默认那条通栏竖线、改用从 40px 起的分隔线。 */
+.vp-doc :not(.vp-code-block-title):not(.blocks) > div[class*='language-'] {
+  padding-top: 20px;
+}
+
+.vp-doc :not(.vp-code-block-title):not(.blocks) > div[class*='language-']::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background-color: #ff5c5f;
+  box-shadow:
+    20px 0 0 #febc2e,
+    40px 0 0 #28c840;
+}
+
+.vp-doc :not(.vp-code-block-title):not(.blocks) > div[class*='language-'] .line-numbers-wrapper {
+  padding-top: 40px;
+  border-right-width: 0;
+}
+
+.vp-doc :not(.vp-code-block-title):not(.blocks) > div[class*='language-'] .line-numbers-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 40px;
+  right: 0;
+  height: calc(100% - 60px);
+  border-right: 1px solid var(--vp-code-block-divider-color);
+}
+
+/* 上下篇在源站多留了 24px 的下边距。 */
+.VPDocFooter .prev-next {
+  padding-bottom: 24px;
+}
+
+/* Infinite horizontal marquee used by the hero tag row.
+   The original duplicates the tag list twice and translates -50%.
+   Measured on the live site: animation-name `marquee`, duration **94s**,
+   running on load, `paused` while the row is hovered. */
+@keyframes tag-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.tag-marquee-track {
+  animation: tag-marquee 94s linear infinite;
+}
+
+.tag-marquee:hover .tag-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tag-marquee-track {
+    animation: none;
+  }
+
+  .tk-banner-waves .parallax .use {
+    animation: none;
+  }
+
+  #main,
+  #VPContent .vp-doc > div {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   案例页（/pages/case）—— Teek 主题的 `tk-article-banner` + `img-card`。
+   声明逐条取自源站样式表，并用 CDP `getMatchedStylesForNode` 校验；Teek 的
+   `--tk-*` 变量按源站的渲染值展开成字面量（`--tk-theme-color` 在源站等于
+   `--vp-c-brand-1`，渲染为 #3451b2，即横幅底色）。
+   --------------------------------------------------------------------------- */
+
+:root {
+  /* 横幅底部「水波纹」四条路径的填充色（源站 :root）。第 4 条是页面底色，
+     这里指向本项目自定义外壳的 bg-bg-soft，与波纹下方的背景无缝衔接。 */
+  --tk-waves-fill-color-1: rgba(253, 253, 253, 0.7);
+  --tk-waves-fill-color-2: rgba(253, 253, 253, 0.5);
+  --tk-waves-fill-color-3: rgba(253, 253, 253, 0.3);
+  --tk-waves-fill-color-4: var(--site-bg-soft);
+  --tk-fill-color-dark: #ebedf0;
+  --tk-article-banner-bg-color: #3451b2;
+}
+
+.dark {
+  --tk-waves-fill-color-1: rgba(34, 34, 34, 0.7);
+  --tk-waves-fill-color-2: rgba(34, 34, 34, 0.5);
+  --tk-waves-fill-color-3: rgba(34, 34, 34, 0.3);
+  --tk-fill-color-dark: #2c2f35;
+}
+
+/* --- 横幅通栏 ------------------------------------------------------------- */
+
+/* 源站的横幅是无缝贴到视口两沿的（1920 视口下 0→1920）。本项目的外壳把
+   `#main` 限制在 `max-w-384`（1536px）并居中，视口一旦超过 1536 + 64，左右就
+   各空出 (100vw - 1536px) / 2；只靠 `-mx-6 lg:-mx-8` 只能抵消内边距，消不掉这段
+   留白。`calc(50% - 50vw)` 是「父内容盒一半」与「视口一半」的差，正好把元素拉到
+   视口两沿 —— 1440 时它等于 -32px，与原来的 `-mx-8` 完全一致。 */
+.case-banner-bleed {
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+/* `100vw` 含经典滚动条宽度，上面那个式子会多出约 17px。裁掉横向溢出，
+   避免页面因此出现横向滚动条（`clip` 不会像 `hidden` 那样产生滚动容器）。 */
+.site-shell {
+  overflow-x: clip;
+}
+
+/* --- 文章横幅 ------------------------------------------------------------- */
+
+.tk-article-banner {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  z-index: 1;
+}
+
+.tk-article-banner__wrapper {
+  transition: 0.6s;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.tk-article-banner__wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--tk-article-banner-bg-color);
+}
+
+.tk-article-banner__cover {
+  position: absolute;
+  top: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0.5;
+  transform: scale(1.3);
+  filter: blur(10px);
+  animation: 1s ease 0.3s 1 normal backwards running showCover;
+}
+
+.tk-article-banner__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+@keyframes showCover {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+/* 源站的 `z-index: 10` 落在 static 元素上不起作用；这里补上 `position`，让标题
+   确实压在模糊封面之上（与源站渲染结果一致）。 */
+.tk-article-banner__info {
+  position: relative;
+  z-index: 10;
+  padding: 0 60px;
+  margin: 0 auto;
+  max-width: 1400px;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.tk-article-banner__info h1 {
+  font-weight: 700;
+  font-size: 46px;
+  line-height: 1.2;
+  text-align: left;
+  margin: 20px 0;
+  padding: 0;
+  color: #fff;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* 面包屑 */
+.tk-breadcrumb {
+  margin-bottom: 35px;
+  font-size: 16px;
+}
+
+.tk-breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.tk-breadcrumb__inner {
+  color: #fff;
+}
+
+.tk-breadcrumb__inner a {
+  display: inline-flex;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.tk-breadcrumb__home svg {
+  width: 16px;
+  height: 16px;
+}
+
+.tk-breadcrumb__separator {
+  margin: 0 7px;
+  color: rgb(194, 194, 196);
+}
+
+.tk-breadcrumb__item:last-child .tk-breadcrumb__separator {
+  display: none;
+}
+
+/* 分类 / 标签胶囊 */
+.tk-article-banner__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.tk-article-banner__meta .categories,
+.tk-article-banner__meta .tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tk-article-banner__meta .meta-info {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  height: 32px;
+  border-radius: 12px;
+  line-height: 32px;
+  font-weight: 800;
+  transition: 0.3s ease-out;
+}
+
+.tk-article-banner__meta .category {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.tk-article-banner__meta .category:hover {
+  color: var(--tk-article-banner-bg-color);
+  background-color: #fff;
+}
+
+.tk-article-banner__meta .tag {
+  gap: 2px;
+  color: #fff;
+}
+
+.tk-article-banner__meta .tag:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* --- 横幅里的元信息行（tk-article-analyze） ------------------------------- */
+
+.tk-article-analyze {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.tk-article-analyze__wrapper {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.tk-article-analyze__wrapper > div:not(:last-child) {
+  margin-right: 16px;
+}
+
+.tk-article-analyze__wrapper i {
+  margin-right: 3px;
+}
+
+.tk-article-analyze__wrapper a {
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 0.3s;
+}
+
+.tk-article-analyze__wrapper a:hover {
+  color: inherit;
+  opacity: 1;
+}
+
+.tk-analyze-cell {
+  display: flex;
+  align-items: center;
+}
+
+.tk-article-info__item:not(:last-child) {
+  margin-right: 16px;
+}
+
+.tk-article-info__icon {
+  vertical-align: -1px;
+  margin-right: 3px;
+}
+
+.tk-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  font-size: inherit;
+  line-height: 1em;
+}
+
+.tk-icon svg {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  fill: currentcolor;
+}
+
+/* --- 「水波纹」 ----------------------------------------------------------- */
+
+.tk-banner-waves {
+  margin-top: -11vh;
+  position: relative;
+  width: 100%;
+  height: 12vh;
+  min-height: 50px;
+  max-height: 150px;
+  z-index: 10;
+}
+
+.tk-article-banner .tk-banner-waves {
+  height: 8vh;
+  margin-top: -7vh;
+}
+
+.tk-banner-waves .parallax .use {
+  animation: 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) 0s infinite normal none running move-forever;
+}
+
+.tk-banner-waves .parallax .use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+  fill: var(--tk-waves-fill-color-1);
+}
+
+.tk-banner-waves .parallax .use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+  fill: var(--tk-waves-fill-color-2);
+}
+
+.tk-banner-waves .parallax .use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+  fill: var(--tk-waves-fill-color-3);
+}
+
+.tk-banner-waves .parallax .use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+  fill: var(--tk-waves-fill-color-4);
+}
+
+@keyframes move-forever {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
+}
+
+/* --- 案例卡片（img-card） ------------------------------------------------- */
+
+/* 案例条目写在 markdown 里（源站也是），所以这里照抄源站的前缀
+   `.container.img-card-container` —— 只有带上它才有足够权重压过默认主题的
+   `.vp-doc a { color: brand; font-weight: 500; text-decoration: underline }`
+   和本项目的 `.vp-doc img { border-radius: 8px }`。
+   栅格：源站是 `minmax(var(--column-min-width), 1fr)` + `.index-auto` 的
+   `minmax(240px, 1fr)`；百分比在 auto-fill 里解析不出想要的结果，而 240px 在本页
+   全宽下会排成 5 列，因此用 280px —— 本页正好 4 列、卡片宽度与源站一致。 */
+.container.img-card-container {
+  /* 源站的 `container` 是它自己的类，但在本项目里会命中 Tailwind 的 `.container`
+     工具类（在各断点封顶 max-width，1440 视口下是 1280px），把栅格挤窄并让
+     auto-fill 多排出几列。这里把它中和掉。 */
+  width: auto;
+  max-width: none;
+  margin: 11px 0;
+}
+
+/* 列数：源站用 `repeat(auto-fill, minmax(240px, 1fr))`（它的正文列只有 688px，
+   所以是 2 列）。本页正文是全宽，改成与项目其他列表页一致的 1/2/3/4 列阶梯，
+   1440 视口下同样得到 4 列、卡片 329px（源站 334px）。 */
+.container.img-card-container .img-card {
+  display: grid;
+  row-gap: var(--row-gap);
+  column-gap: var(--column-gap);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 640px) {
+  .container.img-card-container .img-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .container.img-card-container .img-card {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .container.img-card-container .img-card {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.container.img-card-container .img-card__item {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--site-divider);
+  border-radius: 6px;
+  background-color: var(--site-bg);
+  color: var(--site-text1);
+  text-decoration: none;
+  transition: 0.3s;
+  /* 源站的 `row-4` 表示「一行 4 个」，但在本项目里会命中 Tailwind v4 的
+     `row-4` 工具类（`grid-row: 4`），把 10 张卡全钉在第 4 行、溢出成 10 列。
+     这里显式还原成自动放置，保留源站的 class 名字。 */
+  grid-row: auto;
+  grid-column: auto;
+}
+
+.container.img-card-container .img-card__item:hover {
+  color: var(--site-text1);
+  box-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.07),
+    0 1px 4px rgba(0, 0, 0, 0.07);
+  transform: translateY(-3px);
+}
+
+.container.img-card-container .img-card__item__img {
+  overflow: hidden;
+  position: relative;
+  height: var(--img-height);
+  background-color: #eee;
+  transition: 0.3s;
+}
+
+.container.img-card-container .img-card__item__img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  object-fit: var(--img-object-fit);
+}
+
+.container.img-card-container .img-card__item__info {
+  padding: 13px 16px;
+}
+
+.container.img-card-container .img-card__item__info p {
+  margin: 0;
+}
+
+.container.img-card-container .img-card__item__info .name {
+  font-size: 16px;
+  line-height: 28px;
+}
+
+.container.img-card-container .img-card__item__info .desc {
+  margin-top: 5px;
+  opacity: 0.8;
+  font-size: 14.4px;
+  line-height: 17.6px;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--desc-line-clamp);
+}
+
+.container.img-card-container .img-card__item__footer {
+  display: flex;
+  overflow: hidden;
+  padding: 13px 16px;
+  border-top: 1px solid var(--site-divider);
+}
+
+.container.img-card-container .img-card__item__footer img {
+  width: 29px;
+  height: 29px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.container.img-card-container .img-card__item__footer span {
+  margin-left: 10px;
+  font-size: 12.8px;
+  line-height: 29px;
+}
+
+/* 封面未加载完时的骨架屏微光。源站用 `onload`/`onerror` 加 `.loaded`，这里是
+   同一个选择器 —— 三个案例域的图片早已失效，它们在源站同样一直显示骨架屏。 */
+.skeleton-image:has(img:not(.loaded)) {
+  background-image: linear-gradient(
+    90deg,
+    var(--tk-fill-color-dark) 25%,
+    var(--site-bg) 37%,
+    var(--tk-fill-color-dark) 63%
+  );
+  background-size: 400% 100%;
+  animation: 1.4s ease 0s infinite normal none running skeleton-loading;
+}
+
+.skeleton-image:has(img:not(.loaded)) > img {
+  background-color: var(--site-bg);
+  opacity: 0;
+  filter: blur(10px);
+  transition:
+    filter 0.3s,
+    opacity 0.3s;
+}
+
+.skeleton-image:has(img:not(.loaded)) > img.loaded {
+  opacity: 1;
+  filter: blur(0);
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   导航栏（SiteNav）：页面顶部透明、下滑不透明（见 SiteNav.vue 的 navBg）。
+   横幅页在顶部时导航压在横幅上，文字与图标转为白色 —— 对应源站的
+   `.tk-article-banner ~ .VPNav .VPNavBar:not(.home).top { … }` 那一组规则。
+   这些规则不带 @layer，因此能压过组件里的 Tailwind 工具类。
+   --------------------------------------------------------------------------- */
+
+.site-nav--over-banner a,
+.site-nav--over-banner .site-nav__group,
+.site-nav--over-banner .site-nav__group span,
+.site-nav--over-banner .site-nav__search-label,
+.site-nav--over-banner .site-nav__kbd {
+  color: #fff;
+}
+
+.site-nav--over-banner .site-nav__search {
+  border-color: transparent;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.site-nav--over-banner .site-nav__search svg,
+.site-nav--over-banner .site-nav__group svg {
+  color: #fff;
+}
+
+.site-nav--over-banner .site-nav__kbd {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.site-nav--over-banner .site-nav__toggle {
+  border-color: rgba(255, 255, 255, 0.4);
+  background-color: transparent;
+}
+
+.site-nav--over-banner .site-nav__burger span {
+  background-color: #fff;
+}
+
+/* ---------------------------------------------------------------------------
+   文章卡片的图标（.article-glyph）。
+   `tagIcons` 里的 SVG 是按 16px 行内胶囊的尺寸写的（`mr-1 h-4 w-4`）；同一枚
+   图标放进卡片时按源站的尺寸还原：ArticleCard 的 24px 盒子（源站 `h-6 w-6`）
+   撑满，推荐卡的 56px 盒子（源站 `h-8 w-8`）固定 32px。规则不带 @layer，因此
+   能压过工具类的 `h-4 w-4` / `mr-1`。
+   --------------------------------------------------------------------------- */
+
+.article-glyph svg {
+  width: 100%;
+  height: 100%;
+  margin-right: 0;
+}
+
+.article-glyph--lg svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* ---------------------------------------------------------------------------
+   路由切换过渡（源站规则原文：`#VPContent #main, #VPContent .vp-doc > div`）。
+   每次切换页面，新内容的根节点都是新建的，于是这两个动画自然重播：内容从下方
+   50px 处上滑 + 淡入（位移 1s、透明度 0.6s，都是 ease）。
+
+   `#main` 对应自定义布局（首页 / 标签 / 文章列表 / 案例），本项目共用一个
+   `<main>`，靠 Layout.vue 上的 `:key="route.path"` 让它随路由重建；
+   `#VPContent .vp-doc > div` 对应文章页 —— markdown 编译出的组件每次换页都是
+   新的组件类型，其根节点本来就会被替换，所以规则本身就能生效。
+   --------------------------------------------------------------------------- */
+
+#main,
+#VPContent .vp-doc > div {
+  animation:
+    1s ease 0s 1 normal none running rises,
+    0.6s ease 0s 1 normal none running looming;
+}
+
+@keyframes rises {
+  0% {
+    transform: translateY(50px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes looming {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* 关掉浏览器的「滚动锚定」：刷新时浏览器先恢复滚动位置，随后上面那个
+   `#main` 入场位移会被锚定机制当成「上方的内容被撑高了」，于是把页面往下推
+   几十像素 —— 表现就是刷新首页时页面自己往下滑一截（首页 0 → 39，滚动到
+   500 处刷新 → 542；无滚动条的页面则看不出来）。本项目在加载过程中并没有把
+   上方内容撑高的场景，锚定帮不上忙，关掉最稳。 */
+html {
+  overflow-anchor: none;
+}
+
+/* ---------------------------------------------------------------------------
+   游记（/travel/test）—— leelaa.cn/nostalgia 的那台「相机」。
+
+   列表态 = hero 横幅（粒子画布 + 圆形封面镜头 + 标题）+ 28 张记忆卡片；点一张
+   卡片翻到取景器（源站的 `MemoryPreview`），按快门切下一张、落下黑色帘幕并播放
+   源站自己的 `kaca.mp3`。
+
+   组件里的排版来自 Tailwind 工具类，而工具类在 `@layer utilities` 里，永远输给
+   本文件未分层的 `.vp-doc h1 / h3 / p / img`。源站并没有 `.vp-doc` 这一层，所以
+   下面把这些被改写的声明按源站的渲染值还原；选择器统一带 `.memory-gallery` 前缀，
+   权重 (0,2,x) 足以压过 `.vp-doc *`，又不会外溢到别的页面。
+   --------------------------------------------------------------------------- */
+
+:root {
+  /* 源站 :root（浅色）。`-rgb` 变体供 `rgba(var(--brand-primary-rgb), α)` 使用。 */
+  --brand-primary: #204e5f;
+  --brand-primary-rgb: 32, 78, 95;
+  /* 源站 `.mockup-window` 的圆角（实测 8px）。 */
+  --radius-box: 0.5rem;
+}
+
+.dark {
+  --brand-primary: #8fbab5;
+  --brand-primary-rgb: 143, 186, 181;
+}
+
+/* --- hero 横幅 ------------------------------------------------------------- */
+
+/* 源站标题是纯色粗体（tailwind `text-4xl md:text-5xl text-gray-900`），
+   本项目给 `.vp-doc h1` 上了渐变，这里还原成源站的样子。 */
+.memory-gallery .memory-hero h1 {
+  margin: 0;
+  background-image: none;
+  color: #101828;
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .memory-gallery .memory-hero h1 {
+    font-size: 3rem;
+    line-height: 1;
+  }
+}
+
+.dark .memory-gallery .memory-hero h1 {
+  color: #fff;
+}
+
+.memory-gallery .memory-hero p {
+  margin: 0;
+  color: #374151;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.dark .memory-gallery .memory-hero p {
+  color: #d1d5db;
+}
+
+/* 源站写的是 `animate-pulse`，但组件的 scoped 规则把它重写成了 2s、峰谷 0.5。 */
+.memory-live-dot {
+  background-color: var(--brand-primary);
+  animation: 2s cubic-bezier(0.4, 0, 0.6, 1) 0s infinite normal none running memory-pulse;
+}
+
+@keyframes memory-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* 圆形封面镜头（源站 `PageHeroIcon` 的 `src` 变体）。 */
+.memory-gallery .page-hero-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 6rem;
+  height: 6rem;
+  border: 1px solid rgba(var(--brand-primary-rgb), 0.16);
+  border-radius: 999px;
+  background:
+    linear-gradient(145deg, #ffffffd6, #f4f0e59e),
+    radial-gradient(circle at 34% 28%, rgba(var(--brand-primary-rgb), 0.16), transparent 42%);
+  box-shadow:
+    0 18px 42px -28px rgba(var(--brand-primary-rgb), 0.84),
+    0 0 0 8px #ffffff57 inset;
+}
+
+.memory-gallery .page-hero-icon::before {
+  content: '';
+  position: absolute;
+  inset: 0.7rem;
+  border: 1px solid rgba(var(--brand-primary-rgb), 0.08);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.dark .memory-gallery .page-hero-icon {
+  border-color: rgba(255, 255, 255, 0.12);
+  background:
+    linear-gradient(145deg, #232b2aeb, #181f1fc7),
+    radial-gradient(circle at 34% 28%, rgba(var(--brand-primary-rgb), 0.18), transparent 44%);
+}
+
+/* `.page-hero-image` 的 `border-radius: inherit` 会被 `.vp-doc img` 顶掉。 */
+.memory-gallery .page-hero-image {
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: inherit;
+  object-fit: cover;
+  box-shadow: rgba(20, 38, 40, 0.7) 0 10px 24px -18px;
+}
+
+@media (min-width: 768px) {
+  .memory-gallery .page-hero-icon {
+    width: 7rem;
+    height: 7rem;
+  }
+
+  .memory-gallery .page-hero-image {
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+}
+
+/* --- 记忆列表（栅格与间距由组件的 Tailwind 类给出） ------------------------- */
+
+.memory-gallery .animate-fade-in-up {
+  animation: 0.6s ease-out 0s 1 normal both running memory-fade-in-up;
+  will-change: transform, opacity;
+}
+
+@keyframes memory-fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}
+
+.memory-gallery .memory-card {
+  transition:
+    transform 0.24s,
+    box-shadow 0.24s;
+}
+
+/* 源站就是这么写的：`animate-fade-in-up` 的 `both` 填充会把它盖住，
+   所以浮起效果在源站上同样不会真的发生。 */
+.memory-gallery .memory-card:hover {
+  transform: translateY(-2px);
+}
+
+/* `.vp-doc img { border-radius: 8px }` 会把圆角交给卡片自己裁。 */
+.memory-gallery .memory-card-image {
+  border-radius: 0;
+  filter: saturate(0.72) contrast(0.92) brightness(0.96);
+  opacity: 0.9;
+  transform: scale(1.01);
+  transition:
+    filter 0.28s,
+    opacity 0.28s,
+    transform 0.32s;
+}
+
+.memory-gallery .memory-card:hover .memory-card-image,
+.memory-gallery .memory-card:focus-within .memory-card-image {
+  filter: saturate(1) contrast(1) brightness(1);
+  opacity: 1;
+  transform: scale(1.035);
+}
+
+.memory-gallery .memory-card h3 {
+  margin: 0 0 4px;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.75rem;
+}
+
+.memory-gallery .memory-card p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+/* --- 取景器（点开某张记忆后） ---------------------------------------------- */
+
+/* 源站 daisyUI 的 `.mockup-window`：顶上留 1.25rem 给三颗「窗口按钮」。 */
+.memory-gallery .mockup-window {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-top: 1.25rem;
+  border-radius: var(--radius-box);
+}
+
+/* 三颗按钮由同一个元素的 box-shadow 以 1.4em 步进画出来。 */
+.memory-gallery .mockup-window::before {
+  content: '';
+  display: block;
+  flex-shrink: 0;
+  align-self: flex-start;
+  height: 0.75rem;
+  aspect-ratio: 1 / 1;
+  margin-bottom: 1rem;
+  border-radius: 9999px;
+  opacity: 0.3;
+  box-shadow:
+    1.4em 0,
+    2.8em 0,
+    4.2em 0;
+}
+
+.memory-gallery .mockup-window h1 {
+  margin: 0;
+  background-image: none;
+  color: #fff;
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 2.25rem;
+}
+
+/* Tailwind 的 preflight 把标题字号/字重重置成 inherit，源站这个 h3 是 16px / 400。 */
+.memory-gallery .mockup-window h3 {
+  margin: 0.5rem 0 0;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  letter-spacing: 0.05em;
+}
+
+.memory-gallery .mockup-window img {
+  /* 取景器里的照片按源站不带圆角；缩略图下面单独给 4px。 */
+  border-radius: 0;
+}
+
+.memory-gallery .mockup-window .memory-thumb {
+  border-radius: 0.25rem;
+}
+
+/* 视频条目：按片子自身的比例铺满取景区高度并居中，整段都看得到 ——
+   不裁切、也不加黑边；两侧留白露出窗口底色，而不是黑条。 */
+.memory-gallery .memory-viewfinder-video {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+/* 播放进度：底栏顶边那条 2px 细线。 */
+.memory-gallery .memory-video-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: rgb(255 255 255 / 0.25);
+}
+
+.memory-gallery .memory-video-progress__bar {
+  height: 100%;
+  background-color: #fff;
+  transition: width 0.1s linear;
+}
+
+/* 视频正中那个播放 / 暂停键：底色透明，只留图标，靠投影保证亮画面上也看得清。
+   `scale` 用独立属性，免得把居中的 translate 顶掉。 */
+.memory-gallery .memory-video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+}
+
+/* 播放中 0.6s 后自动淡出，画面不被挡住；指针再次进入取景区（或暂停 / 播完）才回来。 */
+.memory-gallery .memory-video-play.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 缩略图条进出的短过渡：淡出并往下沉一点，收起时不突兀。 */
+.memory-gallery .memory-strip-enter-active,
+.memory-gallery .memory-strip-leave-active {
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.memory-gallery .memory-strip-enter-from,
+.memory-gallery .memory-strip-leave-to {
+  opacity: 0;
+  transform: translateY(0.5rem);
+}
+
+.memory-gallery .memory-video-play svg {
+  width: 52px;
+  height: 52px;
+  filter: drop-shadow(0 2px 10px rgb(0 0 0 / 0.55));
+}
+
+/* 快门帘幕：0 → 满屏 → 0，500ms。 */
+.memory-gallery .animate-shutter {
+  animation: 0.5s ease 0s 1 normal none running memory-shutter;
+}
+
+@keyframes memory-shutter {
+  0% {
+    height: 0;
+    opacity: 0.9;
+  }
+
+  70% {
+    height: 100%;
+    opacity: 0.95;
+  }
+
+  100% {
+    height: 0;
+    opacity: 0.9;
+  }
+}
+
+/* --- 卡片轮播（`<Swiper effect="cards">`，`/travel/test copy`） -------------- */
+
+/* 位移 / 旋转 / z-index 由组件按 swiper cards 的公式算好写在内联 style 上，
+   这里只管盒子和过渡。卡片宽度留出余量，让 ±4 步的扇形不会被裁掉。 */
+.memory-gallery .memory-deck-wrap {
+  margin-top: 40px;
+  user-select: none;
+}
+
+.memory-gallery .memory-deck {
+  position: relative;
+  height: clamp(320px, 58vh, 560px);
+  perspective: 1400px;
+}
+
+.memory-gallery .memory-deck-card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(74%, 720px);
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 14px;
+  background: none;
+  cursor: pointer;
+  /* 源站 swiper 的 `effect-cards.css`：所有卡片绕着各自底边中点的旋转。 */
+  transform-origin: center bottom;
+  backface-visibility: hidden;
+  transition:
+    transform 0.52s cubic-bezier(0.2, 0.9, 0.22, 1),
+    opacity 0.4s ease;
+  will-change: transform, opacity;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.memory-gallery .memory-deck-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* `.vp-doc img` 会给图片加 8px 圆角，这里交给卡片自己裁。 */
+  border-radius: 0;
+  object-fit: cover;
+}
+
+/* swiper 的 `slideShadows`：`.swiper-slide-shadow-cards` 的渐变，透明度由距离决定。 */
+.memory-gallery .memory-deck-shadow {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+  pointer-events: none;
+}
+
+.memory-gallery .memory-deck-card.is-active {
+  cursor: zoom-in;
+  box-shadow: 0 24px 60px -28px rgb(0 0 0 / 0.55);
+}
+
+/* 视频条目的 ▶ 角标（deck 里只放 poster，点开才进相机播）。 */
+.memory-gallery .memory-deck-play {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background-color: rgb(0 0 0 / 0.55);
+  color: #fff;
+}
+
+.memory-gallery .memory-deck-play svg {
+  width: 16px;
+  height: 16px;
+  margin-left: 2px;
+}
+
+/* --- Fancybox（文章图片 / 游记全屏查看） ------------------------------------ */
+
+/* 源站的遮罩不是纯黑，是「页面底色 50% + 高斯模糊」，这里照搬它的做法。 */
+.fancybox__container {
+  --fancybox-bg: color-mix(in srgb, var(--site-bg) 50%, transparent);
+  --fancybox-color: var(--site-text1);
+  --f-button-bg: transparent;
+  --f-button-hover-bg: transparent;
+  --f-button-color: var(--site-text2);
+  --f-button-hover-color: var(--site-main);
+  --f-button-active-bg: transparent;
+  --f-button-svg-disabled-opacity: 0.2;
+}
+
+/* 源站让工具栏常显：Fancybox 空闲时默认会把它淡出。 */
+.fancybox__container.is-idle .fancybox__toolbar {
+  opacity: 1;
+}
+
+.fancybox__container .fancybox__backdrop {
+  backdrop-filter: blur(4px);
+}
+
+.fancybox__container .fancybox__toolbar,
+.fancybox__container .fancybox__footer {
+  background-color: color-mix(in srgb, var(--site-bg) 50%, transparent);
+}
+
+.fancybox__container .fancybox__infobar,
+.fancybox__container .fancybox__caption {
+  color: var(--site-text1);
+}
+
+/* 左右翻页用品牌色按钮，与源站一致。 */
+.fancybox__container .fancybox__nav {
+  --f-button-bg: var(--vp-button-brand-bg);
+  --f-button-hover-bg: var(--vp-button-brand-hover-bg);
+  --f-button-color: var(--vp-button-brand-text);
+  --f-button-hover-color: var(--vp-button-brand-hover-text);
+  --f-button-active-bg: var(--vp-button-brand-active-bg);
+}
+
+.fancybox__container .fancybox__content,
+.fancybox__container .fancybox__content img {
+  overflow: hidden;
+  border-radius: 0.5rem;
+  /* 强制开启硬件加速，否则圆角上有锯齿。 */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* 取景器里的照片 / 视频点开全屏（`fullscreen="image"`，默认；`="button"` 时画面不响应）。 */
+.memory-gallery .memory-viewfinder--zoom .memory-viewfinder-img,
+.memory-gallery .memory-viewfinder--zoom .memory-viewfinder-video {
+  cursor: zoom-in;
+}
+
+.memory-gallery .memory-deck-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.memory-gallery .memory-deck-arrow {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--site-divider);
+  border-radius: 999px;
+  background-color: var(--site-bg);
+  color: var(--site-text2);
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.memory-gallery .memory-deck-arrow:hover {
+  border-color: var(--brand-primary);
+  color: var(--brand-primary);
+}
+
+.memory-gallery .memory-deck-chevron {
+  width: 20px;
+  height: 20px;
+}
+
+.memory-gallery .memory-deck-counter {
+  min-width: 72px;
+  color: var(--site-text3);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .memory-gallery .memory-deck-card {
+    transition: none;
+  }
+
+  .memory-gallery .animate-fade-in-up,
+  .memory-gallery .memory-live-dot {
+    animation: none;
+  }
+
+  .memory-gallery .animate-fade-in-up {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+

@@ -1,196 +1,42 @@
-// https://vitepress.dev/guide/custom-theme
-import type { EnhanceAppContext } from 'vitepress'
-import { useData,useRouter,inBrowser } from "vitepress";
 import type { Theme } from 'vitepress'
-import { defineAsyncComponent,defineComponent,h,onMounted, onUnmounted } from "vue";
-import DefaultTheme from "vitepress/theme";
-import ElementPlus from "element-plus";
+import { inBrowser } from 'vitepress'
+import DefaultTheme from 'vitepress/theme'
 
-// import "element-plus/dist/index.css";
+import { bindFancybox, destroyFancybox } from './components/ImgViewer'
+import Layout from './Layout.vue'
+import './styles/tailwind.css'
+import './styles/fonts.css'
 
-import "./style/index.scss";
-import MyLayout from './MyLayout.vue' // 导入布局组件
-import { bindFancybox } from "./composables/ImgViewer";
-import "@fancyapps/ui/dist/fancybox/fancybox.css";
-import { NProgress } from "nprogress-v2/dist/index.js"; // 进度条
-import "nprogress-v2/dist/index.css";
-// import busuanzi from 'busuanzi.pure.js' //不蒜子统计
-import useVisitData from './composables/useVisitData' // 网站访问统计 vercount
-// 暗黑样式
-import '@shikijs/vitepress-twoslash/style.css'
-
-import 'uno.css'
-
-//动态模糊图片
-import { 
-  NolebaseUnlazyImg, 
-} from '@nolebase/vitepress-plugin-thumbnail-hash/client';
-import '@nolebase/vitepress-plugin-thumbnail-hash/client/style.css';
-
-import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
-
-import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client';
-import Whome from './components/Whome.vue';
-import WPosts from './components/WPosts.vue';
-import WTag from './components/WTag.vue';
-import Waves from './components/Waves.vue';
-import KanbanExample from './components/KanbanExample.vue';
-import Swiper from './components/Swiper.vue';
-import CardMasonry from './components/CardMasonry.vue';
-import ImageCard from './components/ImageCard.vue';
-import BackToTop from './components/BackToTop.vue';
-// StickyWall 必须保留全局注册：docs/features/StickyWall.md 与组件同名，编译器会把它当作"可能的自引用"，
-// 此时既不会被自动 import，也没有全局注册时 resolveComponent 会兜底返回页面自身，导致 SSR 无限递归
-import StickyWall from './components/StickyWall.vue';
-import { usePasswordProtection } from "./utils/PassWordUtil";
-import { plugin } from './composables/slicksort_index';
-import { initComponent } from "vitepress-plugin-legend/component"; 
-// import "vitepress-plugin-legend/dist/index.css"; 
-
-// 密码保护组件只会在客户端、且命中受保护路由时渲染，改为异步加载避免其逻辑进入入口 chunk
-const PasswordProtect = defineAsyncComponent(() => import('./components/PasswordProtect.vue'));
-
+/**
+ * Extends VitePress's default theme.
+ *
+ * The original site is a default-theme site: `/ai/…` pages are ordinary
+ * markdown docs rendered by `VPDoc` (sidebar + outline + doc footer), while
+ * `/`, `/pages/posts` and `/pages/tags` swap in custom bodies through
+ * `frontmatter.layout`. Extending the default theme keeps `base.css`,
+ * `vars.css` and the whole `VP*` component set available, and `Layout.vue`
+ * only takes over the three custom routes.
+ *
+ * Markdown-facing components (`<PostMeta />`, `<Swiper :items="[…]" />`,
+ * `<TravelCases />`, `<MemoryGallery />`, …) are no longer registered here one
+ * by one: `unplugin-vue-components` in `config.mts` resolves anything that
+ * lives under `theme/components/` on demand, so a new component works the
+ * moment it is written into a note.
+ */
 export default {
-  // extends: DefaultTheme,  
-  // Layout: MyLayout, // 应用布局组件
-  // enhanceApp({ app, router }: EnhanceAppContext) {
-  //   app.use(TwoslashFloatingVue as any)
-
-
-  extends: DefaultTheme, 
-    Layout: defineComponent({
-    name: "LayoutProvider",
-
-    setup() {
-      const props: { class?: string } = {};
-      // const { frontmatter } = useData();
-      const { frontmatter, page } = useData();
-      props.class = frontmatter.value?.layout || "";
-
-      // 根据元数据动态应用 CSS 类，实现页面级样式定制
-      // if (frontmatter.value?.layoutClass) {
-      //   props.class = frontmatter.value.layoutClass;
-      // }
-
-      // 为每个页面生成唯一的 key
-      const getLayoutKey = () => {
-        // return `${page.value.relativePath}-${frontmatter.value?.layout || 'default'}`;
-        // 只在布局真正改变时才改变 key
-        return frontmatter.value?.layout || 'default';
-      };
-
-      const { showPassword, currentPassword, currentVerifyPrefix, handleVerified } = usePasswordProtection();
-
-      
-      // 渲染函数
-      return () => {
-        if (showPassword.value) {
-          return h(PasswordProtect, {
-            key: getLayoutKey(), // 添加 key
-            correctPassword: currentPassword.value,
-            pageId: currentVerifyPrefix.value,
-            onVerified: handleVerified
-          });
-        }
-
-        // 正常渲染 Teek 布局
-        return h(MyLayout, {
-          key: getLayoutKey(),
-          class: frontmatter.value?.layoutClass || frontmatter.value?.layout || ""
-        });
-      };
-    }
-  }),
-  async enhanceApp({ app, router }: EnhanceAppContext) {
-    app.use(ElementPlus);
-    app.component('Whome',Whome);
-    app.component('Waves', Waves);
-    app.component('WPosts',WPosts);
-    app.component('WTag',WTag);
-    app.component('KanbanExample', KanbanExample);
-    app.component('Swiper', Swiper);
-    app.component('CardMasonry',CardMasonry);
-    app.component('ImageCard',ImageCard);
-    app.component('BackToTop', BackToTop);
-    app.use(TwoslashFloatingVue as any);
-    app.component('NolebaseUnlazyImg', NolebaseUnlazyImg);
-    app.component('StickyWall', StickyWall);
-    app.use(plugin);
-    app.config.globalProperties.isLoadLive2d = false;//全局设置一个属性是否加载live2d，避免重复加载
-
-    app.provide('musicPlayerConfig', {  //音乐播放器
-      autoPlay: false,
-      volume: 0.7,
-      loop: false,
-      shuffle: false
-    })
-
-    initComponent(app); //Markmap
-    
-
+  extends: DefaultTheme,
+  Layout,
+  enhanceApp({ router }) {
+    // Article images open full-screen in Fancybox. VitePress has no `update`
+    // hook, so the gallery is re-bound on every route change instead.
+    //
+    // Both hooks must return their promise: VitePress awaits them, and
+    // `Fancybox.destroy()` clears the openers map *and* detaches the delegated
+    // click listener. Left un-awaited, that teardown can resolve after the next
+    // page has already bound and leave the gallery click-dead.
     if (inBrowser) {
-      NProgress.configure({ showSpinner: false });
-
-      const onBeforeRouteChange = () => {
-        NProgress.start(); // 开始进度条
-      };
-      const onAfterRouteChange = () => {
-        NProgress.done(); // 停止进度条
-        // busuanzi.fetch(); //卜算子统计
-        // 访问量统计，路由加载完成，在加载页面组件后（在更新页面组件之前）调用
-        router.onAfterPageLoad = () => {
-          useVisitData()
-        }
-        // 只在包含图片的页面绑定 Fancybox
-        if (document.querySelector('img')) {
-          bindFancybox();
-        }
-      };
-      router.onBeforeRouteChange = onBeforeRouteChange;
-      router.onAfterRouteChange = onAfterRouteChange;
-    };
-
-
-    //live2D
-    if (!import.meta.env.SSR) {
-      // 使用 setTimeout 延迟加载
-      setTimeout(async () => {
-        const { loadOml2d } = await import('oh-my-live2d');
-        loadOml2d({
-          models: [
-            {
-              path: 'https://zhangjunjiee.netlify.app/符玄/符玄.model3.json',
-              position: [-20, 60],
-              mobilePosition: [80, 80],
-              scale: 0.047,
-              mobileScale: 0.06,
-              stageStyle: {
-                height: 450,
-              },
-              mobileStageStyle: {
-                height: 370,
-                width: 400,
-              },
-            }
-          ]
-        });
-      }, 3000); // 延迟3秒加载
+      router.onBeforeRouteChange = () => destroyFancybox()
+      router.onAfterRouteChange = () => bindFancybox()
     }
-  },
-
-
-  setup() {
-    const router = useRouter();
-    onMounted(() => {
-      bindFancybox();
-    });
-    onUnmounted(async () => {
-      const { Fancybox } = await import("@fancyapps/ui");
-      Fancybox.destroy();
-      router.onBeforeRouteChange = undefined;
-      router.onAfterRouteChange = undefined;
-    });
   },
 } satisfies Theme
-
-

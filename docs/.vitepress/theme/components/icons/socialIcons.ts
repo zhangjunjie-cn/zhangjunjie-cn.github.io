@@ -1,0 +1,16 @@
+/**
+ * Inline Iconify SVGs for the hero card's author block, kept as raw SVG strings
+ * so they can be rendered with `v-html`.
+ *
+ * Ported 1:1 from `src/components/sites/note.weizwz.com-afbb9997/root-8a5edab2/icons.tsx`:
+ * only the JSX attribute spellings (`className`, `fillRule`, `clipRule`) were
+ * rewritten to their SVG equivalents. Markup, classes and order are untouched.
+ */
+
+export const HomeSocialIcon = `<svg aria-hidden="true" role="img" class="group-hover:text-main! h-4 w-4" width="1em" height="1em" viewBox="0 0 26 26"><g fill="none"><defs><mask id="iconifyVue1"><path fill="#fff" d="M0 0h26v26H0z"></path><path fill="#000" fill-rule="evenodd" d="M4 14c-.92 0-1.352-1.137-.664-1.747l9-8a1 1 0 0 1 1.328 0l9 8c.688.61.255 1.747-.664 1.747h-1v7a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7zm6 6v-5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5h3v-7a1 1 0 0 1 .512-.873L13 6.337l-6.512 5.79A1 1 0 0 1 7 13v7zm2 0v-4h2v4z" clip-rule="evenodd"></path></mask></defs><circle cx="13" cy="13" r="13" fill="currentColor" mask="url(#iconifyVue1)"></circle></g></svg>`
+
+export const GithubSocialIcon = `<svg aria-hidden="true" role="img" class="group-hover:text-main! h-4 w-4" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>`
+
+export const GiteeSocialIcon = `<svg aria-hidden="true" role="img" class="group-hover:text-main! h-4 w-4" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M11.984 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12a12 12 0 0 0 12-12A12 12 0 0 0 12 0zm6.09 5.333c.328 0 .593.266.592.593v1.482a.594.594 0 0 1-.593.592H9.777c-.982 0-1.778.796-1.778 1.778v5.63c0 .327.266.592.593.592h5.63c.982 0 1.778-.796 1.778-1.778v-.296a.593.593 0 0 0-.592-.593h-4.15a.59.59 0 0 1-.592-.592v-1.482a.593.593 0 0 1 .593-.592h6.815c.327 0 .593.265.593.592v3.408a4 4 0 0 1-4 4H5.926a.593.593 0 0 1-.593-.593V9.778a4.444 4.444 0 0 1 4.445-4.444h8.296Z"></path></svg>`
+
+export const CnblogsSocialIcon = `<svg aria-hidden="true" role="img" class="group-hover:text-main! h-4 w-4" width="1em" height="1em" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="M1.5 0A1.5 1.5 0 0 0 0 1.5v11A1.5 1.5 0 0 0 1.5 14h11a1.5 1.5 0 0 0 1.5-1.5v-11A1.5 1.5 0 0 0 12.5 0zm1.457 9.96a1.084 1.084 0 1 1 2.167 0a1.084 1.084 0 0 1-2.167 0m.459-3.502c0-.346.28-.625.625-.625a4.127 4.127 0 0 1 4.126 4.126a.625.625 0 1 1-1.25 0a2.877 2.877 0 0 0-2.876-2.876a.625.625 0 0 1-.625-.625m.625-3.626a.625.625 0 0 0 0 1.25A5.877 5.877 0 0 1 9.918 9.96a.625.625 0 1 0 1.25 0A7.127 7.127 0 0 0 4.04 2.832" clip-rule="evenodd"></path></svg>`

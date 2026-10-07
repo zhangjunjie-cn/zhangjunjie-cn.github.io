@@ -1,8 +1,11 @@
 ---
-layout: WTag
+layout: tags
 title: 标签列表
-description: 这是桦鱼笔记网站的标签导航界面，页面涵盖了站内的所有标签，并可按照标签来过滤文章，方便大家查找感兴趣的知识点。页面还对标签文字大小进行了处理，文章越多的标签显示字体越大，可以更好的展示知识的数量，标签内容涉及前端知识、编码、设计资源、常用工具等多个领域
-sidebar: false
-firstCommit: 2023-04-28 21:07:26+8:00
-lastUpdated: 2023-12-14 20:13:56+8:00
+description: 唯知笔记的全部标签，以及每个标签下的文章
 ---
+
+<!--
+  Body rendered by the custom theme: `layout: tags` selects
+  `.vitepress/theme/components/pages-tags/TagsContent.vue` in Layout.vue.
+  This file exists so VitePress routes /pages/tags to /pages/tags.html.
+-->
