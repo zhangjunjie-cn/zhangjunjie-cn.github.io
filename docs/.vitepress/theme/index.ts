@@ -4,6 +4,8 @@ import DefaultTheme from 'vitepress/theme'
 
 import { bindFancybox, destroyFancybox } from './components/ImgViewer'
 import Layout from './Layout.vue'
+// 放在本项目样式之前：插件的 unocss 样式先加载，本站未分层的覆盖规则仍然能压过它。
+import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
 import './styles/tailwind.css'
 import './styles/fonts.css'
 

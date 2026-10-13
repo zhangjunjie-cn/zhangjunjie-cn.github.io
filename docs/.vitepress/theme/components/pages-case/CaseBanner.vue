@@ -22,9 +22,9 @@ import {
  * `theme/styles/tailwind.css` under the `tk-article-banner` / `tk-banner-waves` /
  * `tk-article-analyze` blocks, with Teek's `--tk-*` tokens resolved to literals.
  *
- * Deviations from the source: this banner sits below the project's own navbar
- * instead of underneath a transparent one — except on this page, where SiteNav
- * goes transparent + white while the page is at the top.
+ * Deviations from the source: this banner sits right under the project's fixed
+ * navbar (which is now VitePress's own, always opaque) instead of underneath a
+ * transparent one, so the top 64px of the 500px hero is covered.
  */
 type BannerArticle = {
   author: string

@@ -8,6 +8,27 @@
 /* VitePress toggles the `dark` class on <html>; mirror the Next.js clone's variant. */
 @custom-variant dark (&:is(.dark *));
 
+/* ---------------------------------------------------------------------------
+   阅读增强插件（`@nolebase/vitepress-plugin-enhanced-readabilities`）的样式，由
+   `theme/index.ts` 第一个 import 带进来。它的 `client/style.css` 展开后是一份
+   **未分层** 的 UnoCSS 产物，其中就有 `.transition-all`
+   （`.transition-all,[transition-all=""],[transition~=all]{…transition-duration:.15s}`）。
+
+   未分层的规则恒胜 `@layer utilities`（见下文游记段落里的同一条说明），所以它不但
+   压过 Tailwind 自己的 `.transition-all`，还把 `duration-300/600`、`ease-[…]` 一起
+   压住 —— 标签云那颗「呼气圈」的 600ms 弹簧、胶囊的 300ms 过渡，全被钉成
+   150ms + 默认缓动，看起来就像悬浮/点击动画没了。
+
+   下面按 Tailwind 的原定义把它重写一遍。本文件在插件样式 **之后** 加载，同为未分层
+   但源序靠后，于是这条胜出；属性表与原来一致，`duration-*` / `ease-*` 仍通过
+   `--tw-duration` / `--tw-ease` 生效。
+   --------------------------------------------------------------------------- */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--default-transition-duration));
+}
+
 @theme inline {
   --font-sans: "Punctuation SC", "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -757,41 +778,22 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
-   导航栏（SiteNav）：页面顶部透明、下滑不透明（见 SiteNav.vue 的 navBg）。
-   横幅页在顶部时导航压在横幅上，文字与图标转为白色 —— 对应源站的
-   `.tk-article-banner ~ .VPNav .VPNavBar:not(.home).top { … }` 那一组规则。
-   这些规则不带 @layer，因此能压过组件里的 Tailwind 工具类。
+   自定义布局外壳里的原生导航栏（Layout.vue 里的 `<VPNav>`）。
+
+   默认主题的 `VPNav` 在 <960px 是 `position: relative`（留在文档流里、自己撑开
+   64px）。外壳的 `pt-16`、首页首屏与游记取景器里「滚动量减 64」的对齐、以及案例
+   页横幅的 `-mt-[88px]`，全部按「导航栏固定悬浮、不占流」算的 —— 一旦在窄屏变成
+   流内，这些位置会整体错位。所以窄屏也把它固定住，行为与原来的手写 SiteNav
+   （`fixed inset-x-0 top-0 h-16`）一致。
+
+   选择器重复一次 `.VPNav`：默认主题的 scoped 样式是 `.VPNav[data-v-…]`（两个
+   类），这里 (0,3,0) 稳压它，不必动用 `!important`。
    --------------------------------------------------------------------------- */
 
-.site-nav--over-banner a,
-.site-nav--over-banner .site-nav__group,
-.site-nav--over-banner .site-nav__group span,
-.site-nav--over-banner .site-nav__search-label,
-.site-nav--over-banner .site-nav__kbd {
-  color: #fff;
-}
-
-.site-nav--over-banner .site-nav__search {
-  border-color: transparent;
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
-.site-nav--over-banner .site-nav__search svg,
-.site-nav--over-banner .site-nav__group svg {
-  color: #fff;
-}
-
-.site-nav--over-banner .site-nav__kbd {
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
-.site-nav--over-banner .site-nav__toggle {
-  border-color: rgba(255, 255, 255, 0.4);
-  background-color: transparent;
-}
-
-.site-nav--over-banner .site-nav__burger span {
-  background-color: #fff;
+@media (max-width: 959px) {
+  .site-shell .VPNav.VPNav {
+    position: fixed;
+  }
 }
 
 /* ---------------------------------------------------------------------------

@@ -12,8 +12,10 @@ import type { Plugin } from 'vite'
 /**
  * Nav menu, verbatim from the original (extraction.json → navLinks + page.html).
  *
- * The doc pages render VitePress's own `VPNavBar`, so the data lives here
- * instead of in the hand-ported `SiteNav.vue` the three custom layouts use.
+ * Every page now renders VitePress's own `VPNavBar` — the custom layouts included
+ * (`Layout.vue` puts a native `VPNav` into their shell), so the menu data lives
+ * here instead of in the hand-ported navbar that used to serve `/`, `/pages/*`
+ * and `/travel/**`.
  * A group without `text` renders no title — the original relies on that for
  * 推荐 / 技术探讨 / 资源分享.
  */
@@ -271,6 +273,19 @@ export default defineConfig({
     docFooter: { prev: '上一篇', next: '下一篇' },
   },
   vite: {
+    // 官方集成要求（@nolebase/vitepress-plugin-enhanced-readabilities）：
+    // 这几个包不做依赖预构建 —— 它们自带 SFC 与样式，预构建会把样式丢掉（或报
+    // 找不到导出）；SSR 阶段反过来不要外部化，让 Vite 自己编译它们的 .vue。
+    optimizeDeps: {
+      exclude: [
+        '@nolebase/vitepress-plugin-enhanced-readabilities/client',
+        'vitepress',
+        '@nolebase/ui',
+      ],
+    },
+    ssr: {
+      noExternal: ['@nolebase/vitepress-plugin-enhanced-readabilities', '@nolebase/ui'],
+    },
     plugins: [
       tailwindcss(),
       // md / vue 里直接写 `<Swiper />`、`<PostMeta />` 就行，用到哪个引入哪个，

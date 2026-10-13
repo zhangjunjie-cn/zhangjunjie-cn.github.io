@@ -2,8 +2,6 @@
 layout: case
 title: 案例
 description: Vitepress Theme Teek 的案例展示页，收录了使用 Teek 构建的知识库、博客与文档站
-# SiteNav 在本页顶部透明、文字转白（横幅压在它下面）；下滑后恢复不透明。
-overBanner: true
 banner:
   cover: /sites/vp.teek.top-a50b27f5/resources-case.html-244f6386/images/case-banner.webp
   breadcrumb: 资源

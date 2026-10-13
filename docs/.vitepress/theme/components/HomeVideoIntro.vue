@@ -27,7 +27,8 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
  * 透明 —— 画面会闪回原色。给它铺上实心底色后，无论动画在不在跑，混合背景都
  * 是这个底色，颜色不再跳。
  */
-/** `SiteNav` 的 `h-16`；滚动量减掉它，下一屏内容正好落在导航栏下面。 */
+/** 固定导航栏的高度（外壳里的原生 `VPNav` 与原手写导航栏都是 64px）；滚动量
+ *  减掉它，下一屏内容正好落在导航栏下面。 */
 const NAV_HEIGHT = 64
 
 function start() {

@@ -45,7 +45,8 @@ const viewMode = ref<'list' | 'preview'>('list')
 const currentIndex = ref(0)
 const root = ref<HTMLElement | null>(null)
 
-/** 顶部固定导航栏（`SiteNav` 是 `fixed h-16`），取景窗对齐时得给它让位。 */
+/** 顶部固定导航栏（原生 `VPNav`，<960px 也被 tailwind.css 固定成悬浮的 64px），
+ *  取景窗对齐时得给它让位。 */
 const NAV_HEIGHT = 64
 
 function viewMemory(index: number) {

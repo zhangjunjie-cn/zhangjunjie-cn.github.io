@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@fancyapps/ui": "^5.0.36",
+    "@nolebase/vitepress-plugin-enhanced-readabilities": "^2.18.2",
     "@tailwindcss/vite": "^4.1.0",
     "tailwindcss": "^4.1.0",
     "unplugin-vue-components": "^32.1.0",
