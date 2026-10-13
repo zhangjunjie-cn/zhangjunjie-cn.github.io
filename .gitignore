@@ -10,7 +10,9 @@ build/
 dist/
 # VitePress 的 Vite 依赖预打包缓存：每次 dev/build 都会重写，
 # 提进去等于让工作区常年是脏的（原先 12 个 deps 文件被跟踪过）。
-**/.vitepress/cache/
+# vitepress缓存和构建产物
+docs/.vitepress/cache
+docs/.vitepress/dist
 
 # Environment
 .env
