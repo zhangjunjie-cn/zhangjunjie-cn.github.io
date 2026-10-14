@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, provide } from 'vue'
 import { useData, useRoute } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 // 原生导航栏组件。深路径是 VitePress 内部结构，`exports` 里放开了 `./dist/*` 才能这样引；
@@ -53,7 +53,7 @@ import SiteFooter from './components/SiteFooter.vue'
  */
 const CUSTOM_LAYOUTS = ['home', 'tags', 'posts', 'case', 'travel'] as const
 
-const { frontmatter } = useData()
+const { frontmatter, isDark } = useData()
 const route = useRoute()
 
 const layout = computed(() => (frontmatter.value.layout as string | undefined) ?? '')
@@ -69,6 +69,71 @@ const isCustomPage = computed(() =>
 // frontmatter is the signal; the styling lives in the `site-shell--over-banner`
 // block of `styles/tailwind.css`.
 const overBanner = computed(() => Boolean(frontmatter.value.banner))
+
+/**
+ * 明暗切换的「圆形擦除」过渡 —— 仿 docs.versiw.com（教程见
+ * note.weizwz.com/vitepress/basic/dark-animation）。
+ *
+ * VitePress 的开关（导航栏与窄屏抽屉共用的 `VPSwitchAppearance`）只做一件事：
+ * `inject('toggle-appearance')`，拿不到才退回家默认的 `isDark.value = !isDark.value`；
+ * 而它是用 `@click="toggleAppearance"` 绑的，点击事件会一起传进来
+ * （见 `VPSwitchAppearance.vue` L8-10 / L26）。所以在本布局层 `provide` 同名函数
+ * 就能接管全站的两个开关 —— 既不用监听 DOM，也不用替换组件。
+ *
+ * 动画走 View Transitions API：在 `startViewTransition` 的回调里改 `isDark`，
+ * 「旧快照」在回调前抓、「新快照」在回调后抓，明暗两帧因此都在正确的时间点定格。
+ * 回调里的 `await nextTick()` 是必须的：`isDark` 是 @vueuse 的 `useDark`，真正
+ * 把 `dark` 类toggle 到 `<html>` 上要走一次 Vue 调度。等 `ready` 之后再用
+ * `clip-path: circle()` 从点击处往外铺/往回收。
+ * `::view-transition-*` 的层级、以及关掉默认淡入淡出，都在 `styles/tailwind.css` 里，
+ * 那里的 `.dark::view-transition-old(root)` 决定了两张快照谁在上 —— 因此变深色时被
+ * 擦的是「旧」快照、变浅色时被擦的是「新」快照，方向不对称但和 versiw 一致。
+ */
+type ViewTransitionDocument = Document & {
+  startViewTransition?: (update: () => void | Promise<void>) => { ready: Promise<void> }
+}
+
+provide('toggle-appearance', async (event: MouseEvent) => {
+  const doc = document as ViewTransitionDocument
+
+  // 不支持 View Transitions（Firefox、旧 Safari）或用户要减少动效时，直接切。
+  if (
+    !doc.startViewTransition ||
+    !window.matchMedia('(prefers-reduced-motion: no-preference)').matches
+  ) {
+    isDark.value = !isDark.value
+    return
+  }
+
+  const { clientX: x, clientY: y } = event
+  // 半径取到离点击点最远的那两个视口边，圆形一定能铺满整屏。
+  const radius = Math.hypot(
+    Math.max(x, window.innerWidth - x),
+    Math.max(y, window.innerHeight - y),
+  )
+  const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`]
+
+  const transition = doc.startViewTransition(async () => {
+    isDark.value = !isDark.value
+    await nextTick()
+  })
+  await transition.ready
+  document.documentElement.animate(
+    { clipPath: isDark.value ? clipPath.reverse() : clipPath },
+    {
+      duration: 300,
+      easing: 'ease-in',
+      // `fill: 'forwards'` 不能省。WAAPI 的 fill 默认是 'none'，动画一结束 clip-path
+      // 就不再生效，而变深色时被擦的「旧」快照正压在 z-index 9999 上，clip 失效的那一帧
+      // 会把整屏变回浅色 → 就是切换时那道白屏闪烁。forwards 让终值（circle(0px)）保持到
+      // 过渡被拆掉为止（Teek 的实现同样带了这个参数）。
+      fill: 'forwards',
+      // 变深色时 `.dark` 已经把旧快照抬到最上，所以擦「旧」快照（圆往点击点收）；
+      // 变浅色时反过来擦「新」快照（圆从点击点铺开）。层级的解释见 tailwind.css。
+      pseudoElement: `::view-transition-${isDark.value ? 'old' : 'new'}(root)`,
+    },
+  )
+})
 
 // VitePress 1.6.4 also runs the router hooks for the first page, so this only
 // covers the case where it does not; `Fancybox.bind` is idempotent per selector,

@@ -98,7 +98,7 @@ onMounted(() => {
 
 <template>
   <div class="mb-6">
-    <h1 class="text-text1 mb-8 text-2xl! font-bold!">文章列表<span class="text-text3 ml-2 text-base">- {{ currentCount }}篇</span></h1>
+    <h1 class="text-text1 mt-8! mb-8 text-2xl! font-bold!">文章列表<span class="text-text3 ml-2 text-base">- {{ currentCount }}篇</span></h1>
 
     <div
       class="bg-bg shadow-shadow relative mt-6 flex flex-wrap items-center gap-1 rounded-2xl p-4 shadow-xs"
