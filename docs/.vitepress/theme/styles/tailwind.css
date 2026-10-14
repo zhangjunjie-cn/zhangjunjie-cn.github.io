@@ -797,6 +797,77 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
+   横幅页的导航栏：仿 `https://vp.teek.top/resources/case.html` —— 停在顶部时整条
+   透明、字转白（下面压着 500px 的深色横幅），一下滑就变回普通栏（浅色下
+   `--vp-c-bg` 白底 + 常规文字色，即「白底黑字」）。
+
+   `Layout.vue` 在有 `banner` frontmatter 的页面上给外壳挂 `site-shell--over-banner`；
+   状态复用默认主题本来就会挂的 `.top` 类（它等于 `window.scrollY === 0`，与首页
+   那套「顶部透明」判据完全一致），所以这里不需要自己写滚动监听。
+
+   只改这几个自定义属性、不去抢 `background-color`：默认主题的相关规则都带
+   `[data-v-…]`（案例页上最高到 (0,6,0)），直接盖既难又脆；而这些规则取的正是
+   `--vp-nav-bg-color`（底色）/ `--vp-c-gutter`（分隔线）/ `--vp-c-text-1/2/3`
+   （文字），把变量在本元素上重写一遍即可 —— 规则原样胜出，只是解析出来的值变了。
+   透明↔不透明的渐变仍由 `.VPNavBar` 自己的 `transition: background-color .25s` 完成。
+
+   `:not(.screen-open)` 是留给窄屏的：那时点开的是全屏抽屉，导航栏本身该保持不透明，
+   别被顶部的透明态带走。
+   --------------------------------------------------------------------------- */
+
+.site-shell--over-banner .VPNavBar.top:not(.screen-open) {
+  --vp-nav-bg-color: transparent;
+  --vp-c-gutter: transparent;
+  --vp-c-text-1: #fff;
+  --vp-c-text-2: rgba(255, 255, 255, 0.85);
+  --vp-c-text-3: rgba(255, 255, 255, 0.7);
+  /* 菜单项的悬停/当前项取自 `--vp-c-brand-1`，压在深色横幅上时也一并转白。 */
+  --vp-c-brand-1: #fff;
+}
+
+/* ---------------------------------------------------------------------------
+   自定义外壳里的导航栏：把「有侧栏」样式留下的两处破绽补上。
+
+   这些页面（`/pages/tags`、`/pages/posts`、`/pages/case`、`/travel/**`）都会被默认
+   主题判成「有侧栏页面」：`useSidebar().hasSidebar` 只看
+   `frontmatter.sidebar !== false && sidebar.length > 0 && layout !== 'home'`，而
+   本项目 `themeConfig.sidebar` 是 `generateSidebar()` 返回的**数组** ——
+   `getSidebar()` 遇到数组时 `return addBase(_sidebar)`，不做路径过滤，于是任何
+   非 home 页的 `sidebar.length` 都非空。结果是 `VPNavBar` 带上 `has-sidebar`、按
+   「有侧栏」那套几何渲染，可自定义外壳里根本没有 `.VPSidebar`：
+
+   ① ≥960px 时 `VPNavBar` 自身恒为 `background-color: transparent`，不透明底色只
+      由 `.content-body` 提供；而 `.content` 的 `padding-left: var(--vp-sidebar-width)`
+      （左，~272px）与 `padding-right: 32px`（右）两条带子，默认主题是留给
+      `.VPSidebar`（z-index 25，压在 nav 的 30 之下）去补的 —— 没了它就永远透明，
+      下滑时正文从导航栏底下透出来。这里把底色直接给 `.VPNavBar` 自己，左右两条
+      带子一并盖住。
+   ② 底边线被拆成两截：`.VPNavBar.has-sidebar .divider` 带
+      `padding-left: var(--vp-sidebar-width)`，右侧那截从 272px 才开始；左半边则由
+      `.VPNavBarTitle.has-sidebar .title` 的 `border-bottom: 1px solid var(--vp-c-divider)`
+      来补。`.divider` 现在满宽，那条半截线就是多余的了。
+
+   横幅页（`/pages/case`，外壳另挂 `site-shell--over-banner`）的顶部透明态不受影响
+   —— 上面那套规则改的是 `--vp-nav-bg-color` 的**值**，这里照样取该变量；顶部时它
+   解析成 `transparent`，下滑后恢复成 `var(--vp-c-bg)`。
+
+   类名重复一次把优先级抬到 (0,4,0) / (0,5,0)，稳压默认主题那几条带 `[data-v-…]`
+   的规则（最高 (0,4,0)），不必动用 `!important`。
+   --------------------------------------------------------------------------- */
+
+.site-shell .VPNavBar.VPNavBar.has-sidebar {
+  background-color: var(--vp-nav-bg-color);
+}
+
+.site-shell .VPNavBar.VPNavBar.has-sidebar .divider {
+  padding-left: 0;
+}
+
+.site-shell .VPNavBarTitle.VPNavBarTitle.has-sidebar .title {
+  border-bottom-color: transparent;
+}
+
+/* ---------------------------------------------------------------------------
    文章卡片的图标（.article-glyph）。
    `tagIcons` 里的 SVG 是按 16px 行内胶囊的尺寸写的（`mr-1 h-4 w-4`）；同一枚
    图标放进卡片时按源站的尺寸还原：ArticleCard 的 24px 盒子（源站 `h-6 w-6`）

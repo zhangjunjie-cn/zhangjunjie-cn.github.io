@@ -62,6 +62,14 @@ const isCustomPage = computed(() =>
   (CUSTOM_LAYOUTS as readonly string[]).includes(layout.value),
 )
 
+// Banner pages (currently just `/pages/case`) put a 500px hero right under the
+// fixed navbar. There the navbar should start fully transparent — white text
+// sitting on the banner — and turn into the ordinary opaque bar as soon as the
+// page scrolls, the way Teek's own navbar does on its case page. The `banner`
+// frontmatter is the signal; the styling lives in the `site-shell--over-banner`
+// block of `styles/tailwind.css`.
+const overBanner = computed(() => Boolean(frontmatter.value.banner))
+
 // VitePress 1.6.4 also runs the router hooks for the first page, so this only
 // covers the case where it does not; `Fancybox.bind` is idempotent per selector,
 // so binding twice costs nothing.
@@ -70,7 +78,11 @@ onUnmounted(() => void destroyFancybox())
 </script>
 
 <template>
-  <div v-if="isCustomPage" class="site-shell bg-bg-soft flex min-h-screen flex-col">
+  <div
+    v-if="isCustomPage"
+    class="site-shell bg-bg-soft flex min-h-screen flex-col"
+    :class="{ 'site-shell--over-banner': overBanner }"
+  >
     <VPNav>
       <template #nav-bar-content-after><NolebaseEnhancedReadabilitiesMenu /></template>
       <template #nav-screen-content-after><NolebaseEnhancedReadabilitiesScreenMenu /></template>

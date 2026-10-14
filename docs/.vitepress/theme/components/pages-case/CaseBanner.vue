@@ -17,14 +17,17 @@ import {
  * forever).
  *
  * Everything comes from the page's frontmatter, the way Teek drives it from the
- * markdown's own frontmatter. Geometry, colours and the animation were read off
- * the source with CDP `CSS.getMatchedStylesForNode`; the declarations live in
+ * markdown's own frontmatter. Geometry, colours and the animation were read off the
+ * source with CDP `CSS.getMatchedStylesForNode`; the declarations live in
  * `theme/styles/tailwind.css` under the `tk-article-banner` / `tk-banner-waves` /
  * `tk-article-analyze` blocks, with Teek's `--tk-*` tokens resolved to literals.
  *
- * Deviations from the source: this banner sits right under the project's fixed
- * navbar (which is now VitePress's own, always opaque) instead of underneath a
- * transparent one, so the top 64px of the 500px hero is covered.
+ * The 500px hero runs right up to the top of the viewport, under the fixed
+ * navbar — which on this page starts transparent with white text (the
+ * `site-shell--over-banner` block in `styles/tailwind.css`), matching the
+ * source, and only turns opaque as the page scrolls. `-mt-[88px] / lg:-mt-24` in
+ * CaseContent cancels the shell's `pt-16` plus `#main`'s padding so the hero
+ * really does start at y = 0.
  */
 type BannerArticle = {
   author: string
