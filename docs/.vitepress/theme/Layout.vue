@@ -11,6 +11,7 @@ import {
 } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 
 import { bindFancybox, destroyFancybox } from './components/ImgViewer'
+import { bindPrompts, destroyPrompts } from './components/Prompt'
 import HomeContent from './components/HomeContent.vue'
 import CaseContent from './components/pages-case/CaseContent.vue'
 import PostFooter from './components/PostFooter.vue'
@@ -137,9 +138,16 @@ provide('toggle-appearance', async (event: MouseEvent) => {
 
 // VitePress 1.6.4 also runs the router hooks for the first page, so this only
 // covers the case where it does not; `Fancybox.bind` is idempotent per selector,
-// so binding twice costs nothing.
-onMounted(() => bindFancybox())
-onUnmounted(() => void destroyFancybox())
+// so binding twice costs nothing. Same for the Prompt cards — that one is *not*
+// idempotent (it owns a timer), so `bindPrompts` clears the previous run first.
+onMounted(() => {
+  bindFancybox()
+  bindPrompts()
+})
+onUnmounted(() => {
+  void destroyFancybox()
+  destroyPrompts()
+})
 </script>
 
 <template>

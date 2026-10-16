@@ -8,6 +8,7 @@ import vueComponents from 'unplugin-vue-components/vite'
 import compression from 'vite-plugin-compression'
 import { generateSidebar } from 'vitepress-sidebar'
 import type { Plugin } from 'vite'
+import { registerRspressContainers } from './theme/rspress/containers'
 
 /**
  * Nav menu, verbatim from the original (extraction.json → navLinks + page.html).
@@ -218,7 +219,7 @@ async function compressHtml(siteConfig: SiteConfig): Promise<void> {
 
 export default defineConfig({
   lang: 'zh-CN',
-  title: '唯知笔记',
+  title: '俊杰笔记',
   description: '在这里，我们分享技术、探索AI，一起漫游科技未来与生活百态1',
   // 文章页标题形如「腾讯Agent Mail开测！速抢ID - 唯知笔记」；
   // 首页在 index.md 里用 `titleTemplate: false` 关掉后缀，保持「唯知笔记」。
@@ -249,6 +250,10 @@ export default defineConfig({
   markdown: {
     // 原站每个代码块都带 `line-numbers-mode` + `line-numbers-wrapper`。
     lineNumbers: true,
+    // 容器语法换成 Rspress 那一套（`:::tip` / `:::tip 标题` / `:::tip{title="…"}` /
+    // `:::prompt`）。必须挂在 `preConfig`：VitePress 自带的容器插件在它之后才注册，
+    // 而 markdown-it 的 Ruler 取第一条命中的规则，先注册才压得住同名的 `::: tip`。
+    preConfig: registerRspressContainers,
   },
   // 渲染结束后补压 HTML（见上面的 `compressHtml`）。
   buildEnd: compressHtml,

@@ -1,6 +1,6 @@
 ---
 layout: home
-title: 唯知笔记
+title: 俊杰笔记
 titleTemplate: false
 description: 在这里，我们分享技术、探索AI，一起漫游科技未来与生活百态1
 ---

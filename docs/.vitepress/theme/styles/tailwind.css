@@ -1498,5 +1498,569 @@ html {
   z-index: 9999;
 }
 
+/* --- Rspress 风格的容器（callout）与 Prompt 卡片 ------------------------------ */
+/* 语法与 DOM 见 `theme/rspress/containers.ts`，客户端行为见 `theme/components/Prompt.ts`。
+   样式照搬 rspress.rs（`https://rspress.rs/static/css/styles.*.css`），只有「页面底色 /
+   正文色」这两个 token 映射到本站自己的取值 —— 它们在 Rspress 那边本来就是它自己页面
+   的底色和正文色，直接抄 hex 反而会和本站明暗两套配色打架。其余（八种类型的强调色、
+   圆角、间距、Prompt 那圈渐变环与光晕）都是原值。
+
+   这里有两点是刻意的：
+   1. 不再输出 VitePress 的 `custom-block` 系列 class，默认主题那套「左侧彩条 + 整块
+      浅色字」的外观因此完全不参与，不用逐条去覆盖它。
+   2. 这段写在文件末尾、且未分层，所以稳压默认主题 `base.css` 里那些未分层的规则。 */
+
+:root {
+  --rp-radius: 1rem;
+  --rp-c-bg: var(--site-bg);
+  --rp-c-bg-soft: var(--site-bg-soft);
+  --rp-c-bg-mute: #f1f1f1;
+  --rp-c-divider: color-mix(in srgb, var(--site-text1) 25%, transparent);
+  --rp-c-divider-light: color-mix(in srgb, var(--site-text1) 12%, transparent);
+  --rp-c-text-0: var(--site-text1);
+  --rp-c-text-1: var(--site-text1);
+  --rp-c-text-2: var(--site-text2);
+  --rp-c-text-3: var(--site-text3);
+  --rp-c-brand: var(--site-main);
+  --rp-c-brand-light: var(--site-main);
+  --rp-c-brand-dark: var(--main-color-dark);
+  --rp-font-family-mono: var(--vp-font-family-mono);
+
+  /* 八种类型的色板（浅色）。变量名沿用 Rspress 的 `--rp-container-*` 命名。 */
+  --rp-container-note-border: var(--rp-c-divider-light);
+  --rp-container-note-text: var(--rp-c-text-1);
+  --rp-container-note-bg: var(--rp-c-bg-soft);
+  --rp-container-note-code-bg: #8080801a;
+  --rp-container-tip-border: #079c7033;
+  --rp-container-tip-text: #008555;
+  --rp-container-tip-bg: #f2f9f7;
+  --rp-container-tip-code-bg: #079c701a;
+  --rp-container-info-border: #0095ff33;
+  --rp-container-info-text: #07f;
+  --rp-container-info-bg: #0095ff0f;
+  --rp-container-info-code-bg: #0095ff1a;
+  --rp-container-important-border: #8957e54d;
+  --rp-container-important-text: #8250df;
+  --rp-container-important-bg: #8957e514;
+  --rp-container-important-code-bg: #8957e51a;
+  --rp-container-warning-border: #ffc51766;
+  --rp-container-warning-text: #887233;
+  --rp-container-warning-bg: #ffc5171a;
+  --rp-container-warning-code-bg: #ffc5171a;
+  --rp-container-danger-border: #ed3c5033;
+  --rp-container-danger-text: #ab2131;
+  --rp-container-danger-bg: #ed3c5014;
+  --rp-container-danger-code-bg: #ed3c501a;
+}
+
+.dark {
+  --rp-c-bg-mute: #343a46;
+
+  /* 暗色只覆盖 Rspress 自己覆盖过的那几个；note / details 走 `--rp-c-*`，随本站暗色 token 走。 */
+  --rp-container-tip-text: #3ec480;
+  --rp-container-tip-bg: #079c701a;
+  --rp-container-info-text: #66c2ff;
+  --rp-container-info-bg: #0095ff1a;
+  --rp-container-important-text: #b083f0;
+  --rp-container-important-border: #8957e559;
+  --rp-container-important-bg: #8957e51f;
+  --rp-container-warning-text: #fbb451;
+  --rp-container-warning-border: #ffc51740;
+  --rp-container-warning-bg: #ffc5171f;
+  --rp-container-danger-text: #f76e85;
+  --rp-container-danger-border: #ed3c504d;
+  --rp-container-danger-bg: #ed3c501f;
+}
+
+/* 每种类型只声明这四个变量，具体规则共用；`--rpc-*` 由 `.rp-callout` 兜底为 note。 */
+.rp-callout {
+  --rpc-border: var(--rp-container-note-border);
+  --rpc-text: var(--rp-container-note-text);
+  --rpc-bg: var(--rp-container-note-bg);
+  --rpc-code-bg: var(--rp-container-note-code-bg);
+
+  margin: 24px 0;
+  padding: 20px 24px 12px;
+  border: 1px solid var(--rpc-border);
+  border-radius: var(--rp-radius);
+  background-color: var(--rpc-bg);
+  color: var(--rp-c-text-1);
+}
+
+.rp-callout--tip {
+  --rpc-border: var(--rp-container-tip-border);
+  --rpc-text: var(--rp-container-tip-text);
+  --rpc-bg: var(--rp-container-tip-bg);
+  --rpc-code-bg: var(--rp-container-tip-code-bg);
+}
+
+.rp-callout--info {
+  --rpc-border: var(--rp-container-info-border);
+  --rpc-text: var(--rp-container-info-text);
+  --rpc-bg: var(--rp-container-info-bg);
+  --rpc-code-bg: var(--rp-container-info-code-bg);
+}
+
+.rp-callout--important {
+  --rpc-border: var(--rp-container-important-border);
+  --rpc-text: var(--rp-container-important-text);
+  --rpc-bg: var(--rp-container-important-bg);
+  --rpc-code-bg: var(--rp-container-important-code-bg);
+}
+
+.rp-callout--warning {
+  --rpc-border: var(--rp-container-warning-border);
+  --rpc-text: var(--rp-container-warning-text);
+  --rpc-bg: var(--rp-container-warning-bg);
+  --rpc-code-bg: var(--rp-container-warning-code-bg);
+}
+
+/* Rspress 里 caution 与 danger 共用一套变量，这里也一样。 */
+.rp-callout--danger,
+.rp-callout--caution {
+  --rpc-border: var(--rp-container-danger-border);
+  --rpc-text: var(--rp-container-danger-text);
+  --rpc-bg: var(--rp-container-danger-bg);
+  --rpc-code-bg: var(--rp-container-danger-code-bg);
+}
+
+/* 标题旁那根 4px 圆角竖条：`left: -24px` 正好落在容器的 padding-left 外沿上，
+   `currentColor` 就是本类型的强调色（标题颜色在上面按类型定好了）。 */
+.rp-callout__title {
+  position: relative;
+  margin-bottom: 8px;
+  color: var(--rpc-text);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.rp-callout__title::before {
+  content: "";
+  position: absolute;
+  top: -5%;
+  left: -24px;
+  width: 4px;
+  height: 110%;
+  border-radius: 0 20px 20px 0;
+  background-color: currentColor;
+}
+
+.rp-callout__content {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.rp-callout__content p {
+  margin: 8px 0;
+}
+
+.rp-callout__content a {
+  color: var(--rpc-text);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.rp-callout__content a:hover {
+  opacity: 0.85;
+}
+
+.rp-callout__content :not(pre) > code {
+  color: var(--rpc-text);
+  background-color: var(--rpc-code-bg);
+}
+
+/* 只给 `<details>` 留手型光标（它本身可点）。原站那条
+   `.rp-callout:hover{background-color:var(--rp-c-bg-mute)}` 按需求去掉，悬浮不再换底色。 */
+details.rp-callout {
+  cursor: pointer;
+}
+
+/* --- Steps（分步说明） ------------------------------------------------------ */
+/* 语法见 `theme/rspress/containers.ts`（`:::steps`）：容器里的 h2–h6 各算一步。
+   样式照搬 rspress.rs 的 `.rp-steps` —— 左侧一条竖线，序号用 CSS `counter` 生成，
+   圆点外那圈 `outline`（页面底色）把竖线盖断，看起来就像线穿珠子。 */
+
+.rp-steps {
+  --rp-steps-gap: 24px;
+  --rp-steps-size: 30px;
+  --rp-steps-offset-y: 4px;
+
+  margin: 0 0 2.5rem 1rem;
+  padding-left: var(--rp-steps-gap);
+  border-left: 1px solid var(--rp-c-text-3);
+  counter-reset: step;
+}
+
+.rp-steps > :is(h2, h3, h4, h5, h6) {
+  position: relative;
+  min-height: var(--rp-steps-size);
+  /* VitePress 的 h2 自带一条上边框和 24px 上内边距，在步骤标题上要去掉。 */
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+  counter-increment: step;
+}
+
+.rp-steps > :is(h2, h3, h4, h5, h6)::before {
+  content: counter(step);
+  position: absolute;
+  top: calc(var(--rp-steps-size) / 2 + var(--rp-steps-offset-y));
+  left: calc(-1 * var(--rp-steps-gap));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--rp-steps-size);
+  height: var(--rp-steps-size);
+  outline: 6px solid var(--rp-c-bg);
+  border: 1.5px solid var(--rp-c-text-3);
+  border-radius: 50%;
+  background-color: var(--rp-c-bg);
+  color: var(--rp-c-text-1);
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: var(--rp-steps-size);
+  transform: translate(-50%, -50%);
+}
+
+/* 标题上的锚点（VitePress 也叫 `.header-anchor`）挪到序号圆点左边。 */
+.rp-steps > :is(h2, h3, h4, h5, h6) .header-anchor {
+  position: absolute;
+  top: calc(var(--rp-steps-size) / 2 + var(--rp-steps-offset-y));
+  left: calc(-1 * var(--rp-steps-gap) - var(--rp-steps-size) / 2);
+  transform: translateY(-50%);
+}
+
+/* --- Prompt 卡片 ---------------------------------------------------------- */
+
+.rp-prompt {
+  position: relative;
+  /* 那圈彩边就是 1px 的 padding + 根节点自己的背景色，面板盖住内部。 */
+  padding: 1px;
+  border-radius: calc(var(--rp-radius) + 6px);
+  background: color-mix(in srgb, var(--rp-prompt-accent, var(--rp-c-brand)) 40%, transparent);
+  isolation: isolate;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.rp-prompt:active {
+  transform: scale(0.996);
+  transition: transform 0.15s;
+}
+
+.rp-prompt__backdrop {
+  position: absolute;
+  inset: -20%;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at top left,
+      color-mix(in srgb, var(--rp-prompt-accent, var(--rp-c-brand-light)) 26%, transparent),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at right center,
+      color-mix(in srgb, var(--rp-prompt-accent, #8b5cf6) 20%, transparent),
+      transparent 44%
+    );
+  filter: blur(24px);
+  opacity: 0.9;
+  transition: background 0.3s;
+}
+
+.rp-prompt__panel {
+  position: relative;
+  padding: 1rem;
+  border-radius: calc(var(--rp-radius) + 5px);
+  background: color-mix(in srgb, var(--rp-c-bg) 92%, transparent);
+  backdrop-filter: blur(12px);
+  color: var(--rp-c-text-1);
+}
+
+.rp-prompt__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.rp-prompt__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: max-content;
+  padding: 0.25rem 0.5rem 0.25rem 0.625rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--rp-prompt-accent, var(--rp-c-brand-light)) 12%, var(--rp-c-bg));
+  transition:
+    border-color 0.3s,
+    background-color 0.3s;
+}
+
+.rp-prompt__meta--copied {
+  background: color-mix(in srgb, var(--rp-prompt-accent, var(--rp-c-brand-light)) 16%, var(--rp-c-bg));
+}
+
+.rp-prompt__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--rp-prompt-accent, var(--rp-c-brand-dark));
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.rp-prompt__icon {
+  display: inline-flex;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition:
+    opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rp-prompt__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.rp-prompt__icon--fade-out {
+  opacity: 0;
+  transform: scale(0.85) translateY(3px);
+}
+
+.rp-prompt__header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.rp-prompt__header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  min-width: 0;
+}
+
+.rp-prompt__title-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rp-prompt__title {
+  color: var(--rp-c-text-0);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.rp-prompt__description {
+  max-width: 65ch;
+  margin: 0.375rem 0 0;
+  color: var(--rp-c-text-2);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.rp-prompt__header-actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rp-prompt__action-copy,
+.rp-prompt__action-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  height: 2.25rem;
+  padding: 0 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--rp-c-divider) 55%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--rp-c-bg) 80%, transparent);
+  color: var(--rp-c-text-1);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.rp-prompt__action-copy:hover,
+.rp-prompt__action-toggle:hover {
+  border-color: color-mix(in srgb, var(--rp-prompt-accent, var(--rp-c-brand-light)) 50%, transparent);
+  background-color: color-mix(
+    in srgb,
+    var(--rp-prompt-accent, var(--rp-c-brand-light)) 10%,
+    var(--rp-c-bg)
+  );
+}
+
+.rp-prompt__action-copy:focus-visible,
+.rp-prompt__action-toggle:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--rp-prompt-accent, var(--rp-c-brand-light)) 65%, transparent);
+  outline-offset: 2px;
+}
+
+.rp-prompt__action-icon {
+  flex: none;
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+/* 按钮按下时不跟着卡片一起缩（原站就是这么抵消 `.rp-prompt:active` 的）。 */
+.rp-prompt__action-copy:active,
+.rp-prompt__action-toggle:active {
+  transform: none;
+}
+
+.rp-prompt__action-copy {
+  width: 8.75rem;
+  border-color: color-mix(in srgb, var(--rp-prompt-accent, var(--rp-c-brand-light)) 28%, transparent);
+  background: color-mix(in srgb, var(--rp-prompt-accent, var(--rp-c-brand-light)) 8%, var(--rp-c-bg));
+  color: var(--rp-prompt-accent, var(--rp-c-brand-dark));
+}
+
+.rp-prompt__action-copy:hover {
+  background: color-mix(in srgb, var(--rp-prompt-accent, var(--rp-c-brand-light)) 16%, var(--rp-c-bg));
+}
+
+.rp-prompt__action-copy--copied {
+  border-color: color-mix(in srgb, var(--rp-prompt-accent, var(--rp-c-brand-light)) 45%, transparent);
+  background: color-mix(in srgb, var(--rp-prompt-accent, var(--rp-c-brand-light)) 16%, var(--rp-c-bg));
+}
+
+.rp-prompt__action-toggle {
+  width: 2.25rem;
+  padding: 0;
+  border-color: color-mix(in srgb, var(--rp-prompt-accent, var(--rp-c-brand-light)) 28%, transparent);
+  background: color-mix(in srgb, var(--rp-prompt-accent, var(--rp-c-brand-light)) 8%, var(--rp-c-bg));
+  color: var(--rp-prompt-accent, var(--rp-c-brand-dark));
+}
+
+.rp-prompt__action-toggle:hover {
+  background: color-mix(in srgb, var(--rp-prompt-accent, var(--rp-c-brand-light)) 16%, var(--rp-c-bg));
+}
+
+.rp-prompt__action-toggle-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  transition: transform 0.25s;
+}
+
+.rp-prompt__action-toggle-icon--expanded {
+  transform: rotate(180deg);
+}
+
+/* 折叠动画：`grid-template-rows` 从 `1fr` 收到 `0fr`，比量 `max-height` 稳。 */
+.rp-prompt__content {
+  display: grid;
+  grid-template-rows: 1fr;
+  margin-top: 1rem;
+  transition: grid-template-rows 0.28s;
+}
+
+.rp-prompt__content--collapsed {
+  grid-template-rows: 0fr;
+}
+
+.rp-prompt__content-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.rp-prompt__content-body {
+  position: relative;
+  padding: 1rem 1.125rem;
+  border: 1px solid color-mix(in srgb, var(--rp-c-divider-light) 90%, transparent);
+  border-radius: calc(var(--rp-radius) - 2px);
+  background: color-mix(in srgb, var(--rp-c-bg) 94%, transparent);
+  color: var(--rp-c-text-1);
+  font-family: var(--rp-font-family-mono);
+  font-size: 0.92rem;
+  line-height: 1.8;
+}
+
+/* `:::prompt{custom}` —— Rspress 的 `<Prompt custom>`：只有眉标与外框，正文是普通
+   容器内容（`components/Prompt.ts` 因此不给它挂复制/折叠/波纹），也不整卡缩放。 */
+.rp-prompt--custom {
+  cursor: default;
+}
+
+.rp-prompt--custom:active {
+  transform: none;
+}
+
+.rp-prompt__custom-content {
+  margin-top: 1rem;
+  color: var(--rp-c-text-1);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.rp-prompt__custom-content p,
+.rp-prompt__custom-content :where(ul, ol, pre, blockquote) {
+  margin: 8px 0;
+}
+
+.rp-prompt__custom-content :where(ul, ol) {
+  padding-left: 1.25rem;
+}
+
+.rp-prompt__custom-content a {
+  color: var(--rp-prompt-accent, var(--rp-c-brand-dark));
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.rp-prompt__custom-content a > code,
+.rp-prompt__custom-content a:hover > code {
+  color: inherit;
+}
+
+.rp-prompt__custom-content > :first-child {
+  margin-top: 0;
+}
+
+.rp-prompt__custom-content > :last-child {
+  margin-bottom: 0;
+}
+
+/* 点击处的波纹。`left` / `top` 由 `Prompt.ts` 按点击坐标写进来。 */
+.rp-prompt__ripple {
+  position: absolute;
+  z-index: 10;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--rp-prompt-accent, var(--rp-c-brand-light)) 40%, transparent);
+  pointer-events: none;
+  transform: scale(0);
+  animation: rp-prompt-ripple 0.6s linear;
+}
+
+@keyframes rp-prompt-ripple {
+  to {
+    opacity: 0;
+    transform: scale(5);
+  }
+}
+
 
 

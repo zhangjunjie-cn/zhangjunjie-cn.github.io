@@ -3,6 +3,7 @@ import { inBrowser } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
 import { bindFancybox, destroyFancybox } from './components/ImgViewer'
+import { bindPrompts, destroyPrompts } from './components/Prompt'
 import Layout from './Layout.vue'
 // 放在本项目样式之前：插件的 unocss 样式先加载，本站未分层的覆盖规则仍然能压过它。
 import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
@@ -37,8 +38,14 @@ export default {
     // click listener. Left un-awaited, that teardown can resolve after the next
     // page has already bound and leave the gallery click-dead.
     if (inBrowser) {
-      router.onBeforeRouteChange = () => destroyFancybox()
-      router.onAfterRouteChange = () => bindFancybox()
+      router.onBeforeRouteChange = () => {
+        destroyPrompts()
+        return destroyFancybox()
+      }
+      router.onAfterRouteChange = () => {
+        bindFancybox()
+        bindPrompts()
+      }
     }
   },
 } satisfies Theme

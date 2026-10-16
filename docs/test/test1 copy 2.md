@@ -222,3 +222,88 @@ https://agent.qq.com
 如果你平时已经在用 Codex、Claude Code、Cursor、Kimi Work、豆包超能模式这类 Agent，我觉得值得。哪怕暂时只用来测试，也可以先把自己的 Agent 邮箱 ID 占住。
 
 邮箱本身看起来只是一个地址，但一旦 Agent 能稳定收发邮件，它就不只是聊天窗口里的助手，而是可以进入真实工作流的协作者了。
+
+## 容器语法（Rspress 风格）
+
+八种类型，语法与 [Rspress 的 Callout](https://rspress.rs/zh/ui/components/callout) 一致：
+`:::tip`、`:::tip 自定义标题`、`:::tip{title="自定义标题"}`，嵌套用更多的冒号（`::::`）。
+
+:::note
+`note`：默认标题就是类型名首字母大写，这里还带了行内 `code` 和[链接](#容器语法rspress-风格)。
+:::
+
+:::tip
+`tip`：提示。
+:::
+
+:::tip{title="**自定义**标题"}
+标题支持行内 markdown。
+:::
+
+:::important
+`important`：重要。
+:::
+
+:::info
+`info`：信息。
+:::
+
+:::warning
+`warning`：警告。
+:::
+
+:::danger
+`danger`：危险。
+:::
+
+:::caution
+`caution`：注意。Rspress 里它和 `danger` 共用一套配色。
+:::
+
+:::details 展开查看
+`details`：可折叠。
+:::
+
+### Prompt 卡片
+
+:::prompt{title="一键创建 Rspress 项目" description="复制这段 Prompt 发送给你的 AI Agent，它会自动帮你搭建一个全新的 Rspress 站点。"}
+按照官方快速开始指南 https://rspress.rs/guide/start/getting-started.md
+创建一个 Rspress 项目。
+
+1. 使用 `create rspress@latest` 初始化项目。
+2. 安装依赖。
+3. 启动开发服务器。
+4. 确认页面正常渲染。
+:::
+
+
+`{custom}` 形态（对应 Rspress 的 `<Prompt custom>`）：只有眉标与外框，没有复制与展开按钮，
+正文按 markdown 渲染。
+
+:::prompt{custom}
+
+**hello** world
+
+:::
+
+### Steps 分步说明
+
+对应 Rspress 的 `<Steps>`：容器里的 `##`–`######` 直属标题各开启一步，标题下的内容
+就是这一步的正文。
+
+:::steps
+
+### 第一步
+
+第一步的内容。
+
+### 第二步
+
+> 第二步的内容。
+
+### 第三步
+
+1. 列表也可以。
+2. 行内 `code` 与[链接](#steps-分步说明)都正常。
+
+:::
