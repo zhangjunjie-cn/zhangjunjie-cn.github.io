@@ -234,6 +234,12 @@ export default defineConfig({
   // 文章 frontmatter 里的 `lastUpdated`（Date）优先于 git 提交时间，见
   // node/…/chunk: `if (frontmatter.lastUpdated instanceof Date) pageData.lastUpdated = +…`。
   lastUpdated: true,
+  // Sitemap：构建时输出 /sitemap.xml。hostname 是对外域名、末尾不带斜杠
+  // （生成器按 `${hostname}${pagePath}` 拼绝对地址）；`cleanUrls` 已开，
+  // 因此条目里都是无 .html 后缀的干净 URL。
+  sitemap: {
+    hostname: 'https://zhangjunjiee.netlify.app',
+  },
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
     [

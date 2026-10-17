@@ -12,6 +12,8 @@ import {
 
 import { bindFancybox, destroyFancybox } from './components/ImgViewer'
 import { bindPrompts, destroyPrompts } from './components/Prompt'
+import BlogBackground from './components/BlogBackground.vue'
+import RstackMenu from './components/RstackMenu.vue'
 import HomeContent from './components/HomeContent.vue'
 import CaseContent from './components/pages-case/CaseContent.vue'
 import PostFooter from './components/PostFooter.vue'
@@ -157,6 +159,7 @@ onUnmounted(() => {
     :class="{ 'site-shell--over-banner': overBanner }"
   >
     <VPNav>
+      <template #nav-bar-title-before><RstackMenu /></template>
       <template #nav-bar-content-after><NolebaseEnhancedReadabilitiesMenu /></template>
       <template #nav-screen-content-after><NolebaseEnhancedReadabilitiesScreenMenu /></template>
     </VPNav>
@@ -172,12 +175,28 @@ onUnmounted(() => {
       </main>
     </div>
 
+    <!-- 首页底部插画：和 vp.teek.top 页脚那张一样的那排动物。图片底部压进页脚 20px，
+         爪子落在更白的页脚（bg-bg）上。放在 #main 之外，免得 #main 路由入场动画的
+         `transform` 把自己变成层叠上下文、把这层 z-index 困在里面被页脚盖住。 -->
+    <p v-if="layout === 'home'" class="home-animals">
+      <img
+        src="/sites/vp.teek.top-a50b27f5/root-8a5edab2/images/animals.webp"
+        alt=""
+        width="750"
+        height="80"
+        loading="lazy"
+      />
+    </p>
+
     <SiteFooter />
   </div>
 
   <DefaultTheme.Layout v-else>
+    <template #nav-bar-title-before><RstackMenu /></template>
     <template #nav-bar-content-after><NolebaseEnhancedReadabilitiesMenu /></template>
     <template #nav-screen-content-after><NolebaseEnhancedReadabilitiesScreenMenu /></template>
+    <!-- `doc-top` 落在 `.VPDoc` 的最上面（内容之前），背景层因此只铺在文档页。 -->
+    <template #doc-top><BlogBackground /></template>
     <template #doc-footer-before><PostFooter /></template>
   </DefaultTheme.Layout>
 </template>

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# VitePress 构建时生成的站点地图（搜索引擎靠这一行发现 sitemap）
+Sitemap: https://zhangjunjiee.netlify.app/sitemap.xml

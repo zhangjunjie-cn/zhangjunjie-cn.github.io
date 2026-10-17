@@ -2062,5 +2062,310 @@ details.rp-callout {
   }
 }
 
+/* ---------------------------------------------------------------------------
+   Rstack 导航按钮与弹层 —— 复刻 rspress.rs 导航栏最左侧那个点阵按钮。
+
+   原站结构（见 `theme/components/RstackMenu.vue` 的注释）：
+     .root-nhoLZk   按钮外层，右侧一条 24px 高的竖分隔线，把按钮和站点 logo 隔开
+     .wrapper-u2FzAf 36×36 的圆形按钮，悬浮换底色
+     .ant-popover-content  弹层本体（antd Popover，placement=bottomLeft、无箭头）
+
+   颜色沿用站点已有的 Rspress token（`--rp-c-*`），暗色下的 `--rp-c-bg-mute` /
+   `--rp-c-bg-soft` 在文件开头的 `.dark` 块里已经换过值，这里不用重复写。
+   --------------------------------------------------------------------------- */
+
+.rp-stack {
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
+  padding-right: 20px;
+}
+
+/* 那条 24px 高的竖分隔线，把按钮和站点 logo 隔开。 */
+.rp-stack::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  display: block;
+  width: 1px;
+  height: 24px;
+  background-color: var(--rp-c-divider-light);
+  transform: translateY(-50%);
+}
+
+/* 按钮常显（不做显隐），只在悬浮时换底色。 */
+.rp-stack__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 99px;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.rp-stack__trigger:hover {
+  background-color: var(--rp-c-bg-mute);
+}
+
+/* 弹层。antd 那边是 552px 宽、左右各 28px 内边距，正好放下两个 240px 的卡片；
+   窄屏沿用原站的 `width: 80vw`。
+   位置不写在这里：弹层被 teleport 到 body 上（原站 antd Popover 也是挂在 body），
+   top / left 由组件按文档坐标实时写入，滚动时才能复刻原站「跟着抖一下」的表现。
+   出现 / 消失都走原站 antd 的 `zoom-big-fast`（bundle 里的 `antZoomBigIn` /
+   `antZoomBigOut`）：scale(0.8) ↔ 1 并淡入淡出；两条 0.1s 的曲线也照抄原站的 token ——
+   进入 `motionEaseOutCirc` = cubic-bezier(0.08, 0.82, 0.17, 1)，
+   消失 `motionEaseInOutCirc` = cubic-bezier(0.78, 0.14, 0.15, 0.86)。
+   缩放原点取弹层左上角（`0 0`）：弹层贴在按钮下方、左对齐，从左上角长出来最贴合按钮。
+   关键帧挂在 Vue `<Transition>` 的类上，进出各用各的曲线。 */
+@keyframes rp-stack-zoom-big-in {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes rp-stack-zoom-big-out {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+.rp-stack-zoom-enter-active,
+.rp-stack-zoom-appear-active {
+  animation: rp-stack-zoom-big-in 0.1s cubic-bezier(0.08, 0.82, 0.17, 1) both;
+}
+
+.rp-stack-zoom-leave-active {
+  animation: rp-stack-zoom-big-out 0.1s cubic-bezier(0.78, 0.14, 0.15, 0.86) both;
+}
+
+.rp-stack__panel {
+  position: absolute;
+  z-index: 999;
+  transform-origin: 0 0;
+  box-sizing: border-box;
+  width: 552px;
+  padding: 24px 28px 14px;
+  border-radius: 24px;
+  background-color: var(--rp-c-bg);
+  box-shadow:
+    0 6px 16px #00000014,
+    0 3px 6px -4px #0000001f,
+    0 9px 28px 8px #0000000d;
+  font-family: var(--font-sans);
+  /* 弹层现在挂在 body 上，但 `white-space` 是可继承属性，这里显式复位，
+     避免祖先带 `nowrap` 时卡片不再折行、挤成一行。 */
+  white-space: normal;
+}
+
+@media (max-width: 768px) {
+  .rp-stack__panel {
+    width: 80vw;
+  }
+}
+
+html.dark .rp-stack__panel {
+  background-color: var(--rp-c-bg-soft);
+}
+
+.rp-stack__header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #3c3c3c12;
+}
+
+html.dark .rp-stack__header {
+  border-color: #ffffff24;
+}
+
+.rp-stack__brand {
+  display: inline-flex;
+  align-items: center;
+  padding-left: 6px;
+  color: var(--rp-c-text-1);
+  font-size: 22px;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.rp-stack__brand:hover {
+  color: var(--rp-c-text-1);
+}
+
+.rp-stack__brand-logo {
+  width: 28px;
+  height: 28px;
+  margin-right: 12px;
+  object-fit: contain;
+}
+
+.rp-stack__brand-text {
+  margin-top: 1px;
+  font-weight: 600;
+}
+
+/* 卡片区：原站这里就是一个没有 class 的普通 div，卡片是 inline-flex，
+   靠 240px 的固定宽度自动折成两列（240 + 16 + 240 = 552 - 28 - 28）。 */
+.rp-stack__item {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 240px;
+  margin-bottom: 12px;
+  padding: 8px 0 8px 8px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.rp-stack__item:nth-child(odd) {
+  margin-right: 16px;
+}
+
+.rp-stack__item:hover {
+  background-color: var(--rp-c-bg-mute);
+}
+
+.rp-stack__item-logo {
+  width: 52px;
+  height: 52px;
+  margin-right: 20px;
+  object-fit: contain;
+}
+
+html.dark .rp-stack__item-logo {
+  opacity: 0.9;
+}
+
+.rp-stack__item-name {
+  color: var(--rp-c-text-1);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.rp-stack__item-desc {
+  margin-top: 4px;
+  color: #3c3c3c80;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+html.dark .rp-stack__item-desc {
+  color: #fff9;
+}
+
+/* ---------------------------------------------------------------------------
+   文档页背景 —— 复刻 rspress.rs/zh/blog/ 顶部那层「光晕 + 网格 + 流星」。
+
+   三个变量的值是原站 CSS 里的原样搬过来的（`blogBackground` / `glowBackground` /
+   `blogFrame` 三条规则各自引用的 `--rs-blog-*`）：光晕是一张 959×677 的双径向渐变
+   SVG（#ff8b00 与 #f93920，各自 15% 透明度），网格是一张 1200px 的贴片。
+   canvas 上那道流星由 `theme/components/BlogBackground.vue` 绘制。
+
+   `.VPDoc` 是 VitePress 文档页那层容器（侧边栏不在它里面），把背景挂到它上面。
+   背景层是 `position: fixed` 铺满视口的，滚动时不会跟着滑走；再用
+   `.container { z-index: 1 }` 把正文压上来 —— 不用负 z-index，避免被祖先的
+   层叠上下文吃掉。
+   --------------------------------------------------------------------------- */
+
+html:not(.dark) {
+  --rs-blog-list-frame-bg: linear-gradient(180deg, #0f172a05, transparent 72%),
+    linear-gradient(90deg, #0f172a06 1px, transparent 1px),
+    linear-gradient(#0f172a06 1px, transparent 1px);
+  --rs-blog-glow-bg: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NTkiIGhlaWdodD0iNjc3IiB2aWV3Qm94PSIwIDAgOTU5IDY3NyIgZmlsbD0ibm9uZSI+CjxyZWN0IHdpZHRoPSI5NTkiIGhlaWdodD0iNjc3IiBmaWxsPSJ1cmwoI3BhaW50MF9yYWRpYWxfMjAwMl8xMzc4MCkiIGZpbGwtb3BhY2l0eT0iMC4xNSIvPgo8cmVjdCB3aWR0aD0iOTU5IiBoZWlnaHQ9IjY3NyIgZmlsbD0idXJsKCNwYWludDFfcmFkaWFsXzIwMDJfMTM3ODApIiBmaWxsLW9wYWNpdHk9IjAuMTUiLz4KPGRlZnM+CjxyYWRpYWxHcmFkaWVudCBpZD0icGFpbnQwX3JhZGlhbF8yMDAyXzEzNzgwIiBjeD0iMCIgY3k9IjAiIHI9IjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBncmFkaWVudFRyYW5zZm9ybT0idHJhbnNsYXRlKDYxNi4xNDcgMzc3LjgxNSkgcm90YXRlKDEyMS40ODcpIHNjYWxlKDI2MS42MjUgMjM3LjMyNykiPgo8c3RvcCBzdG9wLWNvbG9yPSIjZmY4YjAwIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmOGIwMCIgc3RvcC1vcGFjaXR5PSIwIi8+CjwvcmFkaWFsR3JhZGllbnQ+CjxyYWRpYWxHcmFkaWVudCBpZD0icGFpbnQxX3JhZGlhbF8yMDAyXzEzNzgwIiBjeD0iMCIgY3k9IjAiIHI9IjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBncmFkaWVudFRyYW5zZm9ybT0idHJhbnNsYXRlKDQ3OS45NTIgMzU1LjAzKSByb3RhdGUoOTQuMzA2OCkgc2NhbGUoMjgwLjMwNyAyMTIuMjMyKSI+CjxzdG9wIHN0b3AtY29sb3I9IiNmOTM5MjAiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZjkzOTIwIiBzdG9wLW9wYWNpdHk9IjAiLz4KPC9yYWRpYWxHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K);
+}
+
+html.dark {
+  --rs-blog-list-frame-bg: linear-gradient(180deg, #94a3b80a, transparent 72%),
+    linear-gradient(90deg, #94a3b80d 1px, transparent 1px),
+    linear-gradient(#94a3b80d 1px, transparent 1px);
+  --rs-blog-glow-bg: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTU5IiBoZWlnaHQ9IjY3NyIgdmlld0JveD0iMCAwIDk1OSA2NzciIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI5NTkiIGhlaWdodD0iNjc3IiBmaWxsPSJ1cmwoI3BhaW50MF9yYWRpYWxfMjAwMl8xMTE2NykiIGZpbGwtb3BhY2l0eT0iMC4xNSIvPgo8cmVjdCB3aWR0aD0iOTU5IiBoZWlnaHQ9IjY3NyIgZmlsbD0idXJsKCNwYWludDFfcmFkaWFsXzIwMDJfMTExNjcpIiBmaWxsLW9wYWNpdHk9IjAuMTUiLz4KPGRlZnM+CjxyYWRpYWxHcmFkaWVudCBpZD0icGFpbnQwX3JhZGlhbF8yMDAyXzExMTY3IiBjeD0iMCIgY3k9IjAiIHI9IjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBncmFkaWVudFRyYW5zZm9ybT0idHJhbnNsYXRlKDYxNi4xNDcgMzc3LjgxNSkgcm90YXRlKDEyMS40ODcpIHNjYWxlKDI2MS42MjUgMjM3LjMyNykiPgo8c3RvcCBzdG9wLWNvbG9yPSIjZmY4YjAwIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmOGIwMCIgc3RvcC1vcGFjaXR5PSIwIi8+CjwvcmFkaWFsR3JhZGllbnQ+CjxyYWRpYWxHcmFkaWVudCBpZD0icGFpbnQxX3JhZGlhbF8yMDAyXzExMTY3IiBjeD0iMCIgY3k9IjAiIHI9IjEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBncmFkaWVudFRyYW5zZm9ybT0idHJhbnNsYXRlKDQ3OS41IDI4OS4wOTMpIHJvdGF0ZSg5My40MTIzKSBzY2FsZSgzNDYuMDY2IDI2Mi4xMDIpIj4KPHN0b3Agc3RvcC1jb2xvcj0iI2Y5MzkyMCIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmOTM5MjAiIHN0b3Atb3BhY2l0eT0iMCIvPgo8L3JhZGlhbEdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPgo=);
+}
+
+.VPDoc {
+  position: relative;
+}
+
+.VPDoc .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* 固定铺满视口：滚动时背景不动，不会滑出屏幕。 */
+.rp-doc-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 光晕整体上移（300px → 200px）并把透明度再压淡一档。 */
+/* .rp-doc-bg__glow {
+  position: absolute;
+  inset: 0;
+  background: var(--rs-blog-glow-bg) no-repeat center 70px;
+  background-size: 1200px;
+  opacity: 0.30;
+} */
+
+html.dark .rp-doc-bg__glow {
+  opacity: 0.15;
+}
+
+.rp-doc-bg__frame {
+  position: absolute;
+  inset: 0;
+  background: var(--rs-blog-list-frame-bg);
+  background-size: 1200px;
+  opacity: 0.15;
+}
+
+.rp-doc-bg__canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 65vh;
+  opacity: 0.8;
+  filter: blur(0.5px);
+}
+
+/* 首页底部插画。图片本身 750×91、带透明通道，源站用 `width:750px;height:80px`
+   显示（默认 `object-fit: fill`，等比略微压扁，这里照抄）。
+   负的 `margin-bottom` 把页脚往上拉，让图片底部压进页脚 —— 页脚是纯白 `bg-bg`，
+   比页面底色 `bg-bg-soft` 更白，几只动物的爪子因此落在页脚上。
+   图片自己带 `z-index`（大于页脚的 `z-10`）才能盖在页脚上面，否则会被白色页脚吃掉。 */
+.home-animals {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: -20px;
+}
+
+.home-animals img {
+  width: 750px;
+  height: 80px;
+  max-width: 100%;
+}
+
 
 
