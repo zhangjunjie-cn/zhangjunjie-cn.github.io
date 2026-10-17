@@ -293,6 +293,7 @@ onUnmounted(() => {
           :class="shooting ? 'blur-sm' : 'blur-none'"
           :src="current.image"
           :alt="current.title"
+          referrerpolicy="no-referrer"
           @load="scrollActiveThumb"
           @click="onFrameClick"
         />
@@ -369,6 +370,7 @@ onUnmounted(() => {
               :alt="memory.title || (memory.video ? '视频' : '')"
               class="not memory-thumb h-16 max-h-16 min-h-16 w-16 min-w-16 max-w-16 cursor-pointer rounded"
               :class="index === i ? 'border-2 opacity-100' : 'opacity-50'"
+              referrerpolicy="no-referrer"
               @click="select(i)"
             />
           </div>

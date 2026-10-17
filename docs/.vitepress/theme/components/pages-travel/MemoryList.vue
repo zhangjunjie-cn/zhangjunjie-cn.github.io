@@ -26,11 +26,14 @@ const emit = defineEmits<{ viewMemory: [index: number] }>()
         <div class="relative aspect-video overflow-hidden">
           <!-- `not` keeps Fancybox off it — a card click opens the camera, which
                owns the full-screen list itself (same marker as the deck's card). -->
+          <!-- 外链图床（如 Gitee）按 Referer 防盗链，带上页面地址会被重定向成图标，
+               所以统一不带 Referer 取图。 -->
           <img
             :src="memory.image"
             :alt="memory.title"
             class="not memory-card-image h-full w-full object-cover"
             loading="lazy"
+            referrerpolicy="no-referrer"
           />
         </div>
         <div class="p-4">

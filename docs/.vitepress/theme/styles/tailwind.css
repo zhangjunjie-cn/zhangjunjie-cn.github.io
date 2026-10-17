@@ -654,7 +654,15 @@ body {
 }
 
 .container.img-card-container .img-card__item {
-  display: block;
+  /* 纵向 flex：卡片在栅格里被拉伸成同一行最高那张的高度（grid 默认
+     `align-items: stretch`），内部若是块级流式排布，矮卡片的 footer 之后就会
+     空出一截、同一行的页脚也高低不齐。纵向 flex + footer 的 `margin-top: auto`
+     把页脚恒定顶到卡片底边（见下面 footer 那条规则）。 */
+  display: flex;
+  flex-direction: column;
+  /* 波浪三层里最上面（最淡）的那层挂在这个元素的 `::before` 上，需要它当定位
+     基准，位置再由 `aspect-ratio` 对齐到图片区（见下面的波浪小节）。 */
+  position: relative;
   overflow: hidden;
   cursor: pointer;
   border: 1px solid var(--site-divider);
@@ -682,6 +690,13 @@ body {
   overflow: hidden;
   position: relative;
   height: var(--img-height);
+  /* 源站这里只有 `height: var(--img-height)`，而所有卡片的行内样式都写着
+     `--img-height: auto` —— 图片于是按各自的比例渲染（本项目的封面从 1.78:1 到
+     2.11:1 不等），同一行里卡片高度就对不齐。补一条 16:9 的宽高比：`--img-height`
+     仍是 `auto`，高度就由卡宽算出来，配合下面 `object-fit: cover` 把画面填满整块。
+     用 16:9 而不是别的比例，是因为本项目封面基本都在 1.78~1.86:1，裁掉的最少
+     （1440 视口下 4 列时图高 185px，与源站约 179px 基本一致）。 */
+  aspect-ratio: 16 / 9;
   background-color: #eee;
   transition: 0.3s;
 }
@@ -692,6 +707,97 @@ body {
   height: 100%;
   border-radius: 0;
   object-fit: var(--img-object-fit);
+}
+
+/* 图片与文字之间的分层波浪 —— 源站只有第一张卡（Teeker Blog）的封面自带这条波浪
+   （`case-01-cover.png` 底边画了白波：实测波峰高出底边 7.09% 图高、波谷 0.29%），
+   其余封面底边都是平的，所以这里用 CSS 把效果补给所有卡片。
+
+   形状取首页首屏底部那条（`HomeVideoIntro.vue` 的 `traceWave`，与源站
+   WaveAnimation 同式）：
+
+     y = 中线 + sin(x·频率 + 相位)·振幅 + sin(x·频率÷2 + 相位·1.3)·振幅·0.3
+
+   即「主频 + 半频二次谐波」：两个频率不成整数倍的正弦叠在一起，波峰会偏、波谷
+   会宽，不是一条对称正弦，起伏才像真的水波。原式的 `x` 是像素、相位里含
+   `clock × 速度`（动画的由来）；这里要静态，所以 `x` 按卡宽取 1200 个 viewBox
+   单位、频率 0.0052（1200 单位里正好一个波长）、相位取 0（去掉时间项）。
+
+   一条曲线不成「浪」——按首页的层数叠三层：**同一条曲线依次下移 13 个单位**，
+   三层各用不同的透明度（0.25 / 0.55 / 1）。越往上越淡、越往下越实，最下面那层
+   就是卡片底色本身，正好和下面的文字区接上；于是图片下缘出现三条深浅不同的
+   波线。
+
+   做法：每层是一个绝对定位的伪元素，`background-color` 只给颜色，形状交给一条
+   内联 SVG 遮罩（遮罩只决定「哪里盖住」，颜色仍归 `background-color` 管，能直接
+   吃 `--site-bg` 这个变量，深浅色模式都不用另写一遍）。
+
+   遮罩的 viewBox 就是「一整张图片」的形状（1200×675 = 16:9），波浪只画在底部
+   175 个单位、也就是图高的 26% 里，这样三层都能用 `mask-size: 100% 100%` 直接
+   铺满图片区。三条线的深度：最上一层 14.5%~23.3% 图高，中间 11.2%~20.0%，最下
+   一层（实心）7.78%~16.6% —— 最浅处 7.78% 仍深于上面那张封面自带的 7.09%，它
+   自带的那条波会被整条盖住，不会出现双波纹（深色模式下 `--site-bg` 是深色，叠
+   不掉的话会露出一道白波，这点余量就是为它留的）。
+
+   三层的绘制次序由 z-index 定死（1 / 2 / 3），也正是需要的顺序：后画的那层从
+   自己的波线往下盖住前一层，于是每层只在相邻两条波线之间露出一条色带，从上到
+   下依次是 25%、66%（两层叠加）、实心。
+
+   `-webkit-mask-*` 必须写在无前缀那组**前面**：Lightning CSS 会把两行同属性的声明
+   合并成一条，顺序反了产物里就只剩无前缀的那条，Safari 上波浪会消失。 */
+
+/* 第 1 层：最淡（25%），波线最高。挂在卡片自身，用 `aspect-ratio: 16/9` 把盒子
+   对齐到图片区（图片就是 16:9 铺满卡宽），于是三层的坐标完全一致。 */
+.container.img-card-container .img-card__item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  aspect-ratio: 16 / 9;
+  z-index: 1;
+  opacity: 0.25;
+  background-color: var(--site-bg);
+  pointer-events: none;
+  -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PHBhdGggZD0iTTAuMCA1NDAuOUw1MC4wIDU0OS44TDEwMC4wIDU1OC4wTDE1MC4wIDU2NS4zTDIwMC4wIDU3MS4xTDI1MC4wIDU3NS4wTDMwMC4wIDU3Ny4wTDM1MC4wIDU3Ni45TDQwMC4wIDU3NC42TDQ1MC4wIDU3MC42TDUwMC4wIDU2NC45TDU1MC4wIDU1OC4xTDYwMC4wIDU1MC41TDY1MC4wIDU0Mi44TDcwMC4wIDUzNS40TDc1MC4wIDUyOC44TDgwMC4wIDUyMy40TDg1MC4wIDUxOS42TDkwMC4wIDUxNy42TDk1MC4wIDUxNy41TDEwMDAuMCA1MTkuMkwxMDUwLjAgNTIyLjdMMTEwMC4wIDUyNy41TDExNTAuMCA1MzMuNEwxMjAwLjAgNTM5LjlMMTIwMCA2NzVMMCA2NzVaIiBmaWxsPSIjZmZmIi8+PC9zdmc+);
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PHBhdGggZD0iTTAuMCA1NDAuOUw1MC4wIDU0OS44TDEwMC4wIDU1OC4wTDE1MC4wIDU2NS4zTDIwMC4wIDU3MS4xTDI1MC4wIDU3NS4wTDMwMC4wIDU3Ny4wTDM1MC4wIDU3Ni45TDQwMC4wIDU3NC42TDQ1MC4wIDU3MC42TDUwMC4wIDU2NC45TDU1MC4wIDU1OC4xTDYwMC4wIDU1MC41TDY1MC4wIDU0Mi44TDcwMC4wIDUzNS40TDc1MC4wIDUyOC44TDgwMC4wIDUyMy40TDg1MC4wIDUxOS42TDkwMC4wIDUxNy42TDk1MC4wIDUxNy41TDEwMDAuMCA1MTkuMkwxMDUwLjAgNTIyLjdMMTEwMC4wIDUyNy41TDExNTAuMCA1MzMuNEwxMjAwLjAgNTM5LjlMMTIwMCA2NzVMMCA2NzVaIiBmaWxsPSIjZmZmIi8+PC9zdmc+);
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+}
+
+/* 第 2 层：55%。 */
+.container.img-card-container .img-card__item__img::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.55;
+  background-color: var(--site-bg);
+  pointer-events: none;
+  -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PHBhdGggZD0iTTAuMCA1NjMuN0w1MC4wIDU3Mi41TDEwMC4wIDU4MC44TDE1MC4wIDU4OC4wTDIwMC4wIDU5My44TDI1MC4wIDU5Ny44TDMwMC4wIDU5OS44TDM1MC4wIDU5OS42TDQwMC4wIDU5Ny40TDQ1MC4wIDU5My4zTDUwMC4wIDU4Ny43TDU1MC4wIDU4MC44TDYwMC4wIDU3My4zTDY1MC4wIDU2NS41TDcwMC4wIDU1OC4xTDc1MC4wIDU1MS41TDgwMC4wIDU0Ni4yTDg1MC4wIDU0Mi40TDkwMC4wIDU0MC40TDk1MC4wIDU0MC4zTDEwMDAuMCA1NDIuMEwxMDUwLjAgNTQ1LjRMMTEwMC4wIDU1MC4zTDExNTAuMCA1NTYuMkwxMjAwLjAgNTYyLjZMMTIwMCA2NzVMMCA2NzVaIiBmaWxsPSIjZmZmIi8+PC9zdmc+);
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PHBhdGggZD0iTTAuMCA1NjMuN0w1MC4wIDU3Mi41TDEwMC4wIDU4MC44TDE1MC4wIDU4OC4wTDIwMC4wIDU5My44TDI1MC4wIDU5Ny44TDMwMC4wIDU5OS44TDM1MC4wIDU5OS42TDQwMC4wIDU5Ny40TDQ1MC4wIDU5My4zTDUwMC4wIDU4Ny43TDU1MC4wIDU4MC44TDYwMC4wIDU3My4zTDY1MC4wIDU2NS41TDcwMC4wIDU1OC4xTDc1MC4wIDU1MS41TDgwMC4wIDU0Ni4yTDg1MC4wIDU0Mi40TDkwMC4wIDU0MC40TDk1MC4wIDU0MC4zTDEwMDAuMCA1NDIuMEwxMDUwLjAgNTQ1LjRMMTEwMC4wIDU1MC4zTDExNTAuMCA1NTYuMkwxMjAwLjAgNTYyLjZMMTIwMCA2NzVMMCA2NzVaIiBmaWxsPSIjZmZmIi8+PC9zdmc+);
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+}
+
+/* 第 3 层：实心，波线最低，向下与卡片正文接上。 */
+.container.img-card-container .img-card__item__img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background-color: var(--site-bg);
+  pointer-events: none;
+  -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PHBhdGggZD0iTTAuMCA1ODYuNEw1MC4wIDU5NS4zTDEwMC4wIDYwMy41TDE1MC4wIDYxMC44TDIwMC4wIDYxNi42TDI1MC4wIDYyMC41TDMwMC4wIDYyMi41TDM1MC4wIDYyMi40TDQwMC4wIDYyMC4xTDQ1MC4wIDYxNi4xTDUwMC4wIDYxMC40TDU1MC4wIDYwMy42TDYwMC4wIDU5Ni4wTDY1MC4wIDU4OC4zTDcwMC4wIDU4MC45TDc1MC4wIDU3NC4zTDgwMC4wIDU2OC45TDg1MC4wIDU2NS4xTDkwMC4wIDU2My4xTDk1MC4wIDU2My4wTDEwMDAuMCA1NjQuN0wxMDUwLjAgNTY4LjJMMTEwMC4wIDU3My4wTDExNTAuMCA1NzguOUwxMjAwLjAgNTg1LjRMMTIwMCA2NzVMMCA2NzVaIiBmaWxsPSIjZmZmIi8+PC9zdmc+);
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PHBhdGggZD0iTTAuMCA1ODYuNEw1MC4wIDU5NS4zTDEwMC4wIDYwMy41TDE1MC4wIDYxMC44TDIwMC4wIDYxNi42TDI1MC4wIDYyMC41TDMwMC4wIDYyMi41TDM1MC4wIDYyMi40TDQwMC4wIDYyMC4xTDQ1MC4wIDYxNi4xTDUwMC4wIDYxMC40TDU1MC4wIDYwMy42TDYwMC4wIDU5Ni4wTDY1MC4wIDU4OC4zTDcwMC4wIDU4MC45TDc1MC4wIDU3NC4zTDgwMC4wIDU2OC45TDg1MC4wIDU2NS4xTDkwMC4wIDU2My4xTDk1MC4wIDU2My4wTDEwMDAuMCA1NjQuN0wxMDUwLjAgNTY4LjJMMTEwMC4wIDU3My4wTDExNTAuMCA1NzguOUwxMjAwLjAgNTg1LjRMMTIwMCA2NzVMMCA2NzVaIiBmaWxsPSIjZmZmIi8+PC9zdmc+);
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
 }
 
 .container.img-card-container .img-card__item__info {
@@ -723,6 +829,9 @@ body {
 .container.img-card-container .img-card__item__footer {
   display: flex;
   overflow: hidden;
+  /* 卡片改成纵向 flex 后（见 `img-card__item` 那条），这点自动外边距把 footer
+     顶到卡片底边：同一行里页脚对齐，且 footer 之下不再留空白。 */
+  margin-top: auto;
   padding: 13px 16px;
   border-top: 1px solid var(--site-divider);
 }
@@ -823,6 +932,50 @@ body {
   --vp-c-text-3: rgba(255, 255, 255, 0.7);
   /* 菜单项的悬停/当前项取自 `--vp-c-brand-1`，压在深色横幅上时也一并转白。 */
   --vp-c-brand-1: #fff;
+}
+
+/* ---------------------------------------------------------------------------
+   横幅页顶部：搜索框、阅读增强弹层。
+
+   ① 搜索框。它自己带着一块浅色面板 —— `VPNavBarSearchButton.vue` 的
+      `@media (min-width: 768px)` 里 `.DocSearch-Button { background-color:
+      var(--vp-c-bg-alt) }`（浅色 #f6f6f7）。压在深色横幅上时这块灰底就是一块
+      突兀的白斑，这里直接抹掉、让它透出横幅本身；文字与图标保持上面那套规则
+      给出的白色（`--vp-c-text-1/2`、`--vp-c-brand-1` 都不再改写），悬停时那条
+      `1px` 边框因此也是白的，与「透明导航栏」同一套语言。
+      只动背景、不动别的：宽度/内边距保持默认（≥768px 时占满 `flex-grow: 1`
+      的那条），文字仍是 `VPNavBarSearchButton.vue` 里的「搜索」+ `Ctrl` `K`。
+
+   ② 阅读增强弹层。它「泛白」的位置和上面不同：面板内的文字色**不是**直接取
+      `--vp-c-text-1`，而是插件在 `Menu.vue` 里把根元素 `.VPNolebaseEnhanced
+      ReadabilitiesMenu` 上的 `--vp-nolebase-enhanced-readabilities-menu-text-color`
+      声明成了 `var(--vp-c-text-1)`。自定义属性里的 `var()` 是在**声明所在的元素**
+      上求值的 —— 也就是说这个值在根元素上就已经算成了 `#fff`（导航栏继承下来的
+      白），然后一路继承下去；后面再在 `.menu` 上改写 `--vp-c-text-1` 已经来不及，
+      子元素拿到的仍是那个算好的 `#fff`，「布局切换 / 聚光灯 / 聚光灯样式」的
+      标题、图标于是照样泛白。所以这里要把插件那个变量**本身**也在面板上改写掉。
+
+      在 `.menu` 上改写（而不是在 `.VPNolebaseEnhancedReadabilitiesMenu` 根上）：
+      触发器图标挂在根上，连根一起还原会把「压在横幅上的白图标」变成深色。
+
+   **只限浅色模式**（`html:not(.dark)`）：深色下 `--vp-c-bg-alt/#161618`、
+   `--vp-c-bg-elv/#202127` 本来就是深底配白字，一起还原反而会弄坏深色模式的正常
+   观感。
+   --------------------------------------------------------------------------- */
+
+html:not(.dark) .site-shell--over-banner .VPNavBar.top .DocSearch-Button,
+html:not(.dark) .site-shell--over-banner .VPNavBar.top .DocSearch-Button:hover {
+  background-color: transparent;
+}
+
+html:not(.dark) .site-shell--over-banner .VPNavBar.top
+  .VPNolebaseEnhancedReadabilitiesMenu .menu {
+  --vp-c-text-1: #3c3c43;
+  --vp-c-text-2: #67676c;
+  --vp-c-text-3: #929295;
+  --vp-c-brand-1: var(--site-main);
+  /* 插件面板内的文字/图标色实际取的是这个变量，见上面 ② 的解释。 */
+  --vp-nolebase-enhanced-readabilities-menu-text-color: #3c3c43;
 }
 
 /* ---------------------------------------------------------------------------

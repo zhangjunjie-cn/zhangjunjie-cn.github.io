@@ -43,7 +43,7 @@ withDefaults(
       <div class="relative mb-9">
         <div class="page-hero-icon" aria-hidden="true">
           <!-- 装饰性的圆形封面（`not` 让 Fancybox 不去接管它）。 -->
-          <img class="not page-hero-image" :src="coverPic" alt="记忆封面" />
+          <img class="not page-hero-image" :src="coverPic" alt="记忆封面" referrerpolicy="no-referrer" />
         </div>
       </div>
       <div class="space-y-3 text-center select-none">

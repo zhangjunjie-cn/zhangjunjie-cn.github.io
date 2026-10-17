@@ -88,7 +88,14 @@ function go(step: number) {
         @click="card.isActive ? emit('viewMemory', card.index) : emit('update', card.index)"
       >
         <!-- `not` keeps Fancybox off it — the click opens the viewfinder instead. -->
-        <img class="not" :src="card.memory.image" :alt="card.label" loading="lazy" />
+        <!-- 同 `MemoryList`：外链图床按 Referer 防盗链，取图不带 Referer。 -->
+        <img
+          class="not"
+          :src="card.memory.image"
+          :alt="card.label"
+          loading="lazy"
+          referrerpolicy="no-referrer"
+        />
         <span class="memory-deck-shadow" :style="{ opacity: card.shadow }" />
         <span v-if="card.isVideo" class="memory-deck-play" aria-hidden="true">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">

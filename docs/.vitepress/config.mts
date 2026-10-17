@@ -261,6 +261,7 @@ export default defineConfig({
     // 而 markdown-it 的 Ruler 取第一条命中的规则，先注册才压得住同名的 `::: tip`。
     preConfig: registerRspressContainers,
   },
+  
   // 渲染结束后补压 HTML（见上面的 `compressHtml`）。
   buildEnd: compressHtml,
   themeConfig: {
@@ -282,6 +283,36 @@ export default defineConfig({
       formatOptions: { forceLocale: true, dateStyle: 'short', timeStyle: 'medium' },
     },
     docFooter: { prev: '上一篇', next: '下一篇' },
+    search: {
+      provider: 'local',
+      options: {
+        locales: {
+          root: {
+            translations: {
+              button: {
+                buttonText: '搜索',
+                buttonAriaLabel: '搜索文档'
+              },
+              modal: {
+                displayDetails: '显示详细列表',
+                resetButtonTitle: '重置搜索',
+                backButtonTitle: '关闭搜索',
+                noResultsText: '没有找到相关结果',
+                footer: {
+                  selectText: '选择',
+                  selectKeyAriaLabel: '回车',
+                  navigateText: '导航',
+                  navigateUpKeyAriaLabel: '上箭头',
+                  navigateDownKeyAriaLabel: '下箭头',
+                  closeText: '关闭',
+                  closeKeyAriaLabel: 'ESC'
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   },
   vite: {
     // 官方集成要求（@nolebase/vitepress-plugin-enhanced-readabilities）：
