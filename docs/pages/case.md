@@ -1,6 +1,6 @@
 ---
 layout: case
-title: 案例
+title: 旅途
 description: Vitepress Theme Teek 的案例展示页，收录了使用 Teek 构建的知识库、博客与文档站
 banner:
   cover: /sites/vp.teek.top-a50b27f5/resources-case.html-244f6386/images/case-banner.webp

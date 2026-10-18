@@ -1,6 +1,6 @@
 ---
 layout: travel
-title: 泉州记游
+title: 泉州游记
 description: 记录泉州，连接你我。
 thumbnail: /video/20261017_175807_451 - frame at 0m0s.jpg
 author: 张俊杰
@@ -20,13 +20,6 @@ head:
   status="持续更新中..."
   weather="leaf"
   :items="[
-    {
-      type: 'video',
-      src: '/video/20261017_175657_292.mp4',
-      poster: '/video/20261017_175657_292 - frame at 0m0s.jpg',
-      title: '机场',
-      createTime: '2026:09:23 10:00:00'
-    },
     {
       type: 'video',
       src: '/video/20261017_175225_106.mp4',
@@ -103,7 +96,7 @@ head:
       createTime: '2026:04:05 00:00:00'
     },
     {
-      src: 'https://raw.giteeusercontent.com/zhangjunjiee/article-images/raw/master/images/IMG_20240921_194459.jpg',
+      src: 'https://raw.giteeusercontent.com/zhangjunjiee/article-images/raw/master/images/IMG_20240921_193427.jpg',
       title: '簪花',
       description: '今生戴花，世世漂亮',
       createTime: '2026:04:05 00:00:00'

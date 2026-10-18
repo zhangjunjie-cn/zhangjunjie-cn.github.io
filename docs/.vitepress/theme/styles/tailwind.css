@@ -978,6 +978,28 @@ html:not(.dark) .site-shell--over-banner .VPNavBar.top
   --vp-nolebase-enhanced-readabilities-menu-text-color: #3c3c43;
 }
 
+/* ③ 导航栏下拉面板（`.VPNavBarMenuGroup` 里的 `.VPMenu`）。
+   它和上面两处不一样：面板**带着自己的不透明底**，取自
+   `VPMenu.vue` 的 `.VPMenu { background-color: var(--vp-c-bg-elv) }` —— 浅色下
+   是 `#fff`。而面板里的文字恰好都走上面那三个已经被转白的变量：
+   `.VPMenuLink .link { color: var(--vp-c-text-1) }`（下拉项）、
+   `.VPMenu .label { color: var(--vp-c-text-2) }`（分组小标题），
+   悬停/当前项又是 `.link:hover { color: var(--vp-c-brand-1) }`。于是停在横幅上
+   点时，就是「白底 + 白字」，也就是用户说的「泛白」；深色下 `--vp-c-bg-elv`
+   本身是深色（`#202127`），白字正合适，所以夜间模式看着正常。
+
+   面板没有 Teleport 到 body（`VPFlyout.vue` 里的 `.VPMenu` 直接渲染在
+   `.VPNavBar` 内部），所以在导航栏作用域里改写是有效的。这里只在 `.VPMenu`
+   本元素上重声明 —— 面板底不动、外框与阴影不动，只把继承来的白字换成深色。
+   --------------------------------------------------------------------------- */
+
+html:not(.dark) .site-shell--over-banner .VPNavBar.top .VPMenu {
+  --vp-c-text-1: #3c3c43;
+  --vp-c-text-2: #67676c;
+  --vp-c-text-3: #929295;
+  --vp-c-brand-1: var(--site-main);
+}
+
 /* ---------------------------------------------------------------------------
    自定义外壳里的导航栏：把「有侧栏」样式留下的两处破绽补上。
 
@@ -1018,6 +1040,34 @@ html:not(.dark) .site-shell--over-banner .VPNavBar.top
 
 .site-shell .VPNavBarTitle.VPNavBarTitle.has-sidebar .title {
   border-bottom-color: transparent;
+}
+
+/* ---------------------------------------------------------------------------
+   ③ 下滑时的过渡统一：`.VPNavBar` 和 `.content-body` 上的是同一块底色，却各带
+   一条自己的 transition —— 前者 `VPNavBar.vue` 的 `transition: background-color
+   0.25s`，后者 `transition: background-color 0.5s`。
+
+   默认主题里这两层是「接力」关系：≥960px 时 `.VPNavBar` 自己恒为 transparent，
+   中间那块的底完全由 `.content-body` 提供，左右两条 `padding` 带子交给 `.VPSidebar`
+   去补，所以两条 transition 谁也碰不到谁。可自定义外壳没有 `.VPSidebar`（上面 ①
+   已把满宽底色交给 `.VPNavBar`），于是中间那块被**两层同时上色** —— `.VPNavBar`
+   的满宽底，再加压在上面的 `.content-body` 的底 —— 两个时长还差一倍：下滑时边上
+   按 0.25s 先变白，中间要 0.5s 才跟上，看起来就是「中间一块和两边存在时间差」。
+
+   这里把 `.content-body` 自己那层底色撤掉，整条栏只剩 `.VPNavBar` 一条满宽底、
+   一条 0.25s，一起变；底色本身在 `--vp-nav-bg-color` 上，顶部照样解析成
+   `transparent`，透明态不变。
+
+   `.content-body` 的底色只声明在 `@media (min-width: 960px)` 里，所以这条也只影响
+   有侧栏的宽屏。选择器重复类名把优先级抬到 (0,6,0)：默认主题那条是
+   `.VPNavBar:not(.home.top) .content-body[data-v-…]`，算 (0,5,0)，稳压它，不必
+   动用 `!important`。
+   --------------------------------------------------------------------------- */
+
+.site-shell--over-banner
+  .VPNavBar.VPNavBar.has-sidebar
+  .content-body.content-body {
+  background-color: transparent;
 }
 
 /* ---------------------------------------------------------------------------
@@ -1251,6 +1301,13 @@ html {
 
 /* `.vp-doc img { border-radius: 8px }` 会把圆角交给卡片自己裁。 */
 .memory-gallery .memory-card-image {
+  /* 与取景器同理：容器是 16:9 的 `aspect-video`，只靠工具类撑高会被上面那条第三方
+     reset 顶成 `height:auto`，4:3 的照片于是高过容器、被 `overflow-hidden` 从底部
+     裁掉且顶部对齐。这里把宽高写实，交给 `object-fit: cover` 居中裁切。 */
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 0;
   filter: saturate(0.72) contrast(0.92) brightness(0.96);
   opacity: 0.9;
@@ -1283,11 +1340,36 @@ html {
 
 /* --- 取景器（点开某张记忆后） ---------------------------------------------- */
 
+/* 点开一张记忆时取景窗是「弹」出来的：淡入 + 轻微放大 + 上浮一小截，0.4s 出。
+   源站是直接用窗口顶掉列表，没有这段；加上之后切换才不显得那么生硬。 */
+.memory-gallery .memory-camera-in {
+  animation: 0.4s cubic-bezier(0.22, 0.85, 0.3, 1) 0s 1 normal both running memory-camera-in;
+  will-change: transform, opacity;
+}
+
+@keyframes memory-camera-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0) scale(0.985);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
 /* 源站 daisyUI 的 `.mockup-window`：顶上留 1.25rem 给三颗「窗口按钮」。 */
 .memory-gallery .mockup-window {
   position: relative;
   display: flex;
   flex-direction: column;
+  /* 窗口宽度：高屏上铺满，矮屏上按「屏幕高度装得下 16:9 取景区」收窄居中 ——
+     窗口总高 ≈ 取景区（宽 × 9/16）+ 状态栏 2.5rem + 缩略图条 6rem + 控制条 5rem
+     + 顶栏 1.25rem，再加站点导航与上下留白约 300px。取景区因此始终严格 16:9，
+     窗口又不会被顶出屏幕。 */
+  width: min(100%, max(640px, calc((100vh - 340px) * 16 / 9)));
+  margin-inline: auto;
   overflow-x: auto;
   overflow-y: hidden;
   padding-top: 1.25rem;
@@ -1339,15 +1421,84 @@ html {
   border-radius: 0.25rem;
 }
 
-/* 视频条目：按片子自身的比例铺满取景区高度并居中，整段都看得到 ——
-   不裁切、也不加黑边；两侧留白露出窗口底色，而不是黑条。 */
+/* 取景区：按 16:9 定高（宽 × 9/16），底下的缩略图条另占一行，不再压在画面上。 */
+.memory-gallery .memory-viewfinder {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+/* 画面（图 / 视频）的盒子默认就是取景区本身：16:9 的画面在里面正好铺满，底边停在缩略图条
+   上沿 —— 不再占用它；比 16:9 宽的（全景）按比例居中留白，也碰不到缩略图条。
+   两侧留白露的是窗口底色，而不是黑条。
+   不能只靠组件里的 Tailwind 类 —— 那些写在 `@layer utilities` 里，会被页面上未分层的
+   第三方 reset（`img,video{max-width:100%;height:auto}`，随阅读增强插件一起进来）整条盖掉。 */
+.memory-gallery .memory-viewfinder-img,
 .memory-gallery .memory-viewfinder-video {
+  position: absolute;
+  top: 0;
+  left: 50%;
   display: block;
   height: 100%;
   width: auto;
   max-width: 100%;
-  margin: 0 auto;
   object-fit: contain;
+  transform: translateX(-50%);
+}
+
+/* 比 16:9 更高的画面（4:3、竖屏之类）：把盒子长到「取景区 + 下面那行缩略图条」，
+   `object-fit: contain` 于是让它按比例铺满这个更高的盒子 —— 画面摊进缩略图条那一行，
+   自己仍旧居中、不裁切、也不往上溢出。 */
+.memory-gallery .memory-viewfinder--tall .memory-viewfinder-img,
+.memory-gallery .memory-viewfinder--tall .memory-viewfinder-video {
+  height: calc(100% + 6rem);
+}
+
+/* 亚克力：两条边框里各垫一层「当前画面的模糊副本」，边框于是成了磨砂玻璃 —— 上边取
+   画面顶边那一段、下边取底边那一段，糊掉之后像画面自己透进边框里（就是「光影边框」
+   那类磨砂边框的观感）。上边栏里的文字都加了 `relative`，所以照旧压在它上面。
+   `pointer-events: none` 保证画面 / 缩略图的点击不受影响。
+   站内所有视频都是 16:9，`current.image` 对视频来说是它的封面图，所以这里不必复制
+   `<video>`（复制会多一路解码）。
+
+   统一的白色通透磨砂：之前两条边框的底色是 `bg-black/50`，暗照片叠上去就发灰发黑，
+   亮照片才是白的 —— 明暗全看当时那张照片。改成白底（组件里 `bg-white/60`）之后，
+   这里再把副本提亮（brightness 1.5）、压掉大半彩度（saturate 0.55）、只留三成不透明度，
+   白底因此主导，照片只作隐约的色斑。于是不管原图明暗，两条边框都是同一个观感。 */
+.memory-gallery .memory-acrylic-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(1.5rem) brightness(1.5) saturate(0.55);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.memory-gallery .memory-acrylic-layer--top {
+  object-position: center top;
+}
+
+.memory-gallery .memory-acrylic-layer--bottom {
+  object-position: center bottom;
+}
+
+/* 边框在浅色模式是乳白磨砂，白字和白图标单靠自身对比不出来，给它们一层柔和的暗色投影
+   兜住；深色模式边框本来就是暗底，这层投影不碍事。 */
+.memory-gallery .memory-status-bar {
+  text-shadow: 0 1px 4px rgb(0 0 0 / 0.5);
+}
+
+.memory-gallery .memory-status-bar svg {
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.5));
+}
+
+/* 缩略图条底色改浅之后，选中那张的描边在乳白磨砂上分不出来 —— 把它定成白边，再补一圈极淡
+   的暗描边托底。深色模式下这条边框是暗底，白边本来就看得出，暗描边不碍事。 */
+.memory-gallery .memory-thumb.border-2 {
+  border-color: #fff;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.3);
 }
 
 /* 播放进度：底栏顶边那条 2px 细线。 */
@@ -1438,23 +1589,32 @@ html {
 /* --- 卡片轮播（`<Swiper effect="cards">`，`/travel/test copy`） -------------- */
 
 /* 位移 / 旋转 / z-index 由组件按 swiper cards 的公式算好写在内联 style 上，
-   这里只管盒子和过渡。卡片宽度留出余量，让 ±4 步的扇形不会被裁掉。 */
+   这里只管盒子和过渡。盒子和宽度都交给下面那条规则，让 ±4 步的扇形不会被裁掉。 */
 .memory-gallery .memory-deck-wrap {
-  margin-top: 40px;
+  margin-top: 0px;
   user-select: none;
 }
 
 .memory-gallery .memory-deck {
   position: relative;
-  height: clamp(320px, 58vh, 560px);
-  perspective: 1400px;
+  /* 框的高宽比照参考站那台轮播（swiper 的 cards 效果：容器实测 688×387.875，高度就是
+     图片自然比例 4096×2304 撑出来的 16:9）：
+     原来是 `clamp(320px, 58vh, 560px)` 的固定高，卡片偏高，现在由 `aspect-ratio`
+     定，卡片填满它。 */
+  width: min(74%, 1080px);
+  margin-inline: auto;
+  aspect-ratio: 16 / 9;
+  /* swiper 的 `.swiper-3d { perspective: 1200px }`，Z 上退 100px/张的缩放照它算。 */
+  perspective: 1200px;
+  /* 横向位移留给「按住拖动」，纵向仍旧归页面自己滚。 */
+  touch-action: pan-y;
 }
 
 .memory-gallery .memory-deck-card {
   position: absolute;
   top: 0;
   left: 50%;
-  width: min(74%, 720px);
+  width: 100%;
   height: 100%;
   padding: 0;
   overflow: hidden;
@@ -1479,6 +1639,48 @@ html {
   /* `.vp-doc img` 会给图片加 8px 圆角，这里交给卡片自己裁。 */
   border-radius: 0;
   object-fit: cover;
+}
+
+/* 拖动中：卡片跟着手走，就得掐掉自己那条 0.52s 过渡，否则会「粘手」。 */
+.memory-gallery .memory-deck.is-dragging {
+  cursor: grabbing;
+}
+
+.memory-gallery .memory-deck.is-dragging .memory-deck-card {
+  transition: none;
+}
+
+/* 参考站在图片下沿压的那排分页圆点（Swiper 的 clickable pagination）：一张一个，
+   点哪个翻哪张。点子的大小与未选中透明度取参考站的 12px / 0.4（`Swiper.vue` 里
+   `--swiper-pagination-bullet-inactive-opacity` 与 `.swiper-pagination-bullet`）。
+   `z-index` 要压过所有卡片（卡片的 z-index 是 `数量 - 距离`）。 */
+.memory-gallery .memory-deck-dots {
+  position: absolute;
+  right: 0;
+  bottom: 14px;
+  left: 0;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.memory-gallery .memory-deck-dot {
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  /* 深色浅色照片上都要看得见，所以是白点加一圈描边阴影。 */
+  background-color: #fff;
+  box-shadow: 0 0 2px rgb(0 0 0 / 0.45);
+  opacity: 0.4;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.memory-gallery .memory-deck-dot.is-active {
+  opacity: 1;
 }
 
 /* swiper 的 `slideShadows`：`.swiper-slide-shadow-cards` 的渐变，透明度由距离决定。 */
@@ -1572,6 +1774,7 @@ html {
   cursor: zoom-in;
 }
 
+/* 牌组下面一行：两侧各一个药丸箭头，中间夹计数器。 */
 .memory-gallery .memory-deck-nav {
   display: flex;
   align-items: center;
@@ -1580,7 +1783,7 @@ html {
   margin-top: 20px;
 }
 
-.memory-gallery .memory-deck-arrow {
+.memory-gallery .memory-deck-nav-arrow {
   display: grid;
   place-items: center;
   width: 40px;
@@ -1596,14 +1799,60 @@ html {
     border-color 0.2s;
 }
 
-.memory-gallery .memory-deck-arrow:hover {
+.memory-gallery .memory-deck-nav-arrow:hover {
   border-color: var(--brand-primary);
   color: var(--brand-primary);
 }
 
-.memory-gallery .memory-deck-chevron {
+.memory-gallery .memory-deck-nav-chevron {
   width: 20px;
   height: 20px;
+}
+
+/* 压在图片左右两侧的箭头：几何、字形、字色整套照参考站 swiper 的 Navigation 原版
+   搬（源：`swiper/modules/navigation.css`）——44×44 的绝对定位盒、`top: 50%` 再上提
+   半个盒高、左右各内缩 4px、`z-index: 10`（要盖过牌组里最高那张卡片，那摞是 8 张）。
+   图标是 swiper 自带的 11×20 雪佛龙 svg，被拉满 44px 盒高，`prev` 那侧整盒转 180°。
+   字色取 `--swiper-navigation-color`（回落到 `--swiper-theme-color`），参考站把它设成
+   `var(--vp-c-bg)`，这里对应本站的 `--site-bg`，亮暗主题各自跟着页面底色走。 */
+.memory-gallery .memory-deck-side-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-top: -22px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--site-bg);
+  cursor: pointer;
+}
+
+.memory-gallery .memory-deck-side-arrow.is-prev {
+  left: 4px;
+  right: auto;
+}
+
+.memory-gallery .memory-deck-side-arrow.is-next {
+  right: 4px;
+  left: auto;
+}
+
+.memory-gallery .memory-deck-side-chevron {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: center;
+  fill: currentColor;
+  pointer-events: none;
+}
+
+.memory-gallery .memory-deck-side-arrow.is-prev .memory-deck-side-chevron {
+  transform: rotate(180deg);
 }
 
 .memory-gallery .memory-deck-counter {
@@ -1620,6 +1869,7 @@ html {
   }
 
   .memory-gallery .animate-fade-in-up,
+  .memory-gallery .memory-camera-in,
   .memory-gallery .memory-live-dot {
     animation: none;
   }

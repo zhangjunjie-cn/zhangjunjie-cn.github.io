@@ -24,7 +24,7 @@ const NAV = [
   { text: '首页', link: '/' },
   { text: '归档', link: '/pages/posts' },
   { text: '标签', link: '/pages/tags' },
-  { text: '案例', link: '/pages/case' },
+  { text: '旅途', link: '/pages/case' },
   {
     text: '推荐',
     items: [

@@ -1,6 +1,6 @@
 ---
 layout: travel
-title: 平潭记游
+title: 平潭游记
 description: 向海风许愿，在山海相见。
 thumbnail: /video/mmexport1790917331211-poster.jpg
 author: 张俊杰
