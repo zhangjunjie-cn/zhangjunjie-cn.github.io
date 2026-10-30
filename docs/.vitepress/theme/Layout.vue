@@ -17,6 +17,7 @@ import RstackMenu from './components/RstackMenu.vue'
 import HomeContent from './components/HomeContent.vue'
 import CaseContent from './components/pages-case/CaseContent.vue'
 import PostFooter from './components/PostFooter.vue'
+import RouteSkeleton from './components/RouteSkeleton.vue'
 import PostsContent from './components/pages-posts/PostsContent.vue'
 import TagsContent from './components/pages-tags/TagsContent.vue'
 import TravelContent from './components/pages-travel/TravelContent.vue'
@@ -199,4 +200,7 @@ onUnmounted(() => {
     <template #doc-top><BlogBackground /></template>
     <template #doc-footer-before><PostFooter /></template>
   </DefaultTheme.Layout>
+
+  <!-- 路由切换骨架屏：Teleport 到 body，固定在导航栏之下、内容之上。 -->
+  <RouteSkeleton />
 </template>

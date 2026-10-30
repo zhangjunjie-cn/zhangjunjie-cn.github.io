@@ -4,6 +4,7 @@ import DefaultTheme from 'vitepress/theme'
 
 import { bindFancybox, destroyFancybox } from './components/ImgViewer'
 import { bindPrompts, destroyPrompts } from './components/Prompt'
+import { beginRouteSkeleton, endRouteSkeleton } from './components/useRouteSkeleton'
 import Layout from './Layout.vue'
 // 放在本项目样式之前：插件的 unocss 样式先加载，本站未分层的覆盖规则仍然能压过它。
 import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
@@ -41,9 +42,15 @@ export default {
         destroyPrompts()
         return destroyFancybox()
       }
+      // 骨架屏在 `loadPage` 开头亮起：这个钩子既覆盖点击跳转，也覆盖浏览器
+      // 前进 / 后退（后退走的是 `popstate → loadPage`，不经过 `go()`）。
+      router.onBeforePageLoad = (href) => {
+        beginRouteSkeleton(href, router.route.path)
+      }
       router.onAfterRouteChange = () => {
         bindFancybox()
         bindPrompts()
+        endRouteSkeleton()
       }
     }
 
