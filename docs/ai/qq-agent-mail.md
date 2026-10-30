@@ -8,7 +8,6 @@ description: 腾讯 Agent Mail 的实测接入与使用体验，涵盖申请邮�
 tags:
   - AI
   - Tencent
-icon: aiChat
 ---
 
 # 腾讯Agent Mail开测！速抢ID

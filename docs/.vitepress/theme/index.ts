@@ -8,7 +8,6 @@ import Layout from './Layout.vue'
 // 放在本项目样式之前：插件的 unocss 样式先加载，本站未分层的覆盖规则仍然能压过它。
 import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
 import './styles/tailwind.css'
-import './styles/fonts.css'
 
 /**
  * Extends VitePress's default theme.
@@ -46,6 +45,16 @@ export default {
         bindFancybox()
         bindPrompts()
       }
+    }
+
+    // /video/*.mp4 的浏览器端长期缓存，逻辑在 public/sw.js。只在构建产物里注册，
+    // 避免 dev server 上留下一个缓存了旧视频的 Service Worker。
+    if (inBrowser && import.meta.env.PROD && 'serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch((error) => {
+          console.warn('[sw] 视频缓存注册失败', error)
+        })
+      })
     }
   },
 } satisfies Theme

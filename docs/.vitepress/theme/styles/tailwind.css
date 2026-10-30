@@ -30,8 +30,13 @@
 }
 
 @theme inline {
-  --font-sans: "Punctuation SC", "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  /* Rspress 的 base 字体栈，照抄它构建产物的 `--rp-font-family-base`。参考站
+     不加载任何 webfont：`"Inter var"` 只在系统装了这款可变字体时命中，否则退到
+     `-apple-system`（macOS = SF Pro）/ `"Segoe UI"`（Windows）。所以本栈在不同
+     系统上看到的字体，和 rspress.rs 上看到的是同一套。 */
+  --font-sans: "Inter var experimental", "Inter var", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
 
@@ -132,6 +137,16 @@
    unlayered rules (`body { font-size: 16px }`, `h1…h6 { margin: 0 }`, …) that
    would otherwise beat everything in Tailwind's `@layer base`. Same source
    order as the original, where these overrides come after the theme. */
+/* VitePress 的 `base.css` 会在 `body` 上再声明一次
+   `font-family: var(--vp-font-family-base)`，只改 `--font-sans` 压不住它，
+   所以这两个 token 一起对齐 Rspress。 */
+:root {
+  --vp-font-family-base: "Inter var experimental", "Inter var", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  --vp-font-family-mono: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
 html {
   font-family: var(--font-sans);
 }
@@ -176,6 +191,116 @@ body {
   color: var(--site-main);
 }
 
+/* ---------------------------------------------------------------------------
+   正文排版 —— 逐条对齐 rspress.rs（数值取自它构建产物
+   `styles.621ff36d8e.css` 里 `.rp-doc` 的实际声明）：
+   16px 正文、段落 1.25rem 上下间距 / 1.75rem 行高、标题统一 600 字重，
+   字号阶梯 2 / 1.75 / 1.5 / 1.25 / 1.125 / 1rem，标题不再用负字距。
+
+   行高是这套排版最容易被忽略的一环：参考站的 `html` 是
+   `font-size:16px; line-height:1.7`，标题没有任何自己的 line-height，
+   于是全部继承 1.7（实测 h2 = 47.6px）。VitePress 给标题写死了 40/32/28/24px，
+   必须显式改回 1.7，否则字虽同尺寸、观感仍会"紧"一截。
+
+   VitePress 默认是 14px 正文（本站 `body` 沿用原站的 14px/24px）、标题
+   32/24/20/18px 且 h2 自带一条通栏上边框。只把「正文区」拉到 Rspress 的尺度，
+   首页 / 归档 / 标签这些克隆页的字号不受影响（它们走 body 的 14px）。
+
+   标题配色仍是本站的渐变 h1 + 主色 h2 —— 那是原站的设计语言，不属于字体。
+   --------------------------------------------------------------------------- */
+.vp-doc {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.vp-doc h1 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  line-height: 1.7;
+  letter-spacing: normal;
+}
+
+.vp-doc h2 {
+  margin: 3rem 0 1.25rem;
+  border-top: 0;
+  padding-top: 0;
+  font-size: 1.75rem;
+  line-height: 1.7;
+  letter-spacing: normal;
+}
+
+.vp-doc h3 {
+  margin: 2rem 0 1.25rem;
+  font-size: 1.5rem;
+  line-height: 1.7;
+  letter-spacing: normal;
+}
+
+.vp-doc h4 {
+  margin: 1.5rem 0 1rem;
+  font-size: 1.25rem;
+  line-height: 1.7;
+  letter-spacing: normal;
+}
+
+.vp-doc h5 {
+  margin: 1.25rem 0 0.75rem;
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+.vp-doc h6 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Rspress 不在每个 h2 上画分隔线，只在正文第一个 h2 之前给一条，用来隔开
+   「页面标题 + 导语」与正文；h2 的 `margin-top: 3rem` 之外再加 3rem。 */
+.vp-doc h2:first-of-type::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin-bottom: 3rem;
+  background-color: var(--rp-c-divider-light);
+}
+
+/* h2 不再有 24px 上内边距，默认主题把锚点图标下移的那 24px 也要收回；
+   只有带分隔线的第一个 h2 要把锚点再让过 1px + 3rem。 */
+.vp-doc h2 .header-anchor {
+  top: 0;
+}
+
+.vp-doc h2:first-of-type .header-anchor {
+  top: calc(3rem + 1px);
+}
+
+.vp-doc p {
+  margin: 1.25rem 0;
+  line-height: 1.75rem;
+}
+
+/* Rspress 的段落间距只给正文段落（`p:not(li p)`），列表项里的段落不额外撑开。 */
+.vp-doc li > p {
+  margin: 0;
+}
+
+.vp-doc ul,
+.vp-doc ol {
+  margin: 1rem 0;
+  line-height: 1.75rem;
+}
+
+/* 侧栏一级分组（ai / notes / test）默认和子项一样是 14px，只靠字重区分层级，
+   实际看下来分组边界很弱。分组标题放大到 16px，子项维持 14px。
+   选择器要压过默认主题里 `scoped` 的 `.text[data-v-…]`，所以带上完整层级。 */
+.VPSidebarItem.level-0 > .item > .text,
+.VPSidebarItem.level-0 > .item > .link > .text {
+  font-size: 22px;
+  line-height: 26px;
+}
+
 /* `.VPDoc a` 在默认主题的 `.vp-doc a`（brand-1）之后命中，因此正文链接是压暗
    20% 的 --main-color-dark；编辑本页 / 上下篇的 hover 仍走 brand-2 / brand-1。 */
 .VPDoc a {
@@ -187,49 +312,80 @@ body {
   color: var(--site-main);
 }
 
-/* 行内代码用主色 10% 的底，而不是默认主题的灰色 --vp-c-default-soft。 */
+/* 行内代码用 Rspress 那档灰底（`--rp-c-bg-mute`），而不是主色的淡彩。 */
 .vp-doc :not(pre) > code {
-  background-color: color-mix(in oklab, var(--site-main) 10%, transparent);
+  background-color: var(--rp-c-bg-mute);
 }
 
 .vp-doc img {
   border-radius: 8px;
 }
 
-/* 代码块上方留出 20px，给「macOS 窗口按钮」+ 语言标签；行号栏相应下移 40px，
-   并去掉默认那条通栏竖线、改用从 40px 起的分隔线。 */
-.vp-doc :not(.vp-code-block-title):not(.blocks) > div[class*='language-'] {
-  padding-top: 20px;
+/* ---------------------------------------------------------------------------
+   代码块 —— 复刻 rspress.rs（`https://rspress.rs/zh/ui/vars` 那套 token）：
+   1px 细描边 + 12px 圆角 + 无阴影的容器，行号与正文之间一条竖分隔线，右上角是
+   复制按钮，没有「macOS 三色圆点」。
+
+   骨架仍用 VitePress 自己的（`margin` / `pre` 的 20px 内边距 / 32px 行号栏），
+   只换外观 —— 分页、移动端横向滚动、`:no-line-numbers` 这些既有行为都不受影响。
+
+   配色分两层：
+   1. `--shiki-*` 给 token 用。`config.mts` 里的主题是内联的
+      `createCssVariablesTheme()`，token 只输出 `style="color:var(--shiki-token-*)"`，
+      真实色值全在这里，所以明暗两套色板各定义一次即可。
+   2. `--rp-code-block-*` 给容器用。名字沿用 Rspress，但值映射到本站页面底色 ——
+      Rspress 那边代码块底色本就等于它的页面底色，硬抄它的 `#121212` 反而会和本站
+      的 `#1b1b1f` 打架。同理 `--rp-c-divider-light` 也跟随本站正文色推导。
+   --------------------------------------------------------------------------- */
+:root {
+  --shiki-foreground: rgb(46, 52, 64);
+  --shiki-background: var(--site-bg);
+  --shiki-token-constant: #1976d2;
+  --shiki-token-string: #032f62;
+  --shiki-token-comment: rgb(182, 180, 180);
+  --shiki-token-keyword: #cf2727;
+  --shiki-token-parameter: #f59403;
+  --shiki-token-function: #7041c8;
+  --shiki-token-string-expression: #218438;
+  --shiki-token-punctuation: #242323;
+  --shiki-token-link: #22863a;
+  --shiki-token-inserted: #22863a;
+  --shiki-token-deleted: #d32828;
+  --shiki-token-changed: #f59403;
+
+  --rp-code-block-bg: var(--site-bg);
+  --rp-code-block-border: 1px solid var(--rp-c-divider-light);
+  --rp-code-block-shadow: none;
+
+  /* 代码正文与行号颜色挪到 Shiki 的 token 体系上，未命中 token 的部分（空白、
+     普通标点）才看 `--vp-code-block-color`。 */
+  --vp-code-block-color: var(--shiki-foreground);
+  --vp-code-line-number-color: var(--rp-c-text-3);
+  --vp-code-block-divider-color: var(--rp-c-divider-light);
 }
 
-.vp-doc :not(.vp-code-block-title):not(.blocks) > div[class*='language-']::before {
-  content: '';
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 1;
-  display: block;
-  width: 12px;
-  height: 12px;
-  border-radius: 9999px;
-  background-color: #ff5c5f;
-  box-shadow:
-    20px 0 0 #febc2e,
-    40px 0 0 #28c840;
+.dark {
+  --shiki-foreground: rgb(229, 231, 235);
+  --shiki-token-constant: #6fb0fa;
+  --shiki-token-string: #f9a86e;
+  --shiki-token-comment: #6a727b;
+  --shiki-token-keyword: #f47481;
+  --shiki-token-parameter: #ff9800;
+  --shiki-token-function: #ae8eeb;
+  --shiki-token-string-expression: #4fb74d;
+  --shiki-token-punctuation: #bbbbbb;
+  --shiki-token-link: #f9a76d;
+  --shiki-token-inserted: #36c47f;
+  --shiki-token-deleted: #ee6d7a;
+  --shiki-token-changed: #ff9800;
 }
 
-.vp-doc :not(.vp-code-block-title):not(.blocks) > div[class*='language-'] .line-numbers-wrapper {
-  padding-top: 40px;
-  border-right-width: 0;
-}
-
-.vp-doc :not(.vp-code-block-title):not(.blocks) > div[class*='language-'] .line-numbers-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 40px;
-  right: 0;
-  height: calc(100% - 60px);
-  border-right: 1px solid var(--vp-code-block-divider-color);
+.vp-doc div[class*='language-'] {
+  margin: 24px 0;
+  border: var(--rp-code-block-border);
+  border-radius: 12px;
+  background-color: var(--rp-code-block-bg);
+  box-shadow: var(--rp-code-block-shadow);
 }
 
 /* 上下篇在源站多留了 24px 的下边距。 */

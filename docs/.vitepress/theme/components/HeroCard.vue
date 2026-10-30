@@ -67,6 +67,18 @@ const tags: readonly Tag[] = [
   { label: "nginx", href: "pages/tags?q=nginx" },
   { label: "OPPO", href: "pages/tags?q=OPPO" },
   { label: "Python", href: "pages/tags?q=Python" },
+  { label: "前端", href: "pages/tags?q=%E5%89%8D%E7%AB%AF" },
+  { label: "后端", href: "pages/tags?q=%E5%90%8E%E7%AB%AF" },
+  { label: "数据库", href: "pages/tags?q=%E6%95%B0%E6%8D%AE%E5%BA%93" },
+  { label: "Docker", href: "pages/tags?q=Docker" },
+  { label: "Linux", href: "pages/tags?q=Linux" },
+  { label: "Vite", href: "pages/tags?q=Vite" },
+  { label: "摄影", href: "pages/tags?q=%E6%91%84%E5%BD%B1" },
+  { label: "旅行", href: "pages/tags?q=%E6%97%85%E8%A1%8C" },
+  { label: "视频", href: "pages/tags?q=%E8%A7%86%E9%A2%91" },
+  { label: "效率", href: "pages/tags?q=%E6%95%88%E7%8E%87" },
+  { label: "工具", href: "pages/tags?q=%E5%B7%A5%E5%85%B7" },
+  { label: "博客", href: "pages/tags?q=%E5%8D%9A%E5%AE%A2" },
 ]
 
 const socialLinks: readonly SocialLink[] = [

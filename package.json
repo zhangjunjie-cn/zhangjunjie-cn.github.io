@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",
-    "preview": "vitepress preview docs"
+    "preview": "vitepress preview docs",
+    "video": "node scripts/compress-video.mjs"
   },
   "devDependencies": {
     "@fancyapps/ui": "^5.0.36",

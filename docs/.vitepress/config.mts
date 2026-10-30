@@ -159,15 +159,24 @@ const NAV = [
  * 侧栏按 `docs/` 的目录结构自动生成（vitepress-sidebar）：新增一篇 `.md` 就会
  * 出现在所属分组的侧栏里，不用再回到这里手写一条。
  *
- * 标题优先取 frontmatter 的 `title`，没有就用正文的一级标题；分组名就是目录
- * 名。`pages/` 与 `travel/` 是自定义布局的页面（归档 / 标签 / 案例 / 游记），
- * 它们由 `theme/Layout.vue` 接管、根本不显示 VitePress 的侧栏，整目录排除。
+ * 标题优先取 frontmatter 的 `title`，没有就用正文的一级标题；分组名默认取目录名，
+ * 目录里带 index.md 时取它的一级标题。`pages/` 与 `travel/` 是自定义布局的页面
+ * （归档 / 标签 / 案例 / 游记），它们由 `theme/Layout.vue` 接管、根本不显示
+ * VitePress 的侧栏，整目录排除。
  */
 const SIDEBAR = generateSidebar({
   documentRootPath: 'docs',
   excludeByGlobPattern: ['pages/**', 'travel/**'],
   useTitleFromFrontmatter: true,
   useTitleFromFileHeading: true,
+  // 目录里的 index.md 同时充当分组标题和分组入口链接。不开这两项时，分组名会是
+  // 英文目录名（`writing-guide`），而且 index 页在侧栏里根本点不到。
+  // 全站只有根目录和 `notes/writing-guide/` 带 index.md，根目录是 layout: home，
+  // 不进侧栏，所以这两项不会波及其它分组。
+  useFolderTitleFromIndexFile: true,
+  useFolderLinkFromIndexFile: true,
+  // 分组入口指向目录本身（`/notes/writing-guide/`），而不是 `/…/index`。
+  folderLinkNotIncludesFileName: true,
   sortMenusByName: true,
 })
 
@@ -217,6 +226,177 @@ async function compressHtml(siteConfig: SiteConfig): Promise<void> {
   }
 }
 
+/**
+ * 代码高亮主题：`createCssVariablesTheme()` 的返回值，原样内联。
+ *
+ * 为什么不 `import { createCssVariablesTheme } from 'shiki'`：pnpm 严格隔离下
+ * 项目根目录没有 `node_modules/shiki`（shiki 只是 vitepress 的传递依赖），config
+ * 里解析不到它。而这个函数返回的是一份纯数据主题（没有函数和类），内联的成本只是
+ * 这几十行字面量，换来零新增依赖；将来升级 shiki 后作用域若有变化，同步一次即可。
+ *
+ * `name` 字段决定 VitePress 走哪条分支：`hasSingleTheme = 'name' in theme`，命中
+ * 单主题时 `theme` 会被原样交给 shiki（双主题才走 `themes` + `defaultColor: false`）。
+ * 单主题 + 默认 `defaultColor` 后，每个 token 输出的是
+ * `style="color:var(--shiki-token-keyword)"` 这样的**变量引用**，真实色值全由 CSS
+ * 提供（见 `theme/styles/tailwind.css` 的 `--shiki-*`），于是一份主题同时服务明暗
+ * 两套色板，暗色只是重定义一组变量。pre 上的内联背景会被 VitePress 自带的
+ * `vitepress:clean-up` 删掉，容器外观也完全交给 CSS。
+ *
+ * `colors` 里的 `terminal.ansi*` 本站用不到（没有 ansi 渲染），但保留才能与上游实现
+ * 保持一致，避免以后开 ansi 代码块时莫名丢色。
+ */
+const CODE_THEME = {
+  name: 'css-variables',
+  type: 'dark' as const,
+  colors: {
+    'editor.foreground': 'var(--shiki-foreground)',
+    'editor.background': 'var(--shiki-background)',
+    'terminal.ansiBlack': 'var(--shiki-ansi-black)',
+    'terminal.ansiRed': 'var(--shiki-ansi-red)',
+    'terminal.ansiGreen': 'var(--shiki-ansi-green)',
+    'terminal.ansiYellow': 'var(--shiki-ansi-yellow)',
+    'terminal.ansiBlue': 'var(--shiki-ansi-blue)',
+    'terminal.ansiMagenta': 'var(--shiki-ansi-magenta)',
+    'terminal.ansiCyan': 'var(--shiki-ansi-cyan)',
+    'terminal.ansiWhite': 'var(--shiki-ansi-white)',
+    'terminal.ansiBrightBlack': 'var(--shiki-ansi-bright-black)',
+    'terminal.ansiBrightRed': 'var(--shiki-ansi-bright-red)',
+    'terminal.ansiBrightGreen': 'var(--shiki-ansi-bright-green)',
+    'terminal.ansiBrightYellow': 'var(--shiki-ansi-bright-yellow)',
+    'terminal.ansiBrightBlue': 'var(--shiki-ansi-bright-blue)',
+    'terminal.ansiBrightMagenta': 'var(--shiki-ansi-bright-magenta)',
+    'terminal.ansiBrightCyan': 'var(--shiki-ansi-bright-cyan)',
+    'terminal.ansiBrightWhite': 'var(--shiki-ansi-bright-white)',
+  },
+  tokenColors: [
+    {
+      scope: [
+        'keyword.operator.accessor',
+        'meta.group.braces.round.function.arguments',
+        'meta.template.expression',
+        'markup.fenced_code meta.embedded.block',
+      ],
+      settings: { foreground: 'var(--shiki-foreground)' },
+    },
+    { scope: 'emphasis', settings: { fontStyle: 'italic' } },
+    {
+      scope: ['strong', 'markup.heading.markdown', 'markup.bold.markdown'],
+      settings: { fontStyle: 'bold' },
+    },
+    { scope: ['markup.italic.markdown'], settings: { fontStyle: 'italic' } },
+    {
+      scope: 'meta.link.inline.markdown',
+      settings: { fontStyle: 'underline', foreground: 'var(--shiki-token-link)' },
+    },
+    {
+      scope: ['string', 'markup.fenced_code', 'markup.inline'],
+      settings: { foreground: 'var(--shiki-token-string)' },
+    },
+    {
+      scope: ['comment', 'string.quoted.docstring.multi'],
+      settings: { foreground: 'var(--shiki-token-comment)' },
+    },
+    {
+      scope: [
+        'constant.numeric',
+        'constant.language',
+        'constant.other.placeholder',
+        'constant.character.format.placeholder',
+        'variable.language.this',
+        'variable.other.object',
+        'variable.other.class',
+        'variable.other.constant',
+        'meta.property-name',
+        'meta.property-value',
+        'support',
+      ],
+      settings: { foreground: 'var(--shiki-token-constant)' },
+    },
+    {
+      scope: [
+        'keyword',
+        'storage.modifier',
+        'storage.type',
+        'storage.control.clojure',
+        'entity.name.function.clojure',
+        'entity.name.tag.yaml',
+        'support.function.node',
+        'support.type.property-name.json',
+        'punctuation.separator.key-value',
+        'punctuation.definition.template-expression',
+      ],
+      settings: { foreground: 'var(--shiki-token-keyword)' },
+    },
+    {
+      scope: 'variable.parameter.function',
+      settings: { foreground: 'var(--shiki-token-parameter)' },
+    },
+    {
+      scope: [
+        'support.function',
+        'entity.name.type',
+        'entity.other.inherited-class',
+        'meta.function-call',
+        'meta.instance.constructor',
+        'entity.other.attribute-name',
+        'entity.name.function',
+        'constant.keyword.clojure',
+      ],
+      settings: { foreground: 'var(--shiki-token-function)' },
+    },
+    {
+      scope: [
+        'entity.name.tag',
+        'string.quoted',
+        'string.regexp',
+        'string.interpolated',
+        'string.template',
+        'string.unquoted.plain.out.yaml',
+        'keyword.other.template',
+      ],
+      settings: { foreground: 'var(--shiki-token-string-expression)' },
+    },
+    {
+      scope: [
+        'punctuation.definition.arguments',
+        'punctuation.definition.dict',
+        'punctuation.separator',
+        'meta.function-call.arguments',
+      ],
+      settings: { foreground: 'var(--shiki-token-punctuation)' },
+    },
+    {
+      scope: ['markup.underline.link', 'punctuation.definition.metadata.markdown'],
+      settings: { foreground: 'var(--shiki-token-link)' },
+    },
+    {
+      scope: ['beginning.punctuation.definition.list.markdown'],
+      settings: { foreground: 'var(--shiki-token-string)' },
+    },
+    {
+      scope: [
+        'punctuation.definition.string.begin.markdown',
+        'punctuation.definition.string.end.markdown',
+        'string.other.link.title.markdown',
+        'string.other.link.description.markdown',
+      ],
+      settings: { foreground: 'var(--shiki-token-keyword)' },
+    },
+    {
+      scope: ['markup.inserted', 'meta.diff.header.to-file', 'punctuation.definition.inserted'],
+      settings: { foreground: 'var(--shiki-token-inserted)' },
+    },
+    {
+      scope: ['markup.deleted', 'meta.diff.header.from-file', 'punctuation.definition.deleted'],
+      settings: { foreground: 'var(--shiki-token-deleted)' },
+    },
+    {
+      scope: ['markup.changed', 'punctuation.definition.changed'],
+      settings: { foreground: 'var(--shiki-token-changed)' },
+    },
+  ],
+}
+
 export default defineConfig({
   lang: 'zh-CN',
   title: '俊杰笔记',
@@ -240,22 +420,13 @@ export default defineConfig({
   sitemap: {
     hostname: 'https://zhangjunjiee.netlify.app',
   },
-  head: [
-    ['link', { rel: 'icon', href: '/favicon.ico' }],
-    [
-      'link',
-      {
-        rel: 'preload',
-        href: '/fonts/inter-roman-latin.woff2',
-        as: 'font',
-        type: 'font/woff2',
-        crossorigin: '',
-      },
-    ],
-  ],
+  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
   markdown: {
-    // 原站每个代码块都带 `line-numbers-mode` + `line-numbers-wrapper`。
-    lineNumbers: true,
+    // 代码块配色走 css-variables 主题，实际色值在 tailwind.css 里按明暗两套定义。
+    theme: CODE_THEME,
+    // 代码块默认不带左侧行号 —— Rspress 那边也是显式写 `:line-numbers` 才显示。
+    // 个别块想要行号，在围栏语言后面加 `:line-numbers` 即可。
+    lineNumbers: false,
     // 容器语法换成 Rspress 那一套（`:::tip` / `:::tip 标题` / `:::tip{title="…"}` /
     // `:::prompt`）。必须挂在 `preConfig`：VitePress 自带的容器插件在它之后才注册，
     // 而 markdown-it 的 Ruler 取第一条命中的规则，先注册才压得住同名的 `::: tip`。

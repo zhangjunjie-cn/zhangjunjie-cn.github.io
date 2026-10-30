@@ -147,8 +147,15 @@ function registerContainer(md: any, options: ContainerOptions): void {
     if (silent) return true
 
     // 找结束标记：冒号数不少于开头、且后面只剩空白的那一行。
+    //
+    // 扫描必须跳过代码围栏：`:::details` 里放一段示例写法是这种文档最常见的用法，
+    // 围栏里的 `:::` 只是要展示的字符，不是容器结束符。不跳过的话，外层容器会在
+    // 第一个示例 `:::` 处提前闭合，剩下的半个容器（连同围栏）被当普通 markdown
+    // 解析，页面上就会露出裸的 `:::`。
     let nextLine = startLine
     let autoClosed = false
+    let fenceChar = ''
+    let fenceLen = 0
     for (;;) {
       nextLine++
       if (nextLine >= endLine) break
@@ -156,6 +163,29 @@ function registerContainer(md: any, options: ContainerOptions): void {
       const lineStart = state.bMarks[nextLine] + state.tShift[nextLine]
       const lineMax = state.eMarks[nextLine]
       if (lineStart < lineMax && state.sCount[nextLine] < state.blkIndent) break
+
+      // 围栏内：只认同字符、长度不短于开口的收尾行。
+      if (fenceChar) {
+        if (state.src.charCodeAt(lineStart) === fenceChar.charCodeAt(0)) {
+          let run = 0
+          while (lineStart + run < lineMax && state.src[lineStart + run] === fenceChar) run++
+          if (run >= fenceLen && state.skipSpaces(lineStart + run) >= lineMax) fenceChar = ''
+        }
+        continue
+      }
+
+      // 围栏外：行首三个以上的 ` 或 ~ 视为代码围栏的开口。
+      const fenceStart = state.src.charCodeAt(lineStart)
+      if (fenceStart === 0x60 || fenceStart === 0x7e) {
+        let run = 0
+        while (lineStart + run < lineMax && state.src[lineStart + run] === state.src[lineStart]) run++
+        if (run >= 3) {
+          fenceChar = state.src[lineStart]
+          fenceLen = run
+          continue
+        }
+      }
+
       if (state.src.charCodeAt(lineStart) !== 0x3a) continue
       if (state.sCount[nextLine] - state.blkIndent >= 4) continue
 
