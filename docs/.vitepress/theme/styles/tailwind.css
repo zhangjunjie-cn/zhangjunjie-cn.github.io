@@ -1199,7 +1199,7 @@ html:not(.dark) .site-shell--over-banner .VPNavBar.top .VPMenu {
 }
 
 /* ---------------------------------------------------------------------------
-   ③ 下滑时的过渡统一：`.VPNavBar` 和 `.content-body` 上的是同一块底色，却各带
+   ③ 过渡统一：`.VPNavBar` 和 `.content-body` 上的是同一块底色，却各带
    一条自己的 transition —— 前者 `VPNavBar.vue` 的 `transition: background-color
    0.25s`，后者 `transition: background-color 0.5s`。
 
@@ -1207,23 +1207,28 @@ html:not(.dark) .site-shell--over-banner .VPNavBar.top .VPMenu {
    中间那块的底完全由 `.content-body` 提供，左右两条 `padding` 带子交给 `.VPSidebar`
    去补，所以两条 transition 谁也碰不到谁。可自定义外壳没有 `.VPSidebar`（上面 ①
    已把满宽底色交给 `.VPNavBar`），于是中间那块被**两层同时上色** —— `.VPNavBar`
-   的满宽底，再加压在上面的 `.content-body` 的底 —— 两个时长还差一倍：下滑时边上
-   按 0.25s 先变白，中间要 0.5s 才跟上，看起来就是「中间一块和两边存在时间差」。
+   的满宽底，再加压在上面的 `.content-body` 的底 —— 两个时长还差一倍：一旦底色从
+   白变成透明（比如从别的页面进到横幅页、`.top` 才补上），两侧（`.VPNavBar`）按
+   0.25s 先消失，中间（`.content-body`）要 0.5s 才跟上，看起来就是「中间一块和
+   两边不同步」。
 
-   这里把 `.content-body` 自己那层底色撤掉，整条栏只剩 `.VPNavBar` 一条满宽底、
-   一条 0.25s，一起变；底色本身在 `--vp-nav-bg-color` 上，顶部照样解析成
+   这里让 `.content-body` 跟 `.VPNavBar` 取同一个变量、同一条 `0.25s`：两层同时
+   起步、同时到终点。底色本身在 `--vp-nav-bg-color` 上，顶部照样解析成
    `transparent`，透明态不变。
 
-   `.content-body` 的底色只声明在 `@media (min-width: 960px)` 里，所以这条也只影响
-   有侧栏的宽屏。选择器重复类名把优先级抬到 (0,6,0)：默认主题那条是
+   `.content-body` 的底色只声明在 `@media (min-width: 960px)` 里，所以这条也只
+   作用在有侧栏的宽屏；选择器重复类名把优先级抬到 (0,6,0)：默认主题那条是
    `.VPNavBar:not(.home.top) .content-body[data-v-…]`，算 (0,5,0)，稳压它，不必
    动用 `!important`。
    --------------------------------------------------------------------------- */
 
-.site-shell--over-banner
-  .VPNavBar.VPNavBar.has-sidebar
-  .content-body.content-body {
-  background-color: transparent;
+@media (min-width: 960px) {
+  .site-shell
+    .VPNavBar.VPNavBar.has-sidebar
+    .content-body.content-body {
+    background-color: var(--vp-nav-bg-color);
+    transition: background-color 0.25s;
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -2924,6 +2929,41 @@ html.dark .rp-doc-bg__glow {
   width: 750px;
   height: 80px;
   max-width: 100%;
+}
+
+/* ---------------------------------------------------------------------------
+   右侧文章目录（VPDocAsideOutline）—— 配合 `components/AsideRail.vue` 的电路导轨。
+
+   复刻对象是 ui.nuxt.com 的 ContentToc（`highlight-variant="circuit"`，见 nuxt/ui
+   v4 的 `src/theme/content/content-toc.ts`）。导轨本身由 AsideRail 按目录项实测
+   画成 SVG 折线 —— 含子级那点「阶梯」错位、以及当前小节那段主色亮线；这里只负责
+   把原生那套「灰色 border + 小方块 marker」让位：
+
+     · 去掉 `.content` 的 1px `border-left` 与 16px 内缩，标题贴栏左；
+     · 条目缩进 26px = 导轨 10px + 文字间隔 16px（原站 `ms-2.5` / `ps-6.5`）；
+     · 原生 `.outline-marker` 隐藏：亮段改由 AsideRail 沿同一根折线画，
+       切到子级条目时它才会跟着台阶一起走；
+     · 当前条目文字用主色（原站 `text-primary`）。
+
+   选择器带 `.VPDoc` 前缀，才能压过主题里 scoped 的 `.content` /
+   `.outline-marker` / `.outline-link`（`.xxx[data-v-…]`）。
+   --------------------------------------------------------------------------- */
+
+.VPDoc .VPDocAsideOutline .content {
+  border-left: 0;
+  padding-left: 0;
+}
+
+.VPDoc .VPDocAsideOutline .VPDocOutlineItem.root {
+  padding-left: 26px;
+}
+
+.VPDoc .VPDocAsideOutline .content .outline-marker {
+  display: none;
+}
+
+.VPDoc .VPDocAsideOutline .content .outline-link.active {
+  color: var(--site-main);
 }
 
 

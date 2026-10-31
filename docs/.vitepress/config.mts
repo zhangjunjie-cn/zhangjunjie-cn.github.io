@@ -45,64 +45,64 @@ const NAV = [
       },
     ],
   },
-  {
-    text: '技术探讨',
-    items: [
-      {
-        items: [
-          { text: '前端术语', link: '/terminology/design-paradigm' },
-          { text: 'CSS 样式', link: '/css/apply/icon-label-shields' },
-          { text: 'JS 基础', link: '/js/apply/compare-number' },
-          { text: '浏览器', link: '/browser/apply/browser-plugin' },
-          { text: 'TS 基础', link: '/ts/basic/ts-normal-summary' },
-          { text: 'Nodejs', link: '/nodejs/apply/pnpm-setting' },
-          { text: 'Nginx', link: '/nginx/nginx-web-cross-domain' },
-        ],
-      },
-      {
-        items: [
-          { text: 'Vue.js', link: '/vuejs/basic/vue-mvvm-binding' },
-          { text: 'uni-app', link: '/mobile/uniapp/project-building-uniapp-vue3' },
-          { text: 'Vite', link: '/pages/tags?q=Vite' },
-          { text: 'Element', link: '/element/responsive-layout' },
-        ],
-      },
-      {
-        items: [
-          { text: '终端配置', link: '/pages/tags?q=%E7%BB%88%E7%AB%AF' },
-          { text: 'Git 配置', link: '/git/use-log' },
-          { text: '开发工具', link: '/editor/vscode/vscode-self-plugin' },
-          { text: 'PS 教程', link: '/editor/ps/photo-change-bg' },
-        ],
-      },
-    ],
-  },
-  {
-    text: '资源分享',
-    items: [
-      {
-        items: [
-          { text: '前端导航', link: 'https://nav.weizwz.com/' },
-          { text: 'AI工具集', link: 'https://ai-bot.cn/' },
-          { text: 'GitHub', link: '/pages/tags?q=Github' },
-        ],
-      },
-      {
-        items: [
-          { text: '应用分享', link: '/app/network/clash-verge' },
-          { text: 'Windows', link: '/windows/setting/terminal-beautify' },
-          { text: 'MacOS', link: '/macos/setting/base-init' },
-        ],
-      },
-      {
-        items: [
-          { text: '前端设计', link: '/resource/design/all' },
-          { text: '开源字体', link: '/resource/font/open-source-font' },
-          { text: '图标图片', link: '/resource/image/icon-all' },
-        ],
-      },
-    ],
-  },
+  // {
+  //   text: '技术探讨',
+  //   items: [
+  //     {
+  //       items: [
+  //         { text: '前端术语', link: '/terminology/design-paradigm' },
+  //         { text: 'CSS 样式', link: '/css/apply/icon-label-shields' },
+  //         { text: 'JS 基础', link: '/js/apply/compare-number' },
+  //         { text: '浏览器', link: '/browser/apply/browser-plugin' },
+  //         { text: 'TS 基础', link: '/ts/basic/ts-normal-summary' },
+  //         { text: 'Nodejs', link: '/nodejs/apply/pnpm-setting' },
+  //         { text: 'Nginx', link: '/nginx/nginx-web-cross-domain' },
+  //       ],
+  //     },
+  //     {
+  //       items: [
+  //         { text: 'Vue.js', link: '/vuejs/basic/vue-mvvm-binding' },
+  //         { text: 'uni-app', link: '/mobile/uniapp/project-building-uniapp-vue3' },
+  //         { text: 'Vite', link: '/pages/tags?q=Vite' },
+  //         { text: 'Element', link: '/element/responsive-layout' },
+  //       ],
+  //     },
+  //     {
+  //       items: [
+  //         { text: '终端配置', link: '/pages/tags?q=%E7%BB%88%E7%AB%AF' },
+  //         { text: 'Git 配置', link: '/git/use-log' },
+  //         { text: '开发工具', link: '/editor/vscode/vscode-self-plugin' },
+  //         { text: 'PS 教程', link: '/editor/ps/photo-change-bg' },
+  //       ],
+  //     },
+  //   ],
+  // },
+  // {
+  //   text: '资源分享',
+  //   items: [
+  //     {
+  //       items: [
+  //         { text: '前端导航', link: 'https://nav.weizwz.com/' },
+  //         { text: 'AI工具集', link: 'https://ai-bot.cn/' },
+  //         { text: 'GitHub', link: '/pages/tags?q=Github' },
+  //       ],
+  //     },
+  //     {
+  //       items: [
+  //         { text: '应用分享', link: '/app/network/clash-verge' },
+  //         { text: 'Windows', link: '/windows/setting/terminal-beautify' },
+  //         { text: 'MacOS', link: '/macos/setting/base-init' },
+  //       ],
+  //     },
+  //     {
+  //       items: [
+  //         { text: '前端设计', link: '/resource/design/all' },
+  //         { text: '开源字体', link: '/resource/font/open-source-font' },
+  //         { text: '图标图片', link: '/resource/image/icon-all' },
+  //       ],
+  //     },
+  //   ],
+  // },
   {
     text: '博客建站',
     items: [
@@ -440,6 +440,10 @@ export default defineConfig({
     nav: NAV,
     sidebar: SIDEBAR,
     outlineTitle: '目录',
+    // 目录带 h3：右侧导轨（`theme/components/AsideRail.vue`）复刻的是 ui.nuxt.com
+    // 那条「电路折线」，子级条目靠这段阶梯错位才看得出来；默认的 `2` 只有 h2，
+    // 折线就会退化成一根直的。想回到只有 h2，改回 `outline: 2` 即可。
+    outline: [2, 3],
     editLink: {
       // 原站的编辑链接指向 docs/post/<相对路径>，与本地文档目录不同名，故显式给模板。
       pattern: 'https://github.com/weizwz/note/edit/main/docs/post/:path',

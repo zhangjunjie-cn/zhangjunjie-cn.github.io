@@ -4,6 +4,7 @@ import { computed, onMounted } from 'vue'
 import {
   markRouteSkeletonMounted,
   routeSkeleton,
+  startRouteSkeletonDemo,
 } from './useRouteSkeleton'
 
 /**
@@ -18,7 +19,11 @@ import {
  */
 const kind = computed(() => routeSkeleton.kind)
 
-onMounted(markRouteSkeletonMounted)
+onMounted(() => {
+  markRouteSkeletonMounted()
+  // `?skeleton=1` 时先把当前页骨架亮 2.5 秒，方便验收每一套形状。
+  startRouteSkeletonDemo(window.location.pathname)
+})
 </script>
 
 <template>

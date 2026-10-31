@@ -5,6 +5,7 @@ import DefaultTheme from 'vitepress/theme'
 import { bindFancybox, destroyFancybox } from './components/ImgViewer'
 import { bindPrompts, destroyPrompts } from './components/Prompt'
 import { beginRouteSkeleton, endRouteSkeleton } from './components/useRouteSkeleton'
+import { restoreBrandColor } from './components/useBrandColor'
 import Layout from './Layout.vue'
 // 放在本项目样式之前：插件的 unocss 样式先加载，本站未分层的覆盖规则仍然能压过它。
 import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
@@ -38,6 +39,9 @@ export default {
     // click listener. Left un-awaited, that teardown can resolve after the next
     // page has already bound and leave the gallery click-dead.
     if (inBrowser) {
+      // 自定义品牌色存在 localStorage，首屏（含首页等没有侧栏的路由）也要恢复。
+      restoreBrandColor()
+
       router.onBeforeRouteChange = () => {
         destroyPrompts()
         return destroyFancybox()

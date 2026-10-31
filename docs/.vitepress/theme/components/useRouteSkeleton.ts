@@ -23,6 +23,20 @@ export const routeSkeleton = reactive({
 const SHOW_DELAY = 180
 /** 已经显示出来的骨架至少停留这么久，避免「闪一下就没」。 */
 const MIN_VISIBLE = 460
+/** 预览模式下，进入页面时骨架先亮这么久，让人看清形状。 */
+const DEMO_HOLD = 2500
+
+/**
+ * 预览开关：网址后加 `?skeleton=1`。
+ *
+ * VitePress 会预取视口内的链接，正常跳转往往在几十毫秒内完成，走的是上面的
+ * 180ms 阈值 —— 效果因此几乎看不到。加上这个参数后，进入页面会先把当前页
+ * 的骨架亮 2.5 秒再揭开内容，之后的每次跳转也都立即显示骨架（至少 1.2 秒），
+ * 方便逐个页面验收。
+ */
+const demo =
+  typeof window !== 'undefined' &&
+  new URLSearchParams(window.location.search).get('skeleton') === '1'
 
 let mounted = false
 let pending = false
@@ -32,6 +46,26 @@ let shownAt = 0
 
 export function markRouteSkeletonMounted() {
   mounted = true
+}
+
+/** 预览模式入口：挂载后亮出当前页骨架，停留 `DEMO_HOLD` 后自动揭开。 */
+export function startRouteSkeletonDemo(path: string) {
+  if (!demo) return
+
+  pending = false
+  clearTimeout(showTimer)
+  clearTimeout(hideTimer)
+  routeSkeleton.kind = kindOf(path)
+  shownAt = performance.now()
+  routeSkeleton.shown = true
+  hideTimer = setTimeout(() => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (pending) return
+        routeSkeleton.shown = false
+      })
+    })
+  }, DEMO_HOLD)
 }
 
 function pathOf(href: string) {
@@ -74,6 +108,14 @@ export function beginRouteSkeleton(href: string, currentPath: string) {
   routeSkeleton.kind = kindOf(target)
   clearTimeout(showTimer)
   clearTimeout(hideTimer)
+
+  // 预览模式下不再等 180ms，跳一下就能看到骨架。
+  if (demo) {
+    shownAt = performance.now()
+    routeSkeleton.shown = true
+    return
+  }
+
   showTimer = setTimeout(() => {
     if (!pending) return
     shownAt = performance.now()
@@ -88,7 +130,9 @@ export function endRouteSkeleton() {
   clearTimeout(showTimer)
   if (!routeSkeleton.shown) return
 
-  const remaining = Math.max(0, MIN_VISIBLE - (performance.now() - shownAt))
+  // 预览模式下跳一次只亮 1.2 秒就够看清了，正常模式按 MIN_VISIBLE 收敛。
+  const minVisible = demo ? 1200 : MIN_VISIBLE
+  const remaining = Math.max(0, minVisible - (performance.now() - shownAt))
   clearTimeout(hideTimer)
   hideTimer = setTimeout(() => {
     // 等新页面完成一次提交（两帧）再揭开，避免露出上一页的残影。

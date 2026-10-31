@@ -53,7 +53,7 @@ defineProps<{
   <div class="tk-article-banner">
     <div class="tk-article-banner__wrapper">
       <div class="tk-article-banner__cover">
-        <img :src="cover" alt="cover" />
+        <img :src="cover" alt="cover" referrerpolicy="no-referrer" />
       </div>
 
       <div class="tk-article-banner__info">

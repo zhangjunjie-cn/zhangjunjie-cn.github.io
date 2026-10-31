@@ -50,6 +50,7 @@ onMounted(() => {
             :src="article.thumbnail"
             class="no-preview"
             :alt="article.title"
+            referrerpolicy="no-referrer"
             @load="markLoaded"
             @error="markLoaded"
           />

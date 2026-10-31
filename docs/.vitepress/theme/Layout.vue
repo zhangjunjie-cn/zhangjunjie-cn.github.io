@@ -18,6 +18,8 @@ import HomeContent from './components/HomeContent.vue'
 import CaseContent from './components/pages-case/CaseContent.vue'
 import PostFooter from './components/PostFooter.vue'
 import RouteSkeleton from './components/RouteSkeleton.vue'
+import AsideRail from './components/AsideRail.vue'
+import ThemePreference from './components/ThemePreference.vue'
 import PostsContent from './components/pages-posts/PostsContent.vue'
 import TagsContent from './components/pages-tags/TagsContent.vue'
 import TravelContent from './components/pages-travel/TravelContent.vue'
@@ -198,6 +200,12 @@ onUnmounted(() => {
     <template #nav-screen-content-after><NolebaseEnhancedReadabilitiesScreenMenu /></template>
     <!-- `doc-top` 落在 `.VPDoc` 的最上面（内容之前），背景层因此只铺在文档页。 -->
     <template #doc-top><BlogBackground /></template>
+    <!-- 右侧目录的电路导轨（复刻 ui.nuxt.com）：挂在目录组件之前的槽位，
+         绝对定位到 `.aside-container`，几何按实际目录项实时测量。 -->
+    <template #aside-outline-before><AsideRail /></template>
+    <!-- 左侧栏顶部的品牌色开关（复刻 cn.vuejs.org 的 preference-switch /
+         preference-tooltip）：气泡里是 Rspress 的品牌色板，选色即改 `--site-main`。 -->
+    <template #sidebar-nav-before><ThemePreference /></template>
     <template #doc-footer-before><PostFooter /></template>
   </DefaultTheme.Layout>
 
