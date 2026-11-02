@@ -2,6 +2,7 @@
 title: 腾讯Agent Mail开测！速抢ID
 date: 2026-07-07
 updated: 2026-07-01
+progress: 60   # 0–100，超过 100 按 100% 算
 # 供主题的「最后更新于」使用；带时区才能得到与源站一致的 2026/7/1 17:31:13
 lastUpdated: 2026-07-01T17:31:13+08:00
 description: 腾讯 Agent Mail 的实测接入与使用体验，涵盖申请邮箱、安装 CLI、授权验证、Codex 等 Agent 发邮件流程，以及二次确认和自动化工作流场景。关键词：Agent Mail, AI 邮箱, Codex, Agent 工作流
@@ -12,7 +13,7 @@ tags:
 
 # 腾讯Agent Mail开测！速抢ID
 
-<PostMeta />
+<NolebasePageProperties />
 
 腾讯 QQ 邮箱团队最近开始测试一个很有意思的新产品：[**Agent Mail**](https://agent.qq.com/)。
 

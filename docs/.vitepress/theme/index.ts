@@ -1,6 +1,7 @@
 import type { Theme } from 'vitepress'
 import { inBrowser } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
+import { NolebasePagePropertiesEditor, NolebasePagePropertiesPlugin } from '@nolebase/vitepress-plugin-page-properties/client'
 
 import { bindFancybox, destroyFancybox } from './components/ImgViewer'
 import { bindPrompts, destroyPrompts } from './components/Prompt'
@@ -9,6 +10,7 @@ import { restoreBrandColor } from './components/useBrandColor'
 import Layout from './Layout.vue'
 // 放在本项目样式之前：插件的 unocss 样式先加载，本站未分层的覆盖规则仍然能压过它。
 import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
+import '@nolebase/vitepress-plugin-page-properties/client/style.css'
 import './styles/tailwind.css'
 
 /**
@@ -21,7 +23,7 @@ import './styles/tailwind.css'
  * `vars.css` and the whole `VP*` component set available, and `Layout.vue`
  * only takes over the three custom routes.
  *
- * Markdown-facing components (`<PostMeta />`, `<Swiper :items="[…]" />`,
+ * Markdown-facing components (`<NolebasePageProperties />`, `<Swiper :items="[…]" />`,
  * `<TravelCases />`, `<MemoryGallery />`, …) are no longer registered here one
  * by one: `unplugin-vue-components` in `config.mts` resolves anything that
  * lives under `theme/components/` on demand, so a new component works the
@@ -30,7 +32,50 @@ import './styles/tailwind.css'
 export default {
   extends: DefaultTheme,
   Layout,
-  enhanceApp({ router }) {
+  enhanceApp({ app, router }) {
+    // markdown 里的 `<NolebasePageProperties />` 由插件全局注册；配置作为
+    // `app.use` 的第二个参数传入（工厂函数本身不接收参数），只配 zh-CN，站点是单语。
+    app.use(NolebasePagePropertiesPlugin(), {
+      properties: {
+        'zh-CN': [
+          { key: 'tags', type: 'tags', title: '标签' },
+          { key: 'progress', type: 'progress', title: '进度' },
+          {
+            key: 'date',
+            type: 'datetime',
+            title: '创建时间',
+            formatAsFrom: true,
+            dateFnsLocaleName: 'zhCN',
+          },
+          {
+            key: 'updated',
+            type: 'datetime',
+            title: '更新时间',
+            formatAsFrom: true,
+            dateFnsLocaleName: 'zhCN',
+          },
+          {
+            key: 'wordCount',
+            type: 'dynamic',
+            title: '字数',
+            options: { type: 'wordsCount' },
+          },
+          {
+            key: 'readingTime',
+            type: 'dynamic',
+            title: '阅读时间',
+            options: { type: 'readingTime', dateFnsLocaleName: 'zhCN' },
+          },
+        ],
+      },
+    })
+
+    // 开发态下 `virtual:nolebase-page-properties` 可能先于 md 的 transform 就绪，
+    // 卡片会一直是空表格；官方在开发期改用 Editor，它挂载后会主动向 dev server
+    // 要一次数据。两者模板完全一致，外观不变，构建时仍用 PageProperties。
+    if (import.meta.env.DEV)
+      app.component('NolebasePageProperties', NolebasePagePropertiesEditor)
+
     // Article images open full-screen in Fancybox. VitePress has no `update`
     // hook, so the gallery is re-bound on every route change instead.
     //
@@ -41,6 +86,17 @@ export default {
     if (inBrowser) {
       // 自定义品牌色存在 localStorage，首屏（含首页等没有侧栏的路由）也要恢复。
       restoreBrandColor()
+
+      // 「页面属性」里的标签胶囊默认只是展示文字，点击时跳到标签页，并用 `?q=`
+      // 预选该标签（`TagsContent` 在挂载时读取这个查询参数）。
+      document.addEventListener('click', (event) => {
+        const tag = (event.target as Element | null)?.closest<HTMLElement>(
+          '.vp-nolebase-page-properties [data-page-property-type="tags"]',
+        )
+        const label = tag?.textContent?.trim()
+        if (!label) return
+        router.go(`/pages/tags?q=${encodeURIComponent(label)}`)
+      })
 
       router.onBeforeRouteChange = () => {
         destroyPrompts()

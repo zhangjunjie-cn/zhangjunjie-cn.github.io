@@ -32,10 +32,13 @@ export function readBrandPreference(): BrandPreference | null {
 
 export function applyBrandColor(color: string) {
   document.documentElement.style.setProperty('--site-main', color)
+  // 有选择器的样式（如页面属性里的进度条）只在「自定义」时才跟随品牌色。
+  document.documentElement.classList.add('brand-custom')
 }
 
 export function clearBrandColor() {
   document.documentElement.style.removeProperty('--site-main')
+  document.documentElement.classList.remove('brand-custom')
 }
 
 /** 应用启动时（任意路由）恢复上次的自定义色。 */

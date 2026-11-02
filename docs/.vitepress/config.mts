@@ -3,6 +3,7 @@ import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { brotliCompressSync, constants, gzipSync } from 'node:zlib'
 import { defineConfig, type SiteConfig } from 'vitepress'
+import { PageProperties } from '@nolebase/vitepress-plugin-page-properties/vite'
 import tailwindcss from '@tailwindcss/vite'
 import vueComponents from 'unplugin-vue-components/vite'
 import compression from 'vite-plugin-compression'
@@ -223,6 +224,59 @@ async function compressHtml(siteConfig: SiteConfig): Promise<void> {
         params: { [constants.BROTLI_PARAM_QUALITY]: constants.BROTLI_MAX_QUALITY },
       }),
     )
+  }
+}
+
+/**
+ * 开发期补丁：`@nolebase/vitepress-plugin-page-properties@2.18.2` 自带的 dev 数据
+ * 通道在 `vitepress dev docs`（cwd 为项目根）下失效 —— 它把相对 `srcDir` 的
+ * `page.filePath`（如 `ai/qq-agent-mail.md`）直接交给 `existsSync`，永远命中不到
+ * 文件，卡片会一直空着。这里在客户端挂载后按插件同一套口径重算字数与阅读时间，
+ * 再把数据回推给组件；构建产物走插件自己的统计，不受影响。
+ */
+function pagePropertiesDevData(): Plugin {
+  const handlers = [
+    { regex: /\p{Script=Hiragana}|\p{Script=Katakana}/gu, wordsPerMinute: 400 },
+    { regex: /\p{Script=Han}/gu, wordsPerMinute: 300 },
+    {
+      regex: /[\p{Script=Latin}\p{Script=Cyrillic}\p{Mark}\p{Punctuation}\p{Number}]+/gu,
+      wordsPerMinute: 160,
+    },
+  ]
+  return {
+    name: 'local:page-properties-dev-data',
+    apply: 'serve',
+    configureServer(server) {
+      server.ws.on(
+        'nolebase-page-properties:client-mounted',
+        async (payload: unknown, client) => {
+          const filePath = (payload as { page?: { filePath?: unknown } })?.page?.filePath
+          if (typeof filePath !== 'string' || !filePath.endsWith('.md')) return
+
+          let body: string
+          try {
+            body = await readFile(
+              fileURLToPath(new URL(`../${filePath}`, import.meta.url)),
+              'utf-8',
+            )
+          } catch {
+            return
+          }
+          body = body.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, '')
+
+          let wordsCount = 0
+          let minutes = 0
+          for (const { regex, wordsPerMinute } of handlers) {
+            const count = body.match(regex)?.length ?? 0
+            wordsCount += count
+            minutes += count / wordsPerMinute
+          }
+          client.send('nolebase-page-properties:updated', {
+            [filePath.toLowerCase()]: { wordsCount, readingTime: Math.ceil(minutes) },
+          })
+        },
+      )
+    },
   }
 }
 
@@ -505,13 +559,18 @@ export default defineConfig({
     },
     plugins: [
       tailwindcss(),
-      // md / vue 里直接写 `<Swiper />`、`<PostMeta />` 就行，用到哪个引入哪个，
+      // 「页面属性」卡片（@nolebase/vitepress-plugin-page-properties）：在预构建阶段
+      // 统计每篇 md 的正文字数与阅读时间，客户端通过 `virtual:nolebase-page-properties`
+      // 读取；卡片本身仍由 md 里的 `<NolebasePageProperties />` 手动放置。
+      PageProperties(),
+      pagePropertiesDevData(),
+      // md / vue 里直接写 `<Swiper />`、`<NolebasePageProperties />` 就行，用到哪个引入哪个，
       // 不需要再在 `theme/index.ts` 里一个个 `app.component()` 注册。
       vueComponents({
         dirs: fileURLToPath(new URL('./theme/components', import.meta.url)),
         // 插件的默认 include 只管 `.vue`，而 VitePress 是把每个 `.md` 编译成
         // Vue SFC 的：模板块落在 `…/note.md?vue&type=template&lang.js` 里。
-        // 不补上 `.md` 这两条，md 里写的 `<Swiper />`、`<PostMeta />` 就没人
+        // 不补上 `.md` 这两条，md 里写的 `<Swiper />` 这类本地组件就没人
         // 接管（SSR 与客户端都会渲染成空注释）。前面四条是插件的默认值。
         include: [
           /\.vue$/,

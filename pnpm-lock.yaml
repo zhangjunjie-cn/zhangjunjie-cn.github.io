@@ -14,6 +14,9 @@ importers:
       '@nolebase/vitepress-plugin-enhanced-readabilities':
         specifier: ^2.18.2
         version: 2.18.2(supports-color@7.2.0)(vitepress@1.6.4(@algolia/client-search@5.59.0)(less@4.9.1(supports-color@7.2.0))(lightningcss@1.32.0)(postcss@8.5.28)(search-insights@2.17.3))(vue@3.5.43)
+      '@nolebase/vitepress-plugin-page-properties':
+        specifier: 2.18.2
+        version: 2.18.2(supports-color@7.2.0)(vitepress@1.6.4(@algolia/client-search@5.59.0)(less@4.9.1(supports-color@7.2.0))(lightningcss@1.32.0)(postcss@8.5.28)(search-insights@2.17.3))(vue@3.5.43)
       '@tailwindcss/vite':
         specifier: ^4.1.0
         version: 4.3.3(vite@5.4.21(less@4.9.1(supports-color@7.2.0))(lightningcss@1.32.0))
@@ -339,8 +342,19 @@ packages:
       vitepress: ^1.5.0 || ^2.0.0-alpha.1
       vue: '>= 3.5.18'
 
+  '@nolebase/ui@2.21.1':
+    resolution: {integrity: sha512-xoxfiriUU+wA8e+a/MWiozX761JrHLBcnFMOuIPNI25qOoWBc0OLGNErA3L6AcquIExHT5BoVAMEw1sbEsdgQQ==}
+    peerDependencies:
+      vitepress: ^2.0.0-alpha.20
+      vue: '>=3.5.43'
+
   '@nolebase/vitepress-plugin-enhanced-readabilities@2.18.2':
     resolution: {integrity: sha512-fDhdZBSJL2qs/1xac0PtJfU5UI7b36ffVPYgzM8Ig2NjqMJ7cBvrTTPGq03lUeMjK7GD7fItAKudaP+ZrtMg8w==}
+    peerDependencies:
+      vitepress: ^1.5.0 || ^2.0.0-alpha.1
+
+  '@nolebase/vitepress-plugin-page-properties@2.18.2':
+    resolution: {integrity: sha512-ppEHZoRGGeEg2FYbz/bz6wMOZVpmAiiDPp3MnRyh3T4tsuoAYf926vEp+zTUzfjzyQrxaAbwjugs3ek+m2utwA==}
     peerDependencies:
       vitepress: ^1.5.0 || ^2.0.0-alpha.1
 
@@ -790,6 +804,9 @@ packages:
 
   csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
+
+  date-fns@4.4.0:
+    resolution: {integrity: sha512-+1UMbeh68lH1SegH83CGWwpb6OHHbpSgr3+s5Eww5M4CAgswBpoWS0AjTOfEJ33HiYKz1hdj/KTFprzXHmq/6w==}
 
   debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -1327,6 +1344,10 @@ packages:
       webpack:
         optional: true
 
+  uuid@11.1.1:
+    resolution: {integrity: sha512-vIYxrBCC/N/K+Js3qSN88go7kIfNPssr/hHCesKCQNAjmgvYS2oqr69kIufEG+O4+PfezOH4EbIeHCfFov8ZgQ==}
+    hasBin: true
+
   vfile-message@4.0.3:
     resolution: {integrity: sha512-QTHzsGd1EhbZs4AsQ20JX1rC3cOlt/IWJruk893DfLRr57lcnOeMaWG4K0JrRta4mIJZKth2Au3mM3u03/JWKw==}
 
@@ -1671,12 +1692,35 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@nolebase/ui@2.21.1(supports-color@7.2.0)(vitepress@1.6.4(@algolia/client-search@5.59.0)(less@4.9.1(supports-color@7.2.0))(lightningcss@1.32.0)(postcss@8.5.28)(search-insights@2.17.3))(vue@3.5.43)':
+    dependencies:
+      '@iconify-json/octicon': 1.2.38
+      less: 4.9.1(supports-color@7.2.0)
+      vitepress: 1.6.4(@algolia/client-search@5.59.0)(less@4.9.1(supports-color@7.2.0))(lightningcss@1.32.0)(postcss@8.5.28)(search-insights@2.17.3)
+      vue: 3.5.43
+    transitivePeerDependencies:
+      - supports-color
+
   '@nolebase/vitepress-plugin-enhanced-readabilities@2.18.2(supports-color@7.2.0)(vitepress@1.6.4(@algolia/client-search@5.59.0)(less@4.9.1(supports-color@7.2.0))(lightningcss@1.32.0)(postcss@8.5.28)(search-insights@2.17.3))(vue@3.5.43)':
     dependencies:
       '@iconify-json/carbon': 1.2.28
       '@iconify-json/icon-park-outline': 1.2.4
       '@nolebase/ui': 2.18.2(supports-color@7.2.0)(vitepress@1.6.4(@algolia/client-search@5.59.0)(less@4.9.1(supports-color@7.2.0))(lightningcss@1.32.0)(postcss@8.5.28)(search-insights@2.17.3))(vue@3.5.43)
       less: 4.9.1(supports-color@7.2.0)
+      vitepress: 1.6.4(@algolia/client-search@5.59.0)(less@4.9.1(supports-color@7.2.0))(lightningcss@1.32.0)(postcss@8.5.28)(search-insights@2.17.3)
+    transitivePeerDependencies:
+      - supports-color
+      - vue
+
+  '@nolebase/vitepress-plugin-page-properties@2.18.2(supports-color@7.2.0)(vitepress@1.6.4(@algolia/client-search@5.59.0)(less@4.9.1(supports-color@7.2.0))(lightningcss@1.32.0)(postcss@8.5.28)(search-insights@2.17.3))(vue@3.5.43)':
+    dependencies:
+      '@iconify-json/icon-park-outline': 1.2.4
+      '@iconify-json/octicon': 1.2.38
+      '@nolebase/ui': 2.21.1(supports-color@7.2.0)(vitepress@1.6.4(@algolia/client-search@5.59.0)(less@4.9.1(supports-color@7.2.0))(lightningcss@1.32.0)(postcss@8.5.28)(search-insights@2.17.3))(vue@3.5.43)
+      date-fns: 4.4.0
+      gray-matter: 4.0.3
+      less: 4.9.1(supports-color@7.2.0)
+      uuid: 11.1.1
       vitepress: 1.6.4(@algolia/client-search@5.59.0)(less@4.9.1(supports-color@7.2.0))(lightningcss@1.32.0)(postcss@8.5.28)(search-insights@2.17.3)
     transitivePeerDependencies:
       - supports-color
@@ -2063,6 +2107,8 @@ snapshots:
   copy-anything@4.1.4: {}
 
   csstype@3.2.3: {}
+
+  date-fns@4.4.0: {}
 
   debug@2.6.9(supports-color@7.2.0):
     dependencies:
@@ -2624,6 +2670,8 @@ snapshots:
       esbuild: 0.21.5
       rollup: 4.63.5
       vite: 5.4.21(less@4.9.1(supports-color@7.2.0))(lightningcss@1.32.0)
+
+  uuid@11.1.1: {}
 
   vfile-message@4.0.3:
     dependencies:

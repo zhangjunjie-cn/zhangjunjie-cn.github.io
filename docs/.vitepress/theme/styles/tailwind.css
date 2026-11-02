@@ -356,6 +356,7 @@ body {
   --rp-code-block-bg: var(--site-bg);
   --rp-code-block-border: 1px solid var(--rp-c-divider-light);
   --rp-code-block-shadow: none;
+  --rp-code-block-radius: 12px;
 
   /* 代码正文与行号颜色挪到 Shiki 的 token 体系上，未命中 token 的部分（空白、
      普通标点）才看 `--vp-code-block-color`。 */
@@ -383,7 +384,7 @@ body {
 .vp-doc div[class*='language-'] {
   margin: 24px 0;
   border: var(--rp-code-block-border);
-  border-radius: 12px;
+  border-radius: var(--rp-code-block-radius);
   background-color: var(--rp-code-block-bg);
   box-shadow: var(--rp-code-block-shadow);
 }
@@ -391,6 +392,39 @@ body {
 /* 上下篇在源站多留了 24px 的下边距。 */
 .VPDocFooter .prev-next {
   padding-bottom: 24px;
+}
+
+/* ---------------------------------------------------------------------------
+   「页面属性」卡片（@nolebase/vitepress-plugin-page-properties）。
+
+   圆角白底 + 一圈很淡的投影；描边与圆角都复用代码块的变量
+   （`--rp-code-block-border` / `--rp-code-block-radius`），和 `.vp-code`
+   那张面板完全一致。标签 pill 与行内 hover 交回插件自己。底色取
+   `--site-bg`（浅色纯白），深色改用浮层底色，避免和页面底色完全重合。
+
+   选择器是全站唯一的卡片容器类，`<NolebasePageProperties />` 放在哪一页都会
+   吃到这套样式。
+   --------------------------------------------------------------------------- */
+.vp-nolebase-page-properties-container {
+  padding: 8px 12px;
+  border-radius: var(--rp-code-block-radius);
+  background-color: var(--site-bg);
+}
+
+.dark .vp-nolebase-page-properties-container {
+  background-color: var(--vp-c-bg-elv);
+}
+
+/* 标签胶囊点了会跳到 `/pages/tags?q=标签`（见 theme/index.ts），鼠标给个手型。 */
+.vp-nolebase-page-properties [data-page-property-type='tags'] {
+  cursor: pointer;
+}
+
+/* 进度条平时用插件按百分比生成的配色（内联 `hsl(百分比 50% …)`）；只有启用
+   「自定义品牌色」时（`applyBrandColor` 会在 <html> 上挂 `brand-custom`）才改用
+   品牌色，所以 `!important` 只在自定义状态下生效。 */
+html.brand-custom .vp-nolebase-page-properties .nolebase-progress-bar {
+  background-color: var(--site-main) !important;
 }
 
 /* Infinite horizontal marquee used by the hero tag row.
