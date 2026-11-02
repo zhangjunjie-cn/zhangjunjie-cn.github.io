@@ -91,11 +91,17 @@ let observer: MutationObserver | undefined
 let timer = 0
 let tries = 0
 let list: HTMLElement | null = null
+// 每行在整条折线上的起止长度，以及总长。几何尺寸只在结构变化时重算，
+// 蓝段每次只用这组缓存 —— 见 `updateDash()`。
+let spans: Array<{ start: number; end: number }> = []
+let total = 0
 
 function reset() {
   rail.height = 0
   rail.path = ''
   rail.dash = ''
+  spans = []
+  total = 0
 }
 
 /**
@@ -133,7 +139,11 @@ function draw() {
   if (outline !== list) {
     list = outline
     observer?.disconnect()
-    observer = new MutationObserver(() => paint())
+    observer = new MutationObserver((records) => {
+      // 只换了 `active` 类（滚动时的高频事件）→ 不必重新量一遍尺寸。
+      if (records.every((record) => record.type === 'attributes')) updateDash()
+      else paint()
+    })
     observer.observe(outline, {
       attributes: true,
       attributeFilter: ['class'],
@@ -165,7 +175,6 @@ function draw() {
       level: levelOf(link),
       // 子级条目靠 `padding-left` 缩进，锚点盒子本身不移动，所以要加上 padding。
       left: rect.left - box.left + (parseFloat(getComputedStyle(link).paddingLeft) || 0),
-      active: link.classList.contains('active'),
     }
   })
 
@@ -173,6 +182,18 @@ function draw() {
   // 相邻两行取值不同，就在它们交界处折一次 —— 凹口高度恒为一行。
   const pattern = patternFor(rows.length)
   const xOf = (index: number) => (pattern[index] === '1' ? X1 : X0)
+
+  // 条目文字跟着导轨的台阶一起横移：`1` 的行右移一个台阶宽（X1 - X0 = 10px），
+  // 这样不管导轨折到哪一级，文字与导轨的间距都保持一致。走 `--outline-shift`
+  // 让 tailwind.css 里那条 `padding-left` 规则去落地 —— 动 padding 不会改变
+  // `<a>` 盒子的左边，上面量到的 `left` 不会因此漂移（只在首行取 `left`，
+  // 而首行恒为 `0`）。
+  links.forEach((link, index) => {
+    link.style.setProperty(
+      '--outline-shift',
+      pattern[index] === '1' ? `${X1 - X0}px` : '0px',
+    )
+  })
 
   const originTop = rows[0].top
 
@@ -217,28 +238,41 @@ function draw() {
   })
 
   // 一行的可见线段从「上一个点」开始（换级时那段斜线也归这一行），到它自己的终点。
-  const span = (index: number) => {
-    const from = rowPoints[index].from
-    return {
-      start: from === 0 ? 0 : at[from - 1],
-      end: at[rowPoints[index].to],
-    }
-  }
+  const nextSpans = rowPoints.map(({ from, to }) => ({
+    start: from === 0 ? 0 : at[from - 1],
+    end: at[to],
+  }))
 
   // 蓝段只覆盖当前这一行（含它开头那节斜线），不再整组一起亮 —— 整组亮起来
   // 会拉出一百多像素，定位感就没了。
-  const activeIndex = rows.findIndex((row) => row.active)
-  let dash = ''
-  if (activeIndex >= 0) {
-    const { start, end } = span(activeIndex)
-    dash = `0 ${start} ${end - start} ${at[at.length - 1] + 20}`
-  }
+  spans = nextSpans
+  total = at[at.length - 1]
 
   rail.left = rows[0].left - TEXT_GAP
   rail.top = originTop
   rail.height = rows[rows.length - 1].bottom - originTop
   rail.path = path
-  rail.dash = dash
+  updateDash()
+}
+
+/**
+ * 只重算蓝段。滚动时活跃条目不停切换，而目录的几何尺寸不变 —— 如果每次都走
+ * `draw()` 重新量所有 `<a>` 的 rect，会在滚动中反复触发同步布局，看起来就卡。
+ * 这里只读 class，不碰布局。
+ */
+function updateDash() {
+  if (!list || !spans.length) {
+    rail.dash = ''
+    return
+  }
+  const links = Array.from(list.querySelectorAll<HTMLElement>('a.outline-link'))
+  const activeIndex = links.findIndex((link) => link.classList.contains('active'))
+  if (activeIndex < 0 || !spans[activeIndex]) {
+    rail.dash = ''
+    return
+  }
+  const { start, end } = spans[activeIndex]
+  rail.dash = `0 ${start} ${end - start} ${total + 20}`
 }
 
 function onResize() {
@@ -302,14 +336,15 @@ watch(
 .aside-rail__line,
 .aside-rail__active {
   fill: none;
-  stroke-width: 1;
 }
 
 .aside-rail__line {
+  stroke-width: 1;
   stroke: var(--vp-c-divider);
 }
 
 .aside-rail__active {
+  stroke-width: 2;
   stroke: var(--site-main);
   transition: stroke-dasharray 0.2s ease-out;
 }

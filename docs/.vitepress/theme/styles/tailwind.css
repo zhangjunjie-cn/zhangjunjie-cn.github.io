@@ -1090,6 +1090,13 @@ body {
   --vp-c-brand-1: #fff;
 }
 
+/* 从别的页面点进横幅页的那一两帧（标记由 Layout.vue 的 `watch(overBanner)` 挂上）：
+   掐掉 `.VPNavBar` 自身的 background-color 过渡，进入瞬间就是透明，不会先白一下。 */
+html.nav-over-banner-instant .VPNavBar,
+html.nav-over-banner-instant .VPNavBar .content-body {
+  transition: none !important;
+}
+
 /* ---------------------------------------------------------------------------
    横幅页顶部：搜索框、阅读增强弹层。
 
@@ -2043,23 +2050,29 @@ html {
 
 /* --- 明暗切换的圆形擦除过渡（View Transitions API）--- */
 /* 动画本体在 Layout.vue 的 provide('toggle-appearance') 里；这里只关掉浏览器默认
-   的整屏交叉淡入淡出，并让新旧两张快照的层级随主题翻转。变深色时「新」快照在上、
-   由 `clip-path` 从点击点往外擦出；变浅色时反过来，把「旧」快照擦掉。没有这段，
-   扩散圆的边界会和新旧快照同时淡入，看起来是糊的而不是丝滑擦除。 */
+   的整屏交叉淡入淡出，并把层级写死成「新快照在上」。两个方向的动画都只裁
+   新快照（浅 → 深用 `path(evenodd)` 挖洞、深 → 浅用 `circle()` 扩散）。
+
+   早先的写法是让层级随方向在 CSS 变量/`.dark` 里翻转，或者把 `z-index: 9999`
+   塞进 WAAPI 关键帧。这两种在真实 Chrome/Edge 上偶发失效：第二次过渡沿用旧
+   层级 / 关键帧里的 z-index 不生效，表现就是「切深色没有动画」「切浅色先白屏
+   一下」。现在层级是静态的，每张快照的「显不显示」完全由动画的 clip-path 决定。 */
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
 
-::view-transition-old(root),
-.dark::view-transition-new(root) {
+::view-transition-old(root) {
   z-index: 1;
 }
 
-::view-transition-new(root),
-.dark::view-transition-old(root) {
+::view-transition-new(root) {
   z-index: 9999;
+  /* 过渡刚建立、动画还没跑起来的那一两帧：先把新快照裁没，露出下面的旧画面。
+     否则新快照会整屏显示一下 —— 切浅色时就是那道白屏。 */
+  clip-path: circle(0 at 50% 50%);
 }
 
 /* --- Rspress 风格的容器（callout）与 Prompt 卡片 ------------------------------ */
@@ -2964,6 +2977,18 @@ html.dark .rp-doc-bg__glow {
 
 .VPDoc .VPDocAsideOutline .content .outline-link.active {
   color: var(--site-main);
+}
+
+/* 条目文字跟着导轨的台阶横移：AsideRail 按同一份 pattern 给每行写
+   `--outline-shift`（0 或 10px）。改用 `padding-left` 而不是 `translateX`，
+   是因为 `<a>` 的盒子左边不动、只有文字跟着走，导轨测量不会受影响；
+   子级条目在原主题的 13px 缩进上再叠加这个位移。 */
+.VPDoc .VPDocAsideOutline .content .outline-link {
+  padding-left: var(--outline-shift, 0px);
+}
+
+.VPDoc .VPDocAsideOutline .content .outline-link.nested {
+  padding-left: calc(13px + var(--outline-shift, 0px));
 }
 
 
