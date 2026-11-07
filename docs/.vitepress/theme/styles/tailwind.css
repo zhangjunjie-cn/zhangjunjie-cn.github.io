@@ -356,6 +356,7 @@ body {
   --rp-code-block-bg: var(--site-bg);
   --rp-code-block-border: 1px solid var(--rp-c-divider-light);
   --rp-code-block-shadow: none;
+  --rp-code-block-radius: 12px;
 
   /* 代码正文与行号颜色挪到 Shiki 的 token 体系上，未命中 token 的部分（空白、
      普通标点）才看 `--vp-code-block-color`。 */
@@ -391,6 +392,39 @@ body {
 /* 上下篇在源站多留了 24px 的下边距。 */
 .VPDocFooter .prev-next {
   padding-bottom: 24px;
+}
+
+/* ---------------------------------------------------------------------------
+   「页面属性」卡片（@nolebase/vitepress-plugin-page-properties）。
+
+   圆角白底 + 一圈很淡的投影；描边与圆角都复用代码块的变量
+   （`--rp-code-block-border` / `--rp-code-block-radius`），和 `.vp-code`
+   那张面板完全一致。标签 pill 与行内 hover 交回插件自己。底色取
+   `--site-bg`（浅色纯白），深色改用浮层底色，避免和页面底色完全重合。
+
+   选择器是全站唯一的卡片容器类，`<NolebasePageProperties />` 放在哪一页都会
+   吃到这套样式。
+   --------------------------------------------------------------------------- */
+.vp-nolebase-page-properties-container {
+  padding: 8px 12px;
+  border-radius: var(--rp-code-block-radius);
+  background-color: var(--site-bg);
+}
+
+.dark .vp-nolebase-page-properties-container {
+  background-color: var(--vp-c-bg-elv);
+}
+
+/* 标签胶囊点了会跳到 `/pages/tags?q=标签`（见 theme/index.ts），鼠标给个手型。 */
+.vp-nolebase-page-properties [data-page-property-type='tags'] {
+  cursor: pointer;
+}
+
+/* 进度条平时用插件按百分比生成的配色（内联 `hsl(百分比 50% …)`）；只有启用
+   「自定义品牌色」时（`applyBrandColor` 会在 <html> 上挂 `brand-custom`）才改用
+   品牌色，所以 `!important` 只在自定义状态下生效。 */
+html.brand-custom .vp-nolebase-page-properties .nolebase-progress-bar {
+  background-color: var(--site-main) !important;
 }
 
 /* Infinite horizontal marquee used by the hero tag row.
@@ -1207,11 +1241,13 @@ html:not(.dark) .site-shell--over-banner .VPNavBar.top .VPMenu {
    中间那块的底完全由 `.content-body` 提供，左右两条 `padding` 带子交给 `.VPSidebar`
    去补，所以两条 transition 谁也碰不到谁。可自定义外壳没有 `.VPSidebar`（上面 ①
    已把满宽底色交给 `.VPNavBar`），于是中间那块被**两层同时上色** —— `.VPNavBar`
-   的满宽底，再加压在上面的 `.content-body` 的底 —— 两个时长还差一倍：下滑时边上
-   按 0.25s 先变白，中间要 0.5s 才跟上，看起来就是「中间一块和两边存在时间差」。
+   的满宽底，再加压在上面的 `.content-body` 的底 —— 两个时长还差一倍：一旦底色
+   从白变成透明（比如从别的页面进到横幅页、`.top` 才补上），两侧（`.VPNavBar`）
+   按 0.25s 先消失，中间（`.content-body`）要 0.5s 才跟上，看起来就是「中间一块
+   和两边不同步」，两侧先闪一下白。
 
-   这里把 `.content-body` 自己那层底色撤掉，整条栏只剩 `.VPNavBar` 一条满宽底、
-   一条 0.25s，一起变；底色本身在 `--vp-nav-bg-color` 上，顶部照样解析成
+   这里让 `.content-body` 跟 `.VPNavBar` 取同一个变量、同一条 `0.25s`：两层同时
+   起步、同时到终点。底色本身在 `--vp-nav-bg-color` 上，顶部照样解析成
    `transparent`，透明态不变。
 
    `.content-body` 的底色只声明在 `@media (min-width: 960px)` 里，所以这条也只影响
@@ -1220,10 +1256,13 @@ html:not(.dark) .site-shell--over-banner .VPNavBar.top .VPMenu {
    动用 `!important`。
    --------------------------------------------------------------------------- */
 
-.site-shell--over-banner
-  .VPNavBar.VPNavBar.has-sidebar
-  .content-body.content-body {
-  background-color: transparent;
+@media (min-width: 960px) {
+  .site-shell
+    .VPNavBar.VPNavBar.has-sidebar
+    .content-body.content-body {
+    background-color: var(--vp-nav-bg-color);
+    transition: background-color 0.25s;
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -2038,23 +2077,24 @@ html {
 
 /* --- 明暗切换的圆形擦除过渡（View Transitions API）--- */
 /* 动画本体在 Layout.vue 的 provide('toggle-appearance') 里；这里只关掉浏览器默认
-   的整屏交叉淡入淡出，并让新旧两张快照的层级随主题翻转。变深色时「新」快照在上、
-   由 `clip-path` 从点击点往外擦出；变浅色时反过来，把「旧」快照擦掉。没有这段，
-   扩散圆的边界会和新旧快照同时淡入，看起来是糊的而不是丝滑擦除。 */
+   的整屏交叉淡入淡出，并让「新」快照永远压在最上面。这样无论变深色还是变浅色，
+   都是由 `clip-path` 从按钮处往外铺开新主题 —— 变深色时是一圈黑从按钮扩散，
+   变浅色时是一圈白从按钮扩散，两个方向的手感一致。 */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
 
-::view-transition-old(root),
-.dark::view-transition-new(root) {
+::view-transition-old(root) {
   z-index: 1;
 }
 
-::view-transition-new(root),
-.dark::view-transition-old(root) {
+::view-transition-new(root) {
   z-index: 9999;
+  /* 过渡刚建立、动画还没跑起来的那一两帧：先把新快照裁没，露出下面的旧画面。
+     否则新快照会整屏显示一下 —— 切浅色时就是那道白屏。 */
+  clip-path: circle(0 at 50% 50%);
 }
 
 /* --- Rspress 风格的容器（callout）与 Prompt 卡片 ------------------------------ */

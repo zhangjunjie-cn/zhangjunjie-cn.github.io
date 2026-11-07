@@ -21,7 +21,7 @@ tags:
 
 # 文章标题
 
-<PostMeta />
+<NolebasePageProperties />
 
 正文第一段……
 
@@ -59,5 +59,5 @@ tags:
 ## 正文结构
 
 - 一级标题只出现一次，和 `title` 保持一致。
-- `<PostMeta />` 紧贴一级标题下方，负责渲染日期与标签胶囊。
+- `<NolebasePageProperties />` 紧贴一级标题下方，负责渲染日期与标签胶囊。
 - 二级标题用来分节，左侧目录会自动抓取，标题写得短一些更好读。

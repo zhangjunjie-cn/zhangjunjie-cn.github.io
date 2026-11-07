@@ -17,10 +17,12 @@ import RstackMenu from './components/RstackMenu.vue'
 import HomeContent from './components/HomeContent.vue'
 import CaseContent from './components/pages-case/CaseContent.vue'
 import PostFooter from './components/PostFooter.vue'
+import RouteSkeleton from './components/RouteSkeleton.vue'
 import PostsContent from './components/pages-posts/PostsContent.vue'
 import TagsContent from './components/pages-tags/TagsContent.vue'
 import TravelContent from './components/pages-travel/TravelContent.vue'
 import SiteFooter from './components/SiteFooter.vue'
+import ThemePreference from './components/ThemePreference.vue'
 
 /**
  * Theme layout for the cloned note.weizwz.com site.
@@ -88,13 +90,23 @@ const overBanner = computed(() => Boolean(frontmatter.value.banner))
  * 回调里的 `await nextTick()` 是必须的：`isDark` 是 @vueuse 的 `useDark`，真正
  * 把 `dark` 类toggle 到 `<html>` 上要走一次 Vue 调度。等 `ready` 之后再用
  * `clip-path: circle()` 从点击处往外铺/往回收。
- * `::view-transition-*` 的层级、以及关掉默认淡入淡出，都在 `styles/tailwind.css` 里，
- * 那里的 `.dark::view-transition-old(root)` 决定了两张快照谁在上 —— 因此变深色时被
- * 擦的是「旧」快照、变浅色时被擦的是「新」快照，方向不对称但和 versiw 一致。
+ * `clip-path: circle()` 走方向相反的两条动画：变浅色是白圆从按钮往外铺，变深色
+ * 是暗色从四周往按钮收。
+ * `::view-transition-*` 的整体层级和「关掉默认淡入淡出」在 `styles/tailwind.css` 里；
+ * 两个方向的动画都只裁「新快照」，层级是静态的（新在上），不依赖 CSS 变量的解析时机。
  */
 type ViewTransitionDocument = Document & {
-  startViewTransition?: (update: () => void | Promise<void>) => { ready: Promise<void> }
+  startViewTransition?: (update: () => void | Promise<void>) => {
+    ready: Promise<void>
+    finished: Promise<void>
+  }
 }
+
+// `animate()` 的返回值必须留个引用，否则可能被 GC 回收、动画当场取消，clip 一失效
+// 会闪一下。但引用不能无脑留着：过渡结束后伪元素会重建，上一次残留的
+// `fill: 'forwards'` 动画会在下一次过渡里继续生效 —— 新快照一上来就是「全屏可见」，
+// 于是第二次切深色没有动画、切浅色先整屏发白。所以过渡 `finished` 时手动 cancel。
+let clipAnimation: Animation | null = null
 
 provide('toggle-appearance', async (event: MouseEvent) => {
   const doc = document as ViewTransitionDocument
@@ -114,28 +126,67 @@ provide('toggle-appearance', async (event: MouseEvent) => {
     Math.max(x, window.innerWidth - x),
     Math.max(y, window.innerHeight - y),
   )
-  const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`]
 
+  // 两个方向刻意不对称：
+  //   深 → 浅：白色圆从按钮往外铺，把深色盖掉；
+  //   浅 → 深：反过来，暗色从四周往按钮收。
+  // 两条动画都只裁「新快照」，而新快照在 CSS 里恒压在最上层（见 tailwind.css）。
+  // 哪张快照在上不再取决于 CSS 变量 / `z-index` 动画 —— 这两个在真实 Chrome/Edge
+  // 里会在第二次过渡沿用旧值、或者干脆不生效，于是出现「没有动画」「先白屏一下」。
+  //   深 → 浅：用可插值的 `circle()`，圆从 0 涨到满；
+  //   浅 → 深：圆是「挖洞」，`circle()` 只能裁内部，所以用 `path(evenodd)` 生成一串
+  //             具体路径（矩形减去圆），洞从满缩到 0。路径字符串不可插值，所以按
+  //             帧拆成多段，让离散跳变细到看不出来。
+  const toDark = !isDark.value
+  const root = document.documentElement
   const transition = doc.startViewTransition(async () => {
-    isDark.value = !isDark.value
+    isDark.value = toDark
     await nextTick()
   })
   await transition.ready
-  document.documentElement.animate(
-    { clipPath: isDark.value ? clipPath.reverse() : clipPath },
-    {
-      duration: 300,
-      easing: 'ease-in',
-      // `fill: 'forwards'` 不能省。WAAPI 的 fill 默认是 'none'，动画一结束 clip-path
-      // 就不再生效，而变深色时被擦的「旧」快照正压在 z-index 9999 上，clip 失效的那一帧
-      // 会把整屏变回浅色 → 就是切换时那道白屏闪烁。forwards 让终值（circle(0px)）保持到
-      // 过渡被拆掉为止（Teek 的实现同样带了这个参数）。
-      fill: 'forwards',
-      // 变深色时 `.dark` 已经把旧快照抬到最上，所以擦「旧」快照（圆往点击点收）；
-      // 变浅色时反过来擦「新」快照（圆从点击点铺开）。层级的解释见 tailwind.css。
-      pseudoElement: `::view-transition-${isDark.value ? 'old' : 'new'}(root)`,
-    },
-  )
+
+  let keyframes: Keyframe[]
+  let easing: string
+  if (toDark) {
+    const steps = 60
+    const w = window.innerWidth
+    const h = window.innerHeight
+    keyframes = Array.from({ length: steps + 1 }, (_, i) => {
+      const t = i / steps
+      // 手写 ease-in，因为下面必须用 linear（离散关键帧没法逐段缓动）。
+      const r = radius * (1 - t * t)
+      const hole =
+        r > 0
+          ? ` M${x - r} ${y} a${r} ${r} 0 1 0 ${2 * r} 0 a${r} ${r} 0 1 0 ${-2 * r} 0 Z`
+          : ''
+      return { offset: t, clipPath: `path(evenodd, "M0 0 H${w} V${h} H0 Z${hole}")` }
+    })
+    easing = 'linear'
+  } else {
+    keyframes = [
+      { clipPath: `circle(0px at ${x}px ${y}px)` },
+      { clipPath: `circle(${radius}px at ${x}px ${y}px)` },
+    ]
+    easing = 'ease-in'
+  }
+
+  clipAnimation = root.animate(keyframes, {
+    duration: 300,
+    easing,
+    // `fill: 'forwards'` 不能省：动画一结束 clip-path 就不再生效，压在 9999 上的新
+    // 快照会整屏露出来 → 就是切换时那道闪烁。
+    fill: 'forwards',
+    pseudoElement: '::view-transition-new(root)',
+  })
+  // 过渡一结束就把动画撤掉（cancel 在伪元素销毁之后，不会闪）；留着的话下一次
+  // 过渡会沿用它的终值，新快照直接整屏可见。
+  const animation = clipAnimation
+  transition.finished
+    .catch(() => {})
+    .finally(() => {
+      animation.cancel()
+      if (clipAnimation === animation) clipAnimation = null
+    })
 })
 
 // VitePress 1.6.4 also runs the router hooks for the first page, so this only
@@ -198,5 +249,10 @@ onUnmounted(() => {
     <!-- `doc-top` 落在 `.VPDoc` 的最上面（内容之前），背景层因此只铺在文档页。 -->
     <template #doc-top><BlogBackground /></template>
     <template #doc-footer-before><PostFooter /></template>
+    <!-- 文档页侧栏顶部的「品牌色偏好」开关。 -->
+    <template #sidebar-nav-before><ThemePreference /></template>
   </DefaultTheme.Layout>
+
+  <!-- 路由切换骨架屏：Teleport 到 body，固定在导航栏之下、内容之上。 -->
+  <RouteSkeleton />
 </template>
