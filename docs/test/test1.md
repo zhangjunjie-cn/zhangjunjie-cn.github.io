@@ -12,7 +12,7 @@ icon: aiChat
 
 # 测试
 
-<NolebasePageProperties />
+<PostMeta />
 
 腾讯 QQ 邮箱团队最近开始测试一个很有意思的新产品：[**Agent Mail**](https://agent.qq.com/)。
 

@@ -31,8 +31,17 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
  *  减掉它，下一屏内容正好落在导航栏下面。 */
 const NAV_HEIGHT = 64
 
+/**
+ * 「开始」不再直接滚动，而是把决定权交给父组件：
+ * 父组件若判定本会话应播放「群蜂重建」（SwarmRebuild），就不执行 fallback，
+ * 由重建动画接管滚动；否则执行 fallback —— 原来的下滑一屏。
+ */
+const emit = defineEmits<{ (e: 'start', fallback: () => void): void }>()
+
 function start() {
-  window.scrollBy({ top: window.innerHeight - NAV_HEIGHT, behavior: 'smooth' })
+  emit('start', () => {
+    window.scrollBy({ top: window.innerHeight - NAV_HEIGHT, behavior: 'smooth' })
+  })
 }
 
 /* --- 底部波浪 ------------------------------------------------------------ */
@@ -314,8 +323,15 @@ onBeforeUnmount(() => {
   height: 100%;
   min-width: 100%;
   object-fit: cover;
-  mix-blend-mode: difference;
+  /* 原片是一段夜景（深蓝底 + 白字）。
+     浅色主题：显式 `invert(1)` 翻成白天画面 —— 不再依赖底色，祖先链上
+     冒出层叠上下文（`#main` 的入场动画就是）也不会失效。
+     深色主题：保持原来的 `mix-blend-mode: difference`（见下），夜间观感不变。 */
+  filter: invert(1);
 }
+
+/* 深色主题的覆盖写在文件末尾的全局 <style> 里：scoped 块里的 `:global()` 前缀
+   在编译时会被丢掉，规则根本到不了产物。 */
 
 /* --- 底部波浪 ------------------------------------------------------------ */
 
@@ -512,5 +528,14 @@ onBeforeUnmount(() => {
   100% {
     left: 50%;
   }
+}
+</style>
+
+<style>
+/* 夜间模式：回到原来的 difference 混合（浅色主题的反相在 scoped 块里）。
+   单独开一个非 scoped 块，选择器才会原样进产物。 */
+html.dark .home-intro__video {
+  filter: none;
+  mix-blend-mode: difference;
 }
 </style>
