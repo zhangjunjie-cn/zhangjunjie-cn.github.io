@@ -188,6 +188,37 @@ function formatMB(bytes) {
   return `${(bytes / 1024 / 1024).toFixed(1)}MB`
 }
 
+function sleepSync(ms) {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms)
+}
+
+/**
+ * 用 tmp 替换目标文件。
+ * Windows 上目标 mp4 若被浏览器/本地 dev server 打开，rename 会直接报 EPERM，
+ * 所以先重试几次，仍失败就退化为覆盖写入（这类程序通常允许共享写）。
+ */
+function replaceFile(tmp, target) {
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    try {
+      renameSync(tmp, target)
+      return
+    } catch (error) {
+      if (!['EPERM', 'EBUSY', 'EACCES'].includes(error.code)) throw error
+      if (attempt < 4) sleepSync(200 * (attempt + 1))
+    }
+  }
+  try {
+    copyFileSync(tmp, target)
+  } catch (error) {
+    throw new Error(
+      `无法写入 ${basename(target)}（${error.code}）：文件正被其他程序占用，` +
+        '请关闭播放该视频的浏览器标签页和本地 dev server 后重试',
+    )
+  }
+  rmSync(tmp, { force: true })
+  console.warn(`提示：${basename(target)} 被占用，已改为覆盖写入`)
+}
+
 const options = parseArgs(process.argv.slice(2))
 
 const ffmpeg = process.env.FFMPEG_PATH || 'ffmpeg'
@@ -236,11 +267,11 @@ for (const file of files) {
   const before = statSync(file).size
   const info = probe(file)
   const faststart = hasFaststart(file)
-  const processed =
+  const alreadyCompressed =
     faststart &&
     (String(info?.comment || '').includes(MARKER) || looksCompressed(file, info, options.maxHeight))
 
-  if (!options.force && processed) {
+  if (!options.force && alreadyCompressed) {
     skipped += 1
     console.log(`跳过 ${basename(file)}（已是 faststart，且看起来已经压过）`)
     continue
@@ -296,8 +327,7 @@ for (const file of files) {
   }
 
   const after = statSync(tmp).size
-  rmSync(file, { force: true })
-  renameSync(tmp, file)
+  replaceFile(tmp, file)
 
   processed += 1
   bytesBefore += before

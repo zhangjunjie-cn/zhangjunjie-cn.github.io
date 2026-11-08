@@ -1,3 +1,4 @@
+import { readFileSync, readdirSync } from 'node:fs'
 import { readdir, readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -180,6 +181,91 @@ const SIDEBAR = generateSidebar({
   folderLinkNotIncludesFileName: true,
   sortMenusByName: true,
 })
+
+/** 递归列出 `docs/` 下所有 md（跳过 .vitepress 与 public）。 */
+function listMarkdown(dir: string, out: string[] = []): string[] {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.isDirectory()) {
+      if (entry.name === '.vitepress' || entry.name === 'public') continue
+      listMarkdown(join(dir, entry.name), out)
+    } else if (entry.name.endsWith('.md')) {
+      out.push(join(dir, entry.name))
+    }
+  }
+  return out
+}
+
+/** 只取 frontmatter 里的 `tags`，支持块列表、行内数组和单个字符串三种写法。 */
+function frontmatterTags(source: string): string[] {
+  const fm = /^---\r?\n([\s\S]*?)\r?\n---/.exec(source)
+  if (!fm) return []
+  const lines = fm[1].split(/\r?\n/)
+  const start = lines.findIndex((line) => /^tags\s*:/.test(line))
+  if (start < 0) return []
+  const strip = (value: string) => value.trim().replace(/^['"]|['"]$/g, '')
+  const inline = lines[start].replace(/^tags\s*:\s*/, '').trim()
+  if (inline) {
+    return inline
+      .replace(/^\[|\]$/g, '')
+      .split(',')
+      .map(strip)
+      .filter(Boolean)
+  }
+  const tags: string[] = []
+  for (let i = start + 1; i < lines.length; i += 1) {
+    const hit = /^\s*-\s+(.*)$/.exec(lines[i])
+    if (!hit) break
+    tags.push(strip(hit[1]))
+  }
+  return tags
+}
+
+/** 侧栏里的链接（`/a/b` 或 `/a/b/index.md`）统一成路由键。 */
+function sidebarRoute(link: string): string {
+  return link
+    .replace(/\.md$/, '')
+    .replace(/\/index$/, '')
+    .replace(/\/$/, '')
+}
+
+/** 路由 → 该文章 frontmatter 的 tags。 */
+const ROUTE_TAGS = new Map<string, string[]>()
+for (const file of listMarkdown('docs')) {
+  const rel = file.slice('docs'.length + 1).split(/[\\/]/).join('/')
+  const route = sidebarRoute(`/${rel}`)
+  ROUTE_TAGS.set(route, frontmatterTags(readFileSync(file, 'utf8')))
+}
+
+/**
+ * 按「当前文章第一个 tag」过滤侧栏：只保留 tags 里含同名标签的文章，再把这些
+ * 文章拍平收进一个分组里，分组标题就是 tag 本身（不再是 `ai` / `notes` 这种
+ * 目录名）。没有 tag 的文章仍用完整侧栏，所以 `SIDEBAR_MAP['/']` 兜底。
+ */
+function filterSidebarByTag(tag: string) {
+  const keyword = tag.trim().toLowerCase()
+  const hits = (link?: string) => {
+    if (!link) return false
+    const tags = ROUTE_TAGS.get(sidebarRoute(link))
+    return Boolean(tags?.some((item) => item.trim().toLowerCase() === keyword))
+  }
+  type Node = { text?: string; link?: string; items?: Node[] }
+  const pick = (items: Node[], out: Node[]): Node[] => {
+    for (const item of items) {
+      if (item.items) pick(item.items, out)
+      if (item.link && hits(item.link)) out.push({ text: item.text, link: item.link })
+    }
+    return out
+  }
+  const matched = pick(SIDEBAR as Node[], [])
+  return matched.length ? [{ text: tag.trim(), items: matched }] : []
+}
+
+const SIDEBAR_MAP: Record<string, unknown> = { '/': SIDEBAR }
+for (const [route, tags] of ROUTE_TAGS) {
+  const first = tags[0]
+  // 没 tag 的页面也要落一个键，否则会被「父级目录」的过滤键前缀命中。
+  SIDEBAR_MAP[route] = first ? filterSidebarByTag(first) : SIDEBAR
+}
 
 /**
  * 预压缩产物。`vite-plugin-compression` 是在 `closeBundle` 里扫输出目录的，而
@@ -492,7 +578,7 @@ export default defineConfig({
   themeConfig: {
     logo: '/logo.png',
     nav: NAV,
-    sidebar: SIDEBAR,
+    sidebar: SIDEBAR_MAP,
     outlineTitle: '目录',
     editLink: {
       // 原站的编辑链接指向 docs/post/<相对路径>，与本地文档目录不同名，故显式给模板。

@@ -388,6 +388,25 @@ function buildBoxNode(item: SwarmItem): { root: HTMLDivElement; fill: HTMLDivEle
   fill.style.borderLeft = cs.borderLeft
   fill.style.boxShadow = cs.boxShadow
   fill.style.opacity = cs.opacity
+  // VitePress 的 `vpi-*` 与 DocSearch 图标都是「background-color: currentColor + mask 裁形」，
+  // 只拷背景色不拷 mask，克隆出来就是一个纯色实心方块。
+  const maskImage = cs.getPropertyValue('mask-image') || cs.getPropertyValue('-webkit-mask-image')
+  if (maskImage && maskImage !== 'none') {
+    const maskSize =
+      cs.getPropertyValue('mask-size') || cs.getPropertyValue('-webkit-mask-size') || '100% 100%'
+    const maskPosition =
+      cs.getPropertyValue('mask-position') || cs.getPropertyValue('-webkit-mask-position') || '0 0'
+    const maskRepeat =
+      cs.getPropertyValue('mask-repeat') || cs.getPropertyValue('-webkit-mask-repeat') || 'no-repeat'
+    fill.style.setProperty('-webkit-mask-image', maskImage)
+    fill.style.setProperty('mask-image', maskImage)
+    fill.style.setProperty('-webkit-mask-size', maskSize)
+    fill.style.setProperty('mask-size', maskSize)
+    fill.style.setProperty('-webkit-mask-position', maskPosition)
+    fill.style.setProperty('mask-position', maskPosition)
+    fill.style.setProperty('-webkit-mask-repeat', maskRepeat)
+    fill.style.setProperty('mask-repeat', maskRepeat)
+  }
   root.appendChild(fill)
   return { root, fill }
 }
