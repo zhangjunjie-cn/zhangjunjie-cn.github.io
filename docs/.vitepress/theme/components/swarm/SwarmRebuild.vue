@@ -204,6 +204,10 @@ const pointer = { x: 0, y: 0, on: false, px: 0, py: 0, vx: 0, vy: 0 }
 /** 施工期覆盖层自己的滚动量（独立于真实页面，短页面也能一路向下游览）。 */
 let viewY = 0
 let viewMax = 0
+/** 镜头的当前速度（px/s）：按 dt 积分，保证匀速下移与刷新率无关。 */
+let scrollSpeed = 0
+/** 内容底部（页脚）的 y：底部半屏压到最后再建。 */
+let contentBottomY = 0
 /** 开演前用户所在的位置；完成后滚回这里。 */
 let restoreY = 0
 
@@ -697,6 +701,8 @@ async function typeText(
   agent: Agent,
   item: SwarmItem,
   parts: { plain: HTMLElement; hot: HTMLElement; caret: HTMLElement },
+  /** 节奏倍率：<1 更快。重打复制块的文字时用得上。 */
+  speed = 1,
 ) {
   const totalChars = Math.max(1, item.text.length)
   const k = clamp(70 / totalChars, 0.06, 1)
@@ -713,7 +719,7 @@ async function typeText(
     if (ch === ' ') d += rand(0, 30)
     if (ch === '\n') d += 100
     if (Math.random() < 0.025) d += rand(80, 200)
-    await sleep(d * k)
+    await sleep(d * k * speed)
     // 打字期间页面可能还在缓滚，光标贴着插入点走。
     const p = viewportOf(item)
     place(agent, p.x + 1, p.y + Math.min(item.h * 0.5, 18))
@@ -879,6 +885,20 @@ function takeEdit(task: Task): EditJob | undefined {
   return job
 }
 
+/** 正在重打文字的光标数：最多同时 4 只，别把施工的光标全抽走。 */
+let editWorkers = 0
+
+/** 从任意正在施工的任务里抢一条重打文字的活（收尾阶段最慢的一环，优先分给多只光标）。 */
+function takeAnyEdit(): { task: Task; job: EditJob } | undefined {
+  if (editWorkers >= 4) return undefined
+  for (const t of tasks) {
+    if (!t.taken || t.done || !t.edits) continue
+    const job = takeEdit(t)
+    if (job) return { task: t, job }
+  }
+  return undefined
+}
+
 /** 重打一条文字：双击定位 → 全选 → 清空 → 逐字打出 → 带手柄的选中框 + 下划线。 */
 async function typeEdit(agent: Agent, job: EditJob, layer: HTMLElement) {
   const { edit, node } = job
@@ -922,7 +942,7 @@ async function typeEdit(agent: Agent, job: EditJob, layer: HTMLElement) {
     node.appendChild(caret)
   }
   setShape(agent, 'ibeam')
-  await typeText(agent, edit, { plain, hot, caret })
+  await typeText(agent, edit, { plain, hot, caret }, 0.7)
   setShape(agent, 'arrow')
   await sleep(70)
   if (aborted) {
@@ -1144,18 +1164,42 @@ async function textTask(agent: Agent, task: Task) {
 
 /* --- 调度 --------------------------------------------------------------------- */
 
-function frontier(): number {
-  return viewY + window.innerHeight * 1.15
+/** 底部半屏（页脚、版权行）里的工单。 */
+function isFooterTask(t: Task): boolean {
+  return !t.item.fixed && t.item.y + t.item.h > contentBottomY - window.innerHeight * 0.5
+}
+
+function frontier(item: SwarmItem, allowFooter: boolean): number {
+  const span = window.innerHeight
+  // 页脚区平时只给 0.5 屏余量（压后建）；轮到它时直接放开，保证最后一行一定建得出来。
+  if (!item.fixed && item.y + item.h > contentBottomY - span * 0.5) {
+    return allowFooter ? Infinity : -1
+  }
+  return viewY + span * 1.15
 }
 
 /** 取最靠上的可做工单（依赖：y 进入滚动前沿）。taken 同步置位，多光标不会撞单。 */
 function pickTask(): Task | undefined {
+  // 页脚要跟最后那一屏（最新文章列表）**同时收尾**：那一屏的打字/复制本来就慢，
+  // 页脚工单又小，如果早早放开，页脚几秒就建完、上一屏还在动，看起来就是「提前」。
+  // 所以等上面的内容只剩和页脚差不多数量的工单时再放开，两组一起开工、一起完成。
+  let rest = 0
+  let footer = 0
+  for (const t of tasks) {
+    if (isFooterTask(t)) footer += 1
+    else if (!t.done) rest += 1
+  }
+  if (footer && rest > footer) return pickTaskWithin(false)
+  return pickTaskWithin(true)
+}
+
+function pickTaskWithin(allowFooter: boolean): Task | undefined {
   let best: Task | undefined
   for (const t of tasks) {
     if (t.done || t.taken) continue
     // 副本必须等母块整棵子树建完，才允许被复制。
     if (t.dupDeps && !t.dupDeps.every((d) => d.done)) continue
-    if (!t.item.fixed && t.item.y > frontier()) continue
+    if (!t.item.fixed && t.item.y > frontier(t.item, allowFooter)) continue
     if (
       !best ||
       t.item.y < best.item.y ||
@@ -1267,6 +1311,18 @@ async function roam(agent: Agent) {
 
 async function agentLoop(agent: Agent) {
   while (!aborted) {
+    // 「重打复制块的文字」是最慢的一环：优先抽最多 4 只光标一起打，
+    // 别把一屏的差异文字全压在主光标身上，等它逐条打完。
+    const edit = takeAnyEdit()
+    if (edit) {
+      editWorkers += 1
+      try {
+        await typeEdit(agent, edit.job, layerOf(edit.task.item))
+      } finally {
+        editWorkers -= 1
+      }
+      continue
+    }
     const task = pickTask()
     if (!task) {
       if (tasks.every((t) => t.done)) break
@@ -1436,6 +1492,29 @@ function flockStep(now: number, dt: number) {
   }
 }
 
+/**
+ * 施工期镜头：**匀速**下移。
+ * 之前是「按完成比例算目标位置 + 指数追值」，而完成比例是一格一格跳的，
+ * 追值又会随台阶忽快忽慢，看着就是一顿一顿的。这里改成只管速度：
+ * 每帧按 `dt` 积分 `scrollSpeed`，速度由「剩余距离 / 预计剩余时间」伺服，
+ * 再用加速度上限抹平变化，接近施工进度时收速，避免把画面推到还没建的地方。
+ */
+function stepScroll(now: number, dt: number) {
+  const target = scrollTarget()
+  const remain = Math.max(0, viewMax - viewY)
+  const spent = Math.max(0.2, (now - startedAt) / 1000)
+  const p = total.value ? doneCount.value / total.value : 0
+  // 进度够多就按已用时间外推剩余时长；刚开始时给一个温和的初速。
+  const eta = p > 0.08 ? (spent / p) * (1 - p) : Math.max(2.4, remain / 160)
+  let want = remain / Math.max(0.35, eta)
+  const gap = target - viewY
+  // 快追上「已建好」的位置时收速（0.5s 内吃完剩下的距离），但留一点最低速度：
+  // 进度短暂停住时镜头不会跟着刹停，画面看起来还是匀速往下走。
+  if (gap < window.innerHeight * 1.1) want = Math.min(want, Math.max(0, gap) / 0.5 + 70)
+  scrollSpeed += clamp(want - scrollSpeed, -900 * dt, 900 * dt)
+  viewY = clamp(viewY + scrollSpeed * dt, 0, viewMax)
+}
+
 function frame(now: number) {
   if (aborted) return
   const dt = lastFrame ? Math.min(0.05, (now - lastFrame) / 1000) : 0.016
@@ -1468,11 +1547,8 @@ function frame(now: number) {
     }
   }
 
-  if (building) {
-    // 长时间常数（约 0.3 秒）地追进度目标：台阶被抹平，镜头一路平滑下移。
-    const d = scrollTarget() - viewY
-    if (Math.abs(d) > 0.5) viewY = clamp(viewY + d * 0.05, 0, viewMax)
-  }
+  if (building) stepScroll(now, dt)
+  else scrollSpeed = 0
   if (worldEl.value) {
     worldEl.value.style.transform = `translate3d(0, ${-viewY}px, 0)`
   }
@@ -1602,6 +1678,9 @@ async function run() {
   lastFrame = 0
   viewY = 0
   viewMax = 0
+  scrollSpeed = 0
+  contentBottomY = 0
+  editWorkers = 0
   // 记下开演前的滚动位置：整段动画会一路推到页脚，做完要滚回这里。
   restoreY = window.scrollY
   canvasColor.value = sampleCanvasColor()
@@ -1664,6 +1743,7 @@ async function run() {
     contentBottom = Math.max(contentBottom, t.item.y + t.item.h)
   }
   const realMax = Math.max(0, document.documentElement.scrollHeight - window.innerHeight)
+  contentBottomY = contentBottom
   viewMax = Math.max(realMax, contentBottom - window.innerHeight * 0.85)
 
   document.documentElement.classList.add('swarm-lock')
