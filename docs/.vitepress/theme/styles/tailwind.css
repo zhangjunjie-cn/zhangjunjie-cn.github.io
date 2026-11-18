@@ -53,6 +53,10 @@
      text-main, text-icon, shadow-shadow, border-divider, border-border. */
   --color-bg: var(--site-bg);
   --color-bg-soft: var(--site-bg-soft);
+  /* 原站 `--color-bg-block: var(--vp-code-block-bg)`，而 VitePress 的
+     `--vp-code-block-bg` 又指向 `--vp-c-bg-alt`（浅色 #f6f6f7 / 深色 #161618）。
+     这里直接接上终端值，文章页底部版权卡片用它做底色。 */
+  --color-bg-block: var(--vp-c-bg-alt);
   --color-text1: var(--site-text1);
   --color-text2: var(--site-text2);
   --color-text3: var(--site-text3);

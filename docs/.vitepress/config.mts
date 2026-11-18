@@ -541,9 +541,9 @@ export default defineConfig({
   lang: 'zh-CN',
   title: '俊杰笔记',
   description: '在这里，我们分享技术、探索AI，一起漫游科技未来与生活百态1',
-  // 文章页标题形如「腾讯Agent Mail开测！速抢ID - 唯知笔记」；
-  // 首页在 index.md 里用 `titleTemplate: false` 关掉后缀，保持「唯知笔记」。
-  titleTemplate: ':title - 唯知笔记',
+  // 文章页标题形如「腾讯Agent Mail开测！速抢ID - 俊杰笔记」；
+  // 首页在 index.md 里用 `titleTemplate: false` 关掉后缀，保持「俊杰笔记」。
+  titleTemplate: ':title - 俊杰笔记',
   // 源站是干净的 URL（/ai/qq-agent-mail 而非 .html），侧栏与导航里的链接
   // 也全部写成无后缀形式。
   cleanUrls: true,
