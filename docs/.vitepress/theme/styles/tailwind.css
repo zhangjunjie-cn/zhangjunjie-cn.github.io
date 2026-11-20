@@ -1354,8 +1354,8 @@ html:not(.dark) .site-shell--over-banner .VPNavBar.top .VPMenu {
   background-color: transparent;
   border-radius: 0;
   box-shadow: none;
-  backdrop-filter: none;
   -webkit-backdrop-filter: none;
+  backdrop-filter: none !important;
   transition:
     height 0.7s cubic-bezier(0.16, 1, 0.3, 1),
     padding 0.7s cubic-bezier(0.16, 1, 0.3, 1),
@@ -1377,8 +1377,8 @@ html:not(.dark) .site-shell--over-banner .VPNavBar.top .VPMenu {
     0 0 0 0.5px color-mix(in oklab, var(--navbar-border) 50%, transparent),
     0 2px 16px -6px rgba(0, 0, 0, 0.08),
     0 0 0 0.5px rgba(0, 0, 0, 0.02);
-  backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
+  backdrop-filter: blur(40px) !important;
 }
 
 /* 深色：apibest 的 `dark:shadow-[0_2px_16px_-6px_rgba(0,0,0,0.4)]` 只替换投影层，
