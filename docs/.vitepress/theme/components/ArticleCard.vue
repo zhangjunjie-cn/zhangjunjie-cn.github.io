@@ -19,7 +19,7 @@ defineProps<Article>()
 </script>
 
 <template>
-  <div class="group bg-bg shadow-shadow relative flex h-full w-full flex-col overflow-hidden rounded-2xl p-6 shadow-xs transition-all duration-600 hover:shadow-xl">
+  <div class="article-card group bg-bg shadow-shadow relative flex h-full w-full flex-col overflow-hidden rounded-2xl p-6 shadow-xs transition-all duration-600 hover:shadow-xl">
     <a :href="href" class="absolute inset-0 z-0" :aria-label="title" />
     <div class="relative z-10 mb-4">
       <div class="text-text3 text-xs font-bold tracking-wider uppercase">

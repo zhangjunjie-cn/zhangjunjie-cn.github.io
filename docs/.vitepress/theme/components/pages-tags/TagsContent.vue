@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 
+import AnimatedNumber from '../AnimatedNumber.vue'
 import ArticleCard from '../ArticleCard.vue'
 import { data as articles } from '../articles.data'
 import { articleIcon } from '../icons/articleIcons'
 import { TagDefaultIcon, tagIcons } from '../icons/tagIcons'
+import { useListSwap } from '../useListSwap'
+import { useReveal } from '../useReveal'
 import TagPagination from './TagPagination.vue'
 import { useTagRing } from './useTagRing'
 
@@ -68,14 +71,29 @@ const posts = computed(() =>
   allPosts.value.slice((page.value - 1) * PAGE_SIZE, page.value * PAGE_SIZE),
 )
 
+const grid = ref<HTMLElement | null>(null)
+const { refresh, stop } = useReveal(() => grid.value)
+const { swap } = useListSwap(() => grid.value)
+
 function select(label: string) {
   if (label === currentTag.value) return
-  currentTag.value = label
-  // Switching tags restarts the list at page 1.
-  page.value = 1
+  stop()
+  void swap(() => {
+    currentTag.value = label
+    // Switching tags restarts the list at page 1.
+    page.value = 1
+  })
 }
 
-onMounted(() => {
+function goPage(next: number) {
+  if (next === page.value) return
+  stop()
+  void swap(() => {
+    page.value = next
+  })
+}
+
+onMounted(async () => {
   const requested = new URLSearchParams(window.location.search).get('q')
   if (requested && tags.value.some((t) => t.label === requested)) {
     currentTag.value = requested
@@ -84,6 +102,8 @@ onMounted(() => {
     const pick = tags.value[Math.floor(Math.random() * tags.value.length)]
     if (pick) currentTag.value = pick.label
   }
+  await nextTick()
+  refresh()
 })
 </script>
 
@@ -127,12 +147,12 @@ onMounted(() => {
       <div class="bg-border relative my-12 h-px w-full">
         <h3 class="bg-bg-soft text-text1 absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-baseline gap-1 px-6 text-xl! font-bold!">
           {{ currentTag }}
-          <span class="text-text3 text-sm"> - {{ currentCount }}篇</span>
+          <span class="text-text3 text-sm"> - <AnimatedNumber :value="currentCount" />篇</span>
         </h3>
       </div>
 
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        <div v-for="post in posts" :key="post.href">
+      <div ref="grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div v-for="post in posts" :key="post.href" data-reveal data-list-item>
           <ArticleCard v-bind="post" />
         </div>
       </div>
@@ -143,7 +163,7 @@ onMounted(() => {
       :page="page"
       :pages="pageCount"
       :total="currentCount"
-      @navigate="page = $event"
+      @navigate="goPage"
     />
   </div>
 </template>

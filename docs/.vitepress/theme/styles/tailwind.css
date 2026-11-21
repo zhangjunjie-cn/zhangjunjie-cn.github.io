@@ -3107,5 +3107,43 @@ html.dark .rp-doc-bg__glow {
   max-width: 100%;
 }
 
+/* 卡片整块由绝对定位的链接接管点击。无论鼠标点击还是键盘聚焦，整张卡都显示
+   一圈品牌色外框；链接自身的 UA 黑色焦点框一律去掉。
+   用运行时可靠的 --site-main（:root / .dark 均有定义）并带字面量兜底，
+   避免 @theme inline 下变量未落地时 outline 整条失效、露出黑框。 */
+.article-card > a:focus,
+.article-card > a:focus-visible,
+.stats-card > a:focus,
+.stats-card > a:focus-visible {
+  outline: none !important;
+}
+
+/* 全局兜底：鼠标点击任何链接都不留浏览器默认的黑色焦点框。
+   键盘用户仍由 :focus-visible 得到可见焦点，不受影响。 */
+a:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* 卡片的 transition-all 会连 outline-color 一起过渡：聚焦瞬间描边会从默认的
+   currentColor（近黑）渐变到蓝色，看起来像先黑后蓝。这里把描边颜色基线直接
+   设成品牌色，聚焦时只会「出现」，不会再从黑色过渡。 */
+.article-card,
+.stats-card {
+  outline-color: var(--site-main, #409eff);
+}
+
+.article-card:focus-within,
+.stats-card:focus-within {
+  outline: 2px solid var(--site-main, #409eff);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .article-card,
+  .stats-card {
+    transition-duration: 0.01ms;
+  }
+}
+
 
 

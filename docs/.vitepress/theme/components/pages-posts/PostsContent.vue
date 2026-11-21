@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 
+import AnimatedNumber from '../AnimatedNumber.vue'
 import ArticleCard from '../ArticleCard.vue'
 import { data as articles } from '../articles.data'
 import { articleIcon } from '../icons/articleIcons'
 import TagPagination from '../pages-tags/TagPagination.vue'
 import { useTagRing } from '../pages-tags/useTagRing'
+import { useListSwap } from '../useListSwap'
+import { useReveal } from '../useReveal'
 
 /**
  * Vue port of https://note.weizwz.com/pages/posts.
@@ -82,23 +85,40 @@ const posts = computed(() =>
   allPosts.value.slice((page.value - 1) * PAGE_SIZE, page.value * PAGE_SIZE),
 )
 
+const grid = ref<HTMLElement | null>(null)
+const { refresh, stop } = useReveal(() => grid.value)
+const { swap } = useListSwap(() => grid.value)
+
 function select(label: string) {
   if (label === currentFilter.value) return
-  currentFilter.value = label
-  // Switching filters restarts the list at page 1.
-  page.value = 1
+  stop()
+  void swap(() => {
+    currentFilter.value = label
+    // Switching filters restarts the list at page 1.
+    page.value = 1
+  })
 }
 
-onMounted(() => {
+function goPage(next: number) {
+  if (next === page.value) return
+  stop()
+  void swap(() => {
+    page.value = next
+  })
+}
+
+onMounted(async () => {
   // The original deep-links a year as `?year=<YYYY>` and always defaults to 全部.
   const year = new URLSearchParams(window.location.search).get(YEAR_PARAM)
   if (year && filters.value.some((f) => f.label === year)) currentFilter.value = year
+  await nextTick()
+  refresh()
 })
 </script>
 
 <template>
   <div class="mb-6">
-    <h1 class="text-text1 mt-8! mb-8 text-2xl! font-bold!">文章列表<span class="text-text3 ml-2 text-base">- {{ currentCount }}篇</span></h1>
+    <h1 class="text-text1 mt-8! mb-8 text-2xl! font-bold!">文章列表<span class="text-text3 ml-2 text-base">- <AnimatedNumber :value="currentCount" />篇</span></h1>
 
     <div
       class="bg-bg shadow-shadow relative mt-6 flex flex-wrap items-center gap-1 rounded-2xl p-4 shadow-xs"
@@ -128,8 +148,8 @@ onMounted(() => {
 
   <div>
     <div class="post-list">
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        <div v-for="post in posts" :key="post.href">
+      <div ref="grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div v-for="post in posts" :key="post.href" data-reveal data-list-item>
           <ArticleCard v-bind="post" />
         </div>
       </div>
@@ -140,7 +160,7 @@ onMounted(() => {
       :page="page"
       :pages="pageCount"
       :total="currentCount"
-      @navigate="page = $event"
+      @navigate="goPage"
     />
   </div>
 </template>

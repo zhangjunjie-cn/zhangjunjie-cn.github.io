@@ -51,15 +51,29 @@ const slides = computed<RecommendedArticle[][]>(() => {
 const slideCount = computed(() => Math.max(1, slides.value.length))
 
 const active = ref(0)
+/** 指针停在卡片上时暂停轮播，也给底部 dash 一个可读的进度。 */
+const paused = ref(false)
 
 let timer: ReturnType<typeof setInterval> | undefined
 
 function restart() {
   if (timer) clearInterval(timer)
-  if (slideCount.value < 2) return
+  timer = undefined
+  if (paused.value || slideCount.value < 2) return
   timer = setInterval(() => {
     active.value = (active.value + 1) % slideCount.value
   }, ROTATE_MS)
+}
+
+function pause() {
+  paused.value = true
+  if (timer) clearInterval(timer)
+  timer = undefined
+}
+
+function resume() {
+  paused.value = false
+  restart()
 }
 
 /** Jump to a slide (the dashes are the indicator *and* the control). */
@@ -88,7 +102,11 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="bg-bg shadow-shadow relative flex h-full flex-col overflow-hidden rounded-2xl p-6 shadow-xs">
+  <div
+    class="bg-bg shadow-shadow relative flex h-full flex-col overflow-hidden rounded-2xl p-6 shadow-xs"
+    @mouseenter="pause"
+    @mouseleave="resume"
+  >
     <div class="mb-6 flex items-center justify-between">
       <h2 class="text-text1 text-2xl! font-bold!">推荐文章</h2>
       <div class="flex gap-1.5">
@@ -96,12 +114,22 @@ onUnmounted(() => {
           v-for="index in slideCount"
           :key="index"
           :class="[
-            'h-1 cursor-pointer rounded-full transition-all duration-300',
-            index - 1 === active ? 'bg-main w-6' : 'bg-border w-4',
+            'h-1 cursor-pointer overflow-hidden rounded-full transition-all duration-300',
+            index - 1 === active ? 'bg-main/25 w-6' : 'bg-border w-4',
           ]"
           :aria-label="`第 ${index} 组推荐`"
           @click="go(index - 1)"
-        />
+        >
+          <div
+            v-if="index - 1 === active"
+            :key="active"
+            class="dash-fill bg-main h-full rounded-full"
+            :style="{
+              animationDuration: `${ROTATE_MS}ms`,
+              animationPlayState: paused ? 'paused' : 'running',
+            }"
+          />
+        </div>
       </div>
     </div>
     <div class="relative flex-1">
@@ -147,3 +175,29 @@ onUnmounted(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+/* 当前这一组的 dash 同时是一条时间进度：5s 内从左长满，与轮播计时同步。 */
+@keyframes dash-fill {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+.dash-fill {
+  animation-name: dash-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dash-fill {
+    width: 100%;
+    animation: none;
+  }
+}
+</style>

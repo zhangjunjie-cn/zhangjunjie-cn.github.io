@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 import ArticleCard from './ArticleCard.vue'
 import StatsCard from './StatsCard.vue'
 import { data as articles } from './articles.data'
+import { useReveal } from './useReveal'
 import {
   articleIcon,
   viewAllArrowIcon,
@@ -26,10 +27,15 @@ const latest = computed(() =>
     icon: articleIcon(article.tags),
   })),
 )
+
+// 首屏之下的卡片随滚动依次上浮淡入；首屏内保持原样。
+const root = ref<HTMLElement | null>(null)
+const { refresh } = useReveal(() => root.value)
+onMounted(() => refresh())
 </script>
 
 <template>
-  <section class="flex flex-col">
+  <section ref="root" class="flex flex-col">
     <div class="mb-8 flex items-center justify-between px-6">
       <h2 class="text-text1 text-2xl! font-bold!">最新文章</h2>
       <a
@@ -45,14 +51,16 @@ const latest = computed(() =>
         v-for="article in latest.slice(0, 3)"
         :key="article.href"
         v-bind="article"
+        data-reveal
       />
       <!-- The stats card is the 4th grid cell in the original, not the last —
            i.e. it ends the first row of four. -->
-      <StatsCard />
+      <StatsCard data-reveal />
       <ArticleCard
         v-for="article in latest.slice(3)"
         :key="article.href"
         v-bind="article"
+        data-reveal
       />
     </div>
   </section>
