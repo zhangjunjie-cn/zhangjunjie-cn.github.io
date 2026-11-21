@@ -325,6 +325,25 @@ body {
   border-radius: 8px;
 }
 
+/* 正文图片加载淡入 + 占位：Layout 里只给「尚未加载完成」的 img 挂 .img-reveal
+   （先铺一层柔和底色、透明），load/error 后加 .img-loaded 用 300ms 淡入。
+   已缓存的图片不挂类、保持可见，避免首屏闪一下再淡入。 */
+.vp-doc img.img-reveal {
+  opacity: 0;
+  background-color: var(--vp-c-bg-soft);
+  transition: opacity 300ms ease;
+}
+
+.vp-doc img.img-reveal.img-loaded {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vp-doc img.img-reveal {
+    transition: none;
+  }
+}
+
 /* ---------------------------------------------------------------------------
    代码块 —— 复刻 rspress.rs（`https://rspress.rs/zh/ui/vars` 那套 token）：
    1px 细描边 + 12px 圆角 + 无阴影的容器，行号与正文之间一条竖分隔线，右上角是
@@ -563,6 +582,25 @@ html.brand-custom .vp-nolebase-page-properties .nolebase-progress-bar {
   0% {
     opacity: 0;
     transform: scale(1);
+  }
+}
+
+/* 案例横幅元信息入场：面包屑 → 标签 → 标题 → 分析行，各 60ms 错开上浮淡入。
+   各元素的延迟写在内联 `animation-delay` 上，这里只管时长与曲线。 */
+.tk-banner-enter {
+  animation: tk-banner-enter 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) both;
+}
+
+@keyframes tk-banner-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tk-banner-enter {
+    animation: none;
   }
 }
 
@@ -1270,18 +1308,23 @@ html:not(.dark) .site-shell--over-banner .VPNavBar.top .VPMenu {
 }
 
 /* ---------------------------------------------------------------------------
-   导航栏胶囊效果（仿 https://apibest.org）—— 仅首页生效（`layout: home`，即
-   `.VPNavBar.home` 带 `.home` 类），其余页面保持默认主题原样。
+   导航栏胶囊效果（仿 https://apibest.org）—— 首页（`layout: home`，导航栏带
+   `.home` 类）与横幅页（`/pages/case`，外壳带 `.site-shell--over-banner`）生效，
+   其余页面保持默认主题原样。
 
    两层结构与 apibest 一一对应：
      <header.VPNav>                                  ← apibest <header class="fixed…">
-       <div.VPNavBar.home>                           ← 状态类挂这里（.top / :not(.top)）
-         <div.wrapper>      ← 父容器「缩中」：max-w-7xl→max-w-[52rem]，px-4/md:px-6→px-3，pt-0→pt-3
+       <div.VPNavBar>                                ← 状态类挂这里（.top / :not(.top)）
+         <div.wrapper>      ← 父容器「缩中」：铺满视口 → max-w-[56rem]，px→px-3，pt-0→pt-3
            <div.container>  ← <nav> 本体「成胶囊」：h-16 px-2 → h-12 圆角 毛玻璃 细环 阴影
 
    状态复用 `VPNavBar.vue` 自带的 `.top`（window.scrollY === 0），无需额外滚动监听。
    两层都走 `0.7s cubic-bezier(.16,1,.3,1)`（= apibest 的 transition-all）。
    精确值全部抄自 apibest 运行时 getComputedStyle。
+
+   横幅页多一层细节：它停在顶部时本来就是「整条透明 + 白字」（见上面
+   `site-shell--over-banner` 那段），所以这里只负责下滑后的胶囊化；顶部态由
+   原有规则给出，两者在同一套 `.top` 判据下无缝衔接。
    --------------------------------------------------------------------------- */
 
 :root {
@@ -1298,65 +1341,144 @@ html:not(.dark) .site-shell--over-banner .VPNavBar.top .VPMenu {
 
 /* 首页：外层退成透明容器，可见背景只留胶囊本体。`!important` 压过默认主题带
    `[data-v-…]` 的 scoped 规则。 */
-.VPNavBar.home {
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar) {
   background-color: transparent !important;
   transition: none;
 }
 
-.VPNavBar.home .divider,
-.VPNavBar.home .divider-line {
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar) .divider,
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar) .divider-line {
   display: none !important;
 }
 
-.VPNavBar.home .content-body {
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar) .content-body {
   background-color: transparent !important;
   transition: none;
 }
 
 /* 窄屏抽屉打开时，顶部仍需一块不透明底承托汉堡按钮，别被透明规则带走。 */
-.VPNavBar.home.screen-open {
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar).screen-open {
   background-color: var(--vp-nav-bg-color) !important;
 }
 
-/* 父容器：apibest 的「缩中」动画。宽度从 max-w-7xl(1280px) 收到 max-w-[52rem]
-   (832px)，水平内边距 px-4 / md:px-6 → px-3，顶部 pt-0 → pt-3。max-width 与
-   padding 都是可插值属性，用 transition 平滑过渡。 */
-.VPNavBar.home .wrapper {
+/* 父容器：顶部态（还没成胶囊）必须和 `/pages/tags` 的导航几何完全一致 ——
+   也就是说，这里**不能**自设一个居中窄容器，否则内边距会凭空变宽。
+
+   tags 页的导航走 VitePress 的 `has-sidebar` 那套：`.wrapper` 不设上限、
+   ≥1440px 时标题的 `padding-left` 与内容的 `padding-right` 都是
+   `(100% - (--vp-layout-max-width - 64px)) / 2`。而默认的非侧栏几何
+   （`padding: 0 32px` + `.container` 居中到 1472px）在视觉上正好落在同一个位置，
+   两种写法等价，所以这里直接沿用默认几何：
+
+     `.wrapper { max-width: 100%; padding: 0 8px 0 24px }`，≥768px `0 32px`
+     `.container { max-width: calc(var(--vp-layout-max-width) - 64px); margin: 0 auto }`
+
+   `max-width` 写成 `100%` 而不是 `none`，是为了不被任何父级宽度卡住 ——
+   胶囊的「变短」动画放在 `.container` 的 `max-width` 上（见下），
+   百分比/像素之间可插值，收缩过程才不会变成硬切。 */
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar) .wrapper {
   margin: 0 auto;
-  max-width: 80rem; /* max-w-7xl = 1280px */
-  padding: 0 1rem; /* px-4 = 16px */
-  transition:
-    max-width 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-    padding 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 100%;
+  padding: 0 8px 0 24px;
+  transition: padding 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (min-width: 768px) {
-  .VPNavBar.home .wrapper {
-    padding: 0 1.5rem; /* md:px-6 = 24px */
+  :is(.VPNavBar.home, .site-shell--over-banner .VPNavBar) .wrapper {
+    padding: 0 32px;
   }
 }
 
-.VPNavBar.home:not(.top) .wrapper {
-  max-width: 52rem; /* max-w-[52rem] = 832px */
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar):not(.top) .wrapper {
+  /* 宽度不再由父容器收窄：「变短」的动画交给胶囊本体的 `max-width`
+     （见下面的 `.container`），这样滚动一开始左右两侧就同时往里收，中间没有停顿。
+     父容器只负责把上下内边距让出来给悬浮胶囊。 */
   padding: 0.75rem 0.75rem 0; /* pt-3 px-3 */
 }
 
-/* 胶囊本体 = `.container`。首页无侧栏，让它填满父容器，「缩中」完全由父容器驱动。
-   两态之间所有可动画属性都走同一条 0.7s 缓动。 */
-.VPNavBar.home .container {
-  width: 100%;
-  max-width: none;
+/* 下滑后（与参考站 zhangjunjiee.netlify.app 完全一致的手感）：
+   1. 单段 0.7s `cubic-bezier(0.16, 1, 0.3, 1)`，所有属性同时开始，没有延迟。
+      参考站那条 `.wrapper { max-width: 80rem → 52rem }` 就是我们这里
+      `.container { max-width: 原宽 → max-content }` —— 胶囊左右两边同时往里收。
+   2. 内容**贴左排**（`content-body` 改 flex-start、搜索框不再吃满剩余宽度）：
+      胶囊变窄时左边缘右移，整排项目就跟着往右漂（参考站实测标题 199→411、
+      搜索框 199→419）。之前贴右 + translateX(-20px) 会让项目往左飘，
+      和参考站方向相反，看起来就别扭。
+   3. 搜索框不再单独做「迟到的 40px 补位」：flex-grow 跟着同一条 0.7s 收，
+      因为已是左对齐，它只会被左边缘带着往右走，不会来回。 */
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar) .search {
+  transition:
+    padding-left 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    flex-grow 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar) .VPNavBarMenuLink,
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar) .menu .button {
+  transition:
+    padding 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.25s;
+}
+
+/* 分组之间的 1px 竖线在胶囊里显得多余，一并去掉；
+   用 `width/margin/opacity → 0` 而不是 `display: none`（后者不可过渡）。 */
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar) .content-body > *::before {
+  transition:
+    width 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    margin 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar):not(.top) .content-body {
+  justify-content: flex-start;
+}
+
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar):not(.top) .search {
+  flex-grow: 0;
+  padding-left: 0.5rem;
+}
+
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar):not(.top) .VPNavBarMenuLink,
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar):not(.top) .menu .button {
+  padding: 0 8px;
+}
+
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar):not(.top) .content-body > *::before {
+  width: 0;
   margin: 0;
+  opacity: 0;
+}
+
+/* 胶囊本体 = `.container`。顶部态保持默认主题的「铺满父容器 + 居中到
+   `--vp-layout-max-width - 64px`」，这样左右留白和 tags 页一致，同时把 max-width
+   留给阅读增强插件（它用 `!important` 改这一条来切「全宽 / 原始 / 页面宽度」，
+   三种模式的观感因此与 tags 页完全相同）。
+
+   下滑后的「胶囊变短」动画就落在这条 `max-width` 上：原宽 → `max-content`（包住内容
+   的宽度），左右两侧同时往里收，和参考站 `.wrapper` 的 1280 → 832 是同一回事。
+   顶部态不能用父容器去限制宽度，否则前面会有一截「宽度不动」的死区，
+   观感上就是先卡一下再突然收。
+
+   毛玻璃不做过渡：参考站也是瞬时加上 `blur(40px)`（它连 `transition` 里都没有列
+   `backdrop-filter`），跟着抄。 */
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar) .container {
+  width: 100%;
+  max-width: calc(var(--vp-layout-max-width) - 64px);
+  margin: 0 auto;
   align-items: center;
   gap: 0.5rem; /* gap-2 */
   height: 4rem; /* h-16 = 64px */
-  padding: 0 0.5rem; /* px-2 */
+  padding: 0;
   background-color: transparent;
   border-radius: 0;
   box-shadow: none;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none !important;
+  -webkit-backdrop-filter: blur(0px);
+  backdrop-filter: blur(0px) !important;
+  /* 允许 `max-width` 在像素与 `max-content` 这类内在尺寸关键字之间插值
+     （Chrome 129+ / 新版 Safari）。胶囊态要收成"刚好包住内容"的宽度，
+     没有它，0.7s 的收缩会变成硬切。 */
+  interpolate-size: allow-keywords;
   transition:
+    max-width 0.7s cubic-bezier(0.16, 1, 0.3, 1),
     height 0.7s cubic-bezier(0.16, 1, 0.3, 1),
     padding 0.7s cubic-bezier(0.16, 1, 0.3, 1),
     background-color 0.7s cubic-bezier(0.16, 1, 0.3, 1),
@@ -1367,8 +1489,16 @@ html:not(.dark) .site-shell--over-banner .VPNavBar.top .VPMenu {
 /* 下滑：胶囊化。颜色值与 apibest 运行时一致：
    - bg: color-mix(in oklab, --navbar-bg 60%, transparent)
    - ring: 0 0 0 .5px color-mix(in oklab, --navbar-border 50%, transparent)
-   - 阴影: 0 2px 16px -6px rgba(0,0,0,.08) + 0 0 0 .5px rgba(0,0,0,.02) */
-.VPNavBar.home:not(.top) .container {
+   - 阴影: 0 2px 16px -6px rgba(0,0,0,.08) + 0 0 0 .5px rgba(0,0,0,.02)
+
+   872px 是这套项目（品牌 + 搜索 + 7 个链接 + 图标）刚好装得下的宽度，参考站是 832。
+   `!important` + `body` 前级把优先级抬到 (0,4,1)，压过阅读增强插件 (0,4,0) 的
+   `!important`，胶囊宽度不随布局模式变化。
+   transition 沿用上面那条（0.7s、无延迟、height/radius/bg/shadow 与宽度同步）。 */
+body :is(.VPNavBar.home, .site-shell--over-banner .VPNavBar):not(.top) .container {
+  /* 收到 `max-content` = 正好包住品牌 + 搜索 + 链接，胶囊内部右侧不留空白；
+     不再写死 872px，导航项增减或字体不同都不会多出/裁掉一截。 */
+  max-width: max-content !important;
   height: 3rem; /* h-12 = 48px */
   padding: 0 0.375rem 0 1rem; /* pr-1.5 pl-4 */
   border-radius: 1.8rem; /* rounded-2xl = 28.8px */
@@ -1381,9 +1511,36 @@ html:not(.dark) .site-shell--over-banner .VPNavBar.top .VPMenu {
   backdrop-filter: blur(40px) !important;
 }
 
+/* 横幅页顶部压着深色大图：文字由白转黑与胶囊底色必须同时到位，否则下滑最初
+   几百像素里会出现「黑字压深图」的一瞬。这里让底色直接落位（不做渐变），
+   其余形态照常 0.7s。
+   优先级抬到 (0,3,1) 才能压过上面那条通用规则。 */
+body.site-shell--over-banner .VPNavBar .container {
+  transition:
+    max-width 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    padding 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    border-radius 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 顶部态（未成胶囊）要让阅读增强插件的「布局切换」仍然生效：
+   插件把模式类挂在 body 上，只用 `!important` 改 `.container` 的 max-width。
+   上面的顶部态已经把那一条还原成默认值、且没有被 `.wrapper` 卡住，所以
+   「全宽 / 原始宽度 / 页面宽度」三种模式在这里的表现，和 `/pages/tags` 完全一致，
+   不需要再给 `.wrapper` 单开映射。 */
+
+/* 插件切换布局时会临时给 body 挂 `.VPNolebaseEnhancedReadabilitiesLayoutSwitchAnimated`
+   （5 秒后移除）。它只在顶部态（布局切换按钮只在未成胶囊时可用）生效，
+   所以限定 `.top`，别把胶囊那 0.7s 的节奏覆盖掉。 */
+body.VPNolebaseEnhancedReadabilitiesLayoutSwitchAnimated
+  :is(.VPNavBar.home, .site-shell--over-banner .VPNavBar).top .container {
+  transition: max-width 0.5s ease-in-out;
+}
+
 /* 深色：apibest 的 `dark:shadow-[0_2px_16px_-6px_rgba(0,0,0,0.4)]` 只替换投影层，
    细环保留。 */
-.dark .VPNavBar.home:not(.top) .container {
+.dark :is(.VPNavBar.home, .site-shell--over-banner .VPNavBar):not(.top) .container {
   box-shadow:
     0 0 0 0.5px color-mix(in oklab, var(--navbar-border) 50%, transparent),
     0 2px 16px -6px rgba(0, 0, 0, 0.4);
@@ -1394,13 +1551,13 @@ html:not(.dark) .site-shell--over-banner .VPNavBar.top .VPMenu {
    -gradient` 凸起底与阴影 —— 压在半透明胶囊上就是几块突兀贴片。这里把按钮底色、
    悬停底色/阴影、快捷键徽章底/阴影一并抹掉，让搜索区透出胶囊本身的底色，顶部
    态（`.top`）保持默认灰底不动。 */
-.VPNavBar.home:not(.top) .DocSearch-Button,
-.VPNavBar.home:not(.top) .DocSearch-Button:hover {
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar):not(.top) .DocSearch-Button,
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar):not(.top) .DocSearch-Button:hover {
   background: transparent;
   box-shadow: none;
 }
 
-.VPNavBar.home:not(.top) .DocSearch-Button-Key {
+:is(.VPNavBar.home, .site-shell--over-banner .VPNavBar):not(.top) .DocSearch-Button-Key {
   background: transparent;
   background-image: none;
   box-shadow: none;
@@ -1427,8 +1584,9 @@ html:not(.dark) .site-shell--over-banner .VPNavBar.top .VPMenu {
 
 /* ---------------------------------------------------------------------------
    路由切换过渡（源站规则原文：`#VPContent #main, #VPContent .vp-doc > div`）。
-   每次切换页面，新内容的根节点都是新建的，于是这两个动画自然重播：内容从下方
-   50px 处上滑 + 淡入（位移 1s、透明度 0.6s，都是 ease）。
+   每次切换页面，新内容的根节点都是新建的，于是动画自然重播：内容从下方 12px
+   处淡入上浮，600ms 完成，与骨架屏 200ms 淡出衔接 —— 替掉原来那条 1s 的大
+   幅度上滑，切页更「顺」而不是「慢」。
 
    `#main` 对应自定义布局（首页 / 标签 / 文章列表 / 案例），本项目共用一个
    `<main>`，靠 Layout.vue 上的 `:key="route.path"` 让它随路由重建；
@@ -1438,28 +1596,13 @@ html:not(.dark) .site-shell--over-banner .VPNavBar.top .VPMenu {
 
 #main,
 #VPContent .vp-doc > div {
-  animation:
-    1s ease 0s 1 normal none running rises,
-    0.6s ease 0s 1 normal none running looming;
+  animation: 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0s 1 normal both running page-in;
 }
 
-@keyframes rises {
-  0% {
-    transform: translateY(50px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-@keyframes looming {
-  0% {
+@keyframes page-in {
+  from {
     opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
+    transform: translateY(12px);
   }
 }
 
@@ -3142,6 +3285,44 @@ a:focus:not(:focus-visible) {
   .article-card,
   .stats-card {
     transition-duration: 0.01ms;
+  }
+}
+
+/* 代码块复制按钮：按下回弹 + 复制成功脉冲，反馈落在按钮本身。
+   VitePress 默认已把图标换成对勾、弹出「已复制」tooltip，这里只补一点手感。 */
+.vp-doc [class*='language-'] > button.copy {
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.vp-doc [class*='language-'] > button.copy:hover {
+  transform: scale(1.08);
+}
+
+.vp-doc [class*='language-'] > button.copy:active {
+  transform: scale(0.92);
+}
+
+.vp-doc [class*='language-'] > button.copy.copied {
+  animation: copy-pop 0.3s ease;
+}
+
+@keyframes copy-pop {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.18);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vp-doc [class*='language-'] > button.copy.copied {
+    animation: none;
   }
 }
 

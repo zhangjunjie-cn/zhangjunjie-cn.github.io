@@ -1,5 +1,8 @@
 ---
 layout: case
+# 本页走自定义外壳，不渲染侧边栏；关掉侧栏后 VPNavBar 才不会带 has-sidebar
+# （那是「标题绝对定位 + 内容左右留白」的文档页布局），胶囊效果才能和首页一致。
+sidebar: false
 title: 旅途
 description: Vitepress Theme Teek 的案例展示页，收录了使用 Teek 构建的知识库、博客与文档站
 banner:

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 
+/** 拖动超过这个像素才当成「滑动」，否则按点击交给卡片自己的链接。 */
+const CLICK_SLOP = 6
+
 import { data as articles } from './articles.data'
 import { articleIcon } from './icons/articleIcons'
 
@@ -56,6 +59,77 @@ const paused = ref(false)
 
 let timer: ReturnType<typeof setInterval> | undefined
 
+/* --- 拖动：按住可左右拨，过坎换一组，没过坎当点击 --------------------------- */
+const viewport = ref<HTMLElement | null>(null)
+const dragging = ref(false)
+/** 当前拖动位移（px），正值 = 往右拖（看上一组）。 */
+const dragX = ref(0)
+let startX = 0
+let movedX = 0
+/** 拖动结束置位，吃掉紧随其后那次 click，避免被当成点链接跳转。 */
+let suppressClick = false
+
+const trackStyle = computed(() => {
+  const base = -active.value * 100
+  if (dragging.value) {
+    return { transform: `translateX(calc(${base}% + ${dragX.value}px))` }
+  }
+  return { transform: `translateX(${base}%)` }
+})
+
+function detachDragListeners() {
+  window.removeEventListener('pointermove', onPointerMove)
+  window.removeEventListener('pointerup', onPointerUp)
+  window.removeEventListener('pointercancel', onPointerUp)
+}
+
+function onPointerDown(event: PointerEvent) {
+  if (event.button !== 0 || slideCount.value < 2) return
+  dragging.value = true
+  startX = event.clientX
+  movedX = 0
+  dragX.value = 0
+  suppressClick = false
+  pause()
+  window.addEventListener('pointermove', onPointerMove)
+  window.addEventListener('pointerup', onPointerUp)
+  window.addEventListener('pointercancel', onPointerUp)
+}
+
+function onPointerMove(event: PointerEvent) {
+  if (!dragging.value) return
+  movedX = event.clientX - startX
+  dragX.value = movedX
+}
+
+function onPointerUp() {
+  if (!dragging.value) return
+  dragging.value = false
+  dragX.value = 0
+  detachDragListeners()
+  const width = viewport.value?.clientWidth ?? 0
+  const threshold = Math.max(50, width * 0.2)
+  if (Math.abs(movedX) >= threshold) {
+    step(movedX < 0 ? 1 : -1)
+  } else {
+    resume()
+  }
+  suppressClick = Math.abs(movedX) > CLICK_SLOP
+  movedX = 0
+}
+
+/** 点击捕获：拖动后那一下 click 不应该触发卡片链接跳转。 */
+function onViewportClick(event: MouseEvent) {
+  if (!suppressClick) return
+  suppressClick = false
+  event.preventDefault()
+  event.stopPropagation()
+}
+
+function step(delta: number) {
+  go((active.value + delta + slideCount.value) % slideCount.value)
+}
+
 function restart() {
   if (timer) clearInterval(timer)
   timer = undefined
@@ -98,6 +172,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   if (timer) clearInterval(timer)
+  detachDragListeners()
 })
 </script>
 
@@ -133,10 +208,18 @@ onUnmounted(() => {
       </div>
     </div>
     <div class="relative flex-1">
-      <div class="h-full overflow-hidden">
+      <div
+        ref="viewport"
+        class="h-full overflow-hidden"
+        :class="{ 'select-none': dragging }"
+        @pointerdown="onPointerDown"
+        @dragstart.prevent
+        @click.capture="onViewportClick"
+      >
         <div
           class="flex h-full transition-transform duration-500 ease-in-out"
-          :style="{ transform: `translateX(-${active * 100}%)` }"
+          :class="{ '!transition-none': dragging }"
+          :style="trackStyle"
         >
           <div
             v-for="(slide, slideIndex) in slides"

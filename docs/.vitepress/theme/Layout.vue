@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, onUnmounted, provide } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, provide, watch } from 'vue'
 import { useData, useRoute } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
+
+import { prefersReducedMotion } from './components/motion'
 // 原生导航栏组件。深路径是 VitePress 内部结构，`exports` 里放开了 `./dist/*` 才能这样引；
 // 这样自定义布局页也能用上默认主题那套导航栏，阅读增强菜单因此有了统一挂载点。
 import VPNav from 'vitepress/dist/client/theme-default/components/VPNav.vue'
@@ -189,6 +191,32 @@ provide('toggle-appearance', async (event: MouseEvent) => {
     })
 })
 
+/* --- 文章页：正文图片加载淡入 ---------------------------------------------
+   只挑「还没加载完」的 img 挂类，已缓存的不动，免得首屏闪一下再淡。 */
+function revealDocImages() {
+  if (prefersReducedMotion()) return
+  const imgs = document.querySelectorAll<HTMLImageElement>('.vp-doc img:not([data-img-revealed])')
+  imgs.forEach((img) => {
+    img.dataset.imgRevealed = ''
+    // 已加载完成（含缓存）的直接保持可见，不挂隐藏类。
+    if (img.complete && img.naturalWidth !== 0) return
+    img.classList.add('img-reveal')
+    const done = () => {
+      img.classList.add('img-loaded')
+      img.removeEventListener('load', done)
+      img.removeEventListener('error', done)
+    }
+    img.addEventListener('load', done)
+    img.addEventListener('error', done)
+  })
+}
+
+function refreshArticleEffects() {
+  void nextTick(() => {
+    revealDocImages()
+  })
+}
+
 // VitePress 1.6.4 also runs the router hooks for the first page, so this only
 // covers the case where it does not; `Fancybox.bind` is idempotent per selector,
 // so binding twice costs nothing. Same for the Prompt cards — that one is *not*
@@ -196,7 +224,14 @@ provide('toggle-appearance', async (event: MouseEvent) => {
 onMounted(() => {
   bindFancybox()
   bindPrompts()
+  refreshArticleEffects()
 })
+
+watch(
+  () => route.path,
+  () => refreshArticleEffects(),
+)
+
 onUnmounted(() => {
   void destroyFancybox()
   destroyPrompts()

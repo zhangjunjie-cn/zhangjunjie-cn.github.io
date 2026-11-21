@@ -57,7 +57,7 @@ onMounted(() => refresh())
            i.e. it ends the first row of four. -->
       <StatsCard data-reveal />
       <ArticleCard
-        v-for="article in latest.slice(3)"
+        v-for="article in latest.slice(3, 7)"
         :key="article.href"
         v-bind="article"
         data-reveal

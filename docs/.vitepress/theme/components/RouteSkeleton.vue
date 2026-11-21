@@ -589,7 +589,7 @@ onMounted(() => {
 }
 
 .route-skeleton-leave-active {
-  transition: opacity 220ms ease-in;
+  transition: opacity 200ms ease-in;
 }
 
 .route-skeleton-enter-from,

@@ -1,26 +1,33 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
+
 import type { Memory } from './memories'
+import { useReveal } from '../useReveal'
 
 /**
  * The memory grid — the source's `MemoryList`.
  *
- * Clicking a card opens the camera on that photo. The stagger is the source's
- * exact expression, `min(index × 0.05, 0.5)s`, so it caps at half a second
- * instead of growing without bound down the list.
+ * Clicking a card opens the camera on that photo. Cards are revealed as they
+ * scroll into view (see `useReveal`) instead of all animating on mount — a long
+ * album gets a staggered "breathing" reveal rather than one flat burst.
  */
 defineProps<{ memories: Memory[] }>()
 
 const emit = defineEmits<{ viewMemory: [index: number] }>()
+
+const root = ref<HTMLElement | null>(null)
+const { refresh } = useReveal(() => root.value)
+onMounted(() => refresh())
 </script>
 
 <template>
-  <div class="memory-list-container">
+  <div ref="root" class="memory-list-container">
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       <div
         v-for="(memory, index) in memories"
         :key="memory.title"
-        class="memory-card animate-fade-in-up cursor-pointer overflow-hidden rounded-lg shadow-md transition-shadow hover:shadow-lg"
-        :style="{ animationDelay: `${Math.min(index * 0.05, 0.5)}s` }"
+        data-reveal
+        class="memory-card cursor-pointer overflow-hidden rounded-lg shadow-md transition-shadow hover:shadow-lg"
         @click="emit('viewMemory', index)"
       >
         <div class="relative aspect-video overflow-hidden">

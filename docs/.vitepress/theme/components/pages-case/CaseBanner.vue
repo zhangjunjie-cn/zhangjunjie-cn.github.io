@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { onBeforeUnmount, onMounted, ref } from 'vue'
+
+import { prefersReducedMotion } from '../motion'
 import {
   analyzeIconAuthor,
   analyzeIconCreated,
@@ -47,17 +50,53 @@ defineProps<{
   tag: string
   article: BannerArticle
 }>()
+
+/* 封面视差：页面滚动时封面在 0 → -40px 之间缓慢上移，横幅滚出视口时到位。
+   用 rAF 按帧写入 transform，避免滚动回调里反复改样式。减少动效时不动。 */
+const root = ref<HTMLElement | null>(null)
+const coverEl = ref<HTMLElement | null>(null)
+let ticking = false
+
+function applyParallax() {
+  ticking = false
+  const el = root.value
+  const img = coverEl.value
+  if (!el || !img) return
+  const rect = el.getBoundingClientRect()
+  const progress = Math.min(1, Math.max(0, -rect.top / rect.height))
+  // 关掉 img 自身 `transition: all 0.2s`，让位移跟手，不被逐帧缓动拖出残影。
+  img.style.transition = 'transform 0s'
+  img.style.transform = `translate3d(0, ${-40 * progress}px, 0)`
+}
+
+function onScroll() {
+  if (ticking) return
+  ticking = true
+  requestAnimationFrame(applyParallax)
+}
+
+onMounted(() => {
+  if (prefersReducedMotion()) return
+  applyParallax()
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('resize', onScroll, { passive: true })
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', onScroll)
+  window.removeEventListener('resize', onScroll)
+})
 </script>
 
 <template>
-  <div class="tk-article-banner">
+  <div ref="root" class="tk-article-banner">
     <div class="tk-article-banner__wrapper">
       <div class="tk-article-banner__cover">
-        <img :src="cover" alt="cover" />
+        <img ref="coverEl" :src="cover" alt="cover" />
       </div>
 
       <div class="tk-article-banner__info">
-        <div class="tk-breadcrumb">
+        <div class="tk-breadcrumb tk-banner-enter" style="animation-delay: 0ms">
           <span class="tk-breadcrumb__item">
             <span class="tk-breadcrumb__inner">
               <a href="/" title="首页" aria-label="首页" class="tk-breadcrumb__home">
@@ -77,7 +116,7 @@ defineProps<{
           </span>
         </div>
 
-        <div class="tk-article-banner__meta">
+        <div class="tk-article-banner__meta tk-banner-enter" style="animation-delay: 60ms">
           <div class="categories">
             <span class="meta-info category" :title="category">{{ category }}</span>
           </div>
@@ -86,10 +125,10 @@ defineProps<{
           </div>
         </div>
 
-        <h1>{{ title }}</h1>
+        <h1 class="tk-banner-enter" style="animation-delay: 120ms">{{ title }}</h1>
 
         <!-- 元信息行：源站的 `tk-article-analyze`，位置、图标、字号都照搬。 -->
-        <div class="tk-article-analyze" aria-label="文章分析">
+        <div class="tk-article-analyze tk-banner-enter" style="animation-delay: 180ms" aria-label="文章分析">
           <div class="tk-article-analyze__wrapper">
             <div class="tk-article-info" role="group" aria-label="文章信息">
               <span class="tk-article-info__item" role="group" aria-label="作者">
